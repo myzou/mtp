@@ -1,0 +1,27 @@
+<pre>This check Error InternalSiteId results  consistent
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1002E.ge-0/1/1.371
+Date：2019-10-30 11:44:23
+internalSiteId：20187-02
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1002E>ping interface ge-0/1/1.371 rapid source 172.18.2.77 172.18.2.78 count 113	
+PING 172.18.2.78 (172.18.2.78): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 172.18.2.78 ping statistics ---
+113 packets transmitted, 113 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4.258/4.753/17.219/1.506 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1001E.e1-1/0/1:10
+Date：2019-10-30 11:44:25
+internalSiteId：20673-01
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1001E>ping interface e1-1/0/1:10 rapid source 10.117.0.249 10.117.0.250 count 119	
+PING 10.117.0.250 (10.117.0.250): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.0.250 ping statistics ---
+119 packets transmitted, 119 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.141/3.740/8.131/1.130 ms
+
+{"results":[{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"0","msg":"--------TCP结果------ \r\nMessage：Ticket: HD0000002584589\r\nTotal:2\r\nsuccess:2\r\nfail:0\r\nresult URl:\r\n http://10.180.5.13:8085/mtp/mtp/20191030/HD0000002584589_before.html\r\n","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191030/HD0000002584589_before.html","status":"Y","successNumber":"2","tcpType":"tcp","totalNumber":"2"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191030/HD0000002584589_before.html","status":"Y","successNumber":"","tcpType":"isp","totalNumber":"0"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191030/HD0000002584589_before.html","status":"Y","successNumber":"","tcpType":"cia","totalNumber":"0"}],"tense":"before","ticketName":"HD0000002584589"}</pre>

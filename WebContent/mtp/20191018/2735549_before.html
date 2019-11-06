@@ -1,0 +1,28 @@
+<pre>This check Error InternalSiteId 37532-01;37533-01;35465-01;
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHHCJX1002E.xe-1/0/0.113
+Date：2019-10-19 01:14:31
+internalSiteId：35465-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHHCJX1002E>ping interface xe-1/0/0.113 rapid source   count 7	
+<span style="color:red;font-weight:bold;">ping: cannot resolve count: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：.
+Date：2019-10-19 01:14:31
+internalSiteId：37533-01
+-------------------------------------------------------------------------------------------
+op1768@>ping interface  rapid source 10.117.188.177 10.117.188.178 count 6	
+<span style="color:red;font-weight:bold;">peRouter () unable Get corresponding Router </span>
+
+-------------------------------------------------------------------------------------------
+PE Port：.
+Date：2019-10-18 20:30:55
+internalSiteId：37532-01
+-------------------------------------------------------------------------------------------
+op1768@>ping interface  rapid source   count 8	
+<span style="color:red;font-weight:bold;">peRouter () unable Get corresponding Router </span>
+
+{"results":[{"differInternalSiteId":"","errorInternalSiteId":"37532-01;37533-01;35465-01;","failNumber":"3","msg":" Message：Ticket: 2735549\r\nTotal:3\r\nsuccess:0\r\nfail:3\r\nresult URl: http://10.180.5.13:8085/mtp/mtp/20191018/2735549_before.html\r\n","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191018/2735549_before.html","status":"N","successNumber":"0","tcpType":"","totalNumber":"3"}],"tense":"before","ticketName":"2735549"}</pre>

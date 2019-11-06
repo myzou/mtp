@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>S2SH</display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+
+  
+  <!-- 添加对spring的支持 -->  
+  <context-param>  
+    <param-name>contextConfigLocation</param-name>  
+    <param-value>classpath:applicationContext.xml</param-value>  
+  </context-param>  
+    
+    <!-- 定义Spring监听器，加载Spring  -->
+    <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>  
+      
+
+  
+ <!-- ip过滤器 -->
+<!--<filter>
+	<filter-name>IPFilter</filter-name>
+	<filter-class>com.cter.filter.IpFilter</filter-class>
+</filter>  
+
+<filter-mapping>
+	<filter-name>IPFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>-->
+  <!-- ip过滤器结束 -->
+
+
+  <!-- 用spring 过滤区进行编码过滤 -->
+  <filter>
+    <filter-name>CharacterEncoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+        <param-name>forceEncoding</param-name>
+        <param-value>true</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>CharacterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+  
+
+  <!-- 登录拦截器 jsp,和html-->
+  <filter>  
+    <filter-name>SessionInvalidate</filter-name>  
+    <filter-class>com.cter.filter.SessionCheckFilter</filter-class>  <!--  过滤器核心类的class地址 --> 
+    <init-param>  
+      <param-name>checkSessionKey</param-name>  <!-- session中需要检查的key--> 
+      <param-value>login_user</param-value>  
+    </init-param>  
+    <init-param>  
+      <param-name>redirectURL</param-name> <!-- 过滤v重定向的地址 -->   
+      <param-value>/login.jsp</param-value>  
+    </init-param>  
+    <init-param>  
+      <param-name>notCheckURLList</param-name>   <!-- 不需要过滤的jsp -->
+      <param-value>/login.jsp</param-value>  
+    </init-param>  
+  </filter>  
+  
+  <filter-mapping>  
+    <filter-name>SessionInvalidate</filter-name> <!-- 需要过滤的文件 -->
+    <url-pattern>*.jsp</url-pattern>  
+  </filter-mapping> 
+ 
+   <filter-mapping>  
+    <filter-name>SessionInvalidate</filter-name> <!-- 需要过滤的文件 -->
+    <url-pattern>*.html</url-pattern>  
+  </filter-mapping> 
+  
+  <!-- 防sql注入和xss跨站脚本攻击 -->
+  <filter>  
+    <filter-name>XssFilter</filter-name>  
+    <filter-class>com.cter.filter.XssFilter</filter-class>  
+</filter>  
+<filter-mapping>  
+    <filter-name>XssFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping> 
+  
+   <filter>
+ <filter-name>sqlFilter</filter-name>  
+    <filter-class>com.cter.filter.SqlFilter</filter-class>  
+</filter>  
+<filter-mapping>  
+    <filter-name>sqlFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping> 
+
+    <!-- 防sql注入和xss跨站脚本攻击end -->
+    
+    <!-- 添加对struts2的支持 -->  
+  <filter>  
+    <filter-name>struts2</filter-name>  
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>  
+  </filter>   
+  
+  <filter-mapping>  
+    <filter-name>struts2</filter-name>  
+    <url-pattern>/*</url-pattern>  
+  </filter-mapping>  
+ 
+
+  <!-- Session延迟加载到页面  --> 
+   <filter>  
+    <filter-name>openSessionInViewFilter</filter-name>  
+    <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>  
+    <init-param>  
+      <param-name>singleSession</param-name>  
+      <param-value>true</param-value>  
+    </init-param>  
+  </filter>  
+    
+   <filter-mapping>  
+    <filter-name>openSessionInViewFilter</filter-name>  
+    <url-pattern>*.action</url-pattern>  
+  </filter-mapping>  
+</web-app>

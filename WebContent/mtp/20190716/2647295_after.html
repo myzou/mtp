@@ -1,0 +1,29 @@
+<pre><h2>检查结果：前后一致</h2>此次检查错误的 InternalSiteId 45280-01;45889-01;
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1001VE.xe-1/2/0.325
+Date：2019-07-16 18:12:22
+internalSiteId：45889-01
+-------------------------------------------------------------------------------------------
+<span style="color:red;font-weight:bold;">ERROR:Unable to connect：CNBEJDEX1001VE.noc.citictel-cpc.com	Please check whether or is connected overseas</span>
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1001VE.xe-1/2/0.324
+Date：2019-07-16 18:12:22
+internalSiteId：45280-01
+-------------------------------------------------------------------------------------------
+<span style="color:red;font-weight:bold;">ERROR:Unable to connect：CNBEJDEX1001VE.noc.citictel-cpc.com	Please check whether or is connected overseas</span>
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJJIC1005E.ge-0/0/0.356
+Date：2019-07-16 18:12:18
+internalSiteId：45259-02
+-------------------------------------------------------------------------------------------
+ping interface ge-0/0/0.356 rapid source 10.117.183.117 10.117.183.118 count 100 
+PING 10.117.183.118 (10.117.183.118): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.183.118 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4.215/4.870/20.845/2.004 ms
+
+{master}
+op1768@CNBEJJIC1005E> 
+{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"2","msg":" 消息：线路编号为 2647295， 总共3条，成功1条，失败2条 访问地址为 http://10.180.5.27:8085/mtp/mtp/20190716/2647295_after.html\r\n检查结果：前后一致","resultUrl":"http://10.180.5.27:8085/mtp/mtp/20190716/2647295_after.html","status":"N","successNumber":"1","tense":"after","ticketName":"2647295","totalNumber":"3"}</pre>

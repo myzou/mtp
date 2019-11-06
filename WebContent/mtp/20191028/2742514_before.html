@@ -1,0 +1,91 @@
+<pre>This check Error InternalSiteId 30737-02;31714-04;
+
+-------------------------------------------------------------------------------------------
+PE Port：.
+Date：2019-10-28 19:04:16
+internalSiteId：31714-04
+-------------------------------------------------------------------------------------------
+op1768@>ping interface  rapid source   count 8	
+<span style="color:red;font-weight:bold;">peRouter () unable Get corresponding Router </span>
+
+-------------------------------------------------------------------------------------------
+PE Port：.
+Date：2019-10-28 19:04:16
+internalSiteId：30737-02
+-------------------------------------------------------------------------------------------
+op1768@>ping interface  rapid source   count 7	
+<span style="color:red;font-weight:bold;">peRouter () unable Get corresponding Router </span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1002E.ge-0/1/1.392
+Date：2019-10-28 19:04:16
+internalSiteId：29487-03
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1002E>ping interface ge-0/1/1.392 rapid source 10.11.254.174 10.11.254.173 count 114	
+PING 10.11.254.173 (10.11.254.173): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.11.254.173 ping statistics ---
+114 packets transmitted, 114 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 17.717/18.263/25.453/1.396 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1001E.ds-2/0/0:59:1
+Date：2019-10-28 19:04:20
+internalSiteId：16287-02
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1001E>ping interface ds-2/0/0:59:1 rapid source 10.114.218.109 10.114.218.110 count 101	
+PING 10.114.218.110 (10.114.218.110): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.218.110 ping statistics ---
+101 packets transmitted, 101 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 8.066/9.102/33.538/3.008 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1001E.ge-0/1/1.304
+Date：2019-10-28 19:04:22
+internalSiteId：15867-05
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1001E>ping interface ge-0/1/1.304 rapid source 10.114.218.53 10.114.218.54 count 115	
+PING 10.114.218.54 (10.114.218.54): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.218.54 ping statistics ---
+115 packets transmitted, 115 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 5.926/7.919/86.066/8.018 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1001E.ge-0/0/4.377
+Date：2019-10-28 19:04:23
+internalSiteId：31714-03
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1001E>ping interface ge-0/0/4.377 rapid source 10.117.167.45 10.117.167.46 count 110	
+PING 10.117.167.46 (10.117.167.46): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.167.46 ping statistics ---
+110 packets transmitted, 109 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 21.312/23.922/56.113/4.705 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1001E.ge-0/1/1.332
+Date：2019-10-28 19:04:27
+internalSiteId：22880-04
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1001E>ping interface ge-0/1/1.332 rapid source 202.76.119.65 202.76.119.66 count 115	
+PING 202.76.119.66 (202.76.119.66): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 202.76.119.66 ping statistics ---
+115 packets transmitted, 115 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.747/5.436/52.543/5.236 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZKXC1002E.ds-1/0/0:5:1
+Date：2019-10-28 19:04:29
+internalSiteId：30737-01
+-------------------------------------------------------------------------------------------
+op1768@CNGUZKXC1002E>ping interface ds-1/0/0:5:1 rapid source 10.117.139.5 10.117.139.6 count 108	
+PING 10.117.139.6 (10.117.139.6): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.139.6 ping statistics ---
+108 packets transmitted, 108 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 22.927/23.781/35.702/1.841 ms
+
+{"results":[{"differInternalSiteId":"","errorInternalSiteId":"30737-02;31714-04;","failNumber":"2","msg":"--------TCP结果------ \r\nMessage：Ticket: 2742514\r\nTotal:8\r\nsuccess:6\r\nfail:2\r\nresult URl:\r\n http://10.180.5.13:8085/mtp/mtp/20191028/2742514_before.html\r\n","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191028/2742514_before.html","status":"N","successNumber":"6","tcpType":"tcp","totalNumber":"8"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191028/2742514_before.html","status":"Y","successNumber":"","tcpType":"isp","totalNumber":"0"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191028/2742514_before.html","status":"Y","successNumber":"","tcpType":"cia","totalNumber":"0"}],"tense":"before","ticketName":"2742514"}</pre>

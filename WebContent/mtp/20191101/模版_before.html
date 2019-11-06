@@ -1,0 +1,100 @@
+<pre>This check Error InternalSiteId 36537-01;36464-01;
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1001E.ge-0/0/0.136
+Date：2019-11-01 18:11:07
+internalSiteId：36464-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1001E>ping interface ge-0/0/0.136 rapid source 10.114.113.89 10.114.113.90 count 6	
+<span style="color:red;font-weight:bold;">PING 10.114.113.90 (10.114.113.90): 56 data bytes
+..!.!!
+--- 10.114.113.90 ping statistics ---
+6 packets transmitted, 3 packets received, 50% packet loss
+round-trip min/avg/max/stddev = 632.229/798.204/1081.518/201.315 ms
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/4.358
+Date：2019-11-01 18:11:03
+internalSiteId：36537-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/4.358 rapid source 10.117.219.177 10.117.219.178 count 6	
+<span style="color:red;font-weight:bold;">PING 10.117.219.178 (10.117.219.178): 56 data bytes
+......
+--- 10.117.219.178 ping statistics ---
+6 packets transmitted, 0 packets received, 100% packet loss
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ds-0/2/2:2:1
+Date：2019-11-01 18:10:40
+internalSiteId：02414-03
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ds-0/2/2:2:1 rapid source 10.114.23.137 10.114.23.138 count 114	
+PING 10.114.23.138 (10.114.23.138): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.23.138 ping statistics ---
+114 packets transmitted, 114 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.404/44.781/71.135/22.886 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ds-0/2/2:38:1
+Date：2019-11-01 18:10:48
+internalSiteId：15457-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ds-0/2/2:38:1 rapid source 10.114.124.225 10.114.124.226 count 107	
+PING 10.114.124.226 (10.114.124.226): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.124.226 ping statistics ---
+107 packets transmitted, 107 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.310/3.769/19.305/1.617 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ds-0/2/2:46:1
+Date：2019-11-01 18:10:51
+internalSiteId：15276-02
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ds-0/2/2:46:1 rapid source 10.114.124.185 10.114.124.186 count 100	
+PING 10.114.124.186 (10.114.124.186): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.124.186 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.035/3.477/9.177/0.879 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/4.377
+Date：2019-11-01 18:10:54
+internalSiteId：01296-04
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/4.377 rapid source 10.114.23.145 10.114.23.146 count 105	
+PING 10.114.23.146 (10.114.23.146): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.23.146 ping statistics ---
+105 packets transmitted, 105 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4.203/5.167/16.590/1.453 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/0.109
+Date：2019-11-01 18:10:57
+internalSiteId：04332-05
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/0.109 rapid source 10.114.58.121 10.114.58.122 count 103	
+PING 10.114.58.122 (10.114.58.122): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.58.122 ping statistics ---
+103 packets transmitted, 103 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 1.561/2.274/13.314/1.649 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/4.384
+Date：2019-11-01 18:10:59
+internalSiteId：36211-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/4.384 rapid source 220.232.54.45 220.232.54.46 count 103	
+PING 220.232.54.46 (220.232.54.46): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 220.232.54.46 ping statistics ---
+103 packets transmitted, 103 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4.711/14.861/29.376/5.042 ms
+
+{"results":[{"differInternalSiteId":"","errorInternalSiteId":"36537-01;36464-01;","failNumber":"2","msg":"--------TCP结果------ \r\nMessage：Ticket: 模版\r\nTotal:8\r\nsuccess:6\r\nfail:2\r\nresult URl:\r\n http://10.180.5.13:8085/mtp/mtp/20191101/模版_before.html\r\n","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191101/模版_before.html","status":"N","successNumber":"6","tcpType":"tcp","totalNumber":"8"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191101/模版_before.html","status":"Y","successNumber":"","tcpType":"isp","totalNumber":"0"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191101/模版_before.html","status":"Y","successNumber":"","tcpType":"cia","totalNumber":"0"}],"tense":"before","ticketName":"模版"}</pre>

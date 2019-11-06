@@ -1,0 +1,91 @@
+<pre>------------  MTP result summary（abnormal）,Please check the detail ----------
+------------  site ----------
+site Total：6
+ping Success：3
+<span style="color:red;font-weight:bold;">ping faild：1</span>
+MVRF:0
+<span style="color:red;font-weight:bold;">param exception：2</span>
+<span style="color:red;font-weight:bold;">exception site detailed：CHG000000047672;CHG000000049719;</span>
+null exception site detailed：
+
+------------  backbone ----------
+backbone Total：0
+backbone success：0
+<span style="color:red;font-weight:bold;">backbone fail：0</span>
+param exception：0
+exception backbone detailed：
+------------ Result url ----------
+http://10.180.5.13:8085/mtp/mtp/20191106/HD0000002584589_before.html
+------------------------separative sign --------------------------
+
+
+
+This check Error InternalSiteId CHG000000047672;CHG000000049719;26914-03;
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1002E.ge-0/1/0.147
+Date：2019-11-06 15:40:34
+internalSiteId：26914-03
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1002E>ping interface ge-0/1/0.147 rapid source 210.5.3.169 210.5.3.170 count 7	
+<span style="color:red;font-weight:bold;">PING 210.5.3.170 (210.5.3.170): 56 data bytes
+.......
+--- 210.5.3.170 ping statistics ---
+7 packets transmitted, 0 packets received, 100% packet loss
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：HKHKGCTT3001E.ge-1/0/0.234
+Date：2019-11-06 15:40:32
+internalSiteId：CHG000000049719
+-------------------------------------------------------------------------------------------
+op1768@HKHKGCTT3001E>ping interface ge-1/0/0.234 rapid source   count 9	
+<span style="color:red;font-weight:bold;">ping: cannot resolve count: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：HKHKGCTT3001E.ge-1/0/0.256
+Date：2019-11-06 15:40:31
+internalSiteId：CHG000000047672
+-------------------------------------------------------------------------------------------
+op1768@HKHKGCTT3001E>ping interface ge-1/0/0.256 rapid source   count 8	
+<span style="color:red;font-weight:bold;">ping: cannot resolve count: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1002E.ge-0/1/1.371
+Date：2019-11-06 15:40:32
+internalSiteId：20187-02
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1002E>ping interface ge-0/1/1.371 rapid source 172.18.2.77 172.18.2.78 count 114	
+PING 172.18.2.78 (172.18.2.78): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 172.18.2.78 ping statistics ---
+114 packets transmitted, 114 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4.286/5.649/16.166/2.195 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1002E.ge-0/1/0.105
+Date：2019-11-06 15:40:38
+internalSiteId：42074-01
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1002E>ping interface ge-0/1/0.105 rapid source 210.5.5.153 210.5.5.154 count 119	
+PING 210.5.5.154 (210.5.5.154): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 210.5.5.154 ping statistics ---
+119 packets transmitted, 119 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 2.122/6.464/200.839/24.355 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNGUZYUJ1001E.e1-1/0/1:10
+Date：2019-11-06 15:40:40
+internalSiteId：20673-01
+-------------------------------------------------------------------------------------------
+op1768@CNGUZYUJ1001E>ping interface e1-1/0/1:10 rapid source 10.117.0.249 10.117.0.250 count 104	
+PING 10.117.0.250 (10.117.0.250): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.0.250 ping statistics ---
+104 packets transmitted, 104 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.138/3.950/15.421/1.661 ms
+
+</pre>

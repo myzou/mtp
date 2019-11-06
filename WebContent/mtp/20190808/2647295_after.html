@@ -1,0 +1,89 @@
+<pre><h2 style="color:red;">Inspection results:not consistent</h2>
+Not Consistent InternalSiteId 为:45259-02;25461-04;23340-04;16794-05;
+This check Error InternalSiteId :45259-02;25461-04;23340-04;16794-05;
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.ge-0/0/4.423
+Date：2019-08-08 17:31:05
+internalSiteId：16794-05
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface ge-0/0/4.423 rapid source 10.114.40.121 10.114.40.22 count 100	
+<span style="color:red;font-weight:bold;">ping: bind: Can't assign requested address
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.ge-0/0/2.129
+Date：2019-08-08 17:31:01
+internalSiteId：23340-04
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface ge-0/0/2.129 rapid source 172.16.2481.118 172.16.248.117 count 100	
+<span style="color:red;font-weight:bold;">ping: cannot resolve 172.16.2481.118: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.ge-0/0/2.136
+Date：2019-08-08 17:30:56
+internalSiteId：25461-04
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface ge-0/0/2.136 rapid source 10.114.40.169 10.114.40.70 count 100	
+<span style="color:red;font-weight:bold;">ping: bind: Can't assign requested address
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJJIC1005E.ge-0/0/0.356
+Date：2019-08-08 17:30:42
+internalSiteId：45259-02
+-------------------------------------------------------------------------------------------
+op1768@CNBEJJIC1005E>ping interface ge-0/0/0.356 rapid source 10.1171.183.117 10.117.183.118 count 100	
+<span style="color:red;font-weight:bold;">ping: cannot resolve 10.1171.183.117: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.ge-0/0/2.113
+Date：2019-08-08 17:30:44
+internalSiteId：31198-03
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface ge-0/0/2.113 rapid source 100.65.2.249 100.65.2.250 count 100	
+PING 100.65.2.250 (100.65.2.250): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 100.65.2.250 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 1.047/2.488/18.946/3.169 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.xe-0/3/0.3303
+Date：2019-08-08 17:30:46
+internalSiteId：29152-01
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface xe-0/3/0.3303 rapid source 10.117.135.70 10.117.135.65 count 100	
+PING 10.117.135.65 (10.117.135.65): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.135.65 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.388/0.752/2.814/0.561 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.ge-0/0/2.101
+Date：2019-08-08 17:30:49
+internalSiteId：28506-02
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface ge-0/0/2.101 rapid source 10.126.122.165 10.126.122.166 count 100	
+PING 10.126.122.166 (10.126.122.166): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.126.122.166 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 2.728/4.046/13.990/2.158 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNBEJDEX1003E.xe-0/3/0.110
+Date：2019-08-08 17:30:53
+internalSiteId：25741-01
+-------------------------------------------------------------------------------------------
+op1768@CNBEJDEX1003E>ping interface xe-0/3/0.110 rapid source 10.117.82.85 10.117.82.86 count 100	
+PING 10.117.82.86 (10.117.82.86): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.82.86 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.802/1.663/13.811/2.212 ms
+
+{"differInternalSiteId":"45259-02;25461-04;23340-04;16794-05;","errorInternalSiteId":"45259-02;25461-04;23340-04;16794-05;","failNumber":"4","msg":" Message：Ticket: 2647295\r\nTotal:8\r\nsuccess:4\r\nfail:4\r\nresult URl: http://localhost:8085/mtp/mtp/20190808/2647295_after.html\r\nInspection results: not consistent","resultUrl":"http://localhost:8085/mtp/mtp/20190808/2647295_after.html","status":"N","successNumber":"4","tense":"after","ticketName":"2647295","totalNumber":"8"}</pre>

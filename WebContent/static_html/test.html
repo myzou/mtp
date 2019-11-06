@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8" />
+        <title>js点击收缩展开文本</title>
+        <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<title>test.html</title>
+<body>
+<div>
+        <span>测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩</span><span class="span">.....</span><a href="javascript:;">>>收缩</a>
+</div>
+  <script type="text/javascript">
+    window.onload = function(){
+        var oP = document.getElementsByTagName('p')[0];
+        var oSpan = oP.getElementsByTagName('span')[0];
+        var oA = oP.getElementsByTagName('a')[0];
+        var str = oSpan.innerHTML;
+        var onOff = true;
+
+        oA.onclick = function(){
+            if( onOff ){
+                oSpan.innerHTML=str.substring(0,30);
+                oA.innerHTML = '>>展开';
+
+                //onOff = false;
+            }else{
+                oSpan.innerHTML=str;
+                oA.innerHTML = '>>收缩';
+                $(".span").hide();
+                // onOff = true;
+            }
+            onOff = !onOff;
+        };
+    };
+</script>
+</body>
+</html>

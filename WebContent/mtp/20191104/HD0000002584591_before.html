@@ -1,0 +1,27 @@
+<pre>This check Error InternalSiteId results  consistent
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHHCJX1001E.e1-2/0/0:2
+Date：2019-11-04 11:31:25
+internalSiteId：30527-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHHCJX1001E>ping interface e1-2/0/0:2 rapid source 192.168.90.13 192.168.90.14 count 102	
+PING 192.168.90.14 (192.168.90.14): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 192.168.90.14 ping statistics ---
+102 packets transmitted, 102 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.244/33.737/198.508/55.524 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHHCJX1001E.xe-1/0/0.329
+Date：2019-11-04 11:31:30
+internalSiteId：33680-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHHCJX1001E>ping interface xe-1/0/0.329 rapid source 10.117.185.61 10.117.185.62 count 103	
+PING 10.117.185.62 (10.117.185.62): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.185.62 ping statistics ---
+103 packets transmitted, 103 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.471/3.835/12.603/1.235 ms
+
+{"results":[{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"0","msg":"--------TCP结果------ \r\nMessage：Ticket: HD0000002584591\r\nTotal:2\r\nsuccess:2\r\nfail:0\r\nresult URl:\r\n http://10.180.5.13:8085/mtp/mtp/20191104/HD0000002584591_before.html\r\n","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191104/HD0000002584591_before.html","status":"Y","successNumber":"2","tcpType":"tcp","totalNumber":"2"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191104/HD0000002584591_before.html","status":"Y","successNumber":"","tcpType":"isp","totalNumber":"0"},{"differInternalSiteId":"","errorInternalSiteId":"","failNumber":"","msg":"","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191104/HD0000002584591_before.html","status":"Y","successNumber":"","tcpType":"cia","totalNumber":"0"}],"tense":"before","ticketName":"HD0000002584591"}</pre>

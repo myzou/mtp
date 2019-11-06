@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    table,
+    table tr th,
+    table tr td {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+        padding: 2px;
+    }
+
+    .btr{
+        border-top: 0px;
+    }
+
+</style>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>HK</th>
+        <th></th>
+        <th>Primary</th>
+        <th>Backup</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>system</td>
+        <td>&lt;-&gt;</td>
+        <td>81088633</td>
+        <td>82012200</td>
+    </tr>
+    <tr>
+        <td>Network</td>
+        <td>&lt;-&gt;</td>
+        <td>82012882</td>
+        <td>82012600</td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th colspan="3">NOPs(Network)</th>
+        <th colspan="3">(COPs)Cloud</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Guangzhou</td>
+        <td></td>
+        <td></td>
+        <td>Primary</td>
+        <td>Backup</td>
+        <td>Escalation</td>
+        <td>Primary</td>
+        <td>Backup</td>
+        <td>Escalation</td>
+        <td>Remark</td>
+    </tr>
+    <tr>
+        <td>2019/7/28</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/8/10</td>
+        <td>彭晓春</td>
+        <td>陈冉</td>
+        <td>余毅毅</td>
+        <td>江智良</td>
+        <td>雷明</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/8/11</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/8/24</td>
+        <td>陈冉</td>
+        <td>彭晓春</td>
+        <td>余毅毅</td>
+        <td>雷明</td>
+        <td>潘健辉</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/8/25</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/9/7</td>
+        <td>彭晓春</td>
+        <td>陈冉</td>
+        <td>余毅毅</td>
+        <td>潘健辉</td>
+        <td>刘其峰</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/9/8</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/9/21</td>
+        <td>陈冉</td>
+        <td>彭晓春</td>
+        <td>余毅毅</td>
+        <td>刘其峰</td>
+        <td>江智良</td>
+        <td>钟志辉</td>
+        <td>中秋假期</td>
+    </tr>
+    <tr>
+        <td>2019/9/22</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/10/5</td>
+        <td>彭晓春</td>
+        <td>陈冉</td>
+        <td>余毅毅</td>
+        <td>江智良</td>
+        <td>雷明</td>
+        <td>钟志辉</td>
+        <td>国庆假期</td>
+    </tr>
+    <tr>
+        <td>2019/10/6</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/10/19</td>
+        <td>陈冉</td>
+        <td>彭晓春</td>
+        <td>余毅毅</td>
+        <td>雷明</td>
+        <td>潘健辉</td>
+        <td>钟志辉</td>
+        <td>国庆假期</td>
+    </tr>
+    <tr>
+        <td>2019/10/20</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/11/2</td>
+        <td>彭晓春</td>
+        <td>陈冉</td>
+        <td>余毅毅</td>
+        <td>潘健辉</td>
+        <td>刘其峰</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/11/3</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/11/16</td>
+        <td>陈冉</td>
+        <td>彭晓春</td>
+        <td>余毅毅</td>
+        <td>刘其峰</td>
+        <td>江智良</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/11/17</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/11/30</td>
+        <td>彭晓春</td>
+        <td>陈冉</td>
+        <td>余毅毅</td>
+        <td>江智良</td>
+        <td>雷明</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/12/1</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/12/14</td>
+        <td>陈冉</td>
+        <td>彭晓春</td>
+        <td>余毅毅</td>
+        <td>雷明</td>
+        <td>潘健辉</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2019/12/15</td>
+        <td>&lt;-&gt;</td>
+        <td>2019/12/28</td>
+        <td>彭晓春</td>
+        <td>陈冉</td>
+        <td>余毅毅</td>
+        <td>潘健辉</td>
+        <td>刘其峰</td>
+        <td>钟志辉</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>ITS</th>
+        <th></th>
+        <th>T1</th>
+        <th>T2</th>
+        <th>T3</th>
+        <th>T4</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Network</td>
+        <td>&lt;-&gt;</td>
+        <td>Brandon Li/Lawrence Li</td>
+        <td>Gary Chen</td>
+        <td>Marco Chen</td>
+        <td>Mancent Wong</td>
+    </tr>
+    <tr>
+        <td>Remedy</td>
+        <td>&lt;-&gt;</td>
+        <td>Ella</td>
+        <td>Emily</td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>Team</th>
+        <th></th>
+        <th>Phone List</th>
+        <th>Company Phone</th>
+        <th>Mobile</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>NOPs</td>
+        <td>&lt;-&gt;</td>
+        <td>彭晓春</td>
+        <td>020-83936880 ext. 1308</td>
+        <td>18028612321/13822196181</td>
+    </tr>
+    <tr>
+        <td>NOPs</td>
+        <td>&lt;-&gt;</td>
+        <td>陈冉</td>
+        <td>020-83936880 ext. 5034</td>
+        <td>13526749307</td>
+    </tr>
+    <tr>
+        <td>NOPs</td>
+        <td>&lt;-&gt;</td>
+        <td>余毅毅</td>
+        <td>020-83936880 ext. 1343</td>
+        <td>13802733043/18925088883</td>
+    </tr>
+    <tr>
+        <td>COPs</td>
+        <td>&lt;-&gt;</td>
+        <td>江智良</td>
+        <td>020-85181257 ext. 1318</td>
+        <td>15989155692</td>
+    </tr>
+    <tr>
+        <td>COPs</td>
+        <td>&lt;-&gt;</td>
+        <td>雷明</td>
+        <td>020-85181257 ext. 1359</td>
+        <td>18588660351</td>
+    </tr>
+    <tr>
+        <td>COPs</td>
+        <td>&lt;-&gt;</td>
+        <td>钟志辉</td>
+        <td>020-83936880 ext. 1339</td>
+        <td>18902388749</td>
+    </tr>
+    <tr>
+        <td>COPs</td>
+        <td>&lt;-&gt;</td>
+        <td>潘健辉</td>
+        <td>020-85181257 ext. 1344</td>
+        <td>18824683621</td>
+    </tr>
+    <tr>
+        <td>COPs</td>
+        <td>&lt;-&gt;</td>
+        <td>刘其峰(TW)</td>
+        <td>6-8861 711 ext.711</td>
+        <td>0981107044</td>
+    </tr>
+    <tr>
+        <td>ITS-Network</td>
+        <td>&lt;-&gt;</td>
+        <td>Brandon Li</td>
+        <td>020-83936880 ext. 3036</td>
+        <td>13711221009</td>
+    </tr>
+    <tr>
+        <td>ITS-Network</td>
+        <td>&lt;-&gt;</td>
+        <td>Lawrence Li</td>
+        <td>020-38153000 ext. 3026</td>
+        <td>13682232925</td>
+    </tr>
+    <tr>
+        <td>ITS-Network</td>
+        <td>&lt;-&gt;</td>
+        <td>Gary Chen</td>
+        <td>020-38153000 ext. 3971</td>
+        <td>13802444784</td>
+    </tr>
+    <tr>
+        <td>ITS-Network</td>
+        <td>&lt;-&gt;</td>
+        <td>Marco Chen</td>
+        <td>020-83936880 ext. 3970</td>
+        <td>13826084299</td>
+    </tr>
+    <tr>
+        <td>ITS-Network</td>
+        <td>&lt;-&gt;</td>
+        <td>Mancent Wong</td>
+        <td>2123 1974 ext.7598</td>
+        <td>85221707598</td>
+    </tr>
+    <tr>
+        <td>ITS-Remedy</td>
+        <td>&lt;-&gt;</td>
+        <td>Ella</td>
+        <td>020-85181280 ext. 1276</td>
+        <td>13326409060</td>
+    </tr>
+    <tr>
+        <td>ITS-Remedy</td>
+        <td>&lt;-&gt;</td>
+        <td>Emily</td>
+        <td>2123 1974 ext.7457</td>
+        <td>-</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

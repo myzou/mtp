@@ -1,0 +1,67 @@
+<pre>------------  MTP result summary（abnormal）,Please check the detail ----------
+------------  site ----------
+site Total：6
+ping Success：2
+ping faild：0
+MVRF:0
+<span style="color:red;font-weight:bold;">param exception：4</span>
+<span style="color:red;font-weight:bold;">exception site detailed：CHG000000048347;CHG000000048350;</span>
+<span style="color:red;font-weight:bold;">null exception site detailed：37969-02;24887-03;</span>
+
+------------  backbone ----------
+backbone Total：0
+backbone success：0
+backbone fail：0
+param exception：0
+exception backbone detailed：
+------------ Result url ----------
+http://10.180.5.13:8085/mtp/mtp/20191106/HD0000002584591_before.html
+------------------------separative sign --------------------------
+
+
+
+This check Error InternalSiteId CHG000000048347;CHG000000048350;
+
+-------------------------------------------------------------------------------------------
+PE Port：HKHKGCTT3001E.ge-0/1/5.5009
+Date：2019-11-06 16:40:37
+internalSiteId：CHG000000048350
+-------------------------------------------------------------------------------------------
+op1768@HKHKGCTT3001E>ping interface ge-0/1/5.5009 rapid source   count 6	
+<span style="color:red;font-weight:bold;">ping: cannot resolve count: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：HKHKGCTT3001E.ge-0/1/5.5010
+Date：2019-11-06 16:40:36
+internalSiteId：CHG000000048347
+-------------------------------------------------------------------------------------------
+op1768@HKHKGCTT3001E>ping interface ge-0/1/5.5010 rapid source   count 5	
+<span style="color:red;font-weight:bold;">ping: cannot resolve count: Unknown host
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHHCJX1001E.e1-2/0/0:2
+Date：2019-11-06 16:40:37
+internalSiteId：30527-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHHCJX1001E>ping interface e1-2/0/0:2 rapid source 192.168.90.13 192.168.90.14 count 117	
+PING 192.168.90.14 (192.168.90.14): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 192.168.90.14 ping statistics ---
+117 packets transmitted, 117 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.243/8.668/199.830/27.556 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHHCJX1001E.xe-1/0/0.329
+Date：2019-11-06 16:40:41
+internalSiteId：33680-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHHCJX1001E>ping interface xe-1/0/0.329 rapid source 10.117.185.61 10.117.185.62 count 107	
+PING 10.117.185.62 (10.117.185.62): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.117.185.62 ping statistics ---
+107 packets transmitted, 107 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.452/3.928/13.268/1.384 ms
+
+</pre>

@@ -1,0 +1,103 @@
+<pre><h2 style="color:red;">Inspection results:not consistent</h2>
+Not Consistent InternalSiteId :36211-01;
+This check Error InternalSiteId :36211-01;36537-01;
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/4.358
+Date：2019-10-14 16:40:17
+internalSiteId：36537-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/4.358 rapid source 10.117.219.177 10.117.219.178 count 6	
+<span style="color:red;font-weight:bold;">PING 10.117.219.178 (10.117.219.178): 56 data bytes
+......
+--- 10.117.219.178 ping statistics ---
+6 packets transmitted, 0 packets received, 100% packet loss
+</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/4.384
+Date：2019-10-14 16:40:15
+internalSiteId：36211-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/4.384 rapid source 220.232.54.45 220.232.54.46 count 9	
+<span style="color:red;font-weight:bold;">PING 220.232.54.46 (220.232.54.46): 56 data bytes
+!!!!!!!!!
+--- 220.232.54.46 ping statistics ---
+9 packets transmitted, 9 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 5.770/6.744/8.354/0.869 ms
+
+做维护后延迟超过对比之前超过增加了 1,之前延迟：4.672	 之后的延迟：5.77</span>
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ds-0/2/2:2:1
+Date：2019-10-14 16:40:02
+internalSiteId：02414-03
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ds-0/2/2:2:1 rapid source 10.114.23.137 10.114.23.138 count 100	
+PING 10.114.23.138 (10.114.23.138): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.23.138 ping statistics ---
+100 packets transmitted, 100 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.373/4.413/20.416/2.419 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ds-0/2/2:38:1
+Date：2019-10-14 16:40:04
+internalSiteId：15457-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ds-0/2/2:38:1 rapid source 10.114.124.225 10.114.124.226 count 111	
+PING 10.114.124.226 (10.114.124.226): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.124.226 ping statistics ---
+111 packets transmitted, 111 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 3.319/7.412/45.238/8.136 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ds-0/2/2:46:1
+Date：2019-10-14 16:40:08
+internalSiteId：15276-02
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ds-0/2/2:46:1 rapid source 10.114.124.185 10.114.124.186 count 119	
+PING 10.114.124.186 (10.114.124.186): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.124.186 ping statistics ---
+119 packets transmitted, 119 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 2.980/3.375/9.073/0.945 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/4.377
+Date：2019-10-14 16:40:10
+internalSiteId：01296-04
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/4.377 rapid source 10.114.23.145 10.114.23.146 count 110	
+PING 10.114.23.146 (10.114.23.146): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.23.146 ping statistics ---
+110 packets transmitted, 110 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 4.409/5.034/9.887/1.000 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1002E.ge-0/0/0.109
+Date：2019-10-14 16:40:13
+internalSiteId：04332-05
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1002E>ping interface ge-0/0/0.109 rapid source 10.114.58.121 10.114.58.122 count 102	
+PING 10.114.58.122 (10.114.58.122): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.58.122 ping statistics ---
+102 packets transmitted, 102 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 1.539/2.532/16.064/2.013 ms
+
+-------------------------------------------------------------------------------------------
+PE Port：CNSHZHOL1001E.ge-0/0/0.136
+Date：2019-10-14 16:40:21
+internalSiteId：36464-01
+-------------------------------------------------------------------------------------------
+op1768@CNSHZHOL1001E>ping interface ge-0/0/0.136 rapid source 10.114.113.89 10.114.113.90 count 101	
+PING 10.114.113.90 (10.114.113.90): 56 data bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--- 10.114.113.90 ping statistics ---
+101 packets transmitted, 101 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 1.931/7.842/51.791/11.306 ms
+
+{"results":[{"differInternalSiteId":"36211-01;","errorInternalSiteId":"36211-01;36537-01;","failNumber":"2","msg":" Message：Ticket: 模版\r\nTotal:8\r\nsuccess:6\r\nfail:2\r\nresult URl: http://10.180.5.13:8085/mtp/mtp/20191014/模版_after.html\r\nInspection results: not consistent","resultUrl":"http://10.180.5.13:8085/mtp/mtp/20191014/模版_after.html","status":"N","successNumber":"6","tcpType":"","totalNumber":"8"}],"tense":"after","ticketName":"模版"}</pre>
