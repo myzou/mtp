@@ -5,6 +5,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.cter.bean.ResultList;
+import com.cter.service.impl.MTPReceiveService;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -15,6 +16,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.client.methods.HttpUriRequest;
+
+import java.util.Map;
 
 /**
  * 推送结果到remedy
@@ -27,6 +30,10 @@ public class SendResultToRemedy implements  Runnable {
 
     private BaseLog runTimeLog =new BaseLog("RunTimeLog");
     String loginUrl;String loginOutUrl;String sendToRemedyUrl;String result;long sleep=60;//线程等待
+    private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
+    private static final String loginUserName = otherMap.get("loginUserName");
+    private static final String loginPassword = otherMap.get("loginPassword");
+
 
     public BaseLog getRunTimeLog() {
         return runTimeLog;
@@ -66,6 +73,7 @@ public class SendResultToRemedy implements  Runnable {
      * @return
      */
     public void sendReultInlet(String loginUrl,String loginOutUrl,String sendToRemedyUrl,String result){
+
         init(loginUrl,loginOutUrl,sendToRemedyUrl,result);
 
 
@@ -137,8 +145,8 @@ public class SendResultToRemedy implements  Runnable {
      */
     public  String login(String loginUrl,String username,String password)throws Exception{
         loginUrl=ifNotNullSet(loginUrl,"http://10.180.27.11:8008/api/jwt/login");
-        username=ifNotNullSet(username,"API_NOC");
-        password=ifNotNullSet(password,"Password1234");
+        username=ifNotNullSet(username,loginUserName);
+        password=ifNotNullSet(password,loginPassword);
         // start HTTP POST to create an entry
         CloseableHttpClient httpClient = HttpClients.createDefault();
         loginUrl=loginUrl+"?username="+username+"&password="+password;

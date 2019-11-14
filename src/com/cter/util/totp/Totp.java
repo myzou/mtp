@@ -87,6 +87,48 @@ public class Totp {
 
     }
 
+    /**
+     * 生成验证码
+     * secretBase32:为 otpauth的secret 32 位密匙，每个人不一样的
+     * refreshTime: 验证码刷新时间（秒）
+     * time: 指定时间戳 （毫秒）
+     * codeDigits: 验证码位数，生成6位数字验证码 写 6
+     * otpauth://totp/Engineering & Services:Luke Zou?secret=****&issuer=Engineering & Services
+     * @return
+     */
+    public static String GenerateVerificationCode() {
+        String secretBase32="gmp7bb3kpghainowhr7jthvkkuy4buds";
+        Long refreshTime=30L;
+        Long createTime=0L;
+        String crypto="HmacSHA1";
+        String codeDigits="6";
+
+        refreshTime =(refreshTime==0)?30:refreshTime;
+        long currentTime=((createTime==0)?System.currentTimeMillis():createTime)/1000L;
+        crypto=(!StrUtil.isBlank(crypto))?crypto:"HmacSHA1";
+        String secretHex = "";
+        try {
+            secretHex = HexEncoding.encode(Base32String.decode(secretBase32));
+        } catch (Base32String.DecodingException e) {
+            System.out.println ("解码" + secretBase32 + "出错，");
+            return "error:解码" + secretBase32 + "出错，请检查参数" ;
+        }
+        //开始时间 默认为0
+        String steps = "0";
+        try {
+            long t = currentTime / refreshTime;
+            steps = Long.toHexString(t).toUpperCase();
+            while (steps.length() < 16) {
+                steps = "0" + steps;
+            }
+            return generateTOTP(secretHex, steps, codeDigits,crypto );
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return "error:秘钥("+secretBase32+")生成动态口令出错，请检查参数" ;
+        }
+
+    }
+
 
     private static byte[] hexStr2Bytes(String hex) {
         // Adding one byte to get the right conversion

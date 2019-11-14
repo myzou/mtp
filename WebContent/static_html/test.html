@@ -1,38 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8" />
-        <title>js点击收缩展开文本</title>
-        <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
-<title>test.html</title>
 <body>
-<div>
-        <span>测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩测试点击展收缩</span><span class="span">.....</span><a href="javascript:;">>>收缩</a>
-</div>
-  <script type="text/javascript">
-    window.onload = function(){
-        var oP = document.getElementsByTagName('p')[0];
-        var oSpan = oP.getElementsByTagName('span')[0];
-        var oA = oP.getElementsByTagName('a')[0];
-        var str = oSpan.innerHTML;
-        var onOff = true;
 
-        oA.onclick = function(){
-            if( onOff ){
-                oSpan.innerHTML=str.substring(0,30);
-                oA.innerHTML = '>>展开';
+<table>
+    <tr>
+        <td>op</td>
+        <td><input type="text" id="op" value="op1768"/></td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td><input type="text" id="password"/></td>
+    </tr>
+    <tr>
+        <td> tatted code</td>
+        <td><input type="text" id="tattedCode"/></td>
+    </tr>
+    <tr>
+        <td> ip</td>
+        <td><input type="text" id="ip" value="152.101.179.122"/></td>
+    </tr>
+    <tr>
+        <td> command</td>
+        <td><textarea id="command" value="11" style="width: 300%;height: 200px;"></textarea></td>
+    </tr>
+    <input type="button" onclick="check()" value="检查"/>
+</table>
 
-                //onOff = false;
-            }else{
-                oSpan.innerHTML=str;
-                oA.innerHTML = '>>收缩';
-                $(".span").hide();
-                // onOff = true;
-            }
-            onOff = !onOff;
-        };
-    };
-</script>
+<div id="connent"></div>
+
+
 </body>
+<script type="text/javascript">
+
+    function check() {
+        var op = $("#op").val();
+        var password = $("#password").val();
+        var tattedCode = $("#tattedCode").val();
+        var timestamp = parseInt(new Date().getTime() / 1000)
+        var ip =$("#ip").val();
+        var command =$("#command").val();
+        var ggwurl = "http://210.5.3.177:48888/ExecuteCommand?username=" + op + "&&password=" + password + tattedCode + "&&sign=123456&&timestamp=" + timestamp + "&&command="+command+"&&ip=" + ip;
+        var getlogin = "http://210.5.3.177:48888/GetLoginSession?username=" + op + "&&password=" + password + "&&sign=123456&&timestamp=" + timestamp;
+
+        $.ajax({
+            url: getlogin,
+            type: "get",
+            data: "",
+            dataType: "json",
+            success: function (result) {
+                alert(result)
+                $("#connent").append("getlogin:"+result);
+            }
+
+        })
+        $.ajax({
+            url: ggwurl,
+            type: "get",
+            data: "",
+            dataType: "json",
+            success: function (result) {
+                alert(result);
+                $("#connent").append("ggwurl:"+result);
+
+            }
+
+        })
+    window.open(getlogin);
+    window.open(ggwurl);
+    }
+
+
+</script>
 </html>

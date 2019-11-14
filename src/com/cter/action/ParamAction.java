@@ -71,6 +71,7 @@ public class ParamAction extends ActionSupport {
             }
 
         }
+
         long end = System.currentTimeMillis();
         runTimeLog.info("结束运行时间：" + cn.hutool.core.date.DateUtil.now());
         runTimeLog.info("执行线路数量：" + (JSONUtil.toBean(paramString, MTPA.class).getPePorts().size()) + "\t总时长:" + (end - start) / 1000.00);

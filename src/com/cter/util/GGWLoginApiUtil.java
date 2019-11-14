@@ -1,12 +1,16 @@
 package com.cter.util;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.cter.rsa.RSAEncrypt;
 import com.cter.util.TempDBUtils;
 import com.cter.util.totp.Totp;
+import org.springframework.util.StringUtils;
 
 
 import java.nio.charset.Charset;
@@ -19,9 +23,22 @@ import java.util.*;
  */
 public class GGWLoginApiUtil {
 
+    private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
+    private static final String mtp_project = otherMap.get("mtp_project");
+    private static String GGW_URL = otherMap.get("GGW_URL");
+    private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
+    private static Map<String, String> paramMap = new HashMap<String, String>();
+    private static Map<String, Map<String, String>> ipLastLoginTimeMap = new HashMap<>();
 
-    private static String GGW_URL = "http://210.5.3.177:48888/ExecuteCommand/RSA";
-    private static String LOGIN_GGW_URL = "http://210.5.3.177:48888/GetLoginSession/RSA?crypto_sign=";
+    private static BaseLog log = new BaseLog("MTPQueryLog");
+
+    public static BaseLog getLog() {
+        return log;
+    }
+
+    public static void setLog(BaseLog log) {
+        GGWLoginApiUtil.log = log;
+    }
 
     /**
      * 根据参数来登录ggw
@@ -54,51 +71,7 @@ public class GGWLoginApiUtil {
 
         return result;
     }
-    /**
-     * 根据参数来调用ggwAPI 执行命令
-     * @param paramMap
-     * paramMap参数，username:op账号，password:op密码,sign：对应的访问标记，一个op同一个时间段只能有6个，command:命令，ip:登录到ggw对应的ip
-     * @return 正常对应的状态码和执行命令的状态
-     */
-    public static String getGGWAPITotp(Map<String, String> paramMap) {
-        String result = null;
 
-        String secretBase32="gmp7bb3kpghainowhr7jthvkkuy4buds";
-        long refreshTime=30l;
-        long createTime=0l;
-        String crypto="HmacSHA1";
-        String codeDigits="6";
-        String verificationCode=Totp.GenerateVerificationCode(secretBase32,refreshTime,createTime,crypto,codeDigits);
-        System.out.println("verificationCode:"+verificationCode);
-
-        try {
-            Map<String, Object> urlMap=new HashMap<>();
-            String nowTime = Long.toString(System.currentTimeMillis() / 1000);
-            //System.out.println("nowTime:"+ DateUtil.now());
-            String encrypt = "username=" + paramMap.get("opName")
-                    + "&&password=" + paramMap.get("opPassword")+verificationCode
-                    + "&&sign=" + paramMap.get("sign")
-                    + "&&timestamp=" + nowTime;
-
-            System.out.println("encrypt:"+encrypt);
-            String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
-            String url = GGW_URL+"?ip="+paramMap.get("ip")+"&&command="+RSAEncrypt.urlReplace(paramMap.get("command"))+"&&crypto_sign="+encryptAfterStr ;
-            System.out.println("getGGWAPI url:\n" + url);
-            try {
-                //Charset charset = Charset.forName("utf8");
-
-                result = HttpUtil.get(url);
-            } catch (Exception e) {
-                System.out.println(e.getCause().getMessage());//获取异常信息
-                e.printStackTrace();
-                result = "error；" + e.getCause().getMessage();
-            }
-        } catch (HttpException e) {
-            e.printStackTrace();;
-            return "{'code':9999,'data':'Bad request'}";
-        }
-        return result;
-    }
 
     /**
      * 根据参数来调用ggwAPI 执行命令
@@ -204,7 +177,7 @@ public class GGWLoginApiUtil {
         String command="show route";
         command="11";
         String ip="152.101.179.122";//2FA
-        ip="218.96.240.81";
+        //ip="218.96.240.81";
 
 
 
@@ -226,12 +199,273 @@ public class GGWLoginApiUtil {
 
 
     public static void main(String[] args) {
-        for (int i = 1; i <=10 ; i++) {
+        /*for (int i = 1; i <=3 ; i++) {
             System.out.println("====================="+i+"======================");
             test1();
+        }*/
+
+
+        String opName="op1768";
+        String opPassword="Abc10151015";
+        //String command="show interfaces descriptions %7C match trunk";
+        String command="show route";
+        command="11";
+        String ip="152.101.179.122";//2FA
+        //ip="218.96.240.81";
+        Map<String, String> paramMap=new HashMap<String, String>();
+        paramMap.put("opName", opName);
+        paramMap.put("opPassword", opPassword);
+        paramMap.put("sign", "123456");
+        paramMap.put("command",command);
+        paramMap.put("ip", ip);
+        Map<String, String> temprReturnMap= execute(paramMap,GGWLoginApiUtil.log);
+        String tempString="";
+        if(StringUtils.isEmpty(temprReturnMap.get("error"))){
+            tempString=temprReturnMap.get("data");
+        }else{
+            tempString=temprReturnMap.get("message");
         }
-        //test();
+        System.out.println("===============================================================================");
+        System.out.println("ip:"+ip);
+        System.out.println("command:"+command);
+        System.out.println("tempString:"+tempString);
 
     }
+
+
+    /**
+     * 根据参数 获取 ggw 拼接的必须参数
+     *
+     * @param paramMap
+     * @param passwordType 密码类型,默认不加上 totp 6位数验证码
+     * @param urlType      登录类型 login execute
+     * @return
+     */
+    public static String getGGWParamAssemble(Map<String, String> paramMap, String passwordType, String urlType) {
+
+        String secretBase32 =paramMap.get("secretBase32");// "gmp7bb3kpghainowhr7jthvkkuy4buds";
+        long refreshTime = 30L;
+        long createTime = 0L;
+        String crypto = "HmacSHA1";
+        String codeDigits = "6";
+        String verificationCode = Totp.GenerateVerificationCode(secretBase32, refreshTime, createTime, crypto, codeDigits);
+        verificationCode = (StringUtil.isBlank(passwordType) ? "" : new String(verificationCode));
+        //System.out.println("verificationCode:" + verificationCode);
+        Map<String, Object> urlMap = new HashMap<>();
+        String nowTime = Long.toString(System.currentTimeMillis() / 1000);
+        //System.out.println("nowTime:"+ DateUtil.now());
+
+        String encrypt = "username=" + paramMap.get("opName")
+                + "&&password=" + paramMap.get("opPassword") + verificationCode
+                + "&&sign=" + paramMap.get("sign")
+                + "&&timestamp=" + nowTime;
+        String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
+        if (!StrUtil.isBlank(urlType) && urlType.equals("login")) {
+            String loginGGWSuffix = encryptAfterStr + "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip");
+            return loginGGWSuffix;
+        } else if (!StrUtil.isBlank(urlType) && "execute".equals(urlType)) {
+            //System.out.println("加密前 encrypt:"+ encrypt);
+            //System.out.println("加密后 encrypt:"+ encryptAfterStr);
+            String executeSuffix = "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
+            return executeSuffix;
+        }
+        return null;
+
+    }
+
+
+    /**
+     * 根据参数来调用ggwAPI 执行命令
+     *
+     * @param paramMap paramMap参数，username:op账号，password:op密码,sign：对应的访问标记，一个op同一个时间段只能有6个，command:命令，ip:登录到ggw对应的ip
+     * @return 正常对应的状态码和执行命令的状态
+     */
+    public static String getGGWAPITotp(Map<String, String> paramMap) {
+        String result = null;
+
+        String secretBase32 = "gmp7bb3kpghainowhr7jthvkkuy4buds";
+        long refreshTime = 30l;
+        long createTime = 0l;
+        String crypto = "HmacSHA1";
+        String codeDigits = "6";
+        String verificationCode = Totp.GenerateVerificationCode(secretBase32, refreshTime, createTime, crypto, codeDigits);
+        System.out.println("verificationCode:" + verificationCode);
+
+        try {
+            Map<String, Object> urlMap = new HashMap<>();
+            String nowTime = Long.toString(System.currentTimeMillis() / 1000);
+            //System.out.println("nowTime:"+ DateUtil.now());
+            String encrypt = "username=" + paramMap.get("opName")
+                    + "&&password=" + paramMap.get("opPassword") + verificationCode
+                    + "&&sign=" + paramMap.get("sign")
+                    + "&&timestamp=" + nowTime;
+
+            System.out.println("encrypt:" + encrypt);
+            String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
+            String url = GGW_URL + "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
+            System.out.println("getGGWAPI url:\n" + url);
+            try {
+                //Charset charset = Charset.forName("utf8");
+
+                result = HttpUtil.get(url);
+            } catch (Exception e) {
+                System.out.println(e.getCause().getMessage());//获取异常信息
+                e.printStackTrace();
+                result = "error；" + e.getCause().getMessage();
+            }
+        } catch (HttpException e) {
+            e.printStackTrace();
+            ;
+            return "{'code':9999,'data':'Bad request'}";
+        }
+        return result;
+    }
+
+    /**
+     * 根据 paramMap 参数来执行command来活去执行的结果
+     * get("error") 有内容为错误，否则 get("data")  为执行结果
+     * op1768 验证码密匙 secretBase32：gmp7bb3kpghainowhr7jthvkkuy4buds
+     * @param paramMap
+     * @param log
+     * @return
+     */
+    public static Map<String, String> execute(Map<String, String> paramMap, BaseLog log) {
+        Map<String, String> returnMap = new HashMap<>();
+        String tempSgin = paramMap.get("sign");
+        String nowTime = Long.toString(new Date().getTime() / 1000);
+
+        try {
+            Map<String, String> lastTimeMap = new HashMap<>();
+            lastTimeMap = ipLastLoginTimeMap.get(paramMap.get("ip"));
+            Long intervalTime = 601L;//默认是已经超时，并没有登录状态
+            if (lastTimeMap != null || (lastTimeMap != null && lastTimeMap.get(tempSgin) == null)) {
+                //ip>sign>op;lastTime
+                String opName = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[0];
+                String tempLoginLastTime = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[1];
+                Long ipLastLoginTime = Long.valueOf(tempLoginLastTime) * 1000L;
+                //对应的ip距离上次登陆的时间间隔 600 秒登录状态失效
+                intervalTime = cn.hutool.core.date.DateUtil.between(DateUtil.date(ipLastLoginTime), new Date(), DateUnit.SECOND);
+            }
+
+            if (intervalTime.intValue() < 600) {
+                int loginNumber = 2;//参数登录次数
+                Map<String, String> tempMap = new HashMap<>();
+                Map<String, String> tempTotpMap = new HashMap<>();
+
+             /*   String methodType = "execute";
+                String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
+                log.info("验证码执方式行命令 url：\n" + totpUrl);
+                tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
+                return tempTotpMap;*/
+                for (int i = 1; i <= loginNumber; i++) {
+                    String methodType = "execute";
+                    String url = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
+                    log.info("第" + i + "次,无验证码方式执行命令 url：\n" + url);
+                    tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
+                    if (!StrUtil.isBlank(tempMap.get("error"))) {
+                        String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
+                        log.info("第" + i + "次,验证码执方式行命令 url：\n" + totpUrl);
+                        tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
+                        if ((!StrUtil.isBlank(tempTotpMap.get("error")) && i == loginNumber) || !StrUtil.isBlank(tempTotpMap.get("pass"))) {
+                            return tempTotpMap;
+                        } else {
+                            continue;
+                        }
+                    } else if (!StrUtil.isBlank(tempMap.get("pass"))) {
+                        return tempMap;
+                    }
+                }
+            } else {
+                String methodType = "login";
+                int loginNumber = 2;//参数登录次数
+                Map<String, String> tempMap = new HashMap<>();
+                for (int i = 1; i <= loginNumber; i++) {
+                    String url = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
+                    log.info("第" + i + "次,登录到ggw获取session url：\n" + url);
+                    tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
+                    if ((!StrUtil.isBlank(tempMap.get("error")) && i == loginNumber)) {
+                        return tempMap;
+                    } else if (!StrUtil.isBlank(tempMap.get("pass"))) {
+                        return execute(paramMap, log);
+                    }
+                    continue;
+                }
+            }
+        } catch (Exception e) {
+            log.info(JSONUtil.toJsonStr(paramMap));
+            log.printStackTrace(e);
+            returnMap.put("error", "error");
+            returnMap.put("message", "execute command exception,Please contact your administrator");
+            return returnMap;
+        }
+        return null;
+    }
+
+    /**
+     * 执行命令类型
+     *
+     * @param url
+     * @param paramMap
+     * @param methodType 执行的方法，登录：login，执行：execute
+     * @param log
+     * @return
+     */
+    public static Map<String, String> executeCommandOrLogin(String url, Map<String, String> paramMap, String methodType, BaseLog log) {
+
+        Map<String, String> returnMap = new HashMap<>();
+        try {
+            Charset charset = Charset.forName("utf8");
+
+            String result = HttpUtil.get(url, charset);
+            log.info(methodType + " result:" + result);
+
+            if (StrUtil.isBlank(result)) {
+                returnMap.put("error", "error");
+                returnMap.put("message", "Login ggwapi return result is null");
+                return returnMap;
+            }
+            JSONObject resultJsonObject = JSONUtil.parseObj(result);
+            int code = resultJsonObject.getInt("code");
+            String data = resultJsonObject.getStr("data");
+            data=(StringUtils.isEmpty(data))?data:data.replace("\\n","\n");
+
+            if (!StrUtil.isBlank(methodType) && methodType.equals("login")) {
+                if (code == 0 || code == 10003) {
+                    returnMap.put("pass", "pass");
+                    returnMap.put("data", data);
+                    Map<String, String> tempIpLastLoginTimeMap = new HashMap<>();
+                    tempIpLastLoginTimeMap.put(paramMap.get("sign"), paramMap.get("opName") + ";" + System.currentTimeMillis() / 1000L);
+                    ipLastLoginTimeMap.put(paramMap.get("ip"), tempIpLastLoginTimeMap);
+                    return returnMap;
+                } else {
+                    returnMap.put("error", "error");
+                    returnMap.put("message", "Login ggwapi fail\n" + result);
+                    return returnMap;
+                }
+            } else if (!StrUtil.isBlank(methodType) && methodType.equals("execute")) {
+                if (code == 0) {
+                    Map<String, String> tempIpLastLoginTimeMap = new HashMap<>();
+                    tempIpLastLoginTimeMap.put(paramMap.get("sign"), paramMap.get("opName") + ";" + System.currentTimeMillis() / 1000L);
+                    ipLastLoginTimeMap.put(paramMap.get("ip"), tempIpLastLoginTimeMap);
+                    returnMap.put("pass", "pass");
+                    returnMap.put("data", data);
+                    return returnMap;
+                } else {
+                    returnMap.put("error", "error");
+                    returnMap.put("message", "execute  for ggwapi fail (" + result + ")");
+                    return returnMap;
+                }
+            }
+            returnMap.put("data", data);
+            return returnMap;
+        } catch (Exception e) {
+            log.printStackTrace(e);
+            returnMap.put("error", "error");
+            returnMap.put("message", "Login ggwapi exception,Please contact your administrator");
+            return returnMap;
+        }
+
+    }
+
 
 }

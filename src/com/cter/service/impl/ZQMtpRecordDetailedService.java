@@ -47,14 +47,15 @@ public class ZQMtpRecordDetailedService {
 		mtpRecordDetailedDaoImpl.findMtpRecordDetailedPage (map, layui);
 		return 	layui;
 	}
-	
-	
-	
-	public int updateKey( Map<String,String > map) {
-		String op_name=map.get("op_name");
-		String op_password=map.get("op_password");
-		String param_value1=op_name+"###"+op_password;
-		int  i=mtpRecordDetailedDaoImpl.updateKey(param_value1, null, "OP");
+
+
+
+	public int updateKey(Map<String, String> map) {
+		String op_name = map.get("op_name");
+		String op_password = map.get("op_password");
+		String totpKey = map.get("totpKey");
+		String param_value1 = op_name + "###" + op_password+"###"+totpKey;
+		int i = mtpRecordDetailedDaoImpl.updateKey(param_value1, null, "OP");
 		return i;
 	}
 	
@@ -271,28 +272,28 @@ public class ZQMtpRecordDetailedService {
 	 * @param period  时态（做维护之前或者之后）
 	 * @return
 	 */
-	public static Map<String, String> getUrl(String caseId,String period ){
-		HttpServletRequest request=ServletActionContext.getRequest();
-		String separator=File.separator;
-		String requestUrl=request.getSession().getServletContext().getRealPath("");
+	public static Map<String, String> getUrl(String caseId,String period ) {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String separator = File.separator;
+        String requestUrl = request.getSession().getServletContext().getRealPath("");
 //    	String mtpPath =  separator+"mtp"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator;  //文件保存路径
-    	String mtpPath =  "/mtp/"+	DateUtil.getDateStryyyyMMdd(new Date())+"/";  //文件保存路径
+        String mtpPath = "/mtp/" + DateUtil.getDateStryyyyMMdd(new Date()) + "/";  //文件保存路径
 
-    	String urlPrefix=mtp_project;
-    	String urlPostfix =caseId+"_"+period+".html";
-    	String htmlPath=urlPrefix+mtpPath+urlPostfix;
-    	String filePath=requestUrl+mtpPath+urlPostfix;
-    	Map<String, String >   urlMap=new HashMap<String, String>();
-    	urlMap.put("htmlPath", htmlPath);
-    	urlMap.put("filePath", filePath);
-    	return urlMap;
-	}
-	
+        String urlPrefix = mtp_project;
+        String urlPostfix = caseId + "_" + period + ".html";
+        String htmlPath = urlPrefix + mtpPath + urlPostfix;
+        String filePath = requestUrl + mtpPath + urlPostfix;
+        Map<String, String> urlMap = new HashMap<String, String>();
+        urlMap.put("htmlPath", htmlPath);
+        urlMap.put("filePath", filePath);
+        return urlMap;
+    }
 	
 	/**
 	 * 把组装的内容 放到html中
 	 * @param htmlStr  组装的内容
-	 * @param caseId  case名称
+     * @param htmlPath  组装的内容
+	 * @param filePath  文件名称
 	 * @return
 	 */
 	public static void  addHtml(String htmlStr,String htmlPath,String filePath){

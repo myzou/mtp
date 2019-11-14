@@ -18,6 +18,7 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -58,13 +59,7 @@ public class MTPReceiveService {
     }
 
 
-    public int updateKey(Map<String, String> map) {
-        String op_name = map.get("op_name");
-        String op_password = map.get("op_password");
-        String param_value1 = op_name + "###" + op_password;
-        int i = mtpRecordDetailedDaoImpl.updateKey(param_value1, null, "OP");
-        return i;
-    }
+
 
     public int udpateCaseStatus(Map<String, String> map) {
         String case_status = map.get("case_status");
@@ -331,6 +326,7 @@ public class MTPReceiveService {
         List<String> internalSiteIdArray = getSiteListBySiteAll(internalSiteIdAll);
         int internalSiteAllSize = (internalSiteIdArray == null) ? 0 : internalSiteIdArray.size();
         LinkedTreeMap<String, ResultMessage> siteMap = new LinkedTreeMap<>();
+        LinkedTreeMap<String, ResultMessage> backboneMap=new LinkedTreeMap<>();
 
         String send_size_10 = "10";//包大小
         String send_size_100 = "100";//包大小
@@ -345,6 +341,8 @@ public class MTPReceiveService {
         ZqData zqData = mtpRecordDetailedDaoImpl.getZqData("OP");
         String opName = zqData.getParam_value1().split("###")[0];
         String opPassword = zqData.getParam_value1().split("###")[1];
+        String secretBase32 =(zqData.getParam_value1().split("###").length>2)?zqData.getParam_value1().split("###")[2]:"";
+        paramMap.put("secretBase32",secretBase32);
         String ticketName = mtpa.getTicketName();
         List<PePort> tcpPePort = new ArrayList<>();
         List<PePort> backbonePePort = new ArrayList<>();
@@ -454,7 +452,29 @@ public class MTPReceiveService {
                         paramMap.put("sign", "123456");
                         paramMap.put("command", command1);
                         paramMap.put("ip", ip);
-                        String login = loginGGWAPI(paramMap);//待处理登录信息
+
+
+
+                        Map<String, String> temprReturnMap= GGWLoginApiUtil.execute(paramMap,GGWLoginApiUtil.getLog());
+                        errorMessage=setLogByResult(paramMap,temprReturnMap,cbBuffer,mtpRecordDetailed,period);
+
+                        if(StringUtils.isEmpty(errorMessage)){//第一次少包无异常，再执行大包
+                            paramMap.put("command", command);
+                            temprReturnMap=new HashMap<>();
+                            temprReturnMap= GGWLoginApiUtil.execute(paramMap,GGWLoginApiUtil.getLog());
+                            errorMessage=setLogByResult(paramMap,temprReturnMap,cbBuffer,mtpRecordDetailed,period);
+                            if(StringUtils.isEmpty(errorMessage)){//第二次无异常 记录
+                                cbBuffer.append(paramMap.get("command") + "\t\n");
+                                cbBuffer.append(temprReturnMap.get("data"));
+                            }
+                        }else{
+                            cbBuffer.append(paramMap.get("command") + "\t\n");
+                            setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+                        }
+
+
+
+                       /* String login = loginGGWAPI(paramMap);//待处理登录信息
                         if (login.indexOf("error:login 返回参数为空") > -1) {
                             loginInt = 2;
                             login = loginGGWAPI(paramMap);
@@ -505,13 +525,16 @@ public class MTPReceiveService {
                             cbBuffer.append(command1 + "\t\n");
                             setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
                         }
+                        loginInt = 1;*/
+
+
                         cbBuffer.append("\n");
                         addBf(tcpBf, cbBuffer);
                         setSiteMapByPingStatus(mtpRecordDetailed, period, siteMap, returnMap);
                         if (cbBuffer.indexOf("color:red") > -1) {
                             errorInternalSiteId += mtpRecordDetailed.getInternalSiteId() + ";";
                         }
-                        loginInt = 1;
+
                         mtpRecordDetailedDaoImpl.save(mtpRecordDetailed);
 
                     }
@@ -571,7 +594,25 @@ public class MTPReceiveService {
                             paramMap.put("sign", "123456");
                             paramMap.put("command", command1);
                             paramMap.put("ip", ip);
-                            String login = loginGGWAPI(paramMap);//待处理登录信息
+
+                            Map<String, String> temprReturnMap= GGWLoginApiUtil.execute(paramMap,GGWLoginApiUtil.getLog());
+                            errorMessage=setLogByResult(paramMap,temprReturnMap,cbBuffer,mtpRecordDetailed,period);
+
+                            if(StringUtils.isEmpty(errorMessage)){//第一次少包无异常，再执行大包
+                                paramMap.put("command", command);
+                                temprReturnMap=new HashMap<>();
+                                temprReturnMap= GGWLoginApiUtil.execute(paramMap,GGWLoginApiUtil.getLog());
+                                errorMessage=setLogByResult(paramMap,temprReturnMap,cbBuffer,mtpRecordDetailed,period);
+                                if(StringUtils.isEmpty(errorMessage)){//第二次无异常 记录
+                                    cbBuffer.append(paramMap.get("command") + "\t\n");
+                                    cbBuffer.append(temprReturnMap.get("data"));
+                                }
+                            }else{
+                                cbBuffer.append(paramMap.get("command") + "\t\n");
+                                setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+                            }
+
+                           /* String login = loginGGWAPI(paramMap);//待处理登录信息
                             if (login.indexOf("error:login 返回参数为空") > -1) {
                                 loginInt = 2;
                                 login = loginGGWAPI(paramMap);
@@ -621,7 +662,7 @@ public class MTPReceiveService {
                             } else {
                                 cbBuffer.append(command1 + "\t\n");
                                 setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
-                            }
+                            }*/
 
                             setSiteMapByPingStatus(mtpRecordDetailed, period, siteMap, returnMap);
 
@@ -687,7 +728,7 @@ public class MTPReceiveService {
         returnMap.put("ticketName", ticketName);
 
 
-        String msg = getMsgBySiteMap(siteMap, returnMap, internalSiteAllSize, htmlPath, internalSiteIdArray);
+        String msg = getMsgBySiteMap(siteMap,backboneMap, returnMap, internalSiteAllSize, htmlPath, internalSiteIdArray);
         if (returnMap.get("status").equals("Y")) {
             returnMap.put("returnHtmlmsg", returnMap.get("returnHtmlmsg").replace("summary", "MTP result summary"));
             msg = msg.replace("summary", "MTP result summary");
@@ -705,6 +746,30 @@ public class MTPReceiveService {
         return JSONUtil.toJsonStr(returnMap);
     }
 
+
+    /**
+     * 根据结果来整理日志html
+     */
+    public static String setLogByResult(Map<String, String> paramMap,Map<String, String> temprReturnMap,StringBuffer cbBuffer,MtpRecordDetailed mtpRecordDetailed,String period){
+        String errorMessage="";
+        String tempString="";
+        if(!StringUtils.isEmpty(temprReturnMap.get("error"))){
+            cbBuffer.append(paramMap.get("command") + "\t\n");
+            tempString=temprReturnMap.get("message");
+            errorMessage="error:"+tempString;
+            setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+        }else{
+            tempString=temprReturnMap.get("data");
+            if(StringUtils.isEmpty(tempString)){
+                errorMessage="error:ggw return result is null";
+                setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+            }else{
+                errorMessage = getFruit(tempString, period, mtpRecordDetailed);
+            }
+        }
+        return errorMessage;
+    }
+
     /**
      * 根据siteMap来获取msg 设置到returnmap
      *
@@ -712,7 +777,7 @@ public class MTPReceiveService {
      * @param returnMap
      * @param internalSiteAllSize 如果传了 internalSiteAll不为0 输出
      */
-    public static String getMsgBySiteMap(LinkedTreeMap<String, ResultMessage> siteMap, Map<String, String> returnMap, int internalSiteAllSize, String htmlPath, List<String> internalSiteIdArray) {
+    public static String getMsgBySiteMap(LinkedTreeMap<String, ResultMessage> siteMap,LinkedTreeMap<String, ResultMessage> backboneMap, Map<String, String> returnMap, int internalSiteAllSize, String htmlPath, List<String> internalSiteIdArray) {
         int siteTotalSize = 0;//总数量
         int siteFaildSize = 0;//错误数量
         int siteSuccessSize = 0;//成功数量
@@ -725,14 +790,17 @@ public class MTPReceiveService {
         String backboneExceptionDetailed = "";//异常的骨干
         int mvrfSize = 0;// mvrf数量
         String mvrfDetailed = "";// mvrf详细
+        int internalSiteIdArraySize=(internalSiteIdArray!=null)?internalSiteIdArray.size():0;//对应没有找到线路信息的数量
 
         String nullSiteExceptionDetailed = "";//没有找到的site
-        for (int i = 0; i < internalSiteIdArray.size(); i++) {
-            nullSiteExceptionDetailed += internalSiteIdArray.get(i) + ";";
+        if(internalSiteIdArray!=null){
+            for (int i = 0; i < internalSiteIdArray.size(); i++) {
+                nullSiteExceptionDetailed += internalSiteIdArray.get(i) + ";";
+            }
         }
 
 
-        Set<String> internalSiteIdSet = siteMap.keySet();
+
         for (Map.Entry<String, ResultMessage> entry : siteMap.entrySet()) {
             String internalSiteId = entry.getKey();
             ResultMessage resultMessage = siteMap.get(internalSiteId);
@@ -753,6 +821,16 @@ public class MTPReceiveService {
             mvrfDetailed += ((StrUtil.isBlank(resultMessage.getMvrfDetailed())) ? "" : resultMessage.getMvrfDetailed());
         }
 
+        for (Map.Entry<String, ResultMessage> entry : backboneMap.entrySet()) {
+            String backboneStr = entry.getKey();
+            ResultMessage resultMessage = backboneMap.get(backboneStr);
+            backboneTotalSize += resultMessage.getBackboneTotalSize();
+            backboneFaildSize += resultMessage.getBackboneFaildSize();
+            backboneSuccessSize += resultMessage.getBackboneSuccessSize();
+            backboneExceptionSize += resultMessage.getBackboneExceptionSize();
+            backboneExceptionDetailed += resultMessage.getBackboneExceptionDetailed();
+        }
+
         String msg = (
                 "------------  summary ----------\n" +
                         "------------  site ----------\n" +
@@ -760,7 +838,7 @@ public class MTPReceiveService {
                         "ping Success：" + siteSuccessSize + "\n" +
                         "ping faild：" + siteFaildSize + "\n" +
                         "MVRF:" + mvrfSize + "\n" +
-                        "param exception：" + (siteExceptionSize + internalSiteIdArray.size()) + "\n" +
+                        "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
                         "exception site detailed：" + siteExceptionDetailed + "\n" +
                         "null exception site detailed：" + nullSiteExceptionDetailed + "\n" +
                         "\n" +
@@ -786,10 +864,10 @@ public class MTPReceiveService {
         }
         returnHtmlmsg += "MVRF:" + mvrfSize + "\n";
         if (StrUtil.isBlank(siteExceptionDetailed)) {
-            returnHtmlmsg += "param exception：" + (siteExceptionSize + internalSiteIdArray.size()) + "\n" +
+            returnHtmlmsg += "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
                     "exception site detailed：" + siteExceptionDetailed + "\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception：" + (siteExceptionSize + internalSiteIdArray.size()) + "</span>" + "\n" +
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "</span>" + "\n" +
                     "<span style=\"color:red;font-weight:bold;\">" + "exception site detailed：" + siteExceptionDetailed + "</span>" + "\n";
         }
         if (StrUtil.isBlank(nullSiteExceptionDetailed)) {
@@ -802,7 +880,7 @@ public class MTPReceiveService {
                 "backbone Total：" + backboneTotalSize + "\n" +
                 "backbone success：" + backboneSuccessSize + "\n";
 
-        if (siteFaildSize == 0) {
+        if (backboneFaildSize == 0) {
             returnHtmlmsg += "backbone fail：" + backboneFaildSize + "\n";
         } else {
             returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "backbone fail：" + backboneFaildSize + "</span>" + "\n";
@@ -858,7 +936,7 @@ public class MTPReceiveService {
                 siteResultMessage.setSiteExceptionSize(siteResultMessage.getSiteExceptionSize() + 1);
             } else if (pingStatus.equals("ping正常")) {
                 siteResultMessage.setSiteSuccessSize(siteResultMessage.getSiteSuccessSize() + 1);
-            } else if (pingStatus.equals("ping丢包")) {
+            } else if (pingStatus.equals("ping丢包")||pingStatus.equals("ping不通")) {
                 siteResultMessage.setSiteFaildSize(siteResultMessage.getSiteFaildSize() + 1);
             }
             siteMap.put(internalSiteId, siteResultMessage);
@@ -871,7 +949,7 @@ public class MTPReceiveService {
                 siteResultMessage.setSiteExceptionSize(1);
             } else if (pingStatus.equals("ping正常")) {
                 siteResultMessage.setSiteSuccessSize(1);
-            } else if (pingStatus.equals("ping丢包")) {
+            } else if (pingStatus.equals("ping丢包")||pingStatus.equals("ping不通")) {
                 siteResultMessage.setSiteFaildSize(1);
             }
             siteMap.put(internalSiteId, siteResultMessage);
@@ -1015,9 +1093,14 @@ public class MTPReceiveService {
             }
         } else {
             try {
-                if (Integer.valueOf(received) > 0) {
+                if (Integer.valueOf(received) > 0&&Integer.valueOf(received) <100) {
                     errorMessage = tempFruit;
                     pingStatus = "ping丢包";
+                    setPingStatus(period, detailed, pingStatus);
+                }
+                if (Integer.valueOf(received) ==100) {
+                    errorMessage = tempFruit;
+                    pingStatus = "ping不通";
                     setPingStatus(period, detailed, pingStatus);
                 }
             } catch (Exception e) {
