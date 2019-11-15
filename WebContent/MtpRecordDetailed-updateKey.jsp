@@ -69,10 +69,10 @@
 
             <div class="layui-form-item">
                 <label   class="layui-form-label">
-                    <span class="x-red">*</span>totp密匙：
+                    <span class="x-red">*</span>totp秘钥：
                 </label>
                 <div class="layui-input-block">
-                <textarea placeholder="totp密匙(2fa)：" id="totpKey" name="totpKey" class="layui-textarea"
+                <textarea placeholder="totp秘钥(2fa)：" id="totpKey" name="totpKey" class="layui-textarea"
                           lay-verify="required|totpKey"></textarea>
                 </div>
             </div>
