@@ -5,6 +5,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.cter.dao.impl.MtpRecordDetailedDaoImpl;
+import com.cter.entity.ZqData;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +31,8 @@ public class LoginAction  extends ActionSupport {
 	private ZQLoginService loginService;
 	@Autowired
 	private ZQSysUserService userService;
+	@Autowired
+	private MtpRecordDetailedDaoImpl mtpRecordDetailedDaoImpl;
 
 	private static final long serialVersionUID = 1L;
 
@@ -100,6 +106,23 @@ public class LoginAction  extends ActionSupport {
 		session.removeAttribute("login_user");
 		HttpDataManageUtil.retJson(true,log);
 		return  Action.LOGIN;
+	}
+
+	/**
+	 * ªÒ»°µ«¬ºpeµƒ’À∫≈√‹¬Î
+	 * @return
+	 * @throws Exception
+	 */
+	public void getPassword()throws Exception{
+		HttpServletRequest request=ServletActionContext.getRequest();
+		ZqData zqData = mtpRecordDetailedDaoImpl.getZqData("OP");
+		String tempStr=zqData.getParam_value1();
+		String [] tempArr=tempStr.split("###");
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("op",tempArr[0]);
+		jsonObject.put("password",tempArr[1]);
+		jsonObject.put("secretBase32",tempArr[2]);
+		HttpDataManageUtil.retString(JSONUtil.toJsonStr(jsonObject),log);
 	}
  
 }

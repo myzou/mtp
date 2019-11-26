@@ -69,7 +69,7 @@
                       <option value="pass">pass</option>
                   </select>
              </div>          
-             <input type="hidden"  id="show_type"  name="show_type"  value="remedy_tcp" />
+<%--             <input type="hidden"  id="show_type"  name="show_type"  value="remedy_tcp" />--%>
              <button id="Sreach" class="layui-btn"   type="button" data-type="reload">搜索</button>
              
 <!--         <span id="time"> </span> -->

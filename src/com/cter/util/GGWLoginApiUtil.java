@@ -176,7 +176,7 @@ public class GGWLoginApiUtil {
         //String command="show interfaces descriptions %7C match trunk";
         String command="show route";
         command="11";
-        String ip="152.101.179.122";//2FA
+        String ip="218.96.240.96";//2FA
         //ip="218.96.240.81";
 
 
@@ -210,7 +210,7 @@ public class GGWLoginApiUtil {
         //String command="show interfaces descriptions %7C match trunk";
         String command="show route";
         command="11";
-        String ip="152.101.179.122";//2FA
+        String ip="218.96.240.96";//2FA
         //ip="218.96.240.81";
         Map<String, String> paramMap=new HashMap<String, String>();
         paramMap.put("opName", opName);
@@ -264,7 +264,7 @@ public class GGWLoginApiUtil {
             String loginGGWSuffix = encryptAfterStr + "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip");
             return loginGGWSuffix;
         } else if (!StrUtil.isBlank(urlType) && "execute".equals(urlType)) {
-            //System.out.println("加密前 encrypt:"+ encrypt);
+            System.out.println("加密前 encrypt:"+ encrypt);
             //System.out.println("加密后 encrypt:"+ encryptAfterStr);
             String executeSuffix = "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
             return executeSuffix;
@@ -331,14 +331,14 @@ public class GGWLoginApiUtil {
      */
     public static Map<String, String> execute(Map<String, String> paramMap, BaseLog log) {
         Map<String, String> returnMap = new HashMap<>();
-        String tempSgin = paramMap.get("sign");
+        String tempSgin = (StringUtils.isEmpty(paramMap.get("sign"))?"123456":paramMap.get("sign"));
         String nowTime = Long.toString(new Date().getTime() / 1000);
 
         try {
             Map<String, String> lastTimeMap = new HashMap<>();
             lastTimeMap = ipLastLoginTimeMap.get(paramMap.get("ip"));
             Long intervalTime = 601L;//默认是已经超时，并没有登录状态
-            if (lastTimeMap != null || (lastTimeMap != null && lastTimeMap.get(tempSgin) == null)) {
+            if (lastTimeMap != null &&  lastTimeMap.get(tempSgin) != null) {
                 //ip>sign>op;lastTime
                 String opName = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[0];
                 String tempLoginLastTime = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[1];
@@ -346,23 +346,23 @@ public class GGWLoginApiUtil {
                 //对应的ip距离上次登陆的时间间隔 600 秒登录状态失效
                 intervalTime = cn.hutool.core.date.DateUtil.between(DateUtil.date(ipLastLoginTime), new Date(), DateUnit.SECOND);
             }
-
             if (intervalTime.intValue() < 600) {
                 int loginNumber = 2;//参数登录次数
                 Map<String, String> tempMap = new HashMap<>();
                 Map<String, String> tempTotpMap = new HashMap<>();
 
-             /*   String methodType = "execute";
-                String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
-                log.info("验证码执方式行命令 url：\n" + totpUrl);
-                tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
-                return tempTotpMap;*/
+
                 for (int i = 1; i <= loginNumber; i++) {
                     String methodType = "execute";
                     String url = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
                     log.info("第" + i + "次,无验证码方式执行命令 url：\n" + url);
                     tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
                     if (!StrUtil.isBlank(tempMap.get("error"))) {
+                        paramMap.put("sign","123457");
+                        String tempLoginUrl = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", "login");
+                        log.info("验证码 登录到ggw获取session url：\n" + url);
+                        executeCommandOrLogin(tempLoginUrl, paramMap, "login", log);
+
                         String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
                         log.info("第" + i + "次,验证码执方式行命令 url：\n" + totpUrl);
                         tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
@@ -376,6 +376,7 @@ public class GGWLoginApiUtil {
                     }
                 }
             } else {
+                paramMap.put("sign","123456");
                 String methodType = "login";
                 int loginNumber = 2;//参数登录次数
                 Map<String, String> tempMap = new HashMap<>();
@@ -443,6 +444,7 @@ public class GGWLoginApiUtil {
                     return returnMap;
                 }
             } else if (!StrUtil.isBlank(methodType) && methodType.equals("execute")) {
+
                 if (code == 0) {
                     Map<String, String> tempIpLastLoginTimeMap = new HashMap<>();
                     tempIpLastLoginTimeMap.put(paramMap.get("sign"), paramMap.get("opName") + ";" + System.currentTimeMillis() / 1000L);

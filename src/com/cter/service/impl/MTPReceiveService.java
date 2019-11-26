@@ -449,11 +449,8 @@ public class MTPReceiveService {
                         }
                         paramMap.put("opName", opName);
                         paramMap.put("opPassword", opPassword);
-                        paramMap.put("sign", "123456");
                         paramMap.put("command", command1);
                         paramMap.put("ip", ip);
-
-
 
                         Map<String, String> temprReturnMap= GGWLoginApiUtil.execute(paramMap,GGWLoginApiUtil.getLog());
                         errorMessage=setLogByResult(paramMap,temprReturnMap,cbBuffer,mtpRecordDetailed,period);
@@ -591,7 +588,6 @@ public class MTPReceiveService {
 
                             paramMap.put("opName", opName);
                             paramMap.put("opPassword", opPassword);
-                            paramMap.put("sign", "123456");
                             paramMap.put("command", command1);
                             paramMap.put("ip", ip);
 
