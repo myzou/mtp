@@ -29,10 +29,13 @@ public class SendResultToRemedy implements  Runnable {
 
 
     private BaseLog runTimeLog =new BaseLog("RunTimeLog");
-    String loginUrl;String loginOutUrl;String sendToRemedyUrl;String result;long sleep=60;//线程等待
+    String loginUrl;String loginOutUrl;String sendToRemedyUrl;String result; //线程等待
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
     private static final String loginUserName = otherMap.get("loginUserName");
     private static final String loginPassword = otherMap.get("loginPassword");
+    private static final long sleep = Long.valueOf(otherMap.get("sleep"));
+
+
 
 
     public BaseLog getRunTimeLog() {
