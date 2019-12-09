@@ -394,7 +394,7 @@ public class Backbone {
                 + "&&timestamp=" + nowTime;
         String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
         if (!StrUtil.isBlank(urlType) && urlType.equals("login")) {
-            String loginGGWSuffix = encryptAfterStr + "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip");
+            String loginGGWSuffix = encryptAfterStr;//+ "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip");
             return loginGGWSuffix;
         } else if (!StrUtil.isBlank(urlType) && "execute".equals(urlType)) {
             //System.out.println("º”√‹«∞ encrypt:"+ encrypt);
