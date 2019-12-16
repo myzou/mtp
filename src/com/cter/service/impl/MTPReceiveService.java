@@ -42,7 +42,6 @@ public class MTPReceiveService {
 
     //访问的url
     private static String tempErrorUrl = "";
-    private static Map<String, String> paramMap = new HashMap<String, String>();
 
 
     @Autowired
@@ -74,6 +73,7 @@ public class MTPReceiveService {
      * @return
      */
     public static String getUrl(String url, int flag) {
+        Map<String, String> paramMap = new HashMap<String, String>();
         String returnStr = null;
         try {
             returnStr = HttpUtil.get(url);
@@ -181,7 +181,7 @@ public class MTPReceiveService {
                 return JSONUtil.toJsonStr(returnMap);
 
             }
-            if (null == pePorts || pePorts.size() == 0) {
+           /* if (null == pePorts || pePorts.size() == 0) {
                 returnMap.put("msg", "pePorts cannot be empty");
                 return JSONUtil.toJsonStr(returnMap);
             }
@@ -209,7 +209,7 @@ public class MTPReceiveService {
                         return JSONUtil.toJsonStr(returnMap);
                     }
                 }
-            }
+            }*/
         } catch (Exception e) {
             tempString = "MTPQuery 参数格式有误，请进行处理。";
             returnMap.put("msg", tempString);
@@ -297,6 +297,16 @@ public class MTPReceiveService {
 
     }
 
+    /*
+    根据pe参数来判断参数是否有问题
+     */
+    public String getErrorByPePort(PePort pePort){
+        if(StringUtils.isEmpty(pePort.getPeRouter())){
+            return pePort.getInternalSiteId()+" not found  PE Name";
+        }
+        return "";
+    }
+
 
     /**
      * 根据 入参来执行mtp然后获取对应的数据
@@ -305,6 +315,7 @@ public class MTPReceiveService {
      * @return
      */
     public String addMtpRecordDetailed(String jsonStr) {
+        Map<String, String> paramMap = new HashMap<String, String>();
         Map<String, String> returnMap = new HashMap<>();
         Long strLong = System.currentTimeMillis();
 
@@ -433,38 +444,43 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setBeforeTcpType(pePort.getTcpType());
                         mtpRecordDetailed.setInternalSiteId(pePort.getInternalSiteId());
 
-                        send_size_10 = String.valueOf(RandomUtil.randomInt(5, 10));
-                        send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
-                        String command = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_100;
-                        String command1 = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_10;
-                        cbBuffer.append(opName + "@" + mtpRecordDetailed.getBeforeEndFullName() + ">");
-                        String ip = getDeviceByIP(devicesMap, mtpRecordDetailed.getBeforeEndFullName());
-
-                        if (StringUtil.isBlank(ip)) {
-                            errorMessage = "peRouter (" + mtpRecordDetailed.getBeforeEndFullName() + ") unable Get corresponding Router ";
-                        } else if (ip.equals("GGWAPI查询设备连接已经关闭")) {
-                            errorMessage = ip;
-                        }
-                        paramMap.put("opName", opName);
-                        paramMap.put("opPassword", opPassword);
-                        paramMap.put("command", command1);
-                        paramMap.put("ip", ip);
-
-                        Map<String, String> temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
-                        errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
-
-                        if (StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
-                            paramMap.put("command", command);
-                            temprReturnMap = new HashMap<>();
-                            temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
-                            errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
-                            if (StringUtils.isEmpty(errorMessage)) {//第二次无异常 记录
-                                cbBuffer.append(paramMap.get("command") + "\t\n");
-                                cbBuffer.append(temprReturnMap.get("data"));
-                            }
-                        } else {
-                            cbBuffer.append(paramMap.get("command") + "\t\n");
+                        errorMessage=getErrorByPePort(pePort);
+                        if (!StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
                             setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+                        }else{
+                            send_size_10 = String.valueOf(RandomUtil.randomInt(5, 10));
+                            send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
+                            String command = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_100;
+                            String command1 = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_10;
+                            cbBuffer.append(opName + "@" + mtpRecordDetailed.getBeforeEndFullName() + ">");
+                            String ip = getDeviceByIP(devicesMap, mtpRecordDetailed.getBeforeEndFullName());
+
+                            if (StringUtil.isBlank(ip)) {
+                                errorMessage = "peRouter (" + mtpRecordDetailed.getBeforeEndFullName() + ") unable Get corresponding Router ";
+                            } else if (ip.equals("GGWAPI查询设备连接已经关闭")) {
+                                errorMessage = ip;
+                            }
+                            paramMap.put("opName", opName);
+                            paramMap.put("opPassword", opPassword);
+                            paramMap.put("command", command1);
+                            paramMap.put("ip", ip);
+
+                            Map<String, String> temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
+                            errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
+
+                            if (StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
+                                paramMap.put("command", command);
+                                temprReturnMap = new HashMap<>();
+                                temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
+                                errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
+                                if (StringUtils.isEmpty(errorMessage)) {//第二次无异常 记录
+                                    cbBuffer.append(paramMap.get("command") + "\t\n");
+                                    cbBuffer.append(temprReturnMap.get("data"));
+                                }
+                            } else {
+                                cbBuffer.append(paramMap.get("command") + "\t\n");
+                                setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+                            }
                         }
 
                         cbBuffer.append("\n");
@@ -515,42 +531,46 @@ public class MTPReceiveService {
                                 cbBuffer.append("vrfSiteId：" + pePort.getVrfSiteId() + "\r\n");
                             }
                             cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
-                            send_size_10 = String.valueOf(RandomUtil.randomInt(5, 10));
-                            send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
-                            String command = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_100;
-                            String command1 = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_10;
-                            cbBuffer.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
-                            String ip = getDeviceByIP(devicesMap, mtpRecordDetailed.getAfterEndFullName());
 
-                            if (StringUtil.isBlank(ip)) {
-                                errorMessage = "peRouter (" + mtpRecordDetailed.getBeforeEndFullName() + ") unable Get corresponding Router ";
-                            } else if (ip.equals("GGWAPI查询设备连接已经关闭")) {
-                                errorMessage = ip;
-                            }
-
-                            paramMap.put("opName", opName);
-                            paramMap.put("opPassword", opPassword);
-                            paramMap.put("command", command1);
-                            paramMap.put("ip", ip);
-
-                            Map<String, String> temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
-                            errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
-
-                            if (StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
-                                paramMap.put("command", command);
-                                temprReturnMap = new HashMap<>();
-                                temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
-                                errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
-                                if (StringUtils.isEmpty(errorMessage)) {//第二次无异常 记录
-                                    cbBuffer.append(paramMap.get("command") + "\t\n");
-                                    cbBuffer.append(temprReturnMap.get("data"));
-                                }
-                            } else {
-                                cbBuffer.append(paramMap.get("command") + "\t\n");
+                            errorMessage=getErrorByPePort(pePort);
+                            if (!StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
                                 setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+                            }else{
+                                send_size_10 = String.valueOf(RandomUtil.randomInt(5, 10));
+                                send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
+                                String command = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_100;
+                                String command1 = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_10;
+                                cbBuffer.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
+                                String ip = getDeviceByIP(devicesMap, mtpRecordDetailed.getAfterEndFullName());
+
+                                if (StringUtil.isBlank(ip)) {
+                                    errorMessage = "peRouter (" + mtpRecordDetailed.getBeforeEndFullName() + ") unable Get corresponding Router ";
+                                } else if (ip.equals("GGWAPI查询设备连接已经关闭")) {
+                                    errorMessage = ip;
+                                }
+
+                                paramMap.put("opName", opName);
+                                paramMap.put("opPassword", opPassword);
+                                paramMap.put("command", command1);
+                                paramMap.put("ip", ip);
+
+                                Map<String, String> temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
+                                errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
+
+                                if (StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
+                                    paramMap.put("command", command);
+                                    temprReturnMap = new HashMap<>();
+                                    temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
+                                    errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
+                                    if (StringUtils.isEmpty(errorMessage)) {//第二次无异常 记录
+                                        cbBuffer.append(paramMap.get("command") + "\t\n");
+                                        cbBuffer.append(temprReturnMap.get("data"));
+                                    }
+                                } else {
+                                    cbBuffer.append(paramMap.get("command") + "\t\n");
+                                    setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
+                                }
                             }
-
-
                             setSiteMapByPingStatus(mtpRecordDetailed, period, siteMap, returnMap);
 
                             if (cbBuffer.indexOf("color:red") > -1) {
@@ -581,7 +601,7 @@ public class MTPReceiveService {
 
 
         //这个是 bacbonePePort
-        {
+        /*{
             ResultList bacboneResultList = new ResultList();
             String exceptionTrunkId = "";//异常的 trunk
 
@@ -663,7 +683,7 @@ public class MTPReceiveService {
             } else {//没有找到backbone参数
                 String tempStr = "not acquired peInterface";
             }
-        }
+        }*/
         returnMap.put("status", (returnMap.containsKey("status")) ? returnMap.get("status") : "Y");
         returnMap.put("tense", period);
         returnMap.put("ticketName", ticketName);
@@ -1050,63 +1070,6 @@ public class MTPReceiveService {
             }
         }
         return errorMessage;
-    }
-
-    /**
-     * ggwAPI获取之后的结果处理
-     *
-     * @param ggwResult 结果
-     * @return
-     */
-    public static String getGGWAPIResultDispose(String ggwResult) {
-        String result = "";
-        Map<String, String> map = new TreeMap<>();
-
-        try {
-            map = (Map<String, String>) JSONUtil.parse(ggwResult);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return result = "error:调用ggw 转换参数异常：\t" + ggwResult + "\t\n" + e.getMessage();
-
-        }
-        String code = String.valueOf(map.get("code"));
-        String data = String.valueOf(map.get("data"));
-        if (StrUtil.isBlank(code) || StrUtil.isBlank(data) || !code.equals("0")) {
-            paramMap.put("opPassword", "");
-            return result = "error:调用ggw 返回内容出错,\t" + ggwResult
-                    + "\n" + "tempErrorUrl:\t" + tempErrorUrl
-                    + "\n" + "paramMap:\t" + JSONUtil.toJsonStr(paramMap);
-        }
-        result = data;
-        return result;
-    }
-
-    /**
-     * 登录ggw之后获取的结果处理
-     *
-     * @param loginResult 结果
-     * @return
-     */
-    public static String loginGGWAPIResultDispose(String loginResult) {
-        String result = "";
-        Map<String, String> map = new TreeMap<>();
-
-        try {
-            map = (Map<String, String>) JSONUtil.parse(loginResult);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return result = "error:登录ggw 转换参数异常：\t" + loginResult + "\t\n" + e.getMessage();
-        }
-        String code = String.valueOf(map.get("code"));
-        String data = String.valueOf(map.get("data"));
-        if (StrUtil.isBlank(code) || StrUtil.isBlank(data) || !code.equals("0") && !code.equals("10003")) {
-            paramMap.put("opPassword", "");
-            return result = "error:登录ggw获取session 返回内容出错,\t" + loginResult
-                    + "\n" + "tempErrorUrl:\t" + tempErrorUrl
-                    + "\n" + "paramMap:\t" + JSONUtil.toJsonStr(paramMap);
-        }
-        result = data;
-        return result;
     }
 
     /**

@@ -29,6 +29,7 @@ public class GGWLoginApiUtil {
     private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
     private static Map<String, String> paramMap = new HashMap<String, String>();
     private static Map<String, Map<String, String>> ipLastLoginTimeMap = new HashMap<>();
+    private static int loginNum=0;//登录次数
 
     private static BaseLog log = new BaseLog("MTPQueryLog");
 
@@ -357,7 +358,7 @@ public class GGWLoginApiUtil {
                     String url = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
                     log.info("第" + i + "次,无验证码方式执行命令 url：\n" + url);
                     tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
-                    if (!StrUtil.isBlank(tempMap.get("error"))) {
+                    if (!StrUtil.isBlank(tempMap.get("error"))&&loginNum<10) {
                         paramMap.put("sign","123457");
                         String tempLoginUrl = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", "login");
                         log.info("验证码 登录到ggw获取session url：\n" + url);
@@ -423,6 +424,7 @@ public class GGWLoginApiUtil {
             if (StrUtil.isBlank(result)) {
                 returnMap.put("error", "error");
                 returnMap.put("message", "Login ggwapi return result is null");
+                loginNum+=1;
                 return returnMap;
             }
             JSONObject resultJsonObject = JSONUtil.parseObj(result);
@@ -437,10 +439,12 @@ public class GGWLoginApiUtil {
                     Map<String, String> tempIpLastLoginTimeMap = new HashMap<>();
                     tempIpLastLoginTimeMap.put(paramMap.get("sign"), paramMap.get("opName") + ";" + System.currentTimeMillis() / 1000L);
                     ipLastLoginTimeMap.put(paramMap.get("ip"), tempIpLastLoginTimeMap);
+                    loginNum=0;
                     return returnMap;
                 } else {
                     returnMap.put("error", "error");
                     returnMap.put("message", "Login ggwapi fail\n" + result);
+                    loginNum+=1;
                     return returnMap;
                 }
             } else if (!StrUtil.isBlank(methodType) && methodType.equals("execute")) {
@@ -451,19 +455,23 @@ public class GGWLoginApiUtil {
                     ipLastLoginTimeMap.put(paramMap.get("ip"), tempIpLastLoginTimeMap);
                     returnMap.put("pass", "pass");
                     returnMap.put("data", data);
+                    loginNum=0;
                     return returnMap;
                 } else {
                     returnMap.put("error", "error");
                     returnMap.put("message", "execute  for ggwapi fail (" + result + ")");
+                    loginNum+=1;
                     return returnMap;
                 }
             }
             returnMap.put("data", data);
+            loginNum=0;
             return returnMap;
         } catch (Exception e) {
             log.printStackTrace(e);
             returnMap.put("error", "error");
             returnMap.put("message", "Login ggwapi exception,Please contact your administrator");
+            loginNum+=1;
             return returnMap;
         }
 

@@ -63,8 +63,9 @@ public class MTPReceiveAction extends ActionSupport {
             String uploadPath = request.getServletContext().getRealPath(separator + "mtp" + separator + DateUtil.getDateStryyyyMMdd(new Date()) + separator);  //文件保存路径
             SendResultToRemedy sendResultToRemedy=new SendResultToRemedy();
             sendResultToRemedy.setRunTimeLog(runTimeLog);
+            long endOfStart= ((System.currentTimeMillis()-start)/1000);
             sendResultToRemedy.init(loginUrl,loginOutUrl,sendToRemedyUrl,result);
-            sendResultToRemedy.run();
+            sendResultToRemedy.run(endOfStart);
 
             result = "<pre>" + result + "</pre>";
         }

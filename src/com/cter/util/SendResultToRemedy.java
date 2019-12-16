@@ -25,7 +25,7 @@ import java.util.Map;
  * @create 2019-10-24 11:42
  * @project mtp
  */
-public class SendResultToRemedy implements  Runnable {
+public class SendResultToRemedy {
 
 
     private BaseLog runTimeLog =new BaseLog("RunTimeLog");
@@ -216,11 +216,11 @@ public class SendResultToRemedy implements  Runnable {
 
     }
 
-    @Override
-    public void run() {
+    public void run(long endOfStart) {
         String token="";
+        long sleepTime=sleep-endOfStart;
         try {
-            Thread.sleep(sleep*1000);
+            Thread.sleep(sleepTime*1000);
             JSONObject tempJsonObject=JSONUtil.parseObj(result);
             String ticketName=tempJsonObject.getStr("ticketName");
             String msg=tempJsonObject.getStr("msg");
