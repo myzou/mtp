@@ -218,7 +218,7 @@ public class SendResultToRemedy {
 
     public void run(long endOfStart) {
         String token="";
-        long sleepTime=sleep-endOfStart;
+        long sleepTime=(sleep-endOfStart>0L)?(sleep-endOfStart):1;
         try {
             Thread.sleep(sleepTime*1000);
             JSONObject tempJsonObject=JSONUtil.parseObj(result);
