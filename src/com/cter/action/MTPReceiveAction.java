@@ -30,7 +30,6 @@ public class MTPReceiveAction extends ActionSupport {
 
 
     private BaseLog log=new BaseLog("MTPQueryLog");
-    private BaseLog runTimeLog =new BaseLog("RunTimeLog");
 
 
     @Autowired
@@ -47,7 +46,7 @@ public class MTPReceiveAction extends ActionSupport {
      */
     public void addMtpRecordDetailed() {
         long start= System.currentTimeMillis();
-        runTimeLog.info("开始运行时间："+ cn.hutool.core.date.DateUtil.now());
+        log.info("开始运行时间："+ cn.hutool.core.date.DateUtil.now());
         String result = "";
         HttpServletRequest request = ServletActionContext.getRequest();
         String jsonStr=request.getParameter("jsonStr");
@@ -62,7 +61,7 @@ public class MTPReceiveAction extends ActionSupport {
             String separator = File.separator;
             String uploadPath = request.getServletContext().getRealPath(separator + "mtp" + separator + DateUtil.getDateStryyyyMMdd(new Date()) + separator);  //文件保存路径
             SendResultToRemedy sendResultToRemedy=new SendResultToRemedy();
-            sendResultToRemedy.setRunTimeLog(runTimeLog);
+            sendResultToRemedy.setMTPQueryLog(log);
             long endOfStart= ((System.currentTimeMillis()-start)/1000);
             sendResultToRemedy.init(loginUrl,loginOutUrl,sendToRemedyUrl,result);
             sendResultToRemedy.run(endOfStart);
@@ -72,8 +71,8 @@ public class MTPReceiveAction extends ActionSupport {
 
         log.info("返回字符串result：" + result);
         long end= System.currentTimeMillis();
-        runTimeLog.info("结束运行时间："+ cn.hutool.core.date.DateUtil.now());
-        runTimeLog.info("执行线路数量："+(StringUtil.isBlank(jsonStr)?0:(JSONUtil.toBean(jsonStr, MTPA.class).getPePorts().size()))+"\t总时长:"+(end-start)/1000.00+"秒");
+        log.info("结束运行时间："+ cn.hutool.core.date.DateUtil.now());
+        log.info("执行线路数量："+(StringUtil.isBlank(jsonStr)?0:(JSONUtil.toBean(jsonStr, MTPA.class).getPePorts().size()))+"\t总时长:"+(end-start)/1000.00+"秒");
     }
 
 

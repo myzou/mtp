@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.client.methods.HttpUriRequest;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -28,33 +29,36 @@ import java.util.Map;
 public class SendResultToRemedy {
 
 
-    private BaseLog runTimeLog =new BaseLog("RunTimeLog");
+    private  BaseLog MTPQueryLog = new BaseLog("MTPQueryLog");
     String loginUrl;String loginOutUrl;String sendToRemedyUrl;String result; //线程等待
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
     private static final String loginUserName = otherMap.get("loginUserName");
     private static final String loginPassword = otherMap.get("loginPassword");
     private static final long sleep = Long.valueOf(otherMap.get("sleep"));
+    private static final String host = otherMap.get("host");
+    private static final String formEmail = otherMap.get("formEmail");
+    private static final String emailPassword = otherMap.get("emailPassword");
+    private static final String toStr = otherMap.get("to");
 
-
-
-
-    public BaseLog getRunTimeLog() {
-        return runTimeLog;
+    public BaseLog getMTPQueryLog() {
+        return MTPQueryLog;
     }
 
-    public void setRunTimeLog(BaseLog runTimeLog) {
-        this.runTimeLog = runTimeLog;
+    public void setMTPQueryLog(BaseLog MTPQueryLog) {
+        this.MTPQueryLog = MTPQueryLog;
     }
 
     public static void main(String[] args)  {
-        SendResultToRemedy sendResultToRemedy=new SendResultToRemedy();
+        SendMailUtil mail=SendMailUtil.getInstance();
+        String[]  to=toStr.split(";");
+        String [] cs =null;
+        String subject="test Case "+"#114564"+" (MTP check) Send to Remedy failed";
+        String content=DateUtil.getNow()+":Maintenance Case "+"#114564"+"<br>(MTP check)Send to Remedy failed<br>Please notify developer";
+        String fileList[]=null;
         try {
-            String token=sendResultToRemedy.login("","","");
-            String returnLocation=sendResultToRemedy.sendReult("",token,"","2019 10 24 test","","");
-            String loginOutDate=sendResultToRemedy.loginOut("",token);
-            //runTimeLog.info(HttpUtil.get("https://t66y.com"));
-        } catch (Exception e) {
-            e.printStackTrace();
+            mail.send(to,cs, null , subject, content, formEmail, fileList, host, emailPassword);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
     }
@@ -76,11 +80,7 @@ public class SendResultToRemedy {
      * @return
      */
     public void sendReultInlet(String loginUrl,String loginOutUrl,String sendToRemedyUrl,String result){
-
         init(loginUrl,loginOutUrl,sendToRemedyUrl,result);
-
-
-
     }
 
     /**
@@ -113,7 +113,7 @@ public class SendResultToRemedy {
         valuesObject.put("msg",msg);
         valuesObject.put("tense",tense);
         jsonObject.put("values",valuesObject);
-        runTimeLog.info("发送到remedy的内容："+ JSONUtil.toJsonStr(jsonObject));
+        MTPQueryLog.info("发送到remedy的内容："+ JSONUtil.toJsonStr(jsonObject));
         String sendJson=JSONUtil.toJsonStr(jsonObject);
         httpPost.setEntity(new StringEntity(sendJson, ContentType.APPLICATION_JSON));
         httpPost.addHeader("Authorization", "AR-JWT " + token);
@@ -121,7 +121,7 @@ public class SendResultToRemedy {
         // make the call and print the Location
         CloseableHttpResponse response = httpClient.execute(httpPost);
         String  returnLocation = response.getFirstHeader("Location").getValue();
-        runTimeLog.info("接受返回的值："+returnLocation);
+        MTPQueryLog.info("接受返回的值："+returnLocation);
         return returnLocation;
     }
 
@@ -162,10 +162,10 @@ public class SendResultToRemedy {
         CloseableHttpResponse response = httpClient.execute(httpPost);
         HttpEntity entity=response.getEntity();
         String token= EntityUtils.toString(entity,"utf-8");
-        runTimeLog.info("成功获取到:"+token);
+        MTPQueryLog.info("成功获取到:"+token);
         response.close();
         httpClient.close();
-        runTimeLog.info("模拟登陆成功");
+        MTPQueryLog.info("模拟登陆成功");
         return token;
     }
 
@@ -188,10 +188,10 @@ public class SendResultToRemedy {
         // make the call and print the Location
         CloseableHttpResponse response = httpClient.execute(httpPost);
         String  loginOutDate = response.getFirstHeader("Date").getValue();
-        runTimeLog.info("退出时间:"+loginOutDate);
+        MTPQueryLog.info("退出时间:"+loginOutDate);
         response.close();
         httpClient.close();
-        runTimeLog.info("模拟退出成功");
+        MTPQueryLog.info("模拟退出成功");
         return token;
     }
 
@@ -207,10 +207,10 @@ public class SendResultToRemedy {
         HttpGet httpGet = new HttpGet(url);//?创建httpget实例
         httpGet.setHeader("User-Agent", "Mozilla/5.0?(Windows?NT?6.1;?Win64;?x64;?rv:50.0)?Gecko/20100101?Firefox/50.0");//?设置请求头消息User-Agent
         CloseableHttpResponse response = httpClient.execute(httpGet);//?执行http?get请求
-        runTimeLog.info("Status:" + response.getStatusLine().getStatusCode());
+        MTPQueryLog.info("Status:" + response.getStatusLine().getStatusCode());
         HttpEntity entity = response.getEntity();//?获取返回实体
-        runTimeLog.info("Content-Type:" + entity.getContentType().getValue());
-        //runTimeLog.info("网页内容："+EntityUtils.toString(entity,?"utf-8"));?//?获取网页内容
+        MTPQueryLog.info("Content-Type:" + entity.getContentType().getValue());
+        //MTPQueryLog.info("网页内容："+EntityUtils.toString(entity,?"utf-8"));?//?获取网页内容
         response.close();//?response关闭
         httpClient.close();//?httpClient关闭
 
@@ -219,30 +219,43 @@ public class SendResultToRemedy {
     public void run(long endOfStart) {
         String token="";
         long sleepTime=(sleep-endOfStart>0L)?(sleep-endOfStart):1;
+        JSONObject tempJsonObject=JSONUtil.parseObj(result);
+        String ticketName=tempJsonObject.getStr("ticketName");
+        String msg=tempJsonObject.getStr("msg");
+        String MTP_status=tempJsonObject.getStr("status");
+        String tense=tempJsonObject.getStr("tense");
         try {
             Thread.sleep(sleepTime*1000);
-            JSONObject tempJsonObject=JSONUtil.parseObj(result);
-            String ticketName=tempJsonObject.getStr("ticketName");
-            String msg=tempJsonObject.getStr("msg");
-            String MTP_status=tempJsonObject.getStr("status");
-            String tense=tempJsonObject.getStr("tense");
+
             token=login(loginUrl,"","");
             if(token.indexOf("ERROR")>-1){
-                runTimeLog.info( " 登录到Remedy获取token错误：");
+                MTPQueryLog.info( " 登录到Remedy获取token错误：");
             }else{
                 String returnLocation=sendReult(sendToRemedyUrl,token,ticketName,msg ,MTP_status,tense);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            runTimeLog.info( " 发送结果到Remedy错误：");
-            runTimeLog.printStackTrace(e);
+            MTPQueryLog.info( " 发送结果到Remedy错误：");
+            MTPQueryLog.printStackTrace(e);
+            SendMailUtil mail=SendMailUtil.getInstance();
+            String[]  to=null;
+            String [] cs =null;
+            String subject="Case "+ticketName+"(MTP Check)Send to Remedy failed";
+            String content=DateUtil.getDate(new Date())+"<br>Maintenance Case #"+ticketName+"<br>(MTP Check)Send to Remedy failed<br>Please notify developer";
+            String fileList[]=null;
+            try {
+                mail.send(to,cs, null , subject, content, formEmail, fileList, host, emailPassword);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
         }finally {
             try {
                 String loginOutDate=loginOut(loginOutUrl,token);
             } catch (Exception e) {
                 e.printStackTrace();
-                runTimeLog.info( "退出登录 错误：");
-                runTimeLog.printStackTrace(e);
+                MTPQueryLog.info( "退出登录 错误：");
+                MTPQueryLog.printStackTrace(e);
             }
         }
     }
