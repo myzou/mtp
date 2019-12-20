@@ -324,6 +324,7 @@ public class MTPReceiveService {
         int successNumberInt = 0;
 
         StringBuffer tcpBf = new StringBuffer();//所有输出到界面的结果
+        StringBuffer differBf=new StringBuffer();//不一致的结果
         Gson gson = new Gson();
         MTPA mtpa = gson.fromJson(jsonStr, MTPA.class);
 
@@ -374,8 +375,8 @@ public class MTPReceiveService {
             String tcpType = "";
             String status = "";
             String tense = "";
-            String differInternalSiteId = "";
-            String errorInternalSiteId = "";
+            String differInternalSiteId = "";//不一致的 InternalSiteId
+            String errorInternalSiteId = "";//出错的 InternalSiteId
 
             int loginInt = 1;//登录ggw次数
             Set<String> peRouterSet = new LinkedHashSet<String>();
@@ -428,7 +429,7 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setCreateTime(DateUtil.getDate(new Date()));
                         mtpRecordDetailed.setLastUpdatedTime(mtpRecordDetailed.getCreateTime());
                         String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                        cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
+                        cbBuffer.append("----------------------------------\r\n");
                         cbBuffer.append("PE Port：" + trunk_name + "\r\n");
                         cbBuffer.append("Date：" + nowDate + "\r\n");
                         cbBuffer.append("internalSiteId：" + mtpRecordDetailed.getInternalSiteId() + "\r\n");
@@ -436,7 +437,7 @@ public class MTPReceiveService {
                             mtpRecordDetailed.setBeforeVrfSiteId(pePort.getVrfSiteId());
                             cbBuffer.append("vrfSiteId：" + pePort.getVrfSiteId() + "\r\n");
                         }
-                        cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
+                        cbBuffer.append("----------------------------------\r\n");
                         mtpRecordDetailed.setBeforeStatus("pass");
                         mtpRecordDetailed.setBeforeErrorCause("");
                         mtpRecordDetailed.setBeforeCeWanIp(pePort.getCeWanIp());
@@ -522,7 +523,7 @@ public class MTPReceiveService {
                             mtpRecordDetailed.setAfterTcpType(pePort.getTcpType());
                             String trunk_name = pePort.getPeRouter() + "." + pePort.getPePortInterface();
                             String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                            cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
+                            cbBuffer.append("----------------------------------\r\n");
                             cbBuffer.append("PE Port：" + trunk_name + "\r\n");
                             cbBuffer.append("internalSiteId：" + pePort.getInternalSiteId() + "\r\n");
                             cbBuffer.append("Date：" + nowDate + "\r\n");
@@ -530,7 +531,9 @@ public class MTPReceiveService {
                                 mtpRecordDetailed.setAfterVrfSiteId(pePort.getVrfSiteId());
                                 cbBuffer.append("vrfSiteId：" + pePort.getVrfSiteId() + "\r\n");
                             }
-                            cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
+                            cbBuffer.append("----------------------------------\r\n");
+
+                            String tempData="";//储存正确返回结果
 
                             errorMessage=getErrorByPePort(pePort);
                             if (!StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
@@ -565,6 +568,7 @@ public class MTPReceiveService {
                                     if (StringUtils.isEmpty(errorMessage)) {//第二次无异常 记录
                                         cbBuffer.append(paramMap.get("command") + "\t\n");
                                         cbBuffer.append(temprReturnMap.get("data"));
+                                        tempData=temprReturnMap.get("data");
                                     }
                                 } else {
                                     cbBuffer.append(paramMap.get("command") + "\t\n");
@@ -580,6 +584,24 @@ public class MTPReceiveService {
                                 differInternalSiteId += mtpRecordDetailed.getInternalSiteId() + ";";
                                 consistent = false;
                                 returnMap.put("status", "N");
+
+                                differBf.append("----------------------------------\r\n");
+                                differBf.append("PE Port：" + trunk_name + "\r\n");
+                                differBf.append("internalSiteId：<b style=\"color:red;\">" + pePort.getInternalSiteId() + "</b>\r\n");
+                                differBf.append("Date：" + nowDate + "\r\n");
+                                if (!StringUtil.isBlank(pePort.getVrfSiteId())) {
+                                    mtpRecordDetailed.setAfterVrfSiteId(pePort.getVrfSiteId());
+                                    differBf.append("vrfSiteId：" + pePort.getVrfSiteId() + "\r\n");
+                                }
+                                differBf.append("----------------------------------\r\n");
+                                differBf.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
+                                differBf.append(paramMap.get("command") + "\t\n");
+                                if(!StringUtil.isBlank(errorMessage)){
+                                    differBf.append("<span style=\"color:red;\">"+errorMessage+"</span>");
+                                }else {
+                                    differBf.append("<span style=\"color:red;\">"+tempData+"</span>");
+                                }
+                                differBf.append("\r\n");
                             }
                             mtpRecordDetailedDaoImpl.update(mtpRecordDetailed);
                         }
@@ -587,10 +609,16 @@ public class MTPReceiveService {
                         addBf(tcpBf, cbBuffer);
                     }
                 }
+                if (!StringUtil.isBlank(differBf.toString().trim())) {
+                    differBf = differBf.append("==================================== separative sign  ==========================================<br><br>");
+                }
+
+
                 //判断逻辑
-                tcpInsert = ((consistent) ? "<b >Inspection results: consistent</b>\r\n\r\n" : "<b style=\"color:red;font-size:20px;\">Inspection results:not consistent</b>\r\n\r\n<b style=\"color:red;font-size:15px;\">Not Consistent InternalSiteId:</b>" + differInternalSiteId + "\r\n\r\n") + "";
+                tcpInsert = ((consistent) ? "<b>Inspection results: consistent</b><br><br>" : "<b style=\"color:red;font-size:20px;\">Inspection results:not consistent</b><br><br><b style=\"color:red;font-size:15px;\">Not Consistent InternalSiteId:" + differInternalSiteId + "</b>\r\n\r\n" + differBf);
+
                 if (!errorInternalSiteId.equals("")) {
-                    tcpInsert += "------------------------separative sign --------------------------\r\n"+"<b >This check Error InternalSiteId :</b>" + ((StrUtil.isBlank(errorInternalSiteId)) ? "results  consistent" : errorInternalSiteId) + "\r\n\r\n";
+                    tcpInsert += "<br><b>This check Error InternalSiteId :</b>" + ((StrUtil.isBlank(errorInternalSiteId)) ? "results  consistent" : errorInternalSiteId) + "\r\n\r\n";
                 }
             }
             Long endStr = System.currentTimeMillis();
@@ -891,7 +919,7 @@ public class MTPReceiveService {
             siteResultMessage.setMvrfSize((siteResultMessage.getMvrfSize() == 0 ? 1 : siteResultMessage.getMvrfSize()) + 1);
             siteResultMessage.setSiteTotalSize(siteResultMessage.getSiteTotalSize() + 1);
             siteResultMessage.setMvrfDetailed(siteResultMessage.getMvrfDetailed() + ";" + mvrf);
-            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("ping解析异常") || pingStatus.equals("前后延迟大于1")))) {
+            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("ping解析异常") || pingStatus.equals("前后延迟大于2")))) {
                 returnMap.put("status", "N");
                 siteResultMessage.setSiteExceptionSize(siteResultMessage.getSiteExceptionSize() + 1);
             } else if (pingStatus.equals("ping正常")) {
@@ -903,7 +931,7 @@ public class MTPReceiveService {
         } else {
             siteResultMessage.setSiteTotalSize(1);
             siteResultMessage.setMvrfDetailed(mvrf);
-            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("ping解析异常") || pingStatus.equals("前后延迟大于1")))) {
+            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("ping解析异常") || pingStatus.equals("前后延迟大于2")))) {
                 returnMap.put("status", "N");
                 siteResultMessage.setSiteExceptionDetailed(mtpRecordDetailed.getInternalSiteId());
                 siteResultMessage.setSiteExceptionSize(1);
@@ -1042,11 +1070,11 @@ public class MTPReceiveService {
                 BigDecimal beforeDelay = BigDecimal.valueOf(Double.valueOf(detailed.getBeforeDelay()));
                 detailed.setAfterDelay(afterDelay.toString());
 
-                if (afterDelay.subtract(beforeDelay).floatValue() >= 1) {
-                    pingStatus = "前后延迟大于1";
+                if (afterDelay.subtract(beforeDelay).floatValue() >= 2) {
+                    pingStatus = "前后延迟大于2";
                     setPingStatus(period, detailed, pingStatus);
                     //return   errorMessage = tempFruit + "\n做维护后延迟超过对比之前超过增加了 1,之前延迟：" + beforeDelay + "\t 之后的延迟：" + afterDelay;
-                    return errorMessage = tempFruit + "\nThe delay after maintenance exceeded that before comparison 1,before delay：" + beforeDelay + "\t after delay：" + afterDelay;
+                    return errorMessage = tempFruit + "\nThe delay after maintenance exceeded that before comparison 2,before delay：" + beforeDelay + "\t after delay：" + afterDelay;
                 }
                 pingStatus = "ping正常";
                 setPingStatus(period, detailed, pingStatus);
