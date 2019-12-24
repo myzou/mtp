@@ -66,7 +66,7 @@ public class MTPReceiveAction extends ActionSupport {
             sendResultToRemedy.init(loginUrl,loginOutUrl,sendToRemedyUrl,result);
             sendResultToRemedy.run(endOfStart);
 
-            result = "<pre>" + result + "</pre>";
+            result = "<pre>"   + result + "</pre>";
         }
 
         log.info("·µ»Ø×Ö·û´®result£º" + result);
