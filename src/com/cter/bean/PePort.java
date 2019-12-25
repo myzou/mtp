@@ -8,7 +8,7 @@ public class PePort {
     private String ceWanIp;
     private String tcpType;
     private String providerCircuitNum;
-    private String vrfSiteId;
+    private String VRFSiteId;
     private String circuiltNumber;
     private String peInterface;
 
@@ -68,13 +68,12 @@ public class PePort {
         this.tcpType = tcpType;
     }
 
-
-    public String getVrfSiteId() {
-        return vrfSiteId;
+    public String getVRFSiteId() {
+        return VRFSiteId;
     }
 
-    public void setVrfSiteId(String vrfSiteId) {
-        this.vrfSiteId = vrfSiteId;
+    public void setVRFSiteId(String VRFSiteId) {
+        this.VRFSiteId = VRFSiteId;
     }
 
     public String getCircuiltNumber() {

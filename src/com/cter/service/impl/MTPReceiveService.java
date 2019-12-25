@@ -433,9 +433,9 @@ public class MTPReceiveService {
                         cbBuffer.append("PE Port£º" + trunk_name + "\r\n");
                         cbBuffer.append("Date£º" + nowDate + "\r\n");
                         cbBuffer.append("internalSiteId£º" + mtpRecordDetailed.getInternalSiteId() + "\r\n");
-                        if (!StringUtil.isBlank(pePort.getVrfSiteId())) {
-                            mtpRecordDetailed.setBeforeVrfSiteId(pePort.getVrfSiteId());
-                            cbBuffer.append("vrfSiteId£º" + pePort.getVrfSiteId() + "\r\n");
+                        if (!StringUtil.isBlank(pePort.getVRFSiteId())) {
+                            mtpRecordDetailed.setBeforeVrfSiteId(pePort.getVRFSiteId());
+                            cbBuffer.append("vrfSiteId£º" + pePort.getVRFSiteId() + "\r\n");
                         }
                         cbBuffer.append("----------------------------------\r\n");
                         mtpRecordDetailed.setBeforeStatus("pass");
@@ -510,7 +510,7 @@ public class MTPReceiveService {
                         if (internalSiteIdArray != null) {
                             internalSiteIdArray.remove(pePort.getInternalSiteId());
                         }
-                        MtpRecordDetailed mtpRecordDetailed = mtpRecordDetailedDaoImpl.getMtpRecordDetailedByCaseIdIntId(case_id, pePort.getInternalSiteId(), pePort.getVrfSiteId());
+                        MtpRecordDetailed mtpRecordDetailed = mtpRecordDetailedDaoImpl.getMtpRecordDetailedByCaseIdIntId(case_id, pePort.getInternalSiteId(), pePort.getVRFSiteId());
                         if (mtpRecordDetailed != null) {
                             mtpRecordDetailed.setAfterStatus("pass");
                             mtpRecordDetailed.setAfterErrorCause("");
@@ -527,9 +527,9 @@ public class MTPReceiveService {
                             cbBuffer.append("PE Port£º" + trunk_name + "\r\n");
                             cbBuffer.append("internalSiteId£º" + pePort.getInternalSiteId() + "\r\n");
                             cbBuffer.append("Date£º" + nowDate + "\r\n");
-                            if (!StringUtil.isBlank(pePort.getVrfSiteId())) {
-                                mtpRecordDetailed.setAfterVrfSiteId(pePort.getVrfSiteId());
-                                cbBuffer.append("vrfSiteId£º" + pePort.getVrfSiteId() + "\r\n");
+                            if (!StringUtil.isBlank(pePort.getVRFSiteId())) {
+                                mtpRecordDetailed.setAfterVrfSiteId(pePort.getVRFSiteId());
+                                cbBuffer.append("vrfSiteId£º" + pePort.getVRFSiteId() + "\r\n");
                             }
                             cbBuffer.append("----------------------------------\r\n");
 
@@ -589,9 +589,9 @@ public class MTPReceiveService {
                                 differBf.append("PE Port£º" + trunk_name + "\r\n");
                                 differBf.append("internalSiteId£º<b style=\"color:red;\">" + pePort.getInternalSiteId() + "</b>\r\n");
                                 differBf.append("Date£º" + nowDate + "\r\n");
-                                if (!StringUtil.isBlank(pePort.getVrfSiteId())) {
-                                    mtpRecordDetailed.setAfterVrfSiteId(pePort.getVrfSiteId());
-                                    differBf.append("vrfSiteId£º" + pePort.getVrfSiteId() + "\r\n");
+                                if (!StringUtil.isBlank(pePort.getVRFSiteId())) {
+                                    mtpRecordDetailed.setAfterVrfSiteId(pePort.getVRFSiteId());
+                                    differBf.append("vrfSiteId£º" + pePort.getVRFSiteId() + "\r\n");
                                 }
                                 differBf.append("----------------------------------\r\n");
                                 differBf.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
