@@ -79,6 +79,42 @@
     </aop:config>  
   
     <!-- 自动加载构建bean -->  
-    <context:component-scan base-package="com.*" />  
+    <context:component-scan base-package="com.*" />
+
+
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="startWorkJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="startWorkJob" />
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="connectGGWApi" />
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!-- quartz-2.x的配置 -->
+    <!-- 定义触发时间 -->
+    <bean id="startWorkJobTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="startWorkJobDetail" />
+        </property>
+        <property name="cronExpression">
+<!--            <value>0 0/5 * * * ? </value>-->
+            <value>0/30 * * * * ? </value>
+
+        </property>
+    </bean>
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <!-- 如果lazy-init='true',则需要实例化该bean才能执行调度程序 -->
+    <bean name="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                 <ref bean="startWorkJobTrigger" />
+            </list>
+        </property>
+    </bean>
   
 </beans>  

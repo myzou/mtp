@@ -238,7 +238,7 @@ public class SendResultToRemedy {
             MTPQueryLog.info( " 发送结果到Remedy错误：");
             MTPQueryLog.printStackTrace(e);
             SendMailUtil mail=SendMailUtil.getInstance();
-            String[]  to=null;
+            String[]  to=toStr.split(";");
             String [] cs =null;
             String subject="Case "+ticketName+"(MTP Check)Send to Remedy failed";
             String content=DateUtil.getDate(new Date())+"<br>Maintenance Case #"+ticketName+"<br>(MTP Check)Send to Remedy failed<br>Please notify developer";

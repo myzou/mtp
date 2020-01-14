@@ -73,7 +73,7 @@
                 </label>
                 <div class="layui-input-block">
                 <textarea placeholder="totp秘钥(2fa)：" id="totpKey" name="totpKey" class="layui-textarea"
-                          lay-verify="required|totpKey"></textarea>
+                          lay-verify="required|totpKey">gmp7bb3kpghainowhr7jthvkkuy4buds</textarea>
                 </div>
             </div>
 

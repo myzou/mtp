@@ -56,7 +56,7 @@ public class SysRoleDaoImpl extends BaseDaOImpl<SysRole > {
 	
 
 	/**
-	 * »ñÈ¡ËùÓĞ½ÇÉ«
+	 * è·å–æ‰€æœ‰è§’è‰²
 	 * @return
 	 */
 	public List<SysRole> loadRoles(){
@@ -69,7 +69,7 @@ public class SysRoleDaoImpl extends BaseDaOImpl<SysRole > {
 		}
 		
 		/**
-		 * »ñÈ¡sys_role×î´óµÄrole_id
+		 * è·å–sys_roleæœ€å¤§çš„role_id
 		 * @return
 		 */
 		public int queryMaxRoleId( ) {
@@ -88,7 +88,7 @@ public class SysRoleDaoImpl extends BaseDaOImpl<SysRole > {
 		}
 		
 		/**
-		 * ¸ù¾İroleId»ñÈ¡SysRole
+		 * æ ¹æ®roleIdè·å–SysRole
 		 * @return
 		 */
 		public SysRole getRoleByRoleId(String role_id){
@@ -101,10 +101,10 @@ public class SysRoleDaoImpl extends BaseDaOImpl<SysRole > {
 		
 		public List<RoleBean>  loadRoleMenuByRoleId(String role_id) {
 		    DBUtils db =  DBUtils.getDBUtils();
-		    //²éÑ¯³öËùÓĞµÄ²Ëµ¥ ×Ö¶ÎÈ¥ÖØ,
+		    //æŸ¥è¯¢å‡ºæ‰€æœ‰çš„èœå• å­—æ®µå»é‡,
 	        String sqlAll = "select  a.m_id,a.menu_id,a.menu_name,a.parent_m_id,a.parent_order_num,a.child_order_num"
 	        		+ " from sys_menu a group by a.menu_name order by a.parent_order_num asc, a.child_order_num asc" ;
-	        //²»ÓÃÈ¥ÖØ
+	        //ä¸ç”¨å»é‡
 	        String sqlById = "select r.`role_id`,r.`role_name`,m.`menu_id`,m.`m_id`,m.`menu_name`,m.`parent_m_id` ,m.`child_order_num`,m.`parent_order_num`  " + 
 	        		"from sys_role_menu rm inner join sys_role r on rm.`role_id`=r.`role_id`  " + 
 	        		"inner join sys_menu m on m.`menu_id`=rm.`menu_id` " + 
@@ -120,7 +120,7 @@ public class SysRoleDaoImpl extends BaseDaOImpl<SysRole > {
 		
 		
 		/**
-		 * »ñÈ¡sys_role_menu×î´óµÄrole_id
+		 * è·å–sys_role_menuæœ€å¤§çš„role_id
 		 * @return
 		 */
 		public int queryMaxRoleMenuId( ) {
@@ -140,7 +140,7 @@ public class SysRoleDaoImpl extends BaseDaOImpl<SysRole > {
 		
 
 		/**
-		 * ¸ù¾İroleId»ñÈ¡ËùÓĞµÄsys_role_menu
+		 * æ ¹æ®roleIdè·å–æ‰€æœ‰çš„sys_role_menu
 		 * @return
 		 */
 		public List<SysRoleMenu> loadSysRoleMenuByRoleId(String role_id){
