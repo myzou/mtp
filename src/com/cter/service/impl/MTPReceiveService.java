@@ -731,7 +731,6 @@ public class MTPReceiveService {
 
         String resultStr = tcpBf.toString();
         addHtml(resultStr, htmlPath, filePath);
-
         return JSONUtil.toJsonStr(returnMap);
     }
 
@@ -844,6 +843,20 @@ public class MTPReceiveService {
                         "------------  site ----------\n" +
                         "site Total£º" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
                         "ping Success£º" + siteSuccessSize + "\n";
+        String remedy_summary= (
+                "------------  summary ----------\n" +
+                        "------------  site ----------\n" +
+                        "site Total£º" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
+                        "ping Success£º" + siteSuccessSize + "\n" +
+                        "ping faild£º" + siteFaildSize + "\n" +
+                        "MVRF:" + mvrfSize + "\n" +
+                        "param exception£º" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
+                        "exception site detailed£º" + ((siteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":siteExceptionDetailed )+"\n" +
+                        "null exception site detailed£º" +((nullSiteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":nullSiteExceptionDetailed )  + "\n" +
+                        "\n" +
+                        "------------ Result url ----------\n" +
+                        htmlPath + "\n" +
+                        "------------------------separative sign --------------------------" + "\n\n\n\n");
 
         if (siteFaildSize == 0) {
             returnHtmlmsg += "ping faild£º" + siteFaildSize + "\n";
@@ -888,6 +901,7 @@ public class MTPReceiveService {
         }
 
 
+        returnMap.put("remedy_summary",remedy_summary);
         returnMap.put("msg", msg);
         returnMap.put("returnHtmlmsg", returnHtmlmsg);
         return msg;

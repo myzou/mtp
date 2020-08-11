@@ -221,7 +221,7 @@ public class SendResultToRemedy {
         long sleepTime=(sleep-endOfStart>0L)?(sleep-endOfStart):1;
         JSONObject tempJsonObject=JSONUtil.parseObj(result);
         String ticketName=tempJsonObject.getStr("ticketName");
-        String msg=tempJsonObject.getStr("msg");
+        String msg=tempJsonObject.getStr("remedy_summary");
         String MTP_status=tempJsonObject.getStr("status");
         String tense=tempJsonObject.getStr("tense");
         try {

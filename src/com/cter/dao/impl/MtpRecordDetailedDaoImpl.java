@@ -34,7 +34,7 @@ public class MtpRecordDetailedDaoImpl extends BaseDaOImpl<MtpRecordDetailed> {
 
 		 if(!StringUtil.isBlank(case_id)){
 			 params.add(case_id);
-			 sql+=" and case_id  =    ?   ";
+			 sql+=" and case_id   like concat('%',?,'%')  ";
 		 }
 		 String case_status=  map.get("case_status");
 		 if(!StringUtil.isBlank(case_status)){

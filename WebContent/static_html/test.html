@@ -37,7 +37,9 @@
 </body>
 <script type="text/javascript">
 
+
     function check() {
+
         var op = $("#op").val();
         var password = $("#password").val();
         var tattedCode = $("#tattedCode").val();
@@ -47,29 +49,7 @@
         var ggwurl = "http://210.5.3.177:48888/ExecuteCommand?username=" + op + "&&password=" + password + tattedCode + "&&sign=123456&&timestamp=" + timestamp + "&&command="+command+"&&ip=" + ip;
         var getlogin = "http://210.5.3.177:48888/GetLoginSession?username=" + op + "&&password=" + password + "&&sign=123456&&timestamp=" + timestamp;
 
-        $.ajax({
-            url: getlogin,
-            type: "get",
-            data: "",
-            dataType: "json",
-            success: function (result) {
-                alert(result)
-                $("#connent").append("getlogin:"+result);
-            }
 
-        })
-        $.ajax({
-            url: ggwurl,
-            type: "get",
-            data: "",
-            dataType: "json",
-            success: function (result) {
-                alert(result);
-                $("#connent").append("ggwurl:"+result);
-
-            }
-
-        })
     window.open(getlogin);
     window.open(ggwurl);
     }
