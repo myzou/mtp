@@ -23,7 +23,7 @@ import javax.mail.internet.MimeUtility;
 import org.apache.log4j.Logger;
 
 /**
- * ÓÊ¼ş·¢ËÍ¹¤¾ßÀà
+ * é‚®ä»¶å‘é€å·¥å…·ç±»
  * @author Administrator
  *Date:2018-11-11
  */
@@ -54,63 +54,63 @@ public class SendMailUtil {
     
 
     /**
-     * @param to ·¢ËÍÈËÊı×é
-     * @param cs ³­ËÍÈËÊı×é
-     * @param ms  ÃÜËÍÈËÊı×é
-     * @param subject Ö÷Ìâ
-     * @param content  ·¢ËÍµÄÄÚÈİ
-     * @param formEmail ·¢¼şÈË maibaobao1995@163.com
-     * @param fileList  ¸½¼şList
-     * @param host ·şÎñÆ÷µØÖ·
-      * @param password ·şÎñÆ÷ÃÜÂë
+     * @param to å‘é€äººæ•°ç»„
+     * @param cs æŠ„é€äººæ•°ç»„
+     * @param ms  å¯†é€äººæ•°ç»„
+     * @param subject ä¸»é¢˜
+     * @param content  å‘é€çš„å†…å®¹
+     * @param formEmail å‘ä»¶äºº maibaobao1995@163.com
+     * @param fileList  é™„ä»¶List
+     * @param host æœåŠ¡å™¨åœ°å€
+      * @param password æœåŠ¡å™¨å¯†ç 
      */
     public    void send(String to[], String cs[], String ms[], String subject, String content, String formEmail, String fileList[],String host,String password)throws Exception {
-        	log.info("\nto ·¢ËÍÈËÊı×é:"+Arrays.toString(to));
-        	log.info("\ncs ³­ËÍÈËÊı×é:"+Arrays.toString(cs));
-        	log.info("\nsubject Ö÷Ìâ:"+subject+"\t·¢¼şÈË:"+formEmail+"\t·şÎñÆ÷µØÖ·£º"+host+"\t·şÎñÆ÷ÃÜÂë£º"+password);
-        	log.info("content ·¢ËÍµÄÄÚÈİ:"+content);
-        	log.info(" fileList  ¸½¼şList:"+Arrays.toString(fileList));
+        	log.info("\nto å‘é€äººæ•°ç»„:"+Arrays.toString(to));
+        	log.info("\ncs æŠ„é€äººæ•°ç»„:"+Arrays.toString(cs));
+        	log.info("\nsubject ä¸»é¢˜:"+subject+"\tå‘ä»¶äºº:"+formEmail+"\tæœåŠ¡å™¨åœ°å€ï¼š"+host+"\tæœåŠ¡å™¨å¯†ç ï¼š"+password);
+        	log.info("content å‘é€çš„å†…å®¹:"+content);
+        	log.info(" fileList  é™„ä»¶List:"+Arrays.toString(fileList));
             Properties p = new Properties(); // Properties p =
             // System.getProperties();
             p.put("mail.smtp.auth", "true");
             p.put("mail.transport.protocol",  PROTOCOL);
-//            p.put("mail.smtp.host", "smtp.163.com");//ÓÊ¼ş·şÎñÆ÷µÄµØÖ·163
+//            p.put("mail.smtp.host", "smtp.163.com");//é‚®ä»¶æœåŠ¡å™¨çš„åœ°å€163
             p.put("mail.smtp.host", host );
             p.put("mail.smtp.port", "25");
             p.put("mail.debug", DEBUG);
-            // ½¨Á¢»á»°
+            // å»ºç«‹ä¼šè¯
             Session session = Session.getInstance(p);
-            Message msg = new MimeMessage(session); // ½¨Á¢ĞÅÏ¢
-            BodyPart messageBodyPart = new MimeBodyPart();//ÎÄ±¾½Úµã
-            Multipart multipart = new MimeMultipart();//ÄÚÈİ½Úµã
-            msg.setFrom(new InternetAddress(formEmail)); // ·¢¼şÈË
+            Message msg = new MimeMessage(session); // å»ºç«‹ä¿¡æ¯
+            BodyPart messageBodyPart = new MimeBodyPart();//æ–‡æœ¬èŠ‚ç‚¹
+            Multipart multipart = new MimeMultipart();//å†…å®¹èŠ‚ç‚¹
+            msg.setFrom(new InternetAddress(formEmail)); // å‘ä»¶äºº
 
             String toList = null;
             String toListcs = null;
             String toListms = null;
 
-            // ·¢ËÍ,
+            // å‘é€,
             if (to != null) {
                 toList = getMailList(to);
                 new InternetAddress();
                 InternetAddress[] iaToList = InternetAddress
                         .parse(toList);
-                msg.setRecipients(Message.RecipientType.TO, iaToList); // ÊÕ¼şÈË
+                msg.setRecipients(Message.RecipientType.TO, iaToList); // æ”¶ä»¶äºº
             }
 
-            // ³­ËÍ
+            // æŠ„é€
             if (cs != null) {
                 toListcs = getMailList(cs);
                 if(!toListcs.equals("") ){
                 	 new InternetAddress();
                      InternetAddress[] iaToListcs = InternetAddress
                              .parse(toListcs);
-                     msg.setRecipients(Message.RecipientType.CC, iaToListcs); // ³­ËÍÈË
+                     msg.setRecipients(Message.RecipientType.CC, iaToListcs); // æŠ„é€äºº
                 }
                
             }
 
-            // ÃÜËÍ
+            // å¯†é€
             if (ms != null) {
                 if(!toListcs.equals("") ){
                 	toListms = getMailList(ms);
@@ -120,33 +120,33 @@ public class SendMailUtil {
                     msg.addRecipients(Message.RecipientType.BCC, iaToListms);
                 }
             }
-            msg.setSentDate(new Date()); // ·¢ËÍÈÕÆÚ
-            msg.setSubject(subject); // Ö÷Ìâ
-            msg.setText(content); // ÄÚÈİ
-            // ÏÔÊ¾ÒÔhtml¸ñÊ½µÄÎÄ±¾ÄÚÈİ
+            msg.setSentDate(new Date()); // å‘é€æ—¥æœŸ
+            msg.setSubject(subject); // ä¸»é¢˜
+            msg.setText(content); // å†…å®¹
+            // æ˜¾ç¤ºä»¥htmlæ ¼å¼çš„æ–‡æœ¬å†…å®¹
             messageBodyPart.setContent(content, "text/html;charset=utf-8");
             multipart.addBodyPart(messageBodyPart);
 
-            // 2.±£´æ¶à¸ö¸½¼ş
+            // 2.ä¿å­˜å¤šä¸ªé™„ä»¶
             if (fileList != null) {
                 addTach(fileList, multipart);
             }
 
             msg.setContent(multipart);
-            // ÓÊ¼ş·şÎñÆ÷½øĞĞÑéÖ¤
+            // é‚®ä»¶æœåŠ¡å™¨è¿›è¡ŒéªŒè¯
             Transport tran = session.getTransport("smtp");
-            tran.connect(host, //ÓÊ¼ş·şÎñÆ÷µØÖ· 
-           formEmail,//ÓÊÏäµØÖ·
-                   password);//ÓÊÏäµÄÃÜÂë
+            tran.connect(host, //é‚®ä»¶æœåŠ¡å™¨åœ°å€ 
+           formEmail,//é‚®ç®±åœ°å€
+                   password);//é‚®ç®±çš„å¯†ç 
             
-            tran.sendMessage(msg, msg.getAllRecipients()); // ·¢ËÍ
-			log.info("ÓÊ¼ş·¢ËÍ³É¹¦");
-			log.info("ÓÊ¼ş·¢ËÍÈËĞÅÏ¢£º"+"ÕËºÅ:"+"ÃÜÂë"+"");
-			log.info("ÓÊ¼şÊÕ¼şÈË£º"+CommonUtil.toString(to));
-			log.info("ÓÊ¼ş³­ËÍ¼şÈË£º"+CommonUtil.toString(cs));
-			log.info("ÓÊ¼ş°üº¬¸½¼şµØÖ·£º"+CommonUtil.toString(fileList));
-			log.info("ÓÊ¼şÖ÷Ìâ£º"+subject);
-			log.info("ÓÊ¼şÄÚÈİ£º"+content);
+            tran.sendMessage(msg, msg.getAllRecipients()); // å‘é€
+			log.info("é‚®ä»¶å‘é€æˆåŠŸ");
+			log.info("é‚®ä»¶å‘é€äººä¿¡æ¯ï¼š"+"è´¦å·:"+"å¯†ç "+"");
+			log.info("é‚®ä»¶æ”¶ä»¶äººï¼š"+CommonUtil.toString(to));
+			log.info("é‚®ä»¶æŠ„é€ä»¶äººï¼š"+CommonUtil.toString(cs));
+			log.info("é‚®ä»¶åŒ…å«é™„ä»¶åœ°å€ï¼š"+CommonUtil.toString(fileList));
+			log.info("é‚®ä»¶ä¸»é¢˜ï¼š"+subject);
+			log.info("é‚®ä»¶å†…å®¹ï¼š"+content);
 
     }
     
@@ -156,41 +156,41 @@ public class SendMailUtil {
             // System.getProperties();
             p.put("mail.smtp.auth", "true");
             p.put("mail.transport.protocol",  PROTOCOL);
-//            p.put("mail.smtp.host", "smtp.163.com");//ÓÊ¼ş·şÎñÆ÷µÄµØÖ·163
+//            p.put("mail.smtp.host", "smtp.163.com");//é‚®ä»¶æœåŠ¡å™¨çš„åœ°å€163
             p.put("mail.smtp.host", host );
             p.put("mail.smtp.port", "25");
             p.put("mail.debug", DEBUG);
-            // ½¨Á¢»á»°
+            // å»ºç«‹ä¼šè¯
             Session session = Session.getInstance(p);
-            Message msg = new MimeMessage(session); // ½¨Á¢ĞÅÏ¢
-            BodyPart messageBodyPart = new MimeBodyPart();//ÎÄ±¾½Úµã
-            msg.setFrom(new InternetAddress(formEmail)); // ·¢¼şÈË
+            Message msg = new MimeMessage(session); // å»ºç«‹ä¿¡æ¯
+            BodyPart messageBodyPart = new MimeBodyPart();//æ–‡æœ¬èŠ‚ç‚¹
+            msg.setFrom(new InternetAddress(formEmail)); // å‘ä»¶äºº
 
             String toList = null;
             String toListcs = null;
             String toListms = null;
 
-            // ·¢ËÍ,
+            // å‘é€,
             if (to != null) {
                 toList = getMailList(to);
                 if(!toList.equals("")){
                 new InternetAddress();
                 InternetAddress[] iaToList = InternetAddress.parse(toList);
-                msg.setRecipients(Message.RecipientType.TO, iaToList); // ÊÕ¼şÈË
+                msg.setRecipients(Message.RecipientType.TO, iaToList); // æ”¶ä»¶äºº
                 }
             }
 
-            // ³­ËÍ
+            // æŠ„é€
             if (cs != null) {
                 toListcs = getMailList(cs);
                 if(!toListcs.equals("")){
                 new InternetAddress();
                 InternetAddress[] iaToListcs = InternetAddress.parse(toListcs);
-                msg.setRecipients(Message.RecipientType.CC, iaToListcs); // ³­ËÍÈË
+                msg.setRecipients(Message.RecipientType.CC, iaToListcs); // æŠ„é€äºº
                 }
             }
 
-            // ÃÜËÍ
+            // å¯†é€
             if (ms != null) {
                 toListms = getMailList(ms);
                 if(!toListms.equals("")){
@@ -199,13 +199,13 @@ public class SendMailUtil {
                       msg.addRecipients(Message.RecipientType.BCC, iaToListms);
                 }
             }
-            msg.setSentDate(new Date()); // ·¢ËÍÈÕÆÚ
-            msg.setSubject(subject); // Ö÷Ìâ
-//            msg.setText(content); // ÄÚÈİ
-            // ÏÔÊ¾ÒÔhtml¸ñÊ½µÄÎÄ±¾ÄÚÈİ
+            msg.setSentDate(new Date()); // å‘é€æ—¥æœŸ
+            msg.setSubject(subject); // ä¸»é¢˜
+//            msg.setText(content); // å†…å®¹
+            // æ˜¾ç¤ºä»¥htmlæ ¼å¼çš„æ–‡æœ¬å†…å®¹
             MimeBodyPart image = new MimeBodyPart();
             MimeBodyPart text = new MimeBodyPart();
-   			text.setContent("relatedÕâÊÇÒ»ÕÅÍ¼Æ¬<br/><a href='#'><img src='cid:imagetupian'/></a>", "text/html;charset=utf-8");
+   			text.setContent("relatedè¿™æ˜¯ä¸€å¼ å›¾ç‰‡<br/><a href='#'><img src='cid:imagetupian'/></a>", "text/html;charset=utf-8");
 	        DataHandler dh = new DataHandler(new FileDataSource("D://op1768//workSpace//java1234//mars45//X-admin-2.3//src//image001.jpg"));
 	        image.setDataHandler(dh);
 	        image.setContentID("imagetupian");    
@@ -214,24 +214,24 @@ public class SendMailUtil {
             multipart.setSubType("related");
             
             
-            // 2.±£´æ¶à¸ö¸½¼ş
+            // 2.ä¿å­˜å¤šä¸ªé™„ä»¶
             if (fileList != null) {
                 addTach(fileList, multipart);
             }
 
             msg.setContent(multipart);
             msg.saveChanges();
-            // ÓÊ¼ş·şÎñÆ÷½øĞĞÑéÖ¤ 
+            // é‚®ä»¶æœåŠ¡å™¨è¿›è¡ŒéªŒè¯ 
             Transport tran = session.getTransport("smtp");
-            tran.connect(host, //ÓÊ¼ş·şÎñÆ÷µØÖ· 
-           formEmail,//ÓÊÏäµØÖ·
-                   password);//ÓÊÏäµÄÃÜÂë
+            tran.connect(host, //é‚®ä»¶æœåŠ¡å™¨åœ°å€ 
+           formEmail,//é‚®ç®±åœ°å€
+                   password);//é‚®ç®±çš„å¯†ç 
             
-            tran.sendMessage(msg, msg.getAllRecipients()); // ·¢ËÍ
-            System.out.println("ÓÊ¼ş·¢ËÍ³É¹¦");
+            tran.sendMessage(msg, msg.getAllRecipients()); // å‘é€
+            System.out.println("é‚®ä»¶å‘é€æˆåŠŸ");
             to.toString();
         } catch (Exception e) {
-            System.out.println("ÓÊ¼ş·¢ËÍÊ±Òì³£");
+            System.out.println("é‚®ä»¶å‘é€æ—¶å¼‚å¸¸");
             e.printStackTrace();
         }
     }
@@ -240,13 +240,13 @@ public class SendMailUtil {
 
    
 
-    // Ìí¼Ó¶à¸ö¸½¼ş
+    // æ·»åŠ å¤šä¸ªé™„ä»¶
     public void addTach(String fileList[], Multipart multipart)
             throws MessagingException, UnsupportedEncodingException {
         for (int index = 0; index < fileList.length; index++) {
             MimeBodyPart mailArchieve = new MimeBodyPart();
             java.io.File file=new java.io.File(fileList[index]);
-            if(file.exists()){//¸½¼şÈç¹û´æÔÚµÄ»° Ìí¼Óµ½ÓÊÏä·¢ËÍĞÅÏ¢ÀïÃæ
+            if(file.exists()){//é™„ä»¶å¦‚æœå­˜åœ¨çš„è¯ æ·»åŠ åˆ°é‚®ç®±å‘é€ä¿¡æ¯é‡Œé¢
                 FileDataSource fds = new FileDataSource(fileList[index]);
                 mailArchieve.setDataHandler(new DataHandler(fds));
                 mailArchieve.setFileName(MimeUtility.encodeText(fds.getName(),
@@ -276,33 +276,33 @@ public class SendMailUtil {
     }
    
     /**
-     * ÅäÖÃÖ÷ÌâºÍÄÚÈİ·¢ËÍÓÊ¼ş
-     *  ¶ÀÁ¢·½·¨£¬×ÔĞĞ²âÊÔÓÃµÄ
+     * é…ç½®ä¸»é¢˜å’Œå†…å®¹å‘é€é‚®ä»¶
+     *  ç‹¬ç«‹æ–¹æ³•ï¼Œè‡ªè¡Œæµ‹è¯•ç”¨çš„
      * @param subject 
      * @param content
      */
     public static void forSendMy(String subject,String content )throws Exception{
    
         SendMailUtil send = SendMailUtil.getInstance();
-        String to[] = {"luke.zou@china-entercom.net","944711140@qq.com"};//ÊÕ¼şÈËµÄµØÖ·
+        String to[] = {"luke.zou@china-entercom.net","944711140@qq.com"};//æ”¶ä»¶äººçš„åœ°å€
         String cs[] = null;
         String ms[] = null;
         if(content==null||content.length()==0){
-            content = "ÕâÊÇÓÊ¼şÄÚÈİ£¬½ö½öÊÇ²âÊÔ£¬²»ĞèÒª»Ø¸´";
+            content = "è¿™æ˜¯é‚®ä»¶å†…å®¹ï¼Œä»…ä»…æ˜¯æµ‹è¯•ï¼Œä¸éœ€è¦å›å¤";
         }
         String[] arrArchievList = null;
 
-        // 2.±£´æ¶à¸ö¸½¼ş
+        // 2.ä¿å­˜å¤šä¸ªé™„ä»¶
         send.send(to, cs, ms, subject, content, myselfFormEmail, arrArchievList,myselfSendHost,myselfEmailPassword);
     }
 
     
 	/**
-	 * Ê¹ÓÃop1768 µÄ163ÓÊÏä ·¢ËÍ
-	 * @param to ÊÕ¼şÈË¼¯ºÏ
-	 * @param cs ³­ËÍÈË¼¯ºÏ
-	 * @param subject  Ö÷Ìâ
-	 * @param content ÄÚÈİ
+	 * ä½¿ç”¨op1768 çš„163é‚®ç®± å‘é€
+	 * @param to æ”¶ä»¶äººé›†åˆ
+	 * @param cs æŠ„é€äººé›†åˆ
+	 * @param subject  ä¸»é¢˜
+	 * @param content å†…å®¹
 	 */
     public static void SendMe(String to[],String cs[],String subject,String content)throws Exception{
         instance.send(to, cs, null, subject, content, myselfFormEmail, null,myselfSendHost,myselfEmailPassword);
@@ -312,22 +312,22 @@ public class SendMailUtil {
 	
 	
 	/**
-	 * Ê¹ÓÃDC access ·¢ËÍ
-	 * @param to ÊÕ¼şÈË¼¯ºÏ
-	 * @param cs ³­ËÍÈË¼¯ºÏ
-	 * @param subject  Ö÷Ìâ
-	 * @param content ÄÚÈİ
+	 * ä½¿ç”¨DC access å‘é€
+	 * @param to æ”¶ä»¶äººé›†åˆ
+	 * @param cs æŠ„é€äººé›†åˆ
+	 * @param subject  ä¸»é¢˜
+	 * @param content å†…å®¹
 	 */
 	public void sendZQ(String to[],String[] cs, String subject,  String content )throws Exception{
 		instance.send(to, cs, null, subject, content, dcFormEmail, null,dcSendHost,dcEmailPassword);
 	}
 	/**
-	 * Ê¹ÓÃDC access ÓĞÃÜËÍ
-	 * @param to ÊÕ¼şÈË¼¯ºÏ
-	 * @param cs ³­ËÍÈË¼¯ºÏ
-	  * @param ms ÃÜËÍ¼¯ºÏ
-	 * @param subject  Ö÷Ìâ
-	 * @param content ÄÚÈİ
+	 * ä½¿ç”¨DC access æœ‰å¯†é€
+	 * @param to æ”¶ä»¶äººé›†åˆ
+	 * @param cs æŠ„é€äººé›†åˆ
+	  * @param ms å¯†é€é›†åˆ
+	 * @param subject  ä¸»é¢˜
+	 * @param content å†…å®¹
 	 */
 	public void sendZQ(String to[],String[] cs,String[] ms, String subject,  String content )throws Exception{
 		instance.send(to, cs, ms, subject, content, dcFormEmail, null,dcSendHost,dcEmailPassword);
@@ -338,15 +338,15 @@ public class SendMailUtil {
 	public static void main(String[] args)throws Exception {
 		SendMailUtil mail=new SendMailUtil();
 		String  formEmail="dcaccess@china-entercom.net";
-		String str ="D:\\op1768\\workSpace\\java1234\\mars45\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\X-admin-2.3\\upload\\20181031\\unknown###D:\\op1768\\workSpace\\java1234\\mars45\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\X-admin-2.3\\upload\\20181031\\ÊÚÈ¨ÈÕÖ¾10.29-T2.xlsx###D:\\op1768\\workSpace\\java1234\\mars45\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\X-admin-2.3\\upload\\20181031\\ÊÚÈ¨ÈÕÖ¾10.29-D3.xlsx";
+		String str ="D:\\op1768\\workSpace\\java1234\\mars45\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\X-admin-2.3\\upload\\20181031\\unknown###D:\\op1768\\workSpace\\java1234\\mars45\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\X-admin-2.3\\upload\\20181031\\æˆæƒæ—¥å¿—10.29-T2.xlsx###D:\\op1768\\workSpace\\java1234\\mars45\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\X-admin-2.3\\upload\\20181031\\æˆæƒæ—¥å¿—10.29-D3.xlsx";
 		
 		String[]   fileList= str.trim().split("###");
 		/*String[] fileList =new String[5];
-		fileList[0]="D:\\op1768\\TIM\\file\\944711140\\10-30±¦É½»ú·¿Éè±¸Ç¨Èë#2442979.doc";
+		fileList[0]="D:\\op1768\\TIM\\file\\944711140\\10-30å®å±±æœºæˆ¿è®¾å¤‡è¿å…¥#2442979.doc";
 		fileList[1]="D:\\op1768\\TIM\\file\\944711140\\image001.jpg";
 		fileList[2]="D:\\op1768\\TIM\\file\\944711140\\unknown";
-		fileList[3]="D:\\op1768\\TIM\\file\\944711140\\ÊÚÈ¨ÈÕÖ¾10.29-D3.xlsx";
-		fileList[4]="D:\\op1768\\TIM\\file\\944711140\\ÊÚÈ¨ÈÕÖ¾10.29-T2.xlsx";*/
+		fileList[3]="D:\\op1768\\TIM\\file\\944711140\\æˆæƒæ—¥å¿—10.29-D3.xlsx";
+		fileList[4]="D:\\op1768\\TIM\\file\\944711140\\æˆæƒæ—¥å¿—10.29-T2.xlsx";*/
 		String[] to="fanyang@china-entercom.net;ethan.li@china-entercom.net;gnoc-bj@china-entercom.net".split(";");
 		String[] cs="kehufuwubu@ceicloud.com;zhaohongya@ceicloud.com;oupeng@ceicloud.com".split(";");
 /*		for(String t:to){
@@ -360,8 +360,8 @@ public class SendMailUtil {
 		
 		String content =" "  ;
 		
-		 instance.send(to, cs,null , subject, content, myselfFormEmail, null,myselfSendHost,myselfEmailPassword);//×Ô¼º²âÊÔÓÃµÄÁ¬½Ó
-//		 instance.send(to, null,null , subject, content, dcFormEmail, null,dcSendHost,dcEmailPassword);//×Ô¼º²âÊÔÓÃµÄÁ¬½Ó
+		 instance.send(to, cs,null , subject, content, myselfFormEmail, null,myselfSendHost,myselfEmailPassword);//è‡ªå·±æµ‹è¯•ç”¨çš„è¿æ¥
+//		 instance.send(to, null,null , subject, content, dcFormEmail, null,dcSendHost,dcEmailPassword);//è‡ªå·±æµ‹è¯•ç”¨çš„è¿æ¥
 		 
 
 	}

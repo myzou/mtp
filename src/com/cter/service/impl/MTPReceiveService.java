@@ -40,14 +40,13 @@ public class MTPReceiveService {
     private static BaseLog ExecuteCommandLog = new BaseLog("ExecuteCommandLog");
     private static BaseLog MTPQueryLog = new BaseLog("MTPQueryLog");
 
-    //·ÃÎÊµÄurl
+    //è®¿é—®çš„url
     private static String tempErrorUrl = "";
 
 
     @Autowired
     private TrunkInfoMtpDaoImpl trunkInfoMtpDaoImpl;
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
-    private static final String mtp_project = otherMap.get("mtp_project");
     private static String GGW_URL = otherMap.get("GGW_URL");
     private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
 
@@ -66,7 +65,7 @@ public class MTPReceiveService {
 
 
     /**
-     * Í¨¹ıµØÖ·µ÷ÓÃ ´íÎóÔÙ´Îµ÷ÓÃ
+     * é€šè¿‡åœ°å€è°ƒç”¨ é”™è¯¯å†æ¬¡è°ƒç”¨
      *
      * @param url
      * @param flag
@@ -94,7 +93,7 @@ public class MTPReceiveService {
     }
 
     /**
-     * Ìæ»»Îªµ÷ÓÃggwµÄÌØÊâ×Ö·û
+     * æ›¿æ¢ä¸ºè°ƒç”¨ggwçš„ç‰¹æ®Šå­—ç¬¦
      *
      * @param str
      * @return
@@ -113,8 +112,8 @@ public class MTPReceiveService {
 
 
     /**
-     * ¸ù¾İdicksonµÄapiÀ´²éÑ¯Éè±¸µÄip¡£
-     * ËûµÄÊı¾İÔ´ÓÚ Combined Tool
+     * æ ¹æ®dicksonçš„apiæ¥æŸ¥è¯¢è®¾å¤‡çš„ipã€‚
+     * ä»–çš„æ•°æ®æºäº Combined Tool
      *
      * @return
      */
@@ -138,13 +137,13 @@ public class MTPReceiveService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "GGWAPI²éÑ¯Éè±¸Á¬½ÓÒÑ¾­¹Ø±Õ";
+            return "GGWAPIæŸ¥è¯¢è®¾å¤‡è¿æ¥å·²ç»å…³é—­";
         }
     }
 
 
     /**
-     * »ñÈ¡Ö´ĞĞÃüÁî½á¹û
+     * è·å–æ‰§è¡Œå‘½ä»¤ç»“æœ
      *
      * @return
      */
@@ -154,7 +153,7 @@ public class MTPReceiveService {
 
 
     /**
-     * ÑéÖ¤²ÎÊıÊÇ·ñÓĞÎÊÌâ
+     * éªŒè¯å‚æ•°æ˜¯å¦æœ‰é—®é¢˜
      */
     public String validateParam(String jsonStr) {
         Map<String, String> returnMap = new HashMap<>();
@@ -211,7 +210,7 @@ public class MTPReceiveService {
                 }
             }*/
         } catch (Exception e) {
-            tempString = "MTPQuery ²ÎÊı¸ñÊ½ÓĞÎó£¬Çë½øĞĞ´¦Àí¡£";
+            tempString = "MTPQuery å‚æ•°æ ¼å¼æœ‰è¯¯ï¼Œè¯·è¿›è¡Œå¤„ç†ã€‚";
             returnMap.put("msg", tempString);
             MTPQueryLog.info(tempString);
             MTPQueryLog.printStackTrace(e);
@@ -223,8 +222,8 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¸ù¾İ¹Ç¸É×Ö·û´®»ñÈ¡¶ÔÓ¦µÄ¹Ç¸ÉList
-     * error ´æÔÚ¸ñÊ½´íÎó,peName interfaceName
+     * æ ¹æ®éª¨å¹²å­—ç¬¦ä¸²è·å–å¯¹åº”çš„éª¨å¹²List
+     * error å­˜åœ¨æ ¼å¼é”™è¯¯,peName interfaceName
      *
      * @param backboneStr
      * @return
@@ -259,7 +258,7 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¼ì²éÓĞ¶àÉÙÌõbackbone
+     * æ£€æŸ¥æœ‰å¤šå°‘æ¡backbone
      *
      * @param backbone
      * @return
@@ -281,7 +280,7 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¸ù¾İÏßÂ·×ÜÊı×Ö·û´®»ñÈ¡list
+     * æ ¹æ®çº¿è·¯æ€»æ•°å­—ç¬¦ä¸²è·å–list
      *
      * @return
      */
@@ -298,7 +297,7 @@ public class MTPReceiveService {
     }
 
     /*
-    ¸ù¾İpe²ÎÊıÀ´ÅĞ¶Ï²ÎÊıÊÇ·ñÓĞÎÊÌâ
+    æ ¹æ®peå‚æ•°æ¥åˆ¤æ–­å‚æ•°æ˜¯å¦æœ‰é—®é¢˜
      */
     public String getErrorByPePort(PePort pePort){
         if(StringUtils.isEmpty(pePort.getPeRouter())){
@@ -309,7 +308,7 @@ public class MTPReceiveService {
 
 
     /**
-     * ¸ù¾İ Èë²ÎÀ´Ö´ĞĞmtpÈ»ºó»ñÈ¡¶ÔÓ¦µÄÊı¾İ
+     * æ ¹æ® å…¥å‚æ¥æ‰§è¡Œmtpç„¶åè·å–å¯¹åº”çš„æ•°æ®
      *
      * @param jsonStr
      * @return
@@ -319,27 +318,27 @@ public class MTPReceiveService {
         Map<String, String> returnMap = new HashMap<>();
         Long strLong = System.currentTimeMillis();
 
-        boolean consistent = true;//Î¬»¤Ç°ºóÊÇ·ñÒ»ÖÂ
+        boolean consistent = true;//ç»´æŠ¤å‰åæ˜¯å¦ä¸€è‡´
         int failNumberInt = 0;
         int successNumberInt = 0;
 
-        StringBuffer tcpBf = new StringBuffer();//ËùÓĞÊä³öµ½½çÃæµÄ½á¹û
-        StringBuffer differBf=new StringBuffer();//²»Ò»ÖÂµÄ½á¹û
+        StringBuffer tcpBf = new StringBuffer();//æ‰€æœ‰è¾“å‡ºåˆ°ç•Œé¢çš„ç»“æœ
+        StringBuffer differBf=new StringBuffer();//ä¸ä¸€è‡´çš„ç»“æœ
         Gson gson = new Gson();
         MTPA mtpa = gson.fromJson(jsonStr, MTPA.class);
 
         List<PePort> pePorts = mtpa.getPePorts();
         String case_id = mtpa.getTicketName();
         String period = mtpa.getTense();
-        //»ñÈ¡ÏßÂ· ¼ÆËãÊıÁ¿£¬ÎªÊä³ö½á¹û×ö×¼±¸
+        //è·å–çº¿è·¯ è®¡ç®—æ•°é‡ï¼Œä¸ºè¾“å‡ºç»“æœåšå‡†å¤‡
         String internalSiteIdAll = mtpa.getInternalSiteIdAll();
         List<String> internalSiteIdArray = getSiteListBySiteAll(internalSiteIdAll);
         int internalSiteAllSize = (internalSiteIdArray == null) ? 0 : internalSiteIdArray.size();
         LinkedTreeMap<String, ResultMessage> siteMap = new LinkedTreeMap<>();
         LinkedTreeMap<String, ResultMessage> backboneMap = new LinkedTreeMap<>();
 
-        String send_size_10 = "10";//°ü´óĞ¡
-        String send_size_100 = "100";//°ü´óĞ¡
+        String send_size_test = "30";//æµ‹è¯•åŒ…å¤§å°
+        String send_size_100 = "100";//æµ‹è¯•æ²¡æœ‰é—®é¢˜å è¿›è¡ŒpingåŒ…å¤§å°
 
         HashMap<String, String> devicesMap = new HashMap<String, String>();
 
@@ -368,17 +367,17 @@ public class MTPReceiveService {
             }
         }
 
-        String tcpInsert = "";//²åÈëÓï¾äÇ°Ãæ
+        String tcpInsert = "";//æ’å…¥è¯­å¥å‰é¢
 
-        /* Ñ­»·¿ªÊ¼*/
+        /* å¾ªç¯å¼€å§‹*/
         {
             String tcpType = "";
             String status = "";
             String tense = "";
-            String differInternalSiteId = "";//²»Ò»ÖÂµÄ InternalSiteId
-            String errorInternalSiteId = "";//³ö´íµÄ InternalSiteId
+            String differInternalSiteId = "";//ä¸ä¸€è‡´çš„ InternalSiteId
+            String errorInternalSiteId = "";//å‡ºé”™çš„ InternalSiteId
 
-            int loginInt = 1;//µÇÂ¼ggw´ÎÊı
+            int loginInt = 1;//ç™»å½•ggwæ¬¡æ•°
             Set<String> peRouterSet = new LinkedHashSet<String>();
             Map<String, List<PePort>> peRouterListMap = new HashMap<String, List<PePort>>();
 
@@ -405,7 +404,7 @@ public class MTPReceiveService {
                     List<PePort> tempList = entry.getValue();
                     String errorMessage = "";
                     for (int i = 0; i < tempList.size(); i++) {
-                        //µ±Ç°½á¹û¼ÇÂ¼
+                        //å½“å‰ç»“æœè®°å½•
                         StringBuffer cbBuffer = new StringBuffer();
                         PePort pePort = tempList.get(i);
                         if (internalSiteIdArray != null) {
@@ -422,7 +421,7 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setShowType(pePort.getTcpType());
                         mtpRecordDetailed.setEndInterface(end_interface);
                         mtpRecordDetailed.setBeforeResultUrl(htmlPath);
-                        mtpRecordDetailed.setSendSize(send_size_10);
+                        mtpRecordDetailed.setSendSize(send_size_test);
                         mtpRecordDetailed.setCaseStatus("now");
                         mtpRecordDetailed.setBeforeEndFullName(end_full_name);
                         mtpRecordDetailed.setBeforeEndInterface(pePort.getPePortInterface());
@@ -430,12 +429,12 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setLastUpdatedTime(mtpRecordDetailed.getCreateTime());
                         String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                         cbBuffer.append("----------------------------------\r\n");
-                        cbBuffer.append("PE Port£º" + trunk_name + "\r\n");
-                        cbBuffer.append("Date£º" + nowDate + "\r\n");
-                        cbBuffer.append("internalSiteId£º" + mtpRecordDetailed.getInternalSiteId() + "\r\n");
+                        cbBuffer.append("PE Portï¼š" + trunk_name + "\r\n");
+                        cbBuffer.append("Dateï¼š" + nowDate + "\r\n");
+                        cbBuffer.append("internalSiteIdï¼š" + mtpRecordDetailed.getInternalSiteId() + "\r\n");
                         if (!StringUtil.isBlank(pePort.getVRFSiteId())) {
                             mtpRecordDetailed.setBeforeVrfSiteId(pePort.getVRFSiteId());
-                            cbBuffer.append("vrfSiteId£º" + pePort.getVRFSiteId() + "\r\n");
+                            cbBuffer.append("vrfSiteIdï¼š" + pePort.getVRFSiteId() + "\r\n");
                         }
                         cbBuffer.append("----------------------------------\r\n");
                         mtpRecordDetailed.setBeforeStatus("pass");
@@ -446,19 +445,19 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setInternalSiteId(pePort.getInternalSiteId());
 
                         errorMessage=getErrorByPePort(pePort);
-                        if (!StringUtils.isEmpty(errorMessage)) {//µÚÒ»´ÎÉÙ°üÎŞÒì³££¬ÔÙÖ´ĞĞ´ó°ü
+                        if (!StringUtils.isEmpty(errorMessage)) {//ç¬¬ä¸€æ¬¡å°‘åŒ…æ— å¼‚å¸¸ï¼Œå†æ‰§è¡Œå¤§åŒ…
                             setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
                         }else{
-                            send_size_10 = String.valueOf(RandomUtil.randomInt(5, 10));
+                            send_size_test = String.valueOf(RandomUtil.randomInt(Integer.valueOf(send_size_test), Integer.valueOf(send_size_test)+5));
                             send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
                             String command = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_100;
-                            String command1 = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_10;
+                            String command1 = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_test;
                             cbBuffer.append(opName + "@" + mtpRecordDetailed.getBeforeEndFullName() + ">");
                             String ip = getDeviceByIP(devicesMap, mtpRecordDetailed.getBeforeEndFullName());
 
                             if (StringUtil.isBlank(ip)) {
                                 errorMessage = "peRouter (" + mtpRecordDetailed.getBeforeEndFullName() + ") unable Get corresponding Router ";
-                            } else if (ip.equals("GGWAPI²éÑ¯Éè±¸Á¬½ÓÒÑ¾­¹Ø±Õ")) {
+                            } else if (ip.equals("GGWAPIæŸ¥è¯¢è®¾å¤‡è¿æ¥å·²ç»å…³é—­")) {
                                 errorMessage = ip;
                             }
                             paramMap.put("opName", opName);
@@ -469,12 +468,12 @@ public class MTPReceiveService {
                             Map<String, String> temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
                             errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
 
-                            if (StringUtils.isEmpty(errorMessage)) {//µÚÒ»´ÎÉÙ°üÎŞÒì³££¬ÔÙÖ´ĞĞ´ó°ü
+                            if (StringUtils.isEmpty(errorMessage)) {//ç¬¬ä¸€æ¬¡å°‘åŒ…æ— å¼‚å¸¸ï¼Œå†æ‰§è¡Œå¤§åŒ…
                                 paramMap.put("command", command);
                                 temprReturnMap = new HashMap<>();
                                 temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
                                 errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
-                                if (StringUtils.isEmpty(errorMessage)) {//µÚ¶ş´ÎÎŞÒì³£ ¼ÇÂ¼
+                                if (StringUtils.isEmpty(errorMessage)) {//ç¬¬äºŒæ¬¡æ— å¼‚å¸¸ è®°å½•
                                     cbBuffer.append(paramMap.get("command") + "\t\n");
                                     cbBuffer.append(temprReturnMap.get("data"));
                                 }
@@ -504,7 +503,7 @@ public class MTPReceiveService {
                     String errorMessage = "";
 
                     for (int i = 0; tempList != null && i < tempList.size(); i++) {
-                        //µ±Ç°½á¹û¼ÇÂ¼
+                        //å½“å‰ç»“æœè®°å½•
                         StringBuffer cbBuffer = new StringBuffer();
                         PePort pePort = tempList.get(i);
                         if (internalSiteIdArray != null) {
@@ -524,31 +523,31 @@ public class MTPReceiveService {
                             String trunk_name = pePort.getPeRouter() + "." + pePort.getPePortInterface();
                             String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                             cbBuffer.append("----------------------------------\r\n");
-                            cbBuffer.append("PE Port£º" + trunk_name + "\r\n");
-                            cbBuffer.append("internalSiteId£º" + pePort.getInternalSiteId() + "\r\n");
-                            cbBuffer.append("Date£º" + nowDate + "\r\n");
+                            cbBuffer.append("PE Portï¼š" + trunk_name + "\r\n");
+                            cbBuffer.append("internalSiteIdï¼š" + pePort.getInternalSiteId() + "\r\n");
+                            cbBuffer.append("Dateï¼š" + nowDate + "\r\n");
                             if (!StringUtil.isBlank(pePort.getVRFSiteId())) {
                                 mtpRecordDetailed.setAfterVrfSiteId(pePort.getVRFSiteId());
-                                cbBuffer.append("vrfSiteId£º" + pePort.getVRFSiteId() + "\r\n");
+                                cbBuffer.append("vrfSiteIdï¼š" + pePort.getVRFSiteId() + "\r\n");
                             }
                             cbBuffer.append("----------------------------------\r\n");
 
-                            String tempData="";//´¢´æÕıÈ··µ»Ø½á¹û
+                            String tempData="";//å‚¨å­˜æ­£ç¡®è¿”å›ç»“æœ
 
                             errorMessage=getErrorByPePort(pePort);
-                            if (!StringUtils.isEmpty(errorMessage)) {//µÚÒ»´ÎÉÙ°üÎŞÒì³££¬ÔÙÖ´ĞĞ´ó°ü
+                            if (!StringUtils.isEmpty(errorMessage)) {//ç¬¬ä¸€æ¬¡å°‘åŒ…æ— å¼‚å¸¸ï¼Œå†æ‰§è¡Œå¤§åŒ…
                                 setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
                             }else{
-                                send_size_10 = String.valueOf(RandomUtil.randomInt(5, 10));
+                                send_size_test = String.valueOf(RandomUtil.randomInt(Integer.valueOf(send_size_test), Integer.valueOf(send_size_test)+5));
                                 send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
                                 String command = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_100;
-                                String command1 = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_10;
+                                String command1 = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_test;
                                 cbBuffer.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
                                 String ip = getDeviceByIP(devicesMap, mtpRecordDetailed.getAfterEndFullName());
 
                                 if (StringUtil.isBlank(ip)) {
                                     errorMessage = "peRouter (" + mtpRecordDetailed.getBeforeEndFullName() + ") unable Get corresponding Router ";
-                                } else if (ip.equals("GGWAPI²éÑ¯Éè±¸Á¬½ÓÒÑ¾­¹Ø±Õ")) {
+                                } else if (ip.equals("GGWAPIæŸ¥è¯¢è®¾å¤‡è¿æ¥å·²ç»å…³é—­")) {
                                     errorMessage = ip;
                                 }
 
@@ -560,12 +559,12 @@ public class MTPReceiveService {
                                 Map<String, String> temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
                                 errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
 
-                                if (StringUtils.isEmpty(errorMessage)) {//µÚÒ»´ÎÉÙ°üÎŞÒì³££¬ÔÙÖ´ĞĞ´ó°ü
+                                if (StringUtils.isEmpty(errorMessage)) {//ç¬¬ä¸€æ¬¡å°‘åŒ…æ— å¼‚å¸¸ï¼Œå†æ‰§è¡Œå¤§åŒ…
                                     paramMap.put("command", command);
                                     temprReturnMap = new HashMap<>();
                                     temprReturnMap = GGWLoginApiUtil.execute(paramMap, GGWLoginApiUtil.getLog());
                                     errorMessage = setLogByResult(paramMap, temprReturnMap, cbBuffer, mtpRecordDetailed, period);
-                                    if (StringUtils.isEmpty(errorMessage)) {//µÚ¶ş´ÎÎŞÒì³£ ¼ÇÂ¼
+                                    if (StringUtils.isEmpty(errorMessage)) {//ç¬¬äºŒæ¬¡æ— å¼‚å¸¸ è®°å½•
                                         cbBuffer.append(paramMap.get("command") + "\t\n");
                                         cbBuffer.append(temprReturnMap.get("data"));
                                         tempData=temprReturnMap.get("data");
@@ -583,15 +582,14 @@ public class MTPReceiveService {
                             if (!mtpRecordDetailed.getBeforeStatus().equals(mtpRecordDetailed.getAfterStatus())) {
                                 differInternalSiteId += mtpRecordDetailed.getInternalSiteId() + ";";
                                 consistent = false;
-                                returnMap.put("status", "N");
 
                                 differBf.append("----------------------------------\r\n");
-                                differBf.append("PE Port£º" + trunk_name + "\r\n");
-                                differBf.append("internalSiteId£º<b style=\"color:red;\">" + pePort.getInternalSiteId() + "</b>\r\n");
-                                differBf.append("Date£º" + nowDate + "\r\n");
+                                differBf.append("PE Portï¼š" + trunk_name + "\r\n");
+                                differBf.append("internalSiteIdï¼š<b style=\"color:red;\">" + pePort.getInternalSiteId() + "</b>\r\n");
+                                differBf.append("Dateï¼š" + nowDate + "\r\n");
                                 if (!StringUtil.isBlank(pePort.getVRFSiteId())) {
                                     mtpRecordDetailed.setAfterVrfSiteId(pePort.getVRFSiteId());
-                                    differBf.append("vrfSiteId£º" + pePort.getVRFSiteId() + "\r\n");
+                                    differBf.append("vrfSiteIdï¼š" + pePort.getVRFSiteId() + "\r\n");
                                 }
                                 differBf.append("----------------------------------\r\n");
                                 differBf.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
@@ -614,7 +612,7 @@ public class MTPReceiveService {
                 }
 
 
-                //ÅĞ¶ÏÂß¼­
+                //åˆ¤æ–­é€»è¾‘
                 tcpInsert = ((consistent) ? "<b>Inspection results: consistent</b><br><br>" : "<b style=\"color:red;font-size:20px;\">Inspection results:not consistent</b><br><br><b style=\"color:red;font-size:15px;\">Not Consistent InternalSiteId:" + differInternalSiteId + "</b>\r\n\r\n" + differBf);
 
                 if (!errorInternalSiteId.equals("")) {
@@ -622,20 +620,20 @@ public class MTPReceiveService {
                 }
             }
             Long endStr = System.currentTimeMillis();
-            ExecuteCommandLog.info("Ö´ĞĞ" + tcpPePort.size() + "ÏßÂ·£¬ÓÃÊ±" + (endStr - strLong) / 1000.00 + "Ãë");
+            ExecuteCommandLog.info("æ‰§è¡Œ" + tcpPePort.size() + "çº¿è·¯ï¼Œç”¨æ—¶" + (endStr - strLong) / 1000.00 + "ç§’");
         }
-        /* pePortsÑ­»·½áÊø */
+        /* pePortså¾ªç¯ç»“æŸ */
         tcpBf.insert(0, tcpInsert);
 
 
-        //Õâ¸öÊÇ bacbonePePort
+        //è¿™ä¸ªæ˜¯ bacbonePePort
         /*{
             ResultList bacboneResultList = new ResultList();
-            String exceptionTrunkId = "";//Òì³£µÄ trunk
+            String exceptionTrunkId = "";//å¼‚å¸¸çš„ trunk
 
-            int loginInt = 1;//µÇÂ¼ggw´ÎÊı
+            int loginInt = 1;//ç™»å½•ggwæ¬¡æ•°
             String backboneStr = "";
-            //»ñÈ¡backbone²ÎÊı£¬È»ºó¸ù¾İÖµÀ´Ö´ĞĞbackboneÖ´ĞĞ
+            //è·å–backboneå‚æ•°ï¼Œç„¶åæ ¹æ®å€¼æ¥æ‰§è¡Œbackboneæ‰§è¡Œ
             try {
                 if (backbonePePort != null && backbonePePort.size() > 0) {
                     backboneStr = backbonePePort.get(0).getPeInterface();
@@ -674,8 +672,8 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setLastUpdatedTime(mtpRecordDetailed.getCreateTime());
                         String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                         cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
-                        cbBuffer.append("Trunk £º" + trunk + "\r\n");
-                        cbBuffer.append("Date£º" + nowDate + "\r\n");
+                        cbBuffer.append("Trunk ï¼š" + trunk + "\r\n");
+                        cbBuffer.append("Dateï¼š" + nowDate + "\r\n");
                         cbBuffer.append("-------------------------------------------------------------------------------------------\r\n");
                         mtpRecordDetailed.setBeforeStatus("pass");
                         mtpRecordDetailed.setBeforeErrorCause("");
@@ -708,11 +706,12 @@ public class MTPReceiveService {
                         MTPQueryLog.printStackTrace(e);
                     }
                 }
-            } else {//Ã»ÓĞÕÒµ½backbone²ÎÊı
+            } else {//æ²¡æœ‰æ‰¾åˆ°backboneå‚æ•°
                 String tempStr = "not acquired peInterface";
             }
         }*/
-        returnMap.put("status", (returnMap.containsKey("status")) ? returnMap.get("status") : "Y");
+
+        returnMap.put("status", (consistent) ?"Y":"N");
         returnMap.put("tense", period);
         returnMap.put("ticketName", ticketName);
 
@@ -722,8 +721,8 @@ public class MTPReceiveService {
             returnMap.put("returnHtmlmsg", returnMap.get("returnHtmlmsg").replace("summary", "MTP result summary"));
             msg = msg.replace("summary", "MTP result summary");
         } else {
-            returnMap.put("returnHtmlmsg", returnMap.get("returnHtmlmsg").replace("summary", "MTP result summary£¨abnormal£©,Please check the detail"));
-            msg = msg.replace("summary", "MTP result summary£¨abnormal£©,Please check the detail");
+            returnMap.put("returnHtmlmsg", returnMap.get("returnHtmlmsg").replace("summary", "MTP result summaryï¼ˆabnormalï¼‰,Please check the detail"));
+            msg = msg.replace("summary", "MTP result summaryï¼ˆabnormalï¼‰,Please check the detail");
         }
         returnMap.put("msg", msg);
         MTPQueryLog.info("send msg:\n" + msg);
@@ -736,7 +735,7 @@ public class MTPReceiveService {
 
 
     /**
-     * ¸ù¾İ½á¹ûÀ´ÕûÀíÈÕÖ¾html
+     * æ ¹æ®ç»“æœæ¥æ•´ç†æ—¥å¿—html
      */
     public static String setLogByResult(Map<String, String> paramMap, Map<String, String> temprReturnMap, StringBuffer cbBuffer, MtpRecordDetailed mtpRecordDetailed, String period) {
         String errorMessage = "";
@@ -759,28 +758,28 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¸ù¾İsiteMapÀ´»ñÈ¡msg ÉèÖÃµ½returnmap
+     * æ ¹æ®siteMapæ¥è·å–msg è®¾ç½®åˆ°returnmap
      *
      * @param siteMap
      * @param returnMap
-     * @param internalSiteAllSize Èç¹û´«ÁË internalSiteAll²»Îª0 Êä³ö
+     * @param internalSiteAllSize å¦‚æœä¼ äº† internalSiteAllä¸ä¸º0 è¾“å‡º
      */
     public static String getMsgBySiteMap(LinkedTreeMap<String, ResultMessage> siteMap, LinkedTreeMap<String, ResultMessage> backboneMap, Map<String, String> returnMap, int internalSiteAllSize, String htmlPath, List<String> internalSiteIdArray) {
-        int siteTotalSize = 0;//×ÜÊıÁ¿
-        int siteFaildSize = 0;//´íÎóÊıÁ¿
-        int siteSuccessSize = 0;//³É¹¦ÊıÁ¿
-        int siteExceptionSize = 0;//ÏßÂ·²ÎÊıÒì³£ÊıÁ¿
-        String siteExceptionDetailed = "";//Òì³£µÄsiteÏêÏ¸
-        int backboneTotalSize = 0;//×ÜÊıÁ¿
-        int backboneFaildSize = 0;//´íÎóÊıÁ¿
-        int backboneSuccessSize = 0;//³É¹¦ÊıÁ¿
-        int backboneExceptionSize = 0;//¹Ç¸É²ÎÊıÒì³£ÊıÁ¿
-        String backboneExceptionDetailed = "";//Òì³£µÄ¹Ç¸É
-        int mvrfSize = 0;// mvrfÊıÁ¿
-        String mvrfDetailed = "";// mvrfÏêÏ¸
-        int internalSiteIdArraySize = (internalSiteIdArray != null) ? internalSiteIdArray.size() : 0;//¶ÔÓ¦Ã»ÓĞÕÒµ½ÏßÂ·ĞÅÏ¢µÄÊıÁ¿
+        int siteTotalSize = 0;//æ€»æ•°é‡
+        int siteFaildSize = 0;//é”™è¯¯æ•°é‡
+        int siteSuccessSize = 0;//æˆåŠŸæ•°é‡
+        int siteExceptionSize = 0;//çº¿è·¯å‚æ•°å¼‚å¸¸æ•°é‡
+        String siteExceptionDetailed = "";//å¼‚å¸¸çš„siteè¯¦ç»†
+        int backboneTotalSize = 0;//æ€»æ•°é‡
+        int backboneFaildSize = 0;//é”™è¯¯æ•°é‡
+        int backboneSuccessSize = 0;//æˆåŠŸæ•°é‡
+        int backboneExceptionSize = 0;//éª¨å¹²å‚æ•°å¼‚å¸¸æ•°é‡
+        String backboneExceptionDetailed = "";//å¼‚å¸¸çš„éª¨å¹²
+        int mvrfSize = 0;// mvrfæ•°é‡
+        String mvrfDetailed = "";// mvrfè¯¦ç»†
+        int internalSiteIdArraySize = (internalSiteIdArray != null) ? internalSiteIdArray.size() : 0;//å¯¹åº”æ²¡æœ‰æ‰¾åˆ°çº¿è·¯ä¿¡æ¯çš„æ•°é‡
 
-        String nullSiteExceptionDetailed = "";//Ã»ÓĞÕÒµ½µÄsite
+        String nullSiteExceptionDetailed = "";//æ²¡æœ‰æ‰¾åˆ°çš„site
         if (internalSiteIdArray != null) {
             for (int i = 0; i < internalSiteIdArray.size(); i++) {
                 nullSiteExceptionDetailed += internalSiteIdArray.get(i) + ";";
@@ -821,80 +820,80 @@ public class MTPReceiveService {
         String msg = (
                 "------------  summary ----------\n" +
                         "------------  site ----------\n" +
-                        "site Total£º" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
-                        "ping Success£º" + siteSuccessSize + "\n" +
-                        "ping faild£º" + siteFaildSize + "\n" +
+                        "site Totalï¼š" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
+                        "ping Successï¼š" + siteSuccessSize + "\n" +
+                        "ping faildï¼š" + siteFaildSize + "\n" +
                         "MVRF:" + mvrfSize + "\n" +
-                        "param exception£º" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
-                        "exception site detailed£º" + siteExceptionDetailed + "\n" +
-                        "null exception site detailed£º" + nullSiteExceptionDetailed + "\n" +
+                        "param exceptionï¼š" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
+                        "exception site detailedï¼š" + siteExceptionDetailed + "\n" +
+                        "null exception site detailedï¼š" + nullSiteExceptionDetailed + "\n" +
                         "\n" +
                         "------------  backbone ----------\n" +
-                        "backbone Total£º" + backboneTotalSize + "\n" +
-                        "backbone success£º" + backboneSuccessSize + "\n" +
-                        "backbone fail£º" + backboneFaildSize + "\n" +
-                        "param exception£º" + backboneExceptionSize + "\n" +
-                        "exception backbone detailed£º" + backboneExceptionDetailed + "\n" +
+                        "backbone Totalï¼š" + backboneTotalSize + "\n" +
+                        "backbone successï¼š" + backboneSuccessSize + "\n" +
+                        "backbone failï¼š" + backboneFaildSize + "\n" +
+                        "param exceptionï¼š" + backboneExceptionSize + "\n" +
+                        "exception backbone detailedï¼š" + backboneExceptionDetailed + "\n" +
                         "------------ Result url ----------\n" +
                         htmlPath + "\n" +
                         "------------------------separative sign --------------------------" + "\n\n\n\n");
         String returnHtmlmsg =
                 "------------  summary ----------\n" +
                         "------------  site ----------\n" +
-                        "site Total£º" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
-                        "ping Success£º" + siteSuccessSize + "\n";
+                        "site Totalï¼š" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
+                        "ping Successï¼š" + siteSuccessSize + "\n";
         String remedy_summary= (
                 "------------  summary ----------\n" +
                         "------------  site ----------\n" +
-                        "site Total£º" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
-                        "ping Success£º" + siteSuccessSize + "\n" +
-                        "ping faild£º" + siteFaildSize + "\n" +
+                        "site Totalï¼š" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
+                        "ping Successï¼š" + siteSuccessSize + "\n" +
+                        "ping faildï¼š" + siteFaildSize + "\n" +
                         "MVRF:" + mvrfSize + "\n" +
-                        "param exception£º" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
-                        "exception site detailed£º" + ((siteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":siteExceptionDetailed )+"\n" +
-                        "null exception site detailed£º" +((nullSiteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":nullSiteExceptionDetailed )  + "\n" +
+                        "param exceptionï¼š" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
+                        "exception site detailedï¼š" + ((siteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":siteExceptionDetailed )+"\n" +
+                        "null exception site detailedï¼š" +((nullSiteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":nullSiteExceptionDetailed )  + "\n" +
                         "\n" +
                         "------------ Result url ----------\n" +
                         htmlPath + "\n" +
                         "------------------------separative sign --------------------------" + "\n\n\n\n");
 
         if (siteFaildSize == 0) {
-            returnHtmlmsg += "ping faild£º" + siteFaildSize + "\n";
+            returnHtmlmsg += "ping faildï¼š" + siteFaildSize + "\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "ping faild£º" + siteFaildSize + "</span>" + "\n";
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "ping faildï¼š" + siteFaildSize + "</span>" + "\n";
         }
         returnHtmlmsg += "MVRF:" + mvrfSize + "\n";
         if (StrUtil.isBlank(siteExceptionDetailed)) {
-            returnHtmlmsg += "param exception£º" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
-                    "exception site detailed£º" + siteExceptionDetailed + "\n";
+            returnHtmlmsg += "param exceptionï¼š" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
+                    "exception site detailedï¼š" + siteExceptionDetailed + "\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception£º" + (siteExceptionSize + internalSiteIdArraySize) + "</span>" + "\n" +
-                    "<span style=\"color:red;font-weight:bold;\">" + "exception site detailed£º" + siteExceptionDetailed + "</span>" + "\n";
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exceptionï¼š" + (siteExceptionSize + internalSiteIdArraySize) + "</span>" + "\n" +
+                    "<span style=\"color:red;font-weight:bold;\">" + "exception site detailedï¼š" + siteExceptionDetailed + "</span>" + "\n";
         }
         if (StrUtil.isBlank(nullSiteExceptionDetailed)) {
-            returnHtmlmsg += "null exception site detailed£º" + nullSiteExceptionDetailed + "\n";
+            returnHtmlmsg += "null exception site detailedï¼š" + nullSiteExceptionDetailed + "\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "null exception site detailed£º" + nullSiteExceptionDetailed + "</span>" + "\n";
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "null exception site detailedï¼š" + nullSiteExceptionDetailed + "</span>" + "\n";
         }
         returnHtmlmsg += "\n" +
                 "------------  backbone ----------\n" +
-                "backbone Total£º" + backboneTotalSize + "\n" +
-                "backbone success£º" + backboneSuccessSize + "\n";
+                "backbone Totalï¼š" + backboneTotalSize + "\n" +
+                "backbone successï¼š" + backboneSuccessSize + "\n";
 
         if (backboneFaildSize == 0) {
-            returnHtmlmsg += "backbone fail£º" + backboneFaildSize + "\n";
+            returnHtmlmsg += "backbone failï¼š" + backboneFaildSize + "\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "backbone fail£º" + backboneFaildSize + "</span>" + "\n";
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "backbone failï¼š" + backboneFaildSize + "</span>" + "\n";
         }
         if (StrUtil.isBlank(backboneExceptionDetailed)) {
-            returnHtmlmsg += "param exception£º" + backboneExceptionSize + "\n" +
-                    "exception backbone detailed£º" + backboneExceptionDetailed + "\n" +
+            returnHtmlmsg += "param exceptionï¼š" + backboneExceptionSize + "\n" +
+                    "exception backbone detailedï¼š" + backboneExceptionDetailed + "\n" +
                     "------------ Result url ----------\n" +
                     htmlPath + "\n" +
                     "------------------------separative sign --------------------------" + "\n\n\n\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception£º" + backboneExceptionSize + "</span>" + "\n" +
-                    "<span style=\"color:red;font-weight:bold;\">" + "exception backbone detailed£º" + backboneExceptionDetailed + "</span>" + "\n" +
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exceptionï¼š" + backboneExceptionSize + "</span>" + "\n" +
+                    "<span style=\"color:red;font-weight:bold;\">" + "exception backbone detailedï¼š" + backboneExceptionDetailed + "</span>" + "\n" +
                     "------------ Result url ----------\n" +
                     htmlPath + "\n" +
                     "------------------------separative sign --------------------------" + "\n\n\n\n";
@@ -908,10 +907,10 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¸ù¾İ Ê±Ì¬ºÍ pingStatus À´ÅĞ¶Ï
+     * æ ¹æ® æ—¶æ€å’Œ pingStatus æ¥åˆ¤æ–­
      *
      * @param mtpRecordDetailed
-     * @param period            Ê±Ì¬
+     * @param period            æ—¶æ€
      * @param siteMap
      */
     public static void setSiteMapByPingStatus(MtpRecordDetailed mtpRecordDetailed, String period, LinkedTreeMap<String, ResultMessage> siteMap, Map<String, String> returnMap) {
@@ -933,25 +932,25 @@ public class MTPReceiveService {
             siteResultMessage.setMvrfSize((siteResultMessage.getMvrfSize() == 0 ? 1 : siteResultMessage.getMvrfSize()) + 1);
             siteResultMessage.setSiteTotalSize(siteResultMessage.getSiteTotalSize() + 1);
             siteResultMessage.setMvrfDetailed(siteResultMessage.getMvrfDetailed() + ";" + mvrf);
-            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("ping½âÎöÒì³£") || pingStatus.equals("Ç°ºóÑÓ³Ù´óÓÚ2")))) {
+            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("pingè§£æå¼‚å¸¸") || pingStatus.equals("å‰åå»¶è¿Ÿå¤§äº2")))) {
                 returnMap.put("status", "N");
                 siteResultMessage.setSiteExceptionSize(siteResultMessage.getSiteExceptionSize() + 1);
-            } else if (pingStatus.equals("pingÕı³£")) {
+            } else if (pingStatus.equals("pingæ­£å¸¸")) {
                 siteResultMessage.setSiteSuccessSize(siteResultMessage.getSiteSuccessSize() + 1);
-            } else if (pingStatus.equals("ping¶ª°ü") || pingStatus.equals("ping²»Í¨")) {
+            } else if (pingStatus.equals("pingä¸¢åŒ…") || pingStatus.equals("pingä¸é€š")) {
                 siteResultMessage.setSiteFaildSize(siteResultMessage.getSiteFaildSize() + 1);
             }
             siteMap.put(internalSiteId, siteResultMessage);
         } else {
             siteResultMessage.setSiteTotalSize(1);
             siteResultMessage.setMvrfDetailed(mvrf);
-            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("ping½âÎöÒì³£") || pingStatus.equals("Ç°ºóÑÓ³Ù´óÓÚ2")))) {
+            if (StrUtil.isBlank(pingStatus) || (!StrUtil.isBlank(pingStatus) && (pingStatus.equals("pingè§£æå¼‚å¸¸") || pingStatus.equals("å‰åå»¶è¿Ÿå¤§äº2")))) {
                 returnMap.put("status", "N");
                 siteResultMessage.setSiteExceptionDetailed(mtpRecordDetailed.getInternalSiteId());
                 siteResultMessage.setSiteExceptionSize(1);
-            } else if (pingStatus.equals("pingÕı³£")) {
+            } else if (pingStatus.equals("pingæ­£å¸¸")) {
                 siteResultMessage.setSiteSuccessSize(1);
-            } else if (pingStatus.equals("ping¶ª°ü") || pingStatus.equals("ping²»Í¨")) {
+            } else if (pingStatus.equals("pingä¸¢åŒ…") || pingStatus.equals("pingä¸é€š")) {
                 siteResultMessage.setSiteFaildSize(1);
             }
             siteMap.put(internalSiteId, siteResultMessage);
@@ -959,7 +958,7 @@ public class MTPReceiveService {
     }
 
     /**
-     * ·¢ËÍmtp²éÑ¯Ö®ºóµÄÏûÏ¢µ½ remedy
+     * å‘é€mtpæŸ¥è¯¢ä¹‹åçš„æ¶ˆæ¯åˆ° remedy
      *
      * @param mtpResult
      * @param remedyUrl
@@ -968,21 +967,21 @@ public class MTPReceiveService {
         Map<String, Object> hashMap = new HashMap<>();
         String mtpResultStr = JSONUtil.toJsonStr(mtpResult);
         hashMap.put("jsonStr", mtpResultStr);
-        MTPQueryLog.info("ÍÆËÍµÄ²ÎÊıÎª mtpResultStr:" + mtpResultStr);
-        MTPQueryLog.info("remedyµØÖ· remedyUrl:" + remedyUrl);
+        MTPQueryLog.info("æ¨é€çš„å‚æ•°ä¸º mtpResultStr:" + mtpResultStr);
+        MTPQueryLog.info("remedyåœ°å€ remedyUrl:" + remedyUrl);
         String remedyReturnStr = HttpUtil.post(remedyUrl, hashMap);
-        MTPQueryLog.info("·µ»Ø½á¹û remedyReturnStr:" + remedyReturnStr);
+        MTPQueryLog.info("è¿”å›ç»“æœ remedyReturnStr:" + remedyReturnStr);
         cn.hutool.json.JSONObject returnJsonObject = JSONUtil.parseObj(remedyReturnStr);
         if (!StringUtil.isBlank(returnJsonObject.getStr("status")) && returnJsonObject.getStr("status").equals("Y")) {
-            MTPQueryLog.info("´íÎó ·µ»ØÁË´íÎó½á¹û£¬Çë²é¿´");
+            MTPQueryLog.info("é”™è¯¯ è¿”å›äº†é”™è¯¯ç»“æœï¼Œè¯·æŸ¥çœ‹");
         } else {
-            MTPQueryLog.info("ÏûÏ¢ÒÑ¾­ÍÆËÍµ½remedy");
+            MTPQueryLog.info("æ¶ˆæ¯å·²ç»æ¨é€åˆ°remedy");
         }
 
     }
 
     /**
-     * ÉèÖÃ´íÎóĞÅÏ¢
+     * è®¾ç½®é”™è¯¯ä¿¡æ¯
      *
      * @param mtpRecordDetailed
      * @param errorMessage
@@ -1004,10 +1003,10 @@ public class MTPReceiveService {
 
 
     /**
-     * »ñÈ¡ÎÄ¼şÂ·¾¶
+     * è·å–æ–‡ä»¶è·¯å¾„
      *
      * @param caseId
-     * @param period Ê±Ì¬£¨×öÎ¬»¤Ö®Ç°»òÕßÖ®ºó£©
+     * @param period æ—¶æ€ï¼ˆåšç»´æŠ¤ä¹‹å‰æˆ–è€…ä¹‹åï¼‰
      * @return
      */
     public Map<String, String> getUrl(String caseId, String period) {
@@ -1017,9 +1016,9 @@ public class MTPReceiveService {
         String requestUrl = request.getServletContext().getRealPath("");
         //request.getSession().getServletContext().getRealPath("");
         //D:\op1768\tool\idea\MyOldObject\mtp\WebContent
-        //    	String mtpPath =  separator+"mtp"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator;  //ÎÄ¼ş±£´æÂ·¾¶
-        String mtpPath = "/mtp/" + DateUtil.getDateStryyyyMMdd(new Date()) + "/";  //ÎÄ¼ş±£´æÂ·¾¶
-        String requestHtmlUrl = request.getRequestURL().toString();//ÇëÇóurl
+        //    	String mtpPath =  separator+"mtp"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator;  //æ–‡ä»¶ä¿å­˜è·¯å¾„
+        String mtpPath = "/mtp/" + DateUtil.getDateStryyyyMMdd(new Date()) + "/";  //æ–‡ä»¶ä¿å­˜è·¯å¾„
+        String requestHtmlUrl = request.getRequestURL().toString();//è¯·æ±‚url
         String urlPrefix = requestHtmlUrl.replace(request.getRequestURI(), "") + request.getContextPath();
         String urlPostfix = caseId + "_" + period + ".html";
         String htmlPath = urlPrefix + mtpPath + urlPostfix;
@@ -1031,10 +1030,10 @@ public class MTPReceiveService {
     }
 
     /**
-     * ÉèÖÃ¶ª°üÀàĞÍÀ´ºóĞøÅĞ¶ÏÊÇ ¶ª°ü»¹ÊÇ²»¶ª°ü»¹ÊÇÒì³£¡£
+     * è®¾ç½®ä¸¢åŒ…ç±»å‹æ¥åç»­åˆ¤æ–­æ˜¯ ä¸¢åŒ…è¿˜æ˜¯ä¸ä¸¢åŒ…è¿˜æ˜¯å¼‚å¸¸ã€‚
      *
-     * @param period     Ê±Ì¬
-     * @param detailed   ÊµÌåÀà
+     * @param period     æ—¶æ€
+     * @param detailed   å®ä½“ç±»
      * @param pingStatus
      */
     public static void setPingStatus(String period, MtpRecordDetailed detailed, String pingStatus) {
@@ -1047,22 +1046,22 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¸ù¾İ·µ»Ø½á¹ûÉèÖÃºÍ»ñÈ¡Öµ
+     * æ ¹æ®è¿”å›ç»“æœè®¾ç½®å’Œè·å–å€¼
      *
-     * @param tempFruit ½á¹ûÅĞ¶Ï×Ö·û´®
-     * @param period    Ê±ÆÚ
+     * @param tempFruit ç»“æœåˆ¤æ–­å­—ç¬¦ä¸²
+     * @param period    æ—¶æœŸ
      * @param detailed
      * @return
      */
     public static String getFruit(String tempFruit, String period, MtpRecordDetailed detailed) {
         String errorMessage = "";
-        String received = "";//¶ª°üÂÊ
+        String received = "";//ä¸¢åŒ…ç‡
         System.out.println(tempFruit);
         String pingStatus = "";
         try {
             received = tempFruit.substring(tempFruit.indexOf("received,") + 9, tempFruit.indexOf("%")).trim();
         } catch (Exception e) {
-            pingStatus = "ping½âÎöÒì³£";
+            pingStatus = "pingè§£æå¼‚å¸¸";
             setPingStatus(period, detailed, pingStatus);
             e.printStackTrace();
             errorMessage = tempFruit;
@@ -1071,12 +1070,12 @@ public class MTPReceiveService {
 
         if (received.equals("0")) {
 
-            System.out.println("¶ª°üÂÊ£º£¨" + received + "£©");
+            System.out.println("ä¸¢åŒ…ç‡ï¼šï¼ˆ" + received + "ï¼‰");
             if (period.equals("before")) {
                 String temporary = tempFruit.substring(tempFruit.indexOf("stddev =") + 8).trim();
                 BigDecimal beforeDelay = BigDecimal.valueOf(Double.valueOf(temporary.substring(0, temporary.indexOf("/"))));
                 detailed.setBeforeDelay(beforeDelay.toString());
-                pingStatus = "pingÕı³£";
+                pingStatus = "pingæ­£å¸¸";
                 setPingStatus(period, detailed, pingStatus);
             } else if (tempFruit.indexOf("stddev =") > -1 && !StringUtil.isBlank(detailed.getBeforeDelay())) {
                 String temporary = tempFruit.substring(tempFruit.indexOf("stddev =") + 8).trim();
@@ -1084,30 +1083,30 @@ public class MTPReceiveService {
                 BigDecimal beforeDelay = BigDecimal.valueOf(Double.valueOf(detailed.getBeforeDelay()));
                 detailed.setAfterDelay(afterDelay.toString());
 
-                if (afterDelay.subtract(beforeDelay).floatValue() >= 2) {
-                    pingStatus = "Ç°ºóÑÓ³Ù´óÓÚ2";
+                if (comparisonDelay(beforeDelay,afterDelay)) {
+                    pingStatus = "å‰åå»¶è¿Ÿå¤§äºé¢„å®šå€¼";
                     setPingStatus(period, detailed, pingStatus);
-                    //return   errorMessage = tempFruit + "\n×öÎ¬»¤ºóÑÓ³Ù³¬¹ı¶Ô±ÈÖ®Ç°³¬¹ıÔö¼ÓÁË 1,Ö®Ç°ÑÓ³Ù£º" + beforeDelay + "\t Ö®ºóµÄÑÓ³Ù£º" + afterDelay;
-                    return errorMessage = tempFruit + "\nThe delay after maintenance exceeded that before comparison 2,before delay£º" + beforeDelay + "\t after delay£º" + afterDelay;
+                    //return   errorMessage = tempFruit + "\nåšç»´æŠ¤åå»¶è¿Ÿè¶…è¿‡å¯¹æ¯”ä¹‹å‰è¶…è¿‡å¢åŠ äº† 1,ä¹‹å‰å»¶è¿Ÿï¼š" + beforeDelay + "\t ä¹‹åçš„å»¶è¿Ÿï¼š" + afterDelay;
+                    return errorMessage = tempFruit + "\nThe delay after maintenance exceeded that before comparison "+afterDelay.subtract(beforeDelay).floatValue()+",before delayï¼š" + beforeDelay + "\t after delayï¼š" + afterDelay;
                 }
-                pingStatus = "pingÕı³£";
+                pingStatus = "pingæ­£å¸¸";
                 setPingStatus(period, detailed, pingStatus);
             }
         } else {
             try {
                 if (Integer.valueOf(received) > 0 && Integer.valueOf(received) < 100) {
                     errorMessage = tempFruit;
-                    pingStatus = "ping¶ª°ü";
+                    pingStatus = "pingä¸¢åŒ…";
                     setPingStatus(period, detailed, pingStatus);
                 }
                 if (Integer.valueOf(received) == 100|| tempFruit.indexOf("100% packet loss")>-1 ) {
                     errorMessage = tempFruit;
-                    pingStatus = "ping²»Í¨";
+                    pingStatus = "pingä¸é€š";
                     setPingStatus(period, detailed, pingStatus);
                 }
             } catch (Exception e) {
                 errorMessage = tempFruit;
-                pingStatus = "ping½âÎöÒì³£";
+                pingStatus = "pingè§£æå¼‚å¸¸";
                 setPingStatus(period, detailed, pingStatus);
             }
         }
@@ -1115,7 +1114,36 @@ public class MTPReceiveService {
     }
 
     /**
-     * ¸ù¾İ²ÎÊıÀ´µ÷ÓÃggwAPI Ö´ĞĞÃüÁî
+     * å‰å Delay å¯¹æ¯”
+     * before 10mä»¥ä¸‹    2mså‡ºå¼‚å¸¸
+     * before 10-50ms   5ms å‡ºå¼‚å¸¸
+     * before 50-100ms     8mså‡ºå¼‚å¸¸
+     * before 100msä»¥ä¸Š    10mså‡ºå¼‚å¸¸
+     * å¼‚å¸¸trueï¼Œæ­£å¸¸false
+     * @param beforeDelay ä¹‹å‰ Delay
+     * @param afterDelay  ä¹‹å Delay
+     * @return
+     */
+    public static boolean comparisonDelay(BigDecimal beforeDelay,BigDecimal afterDelay){
+        boolean flag=false;//å‰åå¯¹æ¯”Delay å¼‚å¸¸ä¸ºtrue,é»˜è®¤ ä¸ºfalse
+        beforeDelay.doubleValue();
+        if(beforeDelay.floatValue()<10&&afterDelay.subtract(beforeDelay).floatValue() >= 2){
+            return true;
+        }
+        if(beforeDelay.floatValue()<50&&afterDelay.subtract(beforeDelay).floatValue() >= 5){
+            return true;
+        }
+        if(beforeDelay.floatValue()<100&&afterDelay.subtract(beforeDelay).floatValue() >= 8){
+            return true;
+        }
+        if(beforeDelay.floatValue()>=100&&afterDelay.subtract(beforeDelay).floatValue() >= 10){
+            return true;
+        }
+        return flag;
+    }
+
+    /**
+     * æ ¹æ®å‚æ•°æ¥è°ƒç”¨ggwAPI æ‰§è¡Œå‘½ä»¤
      *
      * @param paramMap
      * @return
@@ -1127,7 +1155,7 @@ public class MTPReceiveService {
                 + "&&password=" + paramMap.get("opPassword")
                 + "&&sign=" + paramMap.get("sign")
                 + "&&timestamp=" + nowTime;
-        ExecuteCommandLog.info("Ö´ĞĞÁËÃüÁî\ncommand=" + paramMap.get("command").toString() + "\nip=" + paramMap.get("ip"));
+        ExecuteCommandLog.info("æ‰§è¡Œäº†å‘½ä»¤\ncommand=" + paramMap.get("command").toString() + "\nip=" + paramMap.get("ip"));
         String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
         String url = GGW_URL + "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
 
@@ -1136,18 +1164,18 @@ public class MTPReceiveService {
         String result = null;
         try {
             result = HttpUtil.get(url);
-            ExecuteCommandLog.info("µ÷ÓÃAPI ·µ»Ø½á¹û£º\n" + result);
+            ExecuteCommandLog.info("è°ƒç”¨API è¿”å›ç»“æœï¼š\n" + result);
         } catch (Exception e) {
-            System.out.println(e.getCause().getMessage());//»ñÈ¡Òì³£ĞÅÏ¢
+            System.out.println(e.getCause().getMessage());//è·å–å¼‚å¸¸ä¿¡æ¯
             e.printStackTrace();
-            result = "error£»" + e.getCause().getMessage();
+            result = "errorï¼›" + e.getCause().getMessage();
         }
         return result;
     }
 
 
     /**
-     * ¸ù¾İ²ÎÊıÀ´µÇÂ¼ggw
+     * æ ¹æ®å‚æ•°æ¥ç™»å½•ggw
      *
      * @param paramMap
      * @return
@@ -1168,12 +1196,12 @@ public class MTPReceiveService {
         try {
             result = HttpUtil.get(url);
             if (StrUtil.isBlank(result)) {
-                result = "error:login ·µ»Ø²ÎÊıÎª¿Õ";
+                result = "error:login è¿”å›å‚æ•°ä¸ºç©º";
             }
         } catch (Exception e) {
-            System.out.println(e.getCause().getMessage());//»ñÈ¡Òì³£ĞÅÏ¢
+            System.out.println(e.getCause().getMessage());//è·å–å¼‚å¸¸ä¿¡æ¯
             e.printStackTrace();
-            result = "error£»" + e.getCause().getMessage();
+            result = "errorï¼›" + e.getCause().getMessage();
         }
 
         return result;
@@ -1181,9 +1209,9 @@ public class MTPReceiveService {
 
 
     /**
-     * °Ñ×é×°µÄÄÚÈİ ·Åµ½htmlÖĞ
+     * æŠŠç»„è£…çš„å†…å®¹ æ”¾åˆ°htmlä¸­
      *
-     * @param htmlStr  ×é×°µÄÄÚÈİ
+     * @param htmlStr  ç»„è£…çš„å†…å®¹
      * @param htmlPath
      * @param filePath
      * @return
@@ -1200,10 +1228,10 @@ public class MTPReceiveService {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                System.out.println(file.getPath() + ">´´½¨³É¹¦!");
+                System.out.println(file.getPath() + ">åˆ›å»ºæˆåŠŸ!");
             } else {
                 file.createNewFile();
-                System.out.println(file.getPath() + ">´´½¨³É¹¦!");
+                System.out.println(file.getPath() + ">åˆ›å»ºæˆåŠŸ!");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -1223,10 +1251,10 @@ public class MTPReceiveService {
 
 
     /**
-     * ¸ù¾İµ±Ç°½á¹ûÀ´ÅĞ¶Ï²åÈë×Ü¼ÇÂ¼ÖĞµÄÎ»ÖÃ
+     * æ ¹æ®å½“å‰ç»“æœæ¥åˆ¤æ–­æ’å…¥æ€»è®°å½•ä¸­çš„ä½ç½®
      *
-     * @param bf  ×Ü½á¹û
-     * @param cbf µ±Ç°½á¹û
+     * @param bf  æ€»ç»“æœ
+     * @param cbf å½“å‰ç»“æœ
      */
     public static void addBf(StringBuffer bf, StringBuffer cbf) {
         if (cbf.indexOf("color:red") > -1) {
@@ -1244,7 +1272,7 @@ public class MTPReceiveService {
         StringBuffer bf = new StringBuffer("wlf");
         StringBuffer cbf = new StringBuffer("color:red and");
         addBf(bf, cbf);
-        System.out.println(bf); //µ÷ÓÃinsert·½·¨ºó½á¹û£ºwanglf
+        System.out.println(bf); //è°ƒç”¨insertæ–¹æ³•åç»“æœï¼šwanglf
     }
 
 

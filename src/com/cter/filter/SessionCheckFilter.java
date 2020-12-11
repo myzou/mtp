@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * ÓÃÓÚ¼ì²âÓÃ»§ÊÇ·ñµÇÂ½µÄ¹ıÂËÆ÷£¬Èç¹ûÎ´µÇÂ¼£¬ÔòÖØ¶¨Ïòµ½Ö¸µÄµÇÂ¼Ò³Ãæ ÅäÖÃ²ÎÊı checkSessionKey Ğè¼ì²éµÄÔÚ Session ÖĞ±£´æµÄ¹Ø¼ü×Ö
- * redirectURL Èç¹ûÓÃ»§Î´µÇÂ¼£¬ÔòÖØ¶¨Ïòµ½Ö¸¶¨µÄÒ³Ãæ£¬URL²»°üÀ¨ ContextPath notCheckURLList
- * ²»×ö¼ì²éµÄURLÁĞ±í£¬ÒÔ·ÖºÅ·Ö¿ª£¬²¢ÇÒ URL ÖĞ²»°üÀ¨ ContextPath
+ * ç”¨äºæ£€æµ‹ç”¨æˆ·æ˜¯å¦ç™»é™†çš„è¿‡æ»¤å™¨ï¼Œå¦‚æœæœªç™»å½•ï¼Œåˆ™é‡å®šå‘åˆ°æŒ‡çš„ç™»å½•é¡µé¢ é…ç½®å‚æ•° checkSessionKey éœ€æ£€æŸ¥çš„åœ¨ Session ä¸­ä¿å­˜çš„å…³é”®å­—
+ * redirectURL å¦‚æœç”¨æˆ·æœªç™»å½•ï¼Œåˆ™é‡å®šå‘åˆ°æŒ‡å®šçš„é¡µé¢ï¼ŒURLä¸åŒ…æ‹¬ ContextPath notCheckURLList
+ * ä¸åšæ£€æŸ¥çš„URLåˆ—è¡¨ï¼Œä»¥åˆ†å·åˆ†å¼€ï¼Œå¹¶ä¸” URL ä¸­ä¸åŒ…æ‹¬ ContextPath
  */
 public class SessionCheckFilter implements Filter {
 	protected FilterConfig filterConfig = null;
@@ -42,7 +42,7 @@ public class SessionCheckFilter implements Filter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-		//²»ÔÙ²»¼ì²éµÄjsp£¬Ò²Ã»ÓĞµÇÂ¼µÄÓÃ»§
+		//ä¸å†ä¸æ£€æŸ¥çš„jspï¼Œä¹Ÿæ²¡æœ‰ç™»å½•çš„ç”¨æˆ·
 		if (session.getAttribute("login_user") == null&&(!checkRequestURIIntNotFilterList(request))  ) {
 			response.sendRedirect(request.getContextPath() + redirectURL+"?referrer="+request.getRequestURL());
 			return;
@@ -55,8 +55,8 @@ public class SessionCheckFilter implements Filter {
 //		System.out.println( request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo()));
 		String temp = request.getRequestURI();
 		temp = temp.substring(request.getContextPath().length() + 1);
-//		 System.out.println("ÊÇ·ñ°üÀ¨£º"+uri+";"+notCheckURLList+"=="+notCheckURLList.contains(uri));
-		//20190402 Ôö¼Ó°üº¬ /mtp/µÄÇëÇóµÄ  htmlÒ³ÃæÎª°×Ãûµ¥
+//		 System.out.println("æ˜¯å¦åŒ…æ‹¬ï¼š"+uri+";"+notCheckURLList+"=="+notCheckURLList.contains(uri));
+		//20190402 å¢åŠ åŒ…å« /mtp/çš„è¯·æ±‚çš„  htmlé¡µé¢ä¸ºç™½åå•
 		if(uri.startsWith("/mtp/")||notCheckURLList.contains(uri)){
 			return true;
 		}else {

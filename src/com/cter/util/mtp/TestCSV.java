@@ -24,18 +24,18 @@ public class TestCSV {
 
     }
 
-    //°´ĞĞ¶ÁÈ¡ÎÄ¼şÄÚÈİ
+    //æŒ‰è¡Œè¯»å–æ–‡ä»¶å†…å®¹
     public static String Read1(String infile) throws Exception    //infile="data/in.txt"
     {
         StringBuffer sb = new StringBuffer();
 
         CsvReader reader = CsvUtil.getReader();
-        //´ÓÎÄ¼şÖĞ¶ÁÈ¡CSVÊı¾İ
+        //ä»æ–‡ä»¶ä¸­è¯»å–CSVæ•°æ®
         CsvData data = reader.read(FileUtil.file(infile));
         List<CsvRow> rows = data.getRows();
-        //±éÀúĞĞ
+        //éå†è¡Œ
         for (CsvRow csvRow : rows) {
-            //getRawList·µ»ØÒ»¸öListÁĞ±í£¬ÁĞ±íµÄÃ¿Ò»ÏîÎªCSVÖĞµÄÒ»¸öµ¥Ôª¸ñ£¨¼È¶ººÅ·Ö¸ô²¿·Ö£©
+            //getRawListè¿”å›ä¸€ä¸ªListåˆ—è¡¨ï¼Œåˆ—è¡¨çš„æ¯ä¸€é¡¹ä¸ºCSVä¸­çš„ä¸€ä¸ªå•å…ƒæ ¼ï¼ˆæ—¢é€—å·åˆ†éš”éƒ¨åˆ†ï¼‰
             List<String> rowList = csvRow.getRawList();
             for (int i = 0; i < rowList.size(); i++) {
                 System.out.print(rowList.get(i) + "|");

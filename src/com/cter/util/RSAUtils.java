@@ -22,7 +22,7 @@ public class RSAUtils {
 
 
     public static Map<String, String> createKeys(int keySize){
-        //ÎªRSAËã·¨´´½¨Ò»¸öKeyPairGenerator¶ÔÏó
+        //ä¸ºRSAç®—æ³•åˆ›å»ºä¸€ä¸ªKeyPairGeneratorå¯¹è±¡
         KeyPairGenerator kpg;
         try{
             kpg = KeyPairGenerator.getInstance(RSA_ALGORITHM);
@@ -30,14 +30,14 @@ public class RSAUtils {
             throw new IllegalArgumentException("No such algorithm-->[" + RSA_ALGORITHM + "]");
         }
 
-        //³õÊ¼»¯KeyPairGenerator¶ÔÏó,ÃÜÔ¿³¤¶È
+        //åˆå§‹åŒ–KeyPairGeneratorå¯¹è±¡,å¯†é’¥é•¿åº¦
         kpg.initialize(keySize);
-        //Éú³ÉÃÜ³×¶Ô
+        //ç”Ÿæˆå¯†åŒ™å¯¹
         KeyPair keyPair = kpg.generateKeyPair();
-        //µÃµ½¹«Ô¿
+        //å¾—åˆ°å…¬é’¥
         Key publicKey = keyPair.getPublic();
         String publicKeyStr = Base64.encodeBase64URLSafeString(publicKey.getEncoded());
-        //µÃµ½Ë½Ô¿
+        //å¾—åˆ°ç§é’¥
         Key privateKey = keyPair.getPrivate();
         String privateKeyStr = Base64.encodeBase64URLSafeString(privateKey.getEncoded());
         Map<String, String> keyPairMap = new HashMap<String, String>();
@@ -48,12 +48,12 @@ public class RSAUtils {
     }
 
     /**
-     * µÃµ½¹«Ô¿
-     * @param publicKey ÃÜÔ¿×Ö·û´®£¨¾­¹ıbase64±àÂë£©
+     * å¾—åˆ°å…¬é’¥
+     * @param publicKey å¯†é’¥å­—ç¬¦ä¸²ï¼ˆç»è¿‡base64ç¼–ç ï¼‰
      * @throws Exception
      */
     public static RSAPublicKey getPublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        //Í¨¹ıX509±àÂëµÄKeyÖ¸Áî»ñµÃ¹«Ô¿¶ÔÏó
+        //é€šè¿‡X509ç¼–ç çš„KeyæŒ‡ä»¤è·å¾—å…¬é’¥å¯¹è±¡
         KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKey));
         RSAPublicKey key = (RSAPublicKey) keyFactory.generatePublic(x509KeySpec);
@@ -63,12 +63,12 @@ public class RSAUtils {
 
 
     /**
-     * µÃµ½Ë½Ô¿
-     * @param privateKey ÃÜÔ¿×Ö·û´®£¨¾­¹ıbase64±àÂë£©
+     * å¾—åˆ°ç§é’¥
+     * @param privateKey å¯†é’¥å­—ç¬¦ä¸²ï¼ˆç»è¿‡base64ç¼–ç ï¼‰
      * @throws Exception
      */
     public static RSAPrivateKey getPrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        //Í¨¹ıPKCS#8±àÂëµÄKeyÖ¸Áî»ñµÃË½Ô¿¶ÔÏó
+        //é€šè¿‡PKCS#8ç¼–ç çš„KeyæŒ‡ä»¤è·å¾—ç§é’¥å¯¹è±¡
         KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKey));
         RSAPrivateKey key = (RSAPrivateKey) keyFactory.generatePrivate(pkcs8KeySpec);
@@ -76,7 +76,7 @@ public class RSAUtils {
     }
 
     /**
-     * ¹«Ô¿¼ÓÃÜ
+     * å…¬é’¥åŠ å¯†
      * @param data
      * @param publicKey
      * @return
@@ -87,12 +87,12 @@ public class RSAUtils {
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             return Base64.encodeBase64URLSafeString(rsaSplitCodec(cipher, Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), publicKey.getModulus().bitLength()));
         }catch(Exception e){
-            throw new RuntimeException("¼ÓÃÜ×Ö·û´®[" + data + "]Ê±Óöµ½Òì³£", e);
+            throw new RuntimeException("åŠ å¯†å­—ç¬¦ä¸²[" + data + "]æ—¶é‡åˆ°å¼‚å¸¸", e);
         }
     }
 
     /**
-     * Ë½Ô¿½âÃÜ
+     * ç§é’¥è§£å¯†
      * @param data
      * @param privateKey
      * @return
@@ -104,12 +104,12 @@ public class RSAUtils {
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             return new String(rsaSplitCodec(cipher, Cipher.DECRYPT_MODE, Base64.decodeBase64(data), privateKey.getModulus().bitLength()), CHARSET);
         }catch(Exception e){
-            throw new RuntimeException("½âÃÜ×Ö·û´®[" + data + "]Ê±Óöµ½Òì³£", e);
+            throw new RuntimeException("è§£å¯†å­—ç¬¦ä¸²[" + data + "]æ—¶é‡åˆ°å¼‚å¸¸", e);
         }
     }
 
     /**
-     * Ë½Ô¿¼ÓÃÜ
+     * ç§é’¥åŠ å¯†
      * @param data
      * @param privateKey
      * @return
@@ -121,12 +121,12 @@ public class RSAUtils {
             cipher.init(Cipher.ENCRYPT_MODE, privateKey);
             return Base64.encodeBase64URLSafeString(rsaSplitCodec(cipher, Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), privateKey.getModulus().bitLength()));
         }catch(Exception e){
-            throw new RuntimeException("¼ÓÃÜ×Ö·û´®[" + data + "]Ê±Óöµ½Òì³£", e);
+            throw new RuntimeException("åŠ å¯†å­—ç¬¦ä¸²[" + data + "]æ—¶é‡åˆ°å¼‚å¸¸", e);
         }
     }
 
     /**
-     * ¹«Ô¿½âÃÜ
+     * å…¬é’¥è§£å¯†
      * @param data
      * @param publicKey
      * @return
@@ -138,7 +138,7 @@ public class RSAUtils {
             cipher.init(Cipher.DECRYPT_MODE, publicKey);
             return new String(rsaSplitCodec(cipher, Cipher.DECRYPT_MODE, Base64.decodeBase64(data), publicKey.getModulus().bitLength()), CHARSET);
         }catch(Exception e){
-            throw new RuntimeException("½âÃÜ×Ö·û´®[" + data + "]Ê±Óöµ½Òì³£", e);
+            throw new RuntimeException("è§£å¯†å­—ç¬¦ä¸²[" + data + "]æ—¶é‡åˆ°å¼‚å¸¸", e);
         }
     }
 
@@ -165,7 +165,7 @@ public class RSAUtils {
                 offSet = i * maxBlock;
             }
         }catch(Exception e){
-            throw new RuntimeException("¼Ó½âÃÜ·§ÖµÎª["+maxBlock+"]µÄÊı¾İÊ±·¢ÉúÒì³£", e);
+            throw new RuntimeException("åŠ è§£å¯†é˜€å€¼ä¸º["+maxBlock+"]çš„æ•°æ®æ—¶å‘ç”Ÿå¼‚å¸¸", e);
         }
         byte[] resultDatas = out.toByteArray();
         IOUtils.closeQuietly(out);
@@ -203,23 +203,23 @@ public class RSAUtils {
                 "PLIXieBM2kO4DamSjn3DM1mMNY0NpqIpLcjLOFPr06gUmSDE1Zgx1rfrauEjRVWc\n" +
                 "nE2oyIaI29U3KjZOJH6AfAaLqXahgwe+hE6393fl3qy4/eDhRIQU";
 
-        System.out.println("¹«Ô¿: \n\r" + publicKey);
-        System.out.println("Ë½Ô¿£º \n\r" + privateKey);
+        System.out.println("å…¬é’¥: \n\r" + publicKey);
+        System.out.println("ç§é’¥ï¼š \n\r" + privateKey);
 
-        System.out.println("¹«Ô¿¼ÓÃÜ¡ª¡ªË½Ô¿½âÃÜ");
-        String str = "Õ¾ÔÚ´óÃ÷ÃÅÇ°ÊØÎÀµÄ½ûÎÀ¾ü£¬ÊÂÏÈÃ»ÓĞ½Óµ½\n" +
-                "ÓĞ¹ØµÄÃüÁî£¬µ«¿´µ½´óÅúÊ¢×°µÄ¹ÙÔ±À´ÁÙ£¬Ò²¾Í\n" +
-                "ÒÔÎªÈ·Ïµ¾ÙĞĞ´óµä£¬Òò¶øÎ´¼ÓÑ¯ÎÊ¡£½ø´óÃ÷ÃÅ¼´\n" +
-                "Îª»Ê³Ç¡£ÎÄÎä°Ù¹Ù¿´µ½¶ËÃÅÎçÃÅÖ®Ç°Æø·ÕÆ½¾²£¬\n" +
-                "³ÇÂ¥ÉÏÏÂÒ²ÎŞ³¯»áµÄ¼£Ïó£¬¼ÈÎŞ¼¸°¸£¬Õ¾¶ÓµãÃû\n" +
-                "µÄÓùÊ·ºÍÓùÇ°ÊÌÎÀ¡°´óºº½«¾ü¡±Ò²²»¼û×ÙÓ°£¬²»Ãâ\n" +
-                "ĞÄÖĞ´§²â£¬»¥ÏàÑ¯ÎÊ£ºËùÎ½Îç³¯ÊÇ·ñ¶ï´«£¿";
-        System.out.println("\rÃ÷ÎÄ£º\r\n" + str);
-        System.out.println("\rÃ÷ÎÄ´óĞ¡£º\r\n" + str.getBytes().length);
+        System.out.println("å…¬é’¥åŠ å¯†â€”â€”ç§é’¥è§£å¯†");
+        String str = "ç«™åœ¨å¤§æ˜é—¨å‰å®ˆå«çš„ç¦å«å†›ï¼Œäº‹å…ˆæ²¡æœ‰æ¥åˆ°\n" +
+                "æœ‰å…³çš„å‘½ä»¤ï¼Œä½†çœ‹åˆ°å¤§æ‰¹ç››è£…çš„å®˜å‘˜æ¥ä¸´ï¼Œä¹Ÿå°±\n" +
+                "ä»¥ä¸ºç¡®ç³»ä¸¾è¡Œå¤§å…¸ï¼Œå› è€ŒæœªåŠ è¯¢é—®ã€‚è¿›å¤§æ˜é—¨å³\n" +
+                "ä¸ºçš‡åŸã€‚æ–‡æ­¦ç™¾å®˜çœ‹åˆ°ç«¯é—¨åˆé—¨ä¹‹å‰æ°”æ°›å¹³é™ï¼Œ\n" +
+                "åŸæ¥¼ä¸Šä¸‹ä¹Ÿæ— æœä¼šçš„è¿¹è±¡ï¼Œæ—¢æ— å‡ æ¡ˆï¼Œç«™é˜Ÿç‚¹å\n" +
+                "çš„å¾¡å²å’Œå¾¡å‰ä¾å«â€œå¤§æ±‰å°†å†›â€ä¹Ÿä¸è§è¸ªå½±ï¼Œä¸å…\n" +
+                "å¿ƒä¸­æ£æµ‹ï¼Œäº’ç›¸è¯¢é—®ï¼šæ‰€è°“åˆæœæ˜¯å¦è®¹ä¼ ï¼Ÿ";
+        System.out.println("\ræ˜æ–‡ï¼š\r\n" + str);
+        System.out.println("\ræ˜æ–‡å¤§å°ï¼š\r\n" + str.getBytes().length);
         String encodedData = RSAUtils.publicEncrypt(str, RSAUtils.getPublicKey(publicKey));
-        System.out.println("ÃÜÎÄ£º\r\n" + encodedData);
+        System.out.println("å¯†æ–‡ï¼š\r\n" + encodedData);
         String decodedData = RSAUtils.privateDecrypt(encodedData, RSAUtils.getPrivateKey(privateKey));
-        System.out.println("½âÃÜºóÎÄ×Ö: \r\n" + decodedData);
+        System.out.println("è§£å¯†åæ–‡å­—: \r\n" + decodedData);
 
 
     }

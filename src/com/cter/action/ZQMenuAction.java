@@ -30,7 +30,7 @@ public class ZQMenuAction extends ActionSupport {
     private ZQMenuService zqMenuService;
 
     /**
-     * 加载所有的菜单
+     * 鍔犺浇鎵�鏈夌殑鑿滃崟
      *
      * @return
      * @
@@ -44,7 +44,7 @@ public class ZQMenuAction extends ActionSupport {
 
 
     /**
-     * 根据用户名加载所有的菜单
+     * 鏍规嵁鐢ㄦ埛鍚嶅姞杞芥墍鏈夌殑鑿滃崟
      *
      * @return
      * @
@@ -59,7 +59,7 @@ public class ZQMenuAction extends ActionSupport {
 
 
     /**
-     * 加载所有的菜单
+     * 鍔犺浇鎵�鏈夌殑鑿滃崟
      *
      * @return
      * @
@@ -73,7 +73,7 @@ public class ZQMenuAction extends ActionSupport {
     }
 
     /**
-     * 加载菜单名称
+     * 鍔犺浇鑿滃崟鍚嶇О
      *
      * @return
      * @
@@ -86,7 +86,7 @@ public class ZQMenuAction extends ActionSupport {
 
 
     /**
-     * 添加菜单
+     * 娣诲姞鑿滃崟
      *
      * @return
      * @
@@ -100,7 +100,7 @@ public class ZQMenuAction extends ActionSupport {
 
 
     /**
-     * 根据menu_id获取SysMenu
+     * 鏍规嵁menu_id鑾峰彇SysMenu
      *
      * @return
      * @
@@ -114,7 +114,7 @@ public class ZQMenuAction extends ActionSupport {
 
 
     /**
-     * 根据m_id获取List<SysMenu>
+     * 鏍规嵁m_id鑾峰彇List<SysMenu>
      *
      * @return
      * @
@@ -131,7 +131,7 @@ public class ZQMenuAction extends ActionSupport {
     }
 
     /**
-     * 更新菜单
+     * 鏇存柊鑿滃崟
      *
      * @return
      * @
@@ -144,7 +144,7 @@ public class ZQMenuAction extends ActionSupport {
     }
 
     /**
-     * 物理删除菜单
+     * 鐗╃悊鍒犻櫎鑿滃崟
      *
      * @return
      * @

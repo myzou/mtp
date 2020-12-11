@@ -13,22 +13,22 @@ public class TestConnect {
 
     }
 
-    private static int retestsNumbers = 1;//ÖØÊÔ´ÎÊı
+    private static int retestsNumbers = 1;//é‡è¯•æ¬¡æ•°
 
 
     /**
-     * ¸ù¾İ ²âÊÔip¶Ë¿ÚÊÇ·ñÁ¬Í¨Õı³£
+     * æ ¹æ® æµ‹è¯•ipç«¯å£æ˜¯å¦è¿é€šæ­£å¸¸
      *
      * @param ip
-     * @param port    ¶Ë¿Ú
-     * @param timeOut ³¬ÊĞÊ±¼ä
+     * @param port    ç«¯å£
+     * @param timeOut è¶…å¸‚æ—¶é—´
      * @return
      */
     public static boolean connectIpPort(String ip, int port, int timeOut) {
         Socket connect = new Socket();
         try {
-            connect.connect(new InetSocketAddress(ip, port), timeOut);//½¨Á¢Á¬½Ó
-            boolean res = connect.isConnected();//Í¨¹ıÏÖÓĞ·½·¨²é¿´Á¬Í¨×´Ì¬
+            connect.connect(new InetSocketAddress(ip, port), timeOut);//å»ºç«‹è¿æ¥
+            boolean res = connect.isConnected();//é€šè¿‡ç°æœ‰æ–¹æ³•æŸ¥çœ‹è¿é€šçŠ¶æ€
             if (res = true) {
                 System.out.println(retestsNumbers + ":true");
                 return true;

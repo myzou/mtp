@@ -22,15 +22,15 @@ import java.util.Properties;
 import java.util.TreeSet;
 
 /**
- * ¸ù¾İsvn¸üĞÂ¼Ç¸üĞÂ´úÂë×ÊÁÏ
+ * æ ¹æ®svnæ›´æ–°è®°æ›´æ–°ä»£ç èµ„æ–™
  * @author op1768
  */
 public class CopyUpdateOfSvn {
 	
 	private static final   String dateStr=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 	 /**
-	  * ¸ù¾İÎÄ¼şÎ»ÖÃ×Ö·û´®
-	  * °ÑoldFileStr ÎÄ¼ş¸´ÖÆµ½newFileStr
+	  * æ ¹æ®æ–‡ä»¶ä½ç½®å­—ç¬¦ä¸²
+	  * æŠŠoldFileStr æ–‡ä»¶å¤åˆ¶åˆ°newFileStr
 	  * @param oldFileStr
 	  * @param newFileStr
 	 * @throws FileNotFoundException 
@@ -43,7 +43,7 @@ public class CopyUpdateOfSvn {
 		}
 		FileInputStream in=new FileInputStream(oldFile);
 		FileOutputStream out =new FileOutputStream(newFile);
-		//×Ô¶¨Òå»º³å¶ÔÏó
+		//è‡ªå®šä¹‰ç¼“å†²å¯¹è±¡
 		byte[] b =new byte[1];
 		int n=0;
 		while((n=in.read(b))!=-1){
@@ -55,14 +55,14 @@ public class CopyUpdateOfSvn {
 		if(out!=null){
 			out.close();
 		}
-		newFile.setLastModified(oldFile.lastModified());//°Ñ¸´ÖÆµÄĞÂÎÄ¼şÉèÖÃ³É¾ÉÎÄ¼şµÄÊ±¼ä
-		System.out.println("¸´ÖÆÎÄ¼ş³É¹¦£º("+oldFile.getName()+"),´Ó "+oldFile.getPath()+" \n¸´ÖÆµ½:"+newFile.getPath());
+		newFile.setLastModified(oldFile.lastModified());//æŠŠå¤åˆ¶çš„æ–°æ–‡ä»¶è®¾ç½®æˆæ—§æ–‡ä»¶çš„æ—¶é—´
+		System.out.println("å¤åˆ¶æ–‡ä»¶æˆåŠŸï¼š("+oldFile.getName()+"),ä» "+oldFile.getPath()+" \nå¤åˆ¶åˆ°:"+newFile.getPath());
 	}
 	
 	/**
-	 * ¶ÁÈ¡textÎÄ¼ş
-	 * @param fileName ÎÄ¼şÂ·¾¶
-	 * @return ¶ÁÈ¡³öÀ´µÄÎÄ¼ş×Ö·û´®
+	 * è¯»å–textæ–‡ä»¶
+	 * @param fileName æ–‡ä»¶è·¯å¾„
+	 * @return è¯»å–å‡ºæ¥çš„æ–‡ä»¶å­—ç¬¦ä¸²
 	 */
 		public static String read(String fileName){
 			StringBuilder sb = new StringBuilder();
@@ -86,9 +86,9 @@ public class CopyUpdateOfSvn {
 		
 	 
 		/**
-		 * Ğ´Èëtxt ÎÄ¼ş
-		 * @param fileName  ÎÄ¼şÃû 
-		 * @param text	ÎÄ¼ş
+		 * å†™å…¥txt æ–‡ä»¶
+		 * @param fileName  æ–‡ä»¶å 
+		 * @param text	æ–‡ä»¶
 		 */
 		public static void write (String fileName, String text){
 			
@@ -111,9 +111,9 @@ public class CopyUpdateOfSvn {
 		}
 		
 		/**
-		 * »ñÈ¡ÅäÖÃÎÄ¼şµÄÄÚÈİ
-		 * @param filePath   ÀıÈç£º config/db.properties
-		 * @param charsetName  ×Ö·û±àÂë:UTF-8  GBK
+		 * è·å–é…ç½®æ–‡ä»¶çš„å†…å®¹
+		 * @param filePath   ä¾‹å¦‚ï¼š config/db.properties
+		 * @param charsetName  å­—ç¬¦ç¼–ç :UTF-8  GBK
 		 * @return
 		 */
 		public static   Map<String,String>   loadProperties(String filePath,String charsetName){
@@ -123,8 +123,8 @@ public class CopyUpdateOfSvn {
 				if(charsetName==null){
 					charsetName="UTF-8";
 				}
-				InputStream ins=CopyUpdateOfSvn.class  .getClassLoader().getResourceAsStream(filePath);//»ñÈ¡ÊäÈëÁ÷
-				InputStreamReader in=	new InputStreamReader(ins, charsetName);//Ê¹ÓÃInputStreamReader ¸Ä±ä×Ö·û±àÂë
+				InputStream ins=CopyUpdateOfSvn.class  .getClassLoader().getResourceAsStream(filePath);//è·å–è¾“å…¥æµ
+				InputStreamReader in=	new InputStreamReader(ins, charsetName);//ä½¿ç”¨InputStreamReader æ”¹å˜å­—ç¬¦ç¼–ç 
 				pro.load(in);  
 				Iterator<String> iterator=pro.stringPropertyNames().iterator();
 				while (iterator.hasNext()){
@@ -135,7 +135,7 @@ public class CopyUpdateOfSvn {
 			/*	Iterator<Entry<String, String>> iterator1=map.entrySet().iterator();
 				while(iterator1.hasNext()){
 					 Entry<String, String> entry=iterator1.next();
-					 System.out.println("¼ü£º"+ entry.getKey() +"\t\tÖµ:"+entry.getValue());
+					 System.out.println("é”®ï¼š"+ entry.getKey() +"\t\tå€¼:"+entry.getValue());
 				}*/
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -144,7 +144,7 @@ public class CopyUpdateOfSvn {
 		}
 	
 	/**
-	 * »ñÈ¡²»ÏàÍ¬µÄ×Ö·û(TreeSet)
+	 * è·å–ä¸ç›¸åŒçš„å­—ç¬¦(TreeSet)
 	 * @param svnstr
 	 * @return
 	 */
@@ -161,7 +161,7 @@ public class CopyUpdateOfSvn {
 	}
 	
 	/**
-	 * »ñÈ¡²»ÏàÍ¬µÄ×Ö·û
+	 * è·å–ä¸ç›¸åŒçš„å­—ç¬¦
 	 * @param svnstr
 	 * @return
 	 */
@@ -180,10 +180,10 @@ public class CopyUpdateOfSvn {
 	
 	
 	/**
-	 * ¸ù¾İÊä³öÎÄ¼şºÍ Ä¿Â¼¸´ÖÆÎÄ¼ş
-	 * @param treeSet    	 ËùÓĞ²»Í¬µÄÎÄ¼ş
-	 * @param outFIlePth Êä³öÄ¿Â¼
-	 * @param inFIlePth ÊäÈëÄ¿Â¼
+	 * æ ¹æ®è¾“å‡ºæ–‡ä»¶å’Œ ç›®å½•å¤åˆ¶æ–‡ä»¶
+	 * @param treeSet    	 æ‰€æœ‰ä¸åŒçš„æ–‡ä»¶
+	 * @param outFIlePth è¾“å‡ºç›®å½•
+	 * @param inFIlePth è¾“å…¥ç›®å½•
 	 */
 	public static void copyFileByTreeSet(TreeSet< String> treeSet,String outFIlePth,String inFIlePth){
 		int a =1;
@@ -195,20 +195,20 @@ public class CopyUpdateOfSvn {
 				switch (start) {
 				case "Modified":
 					copyMethod(fileStr, outFIlePth, inFIlePth);
-//					System.out.println((a++)+"ĞŞ¸Ä£º"+fileStr);
+//					System.out.println((a++)+"ä¿®æ”¹ï¼š"+fileStr);
 //					System.out.println(str);
 					break;
 				case "Added":
 					copyMethod(fileStr, outFIlePth, inFIlePth);
-//					System.out.println((a++)+"Ìí¼Ó£º"+fileStr);
+//					System.out.println((a++)+"æ·»åŠ ï¼š"+fileStr);
 //					System.out.println(str);
 					break;
 				case "Replacing":
-//					System.out.println((a++)+"Ìæ»»£º"+fileStr);
+//					System.out.println((a++)+"æ›¿æ¢ï¼š"+fileStr);
 //					System.out.println(str);
 					break;
 				case "Deleted":
-//					System.out.println((a++)+"É¾³ı£º"+fileStr);
+//					System.out.println((a++)+"åˆ é™¤ï¼š"+fileStr);
 					break;
 				default:
 //					System.out.println((a++)+str);
@@ -219,10 +219,10 @@ public class CopyUpdateOfSvn {
 	}
 	
 	/**
-	 * È¥³ıÖØ¸´´òÓ¡Î¨Ò»µÄ
-	 * @param treeSet    	 ËùÓĞ²»Í¬µÄÎÄ¼ş
-	 * @param outFIlePth Êä³öÄ¿Â¼
-	 * @param inFIlePth ÊäÈëÄ¿Â¼
+	 * å»é™¤é‡å¤æ‰“å°å”¯ä¸€çš„
+	 * @param treeSet    	 æ‰€æœ‰ä¸åŒçš„æ–‡ä»¶
+	 * @param outFIlePth è¾“å‡ºç›®å½•
+	 * @param inFIlePth è¾“å…¥ç›®å½•
 	 */
 	public static void copyFileByTreeSet3(TreeSet< String> treeSet,String outFIlePth,String inFIlePth){
 		int a =1;
@@ -234,20 +234,20 @@ public class CopyUpdateOfSvn {
 				switch (start) {
 				case "Modified":
 //					copyMethod(fileStr, outFIlePth, inFIlePth);
-//					System.out.println((a++)+"ĞŞ¸Ä£º"+fileStr);
+//					System.out.println((a++)+"ä¿®æ”¹ï¼š"+fileStr);
 					System.out.println(str);
 					break;
 				case "Added":
 //					copyMethod(fileStr, outFIlePth, inFIlePth);
-//					System.out.println((a++)+"Ìí¼Ó£º"+fileStr);
+//					System.out.println((a++)+"æ·»åŠ ï¼š"+fileStr);
 					System.out.println(str);
 					break;
 				case "Replacing":
-//					System.out.println((a++)+"Ìæ»»£º"+fileStr);
+//					System.out.println((a++)+"æ›¿æ¢ï¼š"+fileStr);
 					System.out.println(str);
 					break;
 				case "Deleted":
-//					System.out.println((a++)+"É¾³ı£º"+fileStr);
+//					System.out.println((a++)+"åˆ é™¤ï¼š"+fileStr);
 						System.out.println(str);
 					break;
 				default:
@@ -280,7 +280,7 @@ public class CopyUpdateOfSvn {
 	}
 	
 	 /**
-	  * ÏÈ½øÏÈ³öÅÅĞò±éÀú
+	  * å…ˆè¿›å…ˆå‡ºæ’åºéå†
 	  * @param LinkedHashSet
 	  * @param aa
 	  */
@@ -293,16 +293,16 @@ public class CopyUpdateOfSvn {
 				String fileStr= str.substring(  str.indexOf("/")+1,str.length());
 				switch (start) {
 				case "Modified":
-					System.out.println((a++)+"ĞŞ¸Ä£º"+fileStr);
+					System.out.println((a++)+"ä¿®æ”¹ï¼š"+fileStr);
 					break;
 				case "Added":
-					System.out.println((a++)+"Ìí¼Ó£º"+fileStr);
+					System.out.println((a++)+"æ·»åŠ ï¼š"+fileStr);
 					break;
 				case "Replacing":
-					System.out.println((a++)+"Ìæ»»£º"+fileStr);
+					System.out.println((a++)+"æ›¿æ¢ï¼š"+fileStr);
 					break;
 				case "Deleted":
-					System.out.println((a++)+"É¾³ı£º"+fileStr);
+					System.out.println((a++)+"åˆ é™¤ï¼š"+fileStr);
 					break;
 				default:
 					System.out.println((a++)+str);
@@ -313,7 +313,7 @@ public class CopyUpdateOfSvn {
 	} 
   	
   	/**
-  	 * ¸´ÖÆÎÄ¼ş·½·¨Èë¿Ú
+  	 * å¤åˆ¶æ–‡ä»¶æ–¹æ³•å…¥å£
   	 * @param svnStr
   	 * @param outFIlePth
   	 * @param inFIlePth
@@ -324,7 +324,7 @@ public class CopyUpdateOfSvn {
   	}
   	
   	/**
-  	 * È¥ÖØ´òÓ¡Î¨Ò»µÄsvnÖµ
+  	 * å»é‡æ‰“å°å”¯ä¸€çš„svnå€¼
   	 */
   	public static  void copyIn3(String svnStr,String outFIlePth,String inFIlePth){
 //		LinkedHashSet<String>  treeSet=getDistinctStrSet1(svnStr);
@@ -334,7 +334,7 @@ public class CopyUpdateOfSvn {
   	}
   	
   	/**
-  	 * ¼ÓÔØÊı¾İ¶ª½ømap
+  	 * åŠ è½½æ•°æ®ä¸¢è¿›map
   	 * @return
   	 */
   	public static  Map<String,String>  getDataMap(){
@@ -343,13 +343,13 @@ public class CopyUpdateOfSvn {
 		String configText=	ofSvn.getClass().getClassLoader().getResource(map.get("updateTxt")).getPath();
 		configText=configText.substring(1, configText.length());
 		try {
-			configText=java.net.URLDecoder.decode(configText,"utf-8");//°ÑÄÚÈİ»»ÎªUTF-8¸ñÊ½
+			configText=java.net.URLDecoder.decode(configText,"utf-8");//æŠŠå†…å®¹æ¢ä¸ºUTF-8æ ¼å¼
 		} catch (UnsupportedEncodingException e) {
-			System.out.println("¶ÁÈ¡±àÂë´íÎó");
+			System.out.println("è¯»å–ç¼–ç é”™è¯¯");
 			e.printStackTrace();
 		}
-		//×ª»»ÖĞÎÄ±àÂë£¬·ÀÖ¹ÂÒÂë
-		String svnStr=read(configText);//¶ÁÈ¡´ÓsvnÀ­È¡µÄÎÄ¼ş
+		//è½¬æ¢ä¸­æ–‡ç¼–ç ï¼Œé˜²æ­¢ä¹±ç 
+		String svnStr=read(configText);//è¯»å–ä»svnæ‹‰å–çš„æ–‡ä»¶
 
 		map.put("svnStr", svnStr);
 		return map;
@@ -358,8 +358,8 @@ public class CopyUpdateOfSvn {
 	public static void main(String[] args)throws Exception {
 		/*copyFile("D:\\op1768\\workSpace\\java1234\\mars45\\X-admin-2.3\\build\\classes\\com\\cter\\action\\ZQMailAction.class",
 				"D:\\op1768\\ZQMailAction.class");*/
-/*		String readStr=read("D:\\op1768\\×¼±¸Ğ´À´¸üĞÂµÄ.txt");
-		String writeFilePath="D:\\op1768\\×¼±¸Ğ´À´¸üĞÂµÄ1.txt";
+/*		String readStr=read("D:\\op1768\\å‡†å¤‡å†™æ¥æ›´æ–°çš„.txt");
+		String writeFilePath="D:\\op1768\\å‡†å¤‡å†™æ¥æ›´æ–°çš„1.txt";
 		write( writeFilePath,readStr);*/
 		
   		Map<String,String> map=getDataMap();
@@ -368,9 +368,9 @@ public class CopyUpdateOfSvn {
 		String inFIlePth=map.get("inFIlePth");
 		String action=map.get("action");
 		if(action.equals("svn")){
-			copyIn3(svnStr, outFIlePth, inFIlePth);//È¥ÖØ´òÓ¡Î¨Ò»µÄsvnÖµ
+			copyIn3(svnStr, outFIlePth, inFIlePth);//å»é‡æ‰“å°å”¯ä¸€çš„svnå€¼
 		}else if(action.equals("update")){
-			copyIn(svnStr, outFIlePth, inFIlePth);//Õı³£·½·¨
+			copyIn(svnStr, outFIlePth, inFIlePth);//æ­£å¸¸æ–¹æ³•
 		}
 		
 	}

@@ -15,10 +15,10 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * ²âÊÔ¶¨Ê±Æ÷
+ * æµ‹è¯•å®šæ—¶å™¨
  * @author op1768
  */
-//Ê¹ÓÃ  @Component×¢ÈëÖ¸¶¨µÄbeanÃû³Æ
+//ä½¿ç”¨  @Componentæ³¨å…¥æŒ‡å®šçš„beanåç§°
 @Component("startWorkJob")
 public class StartWorkJob {
 
@@ -36,17 +36,17 @@ public class StartWorkJob {
 		StartWorkJob startWorkJob=new StartWorkJob();
 		boolean last=false;
 		boolean now=TestConnect.connectIpPort("210.5.3.30", 8081,500);
-		if(last&&!now){//×îºóÒ»´ÎÃ»ÓĞ¶Ï¿ª ²¢ÇÒÏÖÔÚ¶Ï¿ªÁË
+		if(last&&!now){//æœ€åä¸€æ¬¡æ²¡æœ‰æ–­å¼€ å¹¶ä¸”ç°åœ¨æ–­å¼€äº†
 			Date date=new Date();
 			String dateStr=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 			startWorkJob.errorSendEmail();
-		}else if(!last&&now){//×îºóÒ»´Î¶Ï¿ª ²¢ÇÒÏÖÔÚ»Ö¸´ÁË
+		}else if(!last&&now){//æœ€åä¸€æ¬¡æ–­å¼€ å¹¶ä¸”ç°åœ¨æ¢å¤äº†
 			startWorkJob.recoverSendEmail();
 		}
 	}
 
 
-	//²âÊÔggwapi ĞÅÏ¢
+	//æµ‹è¯•ggwapi ä¿¡æ¯
 	public void connectGGWApi(){
 		boolean res=TestConnect.connectIpPort(GGW_IP, GGW_PORT,500);
 		ZqData zqData=zqDataDao.getZqDataBySysCode("GGW API Interrupt Time");
@@ -55,7 +55,7 @@ public class StartWorkJob {
 			String codeId=(zqDataDao.queryMaxZqDataId()+1)+"";
 			zqData.setCode_id(codeId);
 			zqData.setSys_code("GGW API Interrupt Time");
-			zqData.setSys_name("ggw ×îºó¶Ï¿ªÊ±¼ä£¬¿ÕÎªÕı³£");
+			zqData.setSys_name("ggw æœ€åæ–­å¼€æ—¶é—´ï¼Œç©ºä¸ºæ­£å¸¸");
 			if(res==true){
 				zqData.setParam_value1("");
 			}else{
@@ -65,15 +65,15 @@ public class StartWorkJob {
 			}
 			zqDataDao.save(zqData);
 		}else{
-			String lastInterruptTime=zqData.getParam_value1();//×î½üÒ»´ÎÖĞ¶ÏÊ±¼ä
-			if(StrUtil.isBlank(lastInterruptTime)&&!res){//×îºóÒ»´ÎÃ»ÓĞ¶Ï¿ª ²¢ÇÒÏÖÔÚ¶Ï¿ªÁË
+			String lastInterruptTime=zqData.getParam_value1();//æœ€è¿‘ä¸€æ¬¡ä¸­æ–­æ—¶é—´
+			if(StrUtil.isBlank(lastInterruptTime)&&!res){//æœ€åä¸€æ¬¡æ²¡æœ‰æ–­å¼€ å¹¶ä¸”ç°åœ¨æ–­å¼€äº†
 				Date date=new Date();
 				String dateStr=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 				zqData.setParam_value1(dateStr);
 				errorSendEmail();
 				zqDataDao.saveOrUpdate(zqData);
 
-			}else if(!StrUtil.isBlank(lastInterruptTime)&&res){//×îºóÒ»´Î¶Ï¿ª ²¢ÇÒÏÖÔÚ»Ö¸´ÁË
+			}else if(!StrUtil.isBlank(lastInterruptTime)&&res){//æœ€åä¸€æ¬¡æ–­å¼€ å¹¶ä¸”ç°åœ¨æ¢å¤äº†
 				zqData.setParam_value1("");
 				recoverSendEmail();
 				zqDataDao.saveOrUpdate(zqData);
@@ -81,13 +81,13 @@ public class StartWorkJob {
 		}
 	}
 	public   void recoverSendEmail(){
-		String subject="mtp ×Ô¶¯»¯·şÎñÆ÷½Ó¿Ú»Ö¸´";
-		String content="http://210.5.3.177:48888/ Á¬½Ó»Ö¸´¡£";
+		String subject="mtp è‡ªåŠ¨åŒ–æœåŠ¡å™¨æ¥å£æ¢å¤";
+		String content="http://210.5.3.177:48888/ è¿æ¥æ¢å¤ã€‚";
 		SendMailUtil mailUtil = SendMailUtil.getInstance();
-		String to[] = ggw_connect_fail_to.split(";");//ÊÕ¼şÈËµÄµØÖ·
+		String to[] = ggw_connect_fail_to.split(";");//æ”¶ä»¶äººçš„åœ°å€
 		String cs[] = null;
 		String ms[] = null;
-		String fromEmail = formEmail;//·¢¼şÈËµÄµØÖ·
+		String fromEmail = formEmail;//å‘ä»¶äººçš„åœ°å€
 		String[] arrArchievList = null;
 		try {
 			mailUtil.send(to,cs,ms,subject,content,formEmail,arrArchievList,host,"");
@@ -98,14 +98,14 @@ public class StartWorkJob {
 
 
 	public   void errorSendEmail(){
-		String subject="mtp ×Ô¶¯»¯·şÎñÆ÷½Ó¿ÚÒì³£";
-		String content="http://210.5.3.177:48888/ Á¬½ÓÒì³£¡£Çë¾¡¿ìÉı¼¶ÁªÏµ luke.zou/dickson.yang/alex.cui<br>" +
-				"²¢ÇÒÖÂµç¸ø dickson.yang£¨·Ö»ú:1368£©¸æÖª ggw-api ÖĞ¶Ï£¬ÇëÇóÖØÆô»Ö¸´¡£";
+		String subject="mtp è‡ªåŠ¨åŒ–æœåŠ¡å™¨æ¥å£å¼‚å¸¸";
+		String content="http://210.5.3.177:48888/ è¿æ¥å¼‚å¸¸ã€‚è¯·å°½å¿«å‡çº§è”ç³» luke.zou/dickson.yang/alex.cui<br>" +
+				"å¹¶ä¸”è‡´ç”µç»™ dickson.yangï¼ˆåˆ†æœº:1368ï¼‰å‘ŠçŸ¥ ggw-api ä¸­æ–­ï¼Œè¯·æ±‚é‡å¯æ¢å¤ã€‚";
 		SendMailUtil mailUtil = SendMailUtil.getInstance();
-		String to[] = ggw_connect_fail_to.split(";");//ÊÕ¼şÈËµÄµØÖ·
+		String to[] = ggw_connect_fail_to.split(";");//æ”¶ä»¶äººçš„åœ°å€
 		String cs[] = null;
 		String ms[] = null;
-		String fromEmail = formEmail;//·¢¼şÈËµÄµØÖ·
+		String fromEmail = formEmail;//å‘ä»¶äººçš„åœ°å€
 		String[] arrArchievList = null;
 		try {
 			mailUtil.send(to,cs,ms,subject,content,formEmail,arrArchievList,host,"");

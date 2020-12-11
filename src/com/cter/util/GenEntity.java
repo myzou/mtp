@@ -18,46 +18,46 @@ import java.util.Date;
 
 
 /**
- * POJO ¹¤¾ßÉú³ÉÀà
+ * POJO å·¥å…·ç”Ÿæˆç±»
  * @author  yixiu
  * 
  */
 public class GenEntity {
      
-//	private String package_url="com.cter.entity";//°üµÄÂ·¾¶ ÓÃÀ´Êä³ö°üÍ·
-//	private String outputPath ="D:\\op1768\\workSpace\\java1234\\mars45\\X-admin-2.3\\src\\com\\cter\\entity" ;//ÊµÌåÀàµÄ°üÂ·¾¶
-//	private String affixName="yixiu";//±¸×¢Ãû³Æ
-	private String package_url ;//°üµÄÂ·¾¶ ÓÃÀ´Êä³ö°üÍ·
-	private String outputPath;//ÊµÌåÀàµÄ°üÂ·¾¶
-	private String affixName;//±¸×¢Ãû³Æ
+//	private String package_url="com.cter.entity";//åŒ…çš„è·¯å¾„ ç”¨æ¥è¾“å‡ºåŒ…å¤´
+//	private String outputPath ="D:\\op1768\\workSpace\\java1234\\mars45\\X-admin-2.3\\src\\com\\cter\\entity" ;//å®ä½“ç±»çš„åŒ…è·¯å¾„
+//	private String affixName="yixiu";//å¤‡æ³¨åç§°
+	private String package_url ;//åŒ…çš„è·¯å¾„ ç”¨æ¥è¾“å‡ºåŒ…å¤´
+	private String outputPath;//å®ä½“ç±»çš„åŒ…è·¯å¾„
+	private String affixName;//å¤‡æ³¨åç§°
 	
-	   //Êı¾İ¿âÁ¬½Ó
-    private static final String URL ="jdbc:mysql://localhost:3306/mtp?characterEncoding=utf-8";//jdbc:mysql://Á¬½ÓÊı¾İ¿âĞÅÏ¢
-    private static final String NAME = "root";//ÓÃ»§Ãû
-    private static final String PASS = "root";//ÃÜÂë
-    private static final String DRIVER ="com.mysql.jdbc.Driver";//Êı¾İ¿âÁ¬½ÓÇı¶¯
-    private String codingType="GBK";//×Ö·û±àÂëÀàĞÍ
+	   //æ•°æ®åº“è¿æ¥
+    private static final String URL ="jdbc:mysql://localhost:3306/mtp?characterEncoding=utf-8";//jdbc:mysql://è¿æ¥æ•°æ®åº“ä¿¡æ¯
+    private static final String NAME = "root";//ç”¨æˆ·å
+    private static final String PASS = "root";//å¯†ç 
+    private static final String DRIVER ="com.mysql.jdbc.Driver";//æ•°æ®åº“è¿æ¥é©±åŠ¨
+    private String codingType="GBK";//å­—ç¬¦ç¼–ç ç±»å‹
 	
-    private String [] colnameMappNames;//×Ö¶ÎÊı×é
-    private String[] colnames; // ÁĞÃûÊı×é
-    private String[] colTypes; //ÁĞÃûÀàĞÍÊı×é
-    private String[] colDescs; //ÁĞÃûÃèÊöÊı×é
-    private int[] colSizes; //ÁĞÃû´óĞ¡Êı×é
-    private boolean f_util = false; // ÊÇ·ñĞèÒªµ¼Èë°üjava.util.*
-    private boolean f_sql = false; // ÊÇ·ñĞèÒªµ¼Èë°üjava.sql.*
+    private String [] colnameMappNames;//å­—æ®µæ•°ç»„
+    private String[] colnames; // åˆ—åæ•°ç»„
+    private String[] colTypes; //åˆ—åç±»å‹æ•°ç»„
+    private String[] colDescs; //åˆ—åæè¿°æ•°ç»„
+    private int[] colSizes; //åˆ—åå¤§å°æ•°ç»„
+    private boolean f_util = false; // æ˜¯å¦éœ€è¦å¯¼å…¥åŒ…java.util.*
+    private boolean f_sql = false; // æ˜¯å¦éœ€è¦å¯¼å…¥åŒ…java.sql.*
 
     /**
-     * 	¹¹Ôìº¯Êı
-     * 	@param tableNames  	±íÃûÊı×é				new String[]{"tableName1","tableName2"}
-	 * 	@param package_url	 	°üÂ·¾¶    				com.cter.entity
-	 * 	@param outputPath		ÊµÌåÀàµÄ°üÂ·¾¶	D:\\op1768\\workSpace\\java1234\\mars45\\X-admin-2.3\\src\\com\\cter\\entity
-	 * 	@param affixName			ÊğÃûÃû³Æ		
+     * 	æ„é€ å‡½æ•°
+     * 	@param tableNames  	è¡¨åæ•°ç»„				new String[]{"tableName1","tableName2"}
+	 * 	@param package_url	 	åŒ…è·¯å¾„    				com.cter.entity
+	 * 	@param outputPath		å®ä½“ç±»çš„åŒ…è·¯å¾„	D:\\op1768\\workSpace\\java1234\\mars45\\X-admin-2.3\\src\\com\\cter\\entity
+	 * 	@param affixName			ç½²ååç§°		
      */
     public GenEntity(String [] tableNames,String package_url,String outputPath,String affixName){
     	this.package_url=package_url;
     	this.outputPath=outputPath;
     	this.affixName=affixName;
-        //´´½¨Á¬½Ó
+        //åˆ›å»ºè¿æ¥
         Connection con = null;
         try {
             try {
@@ -81,7 +81,7 @@ public class GenEntity {
                 colSizes = new int[size];
                 colDescs = new String[size];
                 int i=0;
-                System.out.println("±íÃû£º"+tableName+"\t\n±í×Ö¶ÎĞÅÏ¢£º");
+                System.out.println("è¡¨åï¼š"+tableName+"\t\nè¡¨å­—æ®µä¿¡æ¯ï¼š");
                 while(rs.next()){
                     System.out.println(rs.getString("COLUMN_NAME")+"----"+rs.getString("REMARKS")+"----"+rs.getString("TYPE_NAME"));
                     colnameMappNames[i]= rs.getString("COLUMN_NAME");
@@ -114,14 +114,14 @@ public class GenEntity {
     }
  
     /**
-     * Êä³öÎÄ¼ş
-     * @param content  ÄÚÈİ
-     * @param tableName   ±íÃû
+     * è¾“å‡ºæ–‡ä»¶
+     * @param content  å†…å®¹
+     * @param tableName   è¡¨å
      */
     public void printFile(String content,String tableName) {
         try {
         	String outPath=outputPath+"\\"+initcap(tableName) + ".java";
-            System.out.println("Êä³öÂ·¾¶£º"+outPath);
+            System.out.println("è¾“å‡ºè·¯å¾„ï¼š"+outPath);
             PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPath),codingType)));
             pw.println(content);
             pw.flush();
@@ -134,16 +134,16 @@ public class GenEntity {
     
     
     /**
-     * ¹¦ÄÜ£ºÉú³ÉÊµÌåÀàÖ÷Ìå´úÂë
-     * @param colnames  ÁĞÃûÊı×é
-     * @param colTypes	ÁĞÀàĞÍÊı×é
-     * @param colSizes		ÁĞÃû´óĞ¡Êı×é
+     * åŠŸèƒ½ï¼šç”Ÿæˆå®ä½“ç±»ä¸»ä½“ä»£ç 
+     * @param colnames  åˆ—åæ•°ç»„
+     * @param colTypes	åˆ—ç±»å‹æ•°ç»„
+     * @param colSizes		åˆ—åå¤§å°æ•°ç»„
      * @return
      */
     private String parse(String[] colnames, String[] colTypes, int[] colSizes,String tableName,Connection con) {
         StringBuffer sb = new StringBuffer();
          
-        //ÅĞ¶ÏÊÇ·ñµ¼Èë¹¤¾ß°ü
+        //åˆ¤æ–­æ˜¯å¦å¯¼å…¥å·¥å…·åŒ…
         sb.append("package "+package_url+";\r\n");
         if(f_util){
             sb.append("import java.util.Date;\r\n");
@@ -153,19 +153,19 @@ public class GenEntity {
         }
         sb.append("\r\nimport javax.persistence.*;\r\n");
         sb.append("\r\n");
-        //×¢ÊÍ²¿·Ö
+        //æ³¨é‡Šéƒ¨åˆ†
         sb.append("   /**\r\n");
-        sb.append("    * "+tableName+"\tÊµÌåÀà\r\n");
+        sb.append("    * "+tableName+"\tå®ä½“ç±»\r\n");
         sb.append("    * @author\t"+affixName+"\r\n");
         sb.append("    * @date\t"+ DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm")+" \r\n");
         sb.append("    */ \r\n\r\n");
         sb.append("@Entity\r\n");
         sb.append("@Table(name=\""+tableName+"\")");
         
-        //ÊµÌå²¿·Ö
+        //å®ä½“éƒ¨åˆ†
         sb.append("\r\npublic class " + initcap(tableName) + "{\r\n");
-        processAllAttrs(sb,tableName,con);//ÊôĞÔ
-        processAllMethod(sb);//get set·½·¨
+        processAllAttrs(sb,tableName,con);//å±æ€§
+        processAllMethod(sb);//get setæ–¹æ³•
         sb.append("}\r\n");
          
         //System.out.println(sb.toString());
@@ -173,7 +173,7 @@ public class GenEntity {
     }
      
     /**
-     * ¹¦ÄÜ£ºÉú³ÉËùÓĞÊôĞÔ
+     * åŠŸèƒ½ï¼šç”Ÿæˆæ‰€æœ‰å±æ€§
      * @param sb
      */
     private void processAllAttrs(StringBuffer sb,String tableName,Connection con) {
@@ -192,45 +192,45 @@ public class GenEntity {
     }
     
 /**
- * Ìí¼Ó×¢½â
+ * æ·»åŠ æ³¨è§£
  * @param sb			
  * @param con		
- * @param columnName		×Ö¶ÎÃû³Æ
+ * @param columnName		å­—æ®µåç§°
  */
     private void addAnnotation(StringBuffer sb,Connection con,String columnName,String tableName){
     	
     	try {
-    		//ÅĞ¶ÏÊÇ²»ÊÇÖ÷¼ü
+    		//åˆ¤æ–­æ˜¯ä¸æ˜¯ä¸»é”®
 			DatabaseMetaData dbmd=con.getMetaData();
 			   ResultSet pk = dbmd.getPrimaryKeys(null, null, tableName);
-//			   System.out.println("±í"+tableName+":");
+//			   System.out.println("è¡¨"+tableName+":");
 			   while( pk.next() ) {
-//			   System.out.println("PKTABLE_CAT(Êı¾İ¿âÃû):"+pk.getObject(1));
-//			   System.out.println("PKTABLE_SCHEM(±íÄ£Ê½):"+pk.getObject(2));
-//			   System.out.println("PKTABLE_NAME(±íÃû³Æ):"+pk.getObject(3));
-//			   System.out.println("COLUMN_NAME(Ö÷¼üÃû):"+pk.getObject(4));
-//			   System.out.println("KEY_SEQ(µÚ¼¸¸öÖ÷¼ü):"+pk.getObject(5));
+//			   System.out.println("PKTABLE_CAT(æ•°æ®åº“å):"+pk.getObject(1));
+//			   System.out.println("PKTABLE_SCHEM(è¡¨æ¨¡å¼):"+pk.getObject(2));
+//			   System.out.println("PKTABLE_NAME(è¡¨åç§°):"+pk.getObject(3));
+//			   System.out.println("COLUMN_NAME(ä¸»é”®å):"+pk.getObject(4));
+//			   System.out.println("KEY_SEQ(ç¬¬å‡ ä¸ªä¸»é”®):"+pk.getObject(5));
 //			   System.out.println("PK_NAME:"+pk.getObject(6));
 			   if(pk.getObject(4).equals(columnName)){
 				   sb.append( "\t@Id\r\n");
 			   }
 			   }
-			   //ÅĞ¶ÏÊÇ²»ÊÇ×ÔÔö
+			   //åˆ¤æ–­æ˜¯ä¸æ˜¯è‡ªå¢
 			   PreparedStatement ps = con.prepareStatement("select * from "+tableName);   
 			   ResultSet rs1 = ps.executeQuery();  
 			   ResultSetMetaData rsme = rs1.getMetaData();   
 			   int columnCount = rsme.getColumnCount();   
-//			   System.out.println("ResultSet¶ÔÏóÖĞµÄÁĞÊı"+ columnCount);   
+//			   System.out.println("ResultSetå¯¹è±¡ä¸­çš„åˆ—æ•°"+ columnCount);   
 			   for (int i = 1; i <=columnCount ; i++) {   
-//			       System.out.println("ÁĞÃû³Æ: "+ rsme.getColumnName(i));   
-//			       System.out.println("ÁĞÀàĞÍ(DB): " + rsme.getColumnTypeName(i));   
-//			       System.out.println("³¤¶È: "+ rsme.getPrecision(i) );   
-//			       System.out.println("ÊÇ·ñ×Ô¶¯±àºÅ: "+ rsme.isAutoIncrement(i));   
+//			       System.out.println("åˆ—åç§°: "+ rsme.getColumnName(i));   
+//			       System.out.println("åˆ—ç±»å‹(DB): " + rsme.getColumnTypeName(i));   
+//			       System.out.println("é•¿åº¦: "+ rsme.getPrecision(i) );   
+//			       System.out.println("æ˜¯å¦è‡ªåŠ¨ç¼–å·: "+ rsme.isAutoIncrement(i));   
 				   if(rsme.getColumnName(i).equals(columnName)){
 				       sb.append(rsme.isAutoIncrement(i)?"\t@GeneratedValue(strategy = GenerationType.IDENTITY)\r\n ":"");
 				   }
-//			       System.out.println("ÊÇ·ñ¿ÉÒÔÎª¿Õ: "+ rsme.isNullable(i));   
-//			       System.out.println("ÊÇ·ñ¿ÉÒÔĞ´Èë: "+ rsme.isReadOnly(i));   
+//			       System.out.println("æ˜¯å¦å¯ä»¥ä¸ºç©º: "+ rsme.isNullable(i));   
+//			       System.out.println("æ˜¯å¦å¯ä»¥å†™å…¥: "+ rsme.isReadOnly(i));   
 			   }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -239,7 +239,7 @@ public class GenEntity {
     }
  
     /**
-     * ¹¦ÄÜ£ºÉú³ÉËùÓĞ·½·¨
+     * åŠŸèƒ½ï¼šç”Ÿæˆæ‰€æœ‰æ–¹æ³•
      * @param sb
      */
     private void processAllMethod(StringBuffer sb) {
@@ -257,7 +257,7 @@ public class GenEntity {
     }
      
     /**
-     * ¹¦ÄÜ£º½«ÊäÈë×Ö·û´®µÄÊ××ÖÄ¸¼°ÏÂ»®ÏßºóµÄ×ÖÄ¸¸Ä³É´óĞ´
+     * åŠŸèƒ½ï¼šå°†è¾“å…¥å­—ç¬¦ä¸²çš„é¦–å­—æ¯åŠä¸‹åˆ’çº¿åçš„å­—æ¯æ”¹æˆå¤§å†™
      * @param str
      * @return
      */
@@ -283,7 +283,7 @@ public class GenEntity {
     }
     
     /**
-     * ¹¦ÄÜ£º½«ÊäÈë×Ö·û´®µÄÏÂ»®ÏßºóµÄ×ÖÄ¸¸Ä³É´óĞ´
+     * åŠŸèƒ½ï¼šå°†è¾“å…¥å­—ç¬¦ä¸²çš„ä¸‹åˆ’çº¿åçš„å­—æ¯æ”¹æˆå¤§å†™
      * @param str
      * @return
      */
@@ -312,8 +312,8 @@ public class GenEntity {
     }
  
     /**
-     * ¹¦ÄÜ£º»ñµÃÁĞµÄÊı¾İÀàĞÍ
-     * @param sqlType   ÁĞÀàĞÍ
+     * åŠŸèƒ½ï¼šè·å¾—åˆ—çš„æ•°æ®ç±»å‹
+     * @param sqlType   åˆ—ç±»å‹
      * @return
      */
     private String sqlType2JavaType(String sqlType,int typeSize) {
@@ -354,7 +354,7 @@ public class GenEntity {
     }
      
     /**
-     * ³ö¿Ú
+     * å‡ºå£
      * TODO
      * @param args
      */

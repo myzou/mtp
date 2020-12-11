@@ -105,7 +105,7 @@ public class ZQSysUserService {
 	}
 
 	/**
-	 * op登录
+	 * op鐧诲綍
 	 * @param userName
 	 * @param pwd
 	 * @return
@@ -115,10 +115,10 @@ public class ZQSysUserService {
    }
 	
    /**
-    * 根据op帐号登录 赋予默认 plp权限
+    * 鏍规嵁op甯愬彿鐧诲綍 璧嬩簣榛樿 plp鏉冮檺
     * @param userName
     * @param password
-    * @return 新添加op帐号的userId
+    * @return 鏂版坊鍔爋p甯愬彿鐨剈serId
     */
    public int addSysUserByOpLogin(String username,String password ) {
 		int  maxId=sysUserDaoImpl.queryMaxUserId();

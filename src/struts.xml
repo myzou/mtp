@@ -1,82 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<!DOCTYPE struts PUBLIC  
-    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
-    "http://struts.apache.org/dtds/struts-2.3.dtd">  
-      
-<struts>  
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
     <!-- 关闭开发者模式 -->
-      <constant name="struts.devMode" value="false" />
-	<!-- 设置最大上传文件大小（byte），默认是2m(内存的) -->
-	<constant name="struts.multipart.maxSize" value="838860800" ></constant>
-	<!-- 开启动态调用action方法 可以使用！自动匹配  -->
-	<constant name="struts.enable.DynamicMethodInvocation" value="true" /> 
-	<!-- 拦截action -->
-    <constant name="struts.action.extension" value="action" />  
+    <constant name="struts.devMode" value="false"/>
+    <!-- 设置最大上传文件大小（byte），默认是2m(内存的) -->
+    <constant name="struts.multipart.maxSize" value="838860800"></constant>
+    <!-- 开启动态调用action方法 可以使用！自动匹配  -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <!-- 拦截action -->
+    <constant name="struts.action.extension" value="action"/>
     <!-- 拦截所有的静态资源 -->
-     <constant name="struts.ognl.allowStaticMethodAccess" value="false"></constant>
-      <package name="all"  namespace="" extends="struts-default">
-  
-      
-       <!-- 定义一个拦截器 -->
-		<interceptors>
-				<interceptor name="authority" class="com.cter.interceptot.LoginInterceptor">
-		</interceptor>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="false"></constant>
+    <package name="all" namespace="" extends="struts-default">
 
-		<!-- 拦截器栈 -->
-		<interceptor-stack name="mydefault">
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="authority" />
-		</interceptor-stack>
-	</interceptors>
-	
-	<!-- 定义全局Result -->  
-        <global-results>  
-            <!-- 当返回login视图名时，转入/login.jsp页面 -->  
-            <result name="login">/login.jsp</result>  
+
+        <!-- 定义一个拦截器 -->
+        <interceptors>
+            <interceptor name="authority" class="com.cter.interceptot.LoginInterceptor">
+            </interceptor>
+
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="authority"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- 定义全局Result -->
+        <global-results>
+            <!-- 当返回login视图名时，转入/login.jsp页面 -->
+            <result name="login">/login.jsp</result>
         </global-results>
-        
-	     	<action name="menu_*" method="{1}"   class="com.cter.action.ZQMenuAction">
-	    		 <interceptor-ref name="mydefault" />  
-	    	</action>
-	    	
-	    	<action  name="mail_*" method="{1}"  class="com.cter.action.ZQMailAction">
-<!-- 		    		 <interceptor-ref name="mydefault" />   -->
-    		</action>
-    		
-    		 <action  name="user_*" method="{1}"  class="com.cter.action.ZQSysUserAction">
-		    		 <interceptor-ref name="mydefault" />  
-    		</action>
-    		
-    		<action  name="role_*" method="{1}"  class="com.cter.action.ZQSysRoleAction">
-		    		 <interceptor-ref name="mydefault" />  
-    		</action>
-    		
-    			<action  name="timtp_*" method="{1}"  class="com.cter.action.ZQTrunkInfoMtpAction">
-		    		 <interceptor-ref name="mydefault" />  
-    		</action>
-    		 
-    		
-    		<action  name="mtprd_*" method="{1}"  class="com.cter.action.ZQMtpRecordDetailedAction">
-		    		 <interceptor-ref name="mydefault" />  
-    		</action>
 
-			<action  name="mtpr_*" method="{1}"  class="com.cter.action.MTPReceiveAction">
-		    		 <interceptor-ref name="mydefault" />  
-    		</action>
+        <action name="menu_*" method="{1}" class="com.cter.action.ZQMenuAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
 
-			  <action  name="param_*" method="{1}"  class="com.cter.action.ParamAction">
-				  <interceptor-ref name="mydefault" />
-			  </action>
+        <action name="mail_*" method="{1}" class="com.cter.action.ZQMailAction">
+            <!-- 		    		 <interceptor-ref name="mydefault" />   -->
+        </action>
+
+        <action name="user_*" method="{1}" class="com.cter.action.ZQSysUserAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
+
+        <action name="role_*" method="{1}" class="com.cter.action.ZQSysRoleAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
+
+        <action name="timtp_*" method="{1}" class="com.cter.action.ZQTrunkInfoMtpAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
 
 
-			<action name="login_*"    method="{1}"   class="com.cter.action.LoginAction">
-				   <result name="success">index.jsp</result>  
-				     <result name="login">/login.jsp</result>  
-			</action>  
-			
-			  
-     </package>
-     
- 
- 
+        <action name="mtprd_*" method="{1}" class="com.cter.action.ZQMtpRecordDetailedAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
+
+        <action name="mtpr_*" method="{1}" class="com.cter.action.MTPReceiveAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
+
+        <action name="param_*" method="{1}" class="com.cter.action.ParamAction">
+            <interceptor-ref name="mydefault"/>
+        </action>
+
+
+        <action name="login_*" method="{1}" class="com.cter.action.LoginAction">
+            <result name="success">index.jsp</result>
+            <result name="login">/login.jsp</result>
+        </action>
+
+        <!-- 文件下载配置 -->
+        <action name="down_*" method="{1}" class="com.cter.action.DownLoadAction">
+            <result name="excel" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">filename=${fn}</param>
+                <param name="bufferSize">10240</param>
+            </result>
+        </action>
+
+    </package>
+
+
 </struts>   

@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * ½ÇÉ«²Ëµ¥¹ØÁª±í
+ * è§’è‰²èœå•å…³è”è¡¨
  * @author op1768
  *
  */
@@ -23,13 +23,13 @@ public class SysRoleMenu {
 	@Id
 //	 @GeneratedValue(strategy = GenerationType.IDENTITY)    
 	@Column(name = "role_menu_id", unique = true, nullable = false, insertable = true, updatable = true)
-	private int role_menu_id;//½ÇÉ«²Ëµ¥±íÖ÷¼ü
+	private int role_menu_id;//è§’è‰²èœå•è¡¨ä¸»é”®
 	@Column(name = "role_id")
-	private int role_id;//½ÇÉ«id sys_user.role_id
+	private int role_id;//è§’è‰²id sys_user.role_id
 	@Column(name = "menu_id")
-	private int menu_id;//²Ëµ¥id sys_menu.menu_id
+	private int menu_id;//èœå•id sys_menu.menu_id
 	@Column(name = "status")
-	private String status;// ×´Ì¬0Õı³££¬1²»¿É¼û
+	private String status;// çŠ¶æ€0æ­£å¸¸ï¼Œ1ä¸å¯è§
 	public int getRole_menu_id() {
 		return role_menu_id;
 	}

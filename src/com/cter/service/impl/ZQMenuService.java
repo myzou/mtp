@@ -54,7 +54,7 @@ public class ZQMenuService {
 		int  maxMenuId=menuDaoImpl.queryMaxMenuId();
 		int maxMId=menuDaoImpl.queryMaxMId();
 
-		if(!StringUtil.isBlank(menu_name2)){//¶ş¼¶²Ëµ¥²»Îª¿Õ£¬Ìí¼Ó¶ş¼¶²Ëµ¥
+		if(!StringUtil.isBlank(menu_name2)){//äºŒçº§èœå•ä¸ä¸ºç©ºï¼Œæ·»åŠ äºŒçº§èœå•
 			SysMenu sysMenu=new SysMenu();
 			Map<String, String>  vMap=menuDaoImpl.getMaxIdPIdByMenuId(Integer.valueOf(menu_name1));
 			SysMenu pSysMenu=menuDaoImpl.getSysMenu(menu_name1);
@@ -67,7 +67,7 @@ public class ZQMenuService {
 			sysMenu.setChild_order_num(Integer.valueOf(child_order_num));
 			sysMenu.setStatus(status);
 			menuDaoImpl.save(sysMenu);
-		}else{// Ìí¼ÓÒ»¼¶²Ëµ¥
+		}else{// æ·»åŠ ä¸€çº§èœå•
 			SysMenu sysMenu=new SysMenu();
 			sysMenu.setMenu_id(maxMenuId+1);
 			sysMenu.setM_id((maxMId/1000+1)*1000);
@@ -104,7 +104,7 @@ public class ZQMenuService {
 		String parent_order_num=map.get("parent_order_num");
 
 
-		if(!StringUtil.isBlank(menu_name2)){//¶ş¼¶²Ëµ¥²»Îª¿Õ£¬ĞŞ¸Ä¶ş¼¶²Ëµ¥
+		if(!StringUtil.isBlank(menu_name2)){//äºŒçº§èœå•ä¸ä¸ºç©ºï¼Œä¿®æ”¹äºŒçº§èœå•
 			Map<String, String>  vMap=menuDaoImpl.getMaxIdPIdByMenuId(Integer.valueOf(menu_name1));
 			SysMenu sysMenu=menuDaoImpl.getSysMenu(menu_id);
 			SysMenu pPysMenu=menuDaoImpl.getSysMenu(bolong_menu_id);
@@ -113,14 +113,14 @@ public class ZQMenuService {
 			sysMenu.setChild_order_num(Integer.valueOf(child_order_num));
 			sysMenu.setStatus(status);
 			
-			if( pPysMenu.getM_id() !=sysMenu.getParent_m_id()){//Ò»¼¶²Ëµ¥²»ÏàµÈ¾Í¸ü¸Ä
+			if( pPysMenu.getM_id() !=sysMenu.getParent_m_id()){//ä¸€çº§èœå•ä¸ç›¸ç­‰å°±æ›´æ”¹
 				sysMenu.setM_id(Integer.valueOf(vMap.get("m_id"))+1);
 				sysMenu.setParent_m_id(pPysMenu.getM_id() );
 				sysMenu.setParent_order_num(pPysMenu.getParent_order_num());
 			}
 			
 			menuDaoImpl.update(sysMenu);
-		}else{// ĞŞ¸ÄÒ»¼¶²Ëµ¥
+		}else{// ä¿®æ”¹ä¸€çº§èœå•
 			
 			SysMenu pPysMenu=menuDaoImpl.getSysMenu(menu_id);
 			int old_parent_order_num=pPysMenu.getParent_order_num();
@@ -137,15 +137,15 @@ public class ZQMenuService {
 	}
 
 	/**
-	 * @param menu_id ²Ëµ¥Ö÷¼üid
-	 * @param m_id         ²Ëµ¥m_id
+	 * @param menu_id èœå•ä¸»é”®id
+	 * @param m_id         èœå•m_id
 	 * @return
 	 */
 	public int delSysMenuByMenuId(String menu_id,String m_id) {
-		if(!StringUtil.isBlank(m_id)){//É¾³ıÒ»¼¶²Ëµ¥
+		if(!StringUtil.isBlank(m_id)){//åˆ é™¤ä¸€çº§èœå•
 			return 	 menuDaoImpl.delSysMenuByMId(m_id);
 		} 
-		//É¾³ı¶ş¼¶²Ëµ¥
+		//åˆ é™¤äºŒçº§èœå•
 		return 	 menuDaoImpl.delSysMenuByMenuId(menu_id);
 		 
 	}

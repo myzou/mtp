@@ -39,7 +39,7 @@ public class LoginAction  extends ActionSupport {
 	Map<String, String>  map=LoadPropertiestUtil.loadProperties("config/other.properties");
 
 	/**
-	 * ¼ÓÔØËùÓĞµÄ²Ëµ¥
+	 * åŠ è½½æ‰€æœ‰çš„èœå•
 	 * @return
 	 * @throws Exception
 	 */
@@ -49,13 +49,13 @@ public class LoginAction  extends ActionSupport {
 		String password= request.getParameter("password");
 		String referrer= request.getParameter("referrer");
 		if(StringUtil.isBlank( username)||StringUtil.isBlank( password)){
-			request.setAttribute("tip", "ÖØĞÂÊäÈëÕËºÅÃÜÂë");
+			request.setAttribute("tip", "é‡æ–°è¾“å…¥è´¦å·å¯†ç ");
 			 return Action.LOGIN;
 			 }
 		String addStr="addpassword";
 		if(!password.endsWith(addStr)){
 			request.setAttribute("username", username);
-			request.setAttribute("tip", "ÓÃ»§Ãû»òÕßÃÜÂë´íÎó");
+			request.setAttribute("tip", "ç”¨æˆ·åæˆ–è€…å¯†ç é”™è¯¯");
 			 return Action.LOGIN;
 		}else{
 			password=password.replace(addStr, "");
@@ -68,14 +68,14 @@ public class LoginAction  extends ActionSupport {
 
 			if(opFlag.equals("Y")){
 				int i=RadiusOpLoginUtil.checkLogin(username, password);
-				if(i==2){//µÇÂ¼³É¹¦
+				if(i==2){//ç™»å½•æˆåŠŸ
 					int user_id=0;
 					SysUser sysUser=userService.getSysUser(username);
-					if(sysUser!=null){//Êı¾İ¿âÈç¹ûÒÑ¾­ÓĞÁË°ÑÃÜÂë´æÔÚÊı¾İ¿â
+					if(sysUser!=null){//æ•°æ®åº“å¦‚æœå·²ç»æœ‰äº†æŠŠå¯†ç å­˜åœ¨æ•°æ®åº“
 						user_id=sysUser.getUser_id();
 						sysUser.setPassword(password);
 						userService.update(sysUser);
-					}else{//Êı¾İ¿âÃ»ÓĞ²åÈëÓÃ»§ºÍÄ¬ÈÏ½ÇÉ«
+					}else{//æ•°æ®åº“æ²¡æœ‰æ’å…¥ç”¨æˆ·å’Œé»˜è®¤è§’è‰²
 						user_id=userService.addSysUserByOpLogin(username, password);
 					}
 					session.setAttribute("login_user_id", String.valueOf(user_id));
@@ -94,7 +94,7 @@ public class LoginAction  extends ActionSupport {
 
 		}
 		request.setAttribute("username", username);
-		request.setAttribute("tip", "ÓÃ»§Ãû»òÕßÃÜÂë´íÎó");
+		request.setAttribute("tip", "ç”¨æˆ·åæˆ–è€…å¯†ç é”™è¯¯");
 		 return Action.LOGIN;
 	  }
 
@@ -109,7 +109,7 @@ public class LoginAction  extends ActionSupport {
 	}
 
 	/**
-	 * »ñÈ¡µÇÂ¼peµÄÕËºÅÃÜÂë
+	 * è·å–ç™»å½•peçš„è´¦å·å¯†ç 
 	 * @return
 	 * @throws Exception
 	 */

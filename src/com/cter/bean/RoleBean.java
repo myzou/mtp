@@ -7,23 +7,23 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * ½ÇÉ«±íµ¥Ò³Ãæ½ÓÊÕÊı¾İÊµÌåÀà
+ * è§’è‰²è¡¨å•é¡µé¢æ¥æ”¶æ•°æ®å®ä½“ç±»
  * @author op1768
  *
  */
 public class RoleBean {
 	
-	private int  role_id;//½ÇÉ«id
-	private String role_name;//½ÇÉ«Ãû³Æ
+	private int  role_id;//è§’è‰²id
+	private String role_name;//è§’è‰²åç§°
 	
-	private int menu_id;//²Ëµ¥Ö÷¼ü
-	private int m_id;//²Ëµ¥id Ò»¼¶²Ëµ¥1000Îªµ¥Î»£¬¶ş¼¶²Ëµ¥ÔÚ1000»ù´¡ÉÏ¼Ó1
-	private String menu_name;//²Ëµ¥Ãû³Æ
-	private int parent_m_id;//ÉÏ¼¶m_id
-	private int parent_order_num;//Ò»¼¶²Ëµ¥ÅÅĞò
-	private int child_order_num;//¶ş¼¶²Ëµ¥ÅÅĞò
+	private int menu_id;//èœå•ä¸»é”®
+	private int m_id;//èœå•id ä¸€çº§èœå•1000ä¸ºå•ä½ï¼ŒäºŒçº§èœå•åœ¨1000åŸºç¡€ä¸ŠåŠ 1
+	private String menu_name;//èœå•åç§°
+	private int parent_m_id;//ä¸Šçº§m_id
+	private int parent_order_num;//ä¸€çº§èœå•æ’åº
+	private int child_order_num;//äºŒçº§èœå•æ’åº
 	
-	private long cnull;//È¥ÖØ¶àÓàµÄ×Ö¶Î
+	private long cnull;//å»é‡å¤šä½™çš„å­—æ®µ
 	
 	public int getRole_id() {
 		return role_id;
@@ -82,10 +82,10 @@ public class RoleBean {
  
 	
 	
-//	private String status;//×´Ì¬0Õı³££¬1²»¿É¼û
-//	private String menu_level1;//Ò»¼¶²Ëµ¥
-//	private String menu_level2;//¶ş¼¶²Ëµ¥
-//	private int belong_menu_id;//ÉÏ¼¶menu_id
+//	private String status;//çŠ¶æ€0æ­£å¸¸ï¼Œ1ä¸å¯è§
+//	private String menu_level1;//ä¸€çº§èœå•
+//	private String menu_level2;//äºŒçº§èœå•
+//	private int belong_menu_id;//ä¸Šçº§menu_id
  
 	
 }

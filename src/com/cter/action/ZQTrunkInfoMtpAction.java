@@ -29,7 +29,7 @@ public class ZQTrunkInfoMtpAction extends ActionSupport {
 	private ZQTrunkInfoMtpService mtpService;
 	
 	/**
-	 * ¼ÓÔØtrunk_info_mtp list
+	 * åŠ è½½trunk_info_mtp list
 	 * @return
 	 * @
 	 */
@@ -42,7 +42,7 @@ public class ZQTrunkInfoMtpAction extends ActionSupport {
 	}
 	
 	/** 
-	 * ¸üĞÂTrunkInfoMtp ±í
+	 * æ›´æ–°TrunkInfoMtp è¡¨
 	 * @return
 	 * @
 	 */
@@ -54,7 +54,7 @@ public class ZQTrunkInfoMtpAction extends ActionSupport {
 	}
 	
 	/** 
-	 * Ôö¼Ó TrunkInfoMtp ±í
+	 * å¢åŠ  TrunkInfoMtp è¡¨
 	 * @return
 	 * @
 	 */
@@ -66,7 +66,7 @@ public class ZQTrunkInfoMtpAction extends ActionSupport {
 	}
 	
 	/** 
-	 * Ôö¼Ó TrunkInfoMtp ±í
+	 * å¢åŠ  TrunkInfoMtp è¡¨
 	 * @return
 	 * @
 	 */
@@ -78,7 +78,7 @@ public class ZQTrunkInfoMtpAction extends ActionSupport {
 	}
 	
 	/**
-	 * ÎïÀíÏßÂ·
+	 * ç‰©ç†çº¿è·¯
 	 * @return
 	 * @
 	 */

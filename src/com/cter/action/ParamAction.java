@@ -36,11 +36,11 @@ public class ParamAction extends ActionSupport {
 
 
     /**
-     * ¸ù¾İexcel»ñÈ¡²ÎÊı
+     * æ ¹æ®excelè·å–å‚æ•°
      */
     public void getParam() {
         long start = System.currentTimeMillis();
-        runTimeLog.info("¿ªÊ¼ÔËĞĞÊ±¼ä£º" + cn.hutool.core.date.DateUtil.now());
+        runTimeLog.info("å¼€å§‹è¿è¡Œæ—¶é—´ï¼š" + cn.hutool.core.date.DateUtil.now());
         HttpServletRequest request = ServletActionContext.getRequest();
         String upLoadFiles = request.getParameter("upLoadFiles");
         String period = request.getParameter("period");
@@ -50,8 +50,8 @@ public class ParamAction extends ActionSupport {
 
         if (!StringUtil.isBlank(paramString)) {
             String returnString = "";
-            if (paramString.equals("¸ù¾İexcelÎŞ·¨×ª»»²ÎÊı¡£Çë²é¿´excel¸ñÊ½ÊÇ·ñÓĞ´íÎó¡£")) {
-                returnString = "Çë¼ì²éexcelÎÄ¼şÄÚÈİÊÇ·ñÕıÈ·£¬ÒÔ¼°È·¶¨excelÎÄ¼şÊıÁ¿ÎªÒ»¸ö";
+            if (paramString.equals("æ ¹æ®excelæ— æ³•è½¬æ¢å‚æ•°ã€‚è¯·æŸ¥çœ‹excelæ ¼å¼æ˜¯å¦æœ‰é”™è¯¯ã€‚")) {
+                returnString = "è¯·æ£€æŸ¥excelæ–‡ä»¶å†…å®¹æ˜¯å¦æ­£ç¡®ï¼Œä»¥åŠç¡®å®šexcelæ–‡ä»¶æ•°é‡ä¸ºä¸€ä¸ª";
                 HttpDataManageUtil.retString(returnString, log);
                 log.info(returnString);
             } else {
@@ -60,21 +60,21 @@ public class ParamAction extends ActionSupport {
                 String htmlPath = urlMap.get("htmlPath");
                 int peportsSize = jsonParam.getPePorts().size();
                 String passDate = DateUtil.getDateStr(new Date(start + peportsSize * 4000), "yyyy-mm-dd HH:mm:ss");
-                returnString = "·µ»ØµÄ²ÎÊı£º<br>" + paramString + "<br>" + "ÉÔºóÇë·ÃÎÊÏÂÃæÁ´½Ó²é¿´½á¹û£º<br>" +
+                returnString = "è¿”å›çš„å‚æ•°ï¼š<br>" + paramString + "<br>" + "ç¨åè¯·è®¿é—®ä¸‹é¢é“¾æ¥æŸ¥çœ‹ç»“æœï¼š<br>" +
                         "<a lay-ignore href=\"" + htmlPath + "\" target=\"_blank\">" + htmlPath + "</a><br>" +
-                        "¹²" + peportsSize + "ÌõÏßÂ·£¬Ö´ĞĞÒ»Ìõ´óÔ¼ËùĞè4Ãë£¬Ö´ĞĞÍê³ÉÊ±¼äÔ¤¼ÆÎª£º" + passDate;
+                        "å…±" + peportsSize + "æ¡çº¿è·¯ï¼Œæ‰§è¡Œä¸€æ¡å¤§çº¦æ‰€éœ€4ç§’ï¼Œæ‰§è¡Œå®Œæˆæ—¶é—´é¢„è®¡ä¸ºï¼š" + passDate;
                 HttpDataManageUtil.retString(returnString, log);
                 log.info(returnString);
-                log.info("getParamµ÷ÓÃÁË mtpReceiveService.addMtpRecordDetailed \nµ÷ÓÃµÄ²ÎÊıÎª£º(" + paramString + ")");
-                //¸ù¾İ»ñÈ¡µÄ²ÎÊıÖ´ĞĞÃüÁî
+                log.info("getParamè°ƒç”¨äº† mtpReceiveService.addMtpRecordDetailed \nè°ƒç”¨çš„å‚æ•°ä¸ºï¼š(" + paramString + ")");
+                //æ ¹æ®è·å–çš„å‚æ•°æ‰§è¡Œå‘½ä»¤
                 String result = mtpReceiveService.addMtpRecordDetailed(paramString);
             }
 
         }
 
         long end = System.currentTimeMillis();
-        runTimeLog.info("½áÊøÔËĞĞÊ±¼ä£º" + cn.hutool.core.date.DateUtil.now());
-        runTimeLog.info("Ö´ĞĞÏßÂ·ÊıÁ¿£º" + (JSONUtil.toBean(paramString, MTPA.class).getPePorts().size()) + "\t×ÜÊ±³¤:" + (end - start) / 1000.00);
+        runTimeLog.info("ç»“æŸè¿è¡Œæ—¶é—´ï¼š" + cn.hutool.core.date.DateUtil.now());
+        runTimeLog.info("æ‰§è¡Œçº¿è·¯æ•°é‡ï¼š" + (JSONUtil.toBean(paramString, MTPA.class).getPePorts().size()) + "\tæ€»æ—¶é•¿:" + (end - start) / 1000.00);
     }
 
 

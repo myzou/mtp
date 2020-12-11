@@ -3,8 +3,8 @@ package com.cter.util;
 import org.apache.log4j.Logger;
 
 /**
- * ¹¦ÄÜ£ºÍ³Ò»ÉèÖÃÈÕÖ¾Àà¡£
- * Ö»ĞèÒªnew BaseLog(LogName)ºÍlog4j.propertiesÅäÖÃ¼´¿ÉÉèÖÃlogÈÕÖ¾
+ * åŠŸèƒ½ï¼šç»Ÿä¸€è®¾ç½®æ—¥å¿—ç±»ã€‚
+ * åªéœ€è¦new BaseLog(LogName)å’Œlog4j.propertiesé…ç½®å³å¯è®¾ç½®logæ—¥å¿—
  * @author op1768
  *
  */
@@ -29,7 +29,7 @@ public class BaseLog {
 	    }
 
 	    public synchronized void printStackTrace(Exception e)  {
-	        logger.error("´íÎóĞÅÏ¢£º" + e.getMessage());
+	        logger.error("é”™è¯¯ä¿¡æ¯ï¼š" + e.getMessage());
 	        StackTraceElement[] trace = e.getStackTrace();
 	        for (int i = 0; i < trace.length; i++){
 	            logger.error("\tat " + trace[i]);

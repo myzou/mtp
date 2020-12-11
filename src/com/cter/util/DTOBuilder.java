@@ -7,16 +7,16 @@ import java.math.BigDecimal;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Í¨¹ı·´Éä¼¼Êõ½«HttpServletRequestÖĞµÄÇ°¶ËÊôĞÔÊı¾İ¸³Öµµ½¶ÔÓ¦µÄÊµÌåÀàÖĞ£¬Ê¹ÓÃ»òĞŞ¸Ä±¾ÀàĞèÒªÊìÏ¤Java·´Éä¼¼Êõ
- * Ê¹ÓÃ·½·¨£ºXxxxÎªÏàÓ¦µÄÊµÌåÀà
+ * é€šè¿‡åå°„æŠ€æœ¯å°†HttpServletRequestä¸­çš„å‰ç«¯å±æ€§æ•°æ®èµ‹å€¼åˆ°å¯¹åº”çš„å®ä½“ç±»ä¸­ï¼Œä½¿ç”¨æˆ–ä¿®æ”¹æœ¬ç±»éœ€è¦ç†Ÿæ‚‰Javaåå°„æŠ€æœ¯
+ * ä½¿ç”¨æ–¹æ³•ï¼šXxxxä¸ºç›¸åº”çš„å®ä½“ç±»
  * DTOBuilder.getDTO(HttpServletRequest, Xxxx.class);
  */
 public class DTOBuilder {
     
     /**
-     * ·½·¨Èë¿Ú£¬µÃµ½Dto
+     * æ–¹æ³•å…¥å£ï¼Œå¾—åˆ°Dto
      *@param request 
-     *@param dtoClass ´«ÈëµÄÊµÌåÀà
+     *@param dtoClass ä¼ å…¥çš„å®ä½“ç±»
      *@return
      */
     public static Object getDTO(HttpServletRequest request, Class dtoClass) {
@@ -24,7 +24,7 @@ public class DTOBuilder {
         if ((dtoClass == null) || (request == null))
             return dtoObj;
         try {
-            //ÊµÀı»¯¶ÔÏó
+            //å®ä¾‹åŒ–å¯¹è±¡
             dtoObj = dtoClass.newInstance();
             setDTOValue(request, dtoObj);
         } catch (Exception ex) {
@@ -33,7 +33,7 @@ public class DTOBuilder {
         return dtoObj;
     }
     /**
-     * ±£´æÊı¾İ 
+     * ä¿å­˜æ•°æ® 
      *@param request
      *@param dto
      *@throws Exception
@@ -41,17 +41,17 @@ public class DTOBuilder {
     public static void setDTOValue(HttpServletRequest request, Object dto) throws Exception {
         if ((dto == null) || (request == null))
             return;
-        //µÃµ½ÀàÖĞËùÓĞµÄ·½·¨ »ù±¾ÉÏ¶¼ÊÇsetºÍget·½·¨
+        //å¾—åˆ°ç±»ä¸­æ‰€æœ‰çš„æ–¹æ³• åŸºæœ¬ä¸Šéƒ½æ˜¯setå’Œgetæ–¹æ³•
         Method[] methods = dto.getClass().getMethods();
         for (int i = 0; i < methods.length; i++) {
             try {
-                //·½·¨Ãû
+                //æ–¹æ³•å
                 String methodName = methods[i].getName();
-                //·½·¨²ÎÊıµÄÀàĞÍ
+                //æ–¹æ³•å‚æ•°çš„ç±»å‹
                 Class[] type = methods[i].getParameterTypes();
-                //µ±Ê±set·½·¨Ê±£¬ÅĞ¶ÏÒÀ¾İ£ºsetXxxxÀàĞÍ
+                //å½“æ—¶setæ–¹æ³•æ—¶ï¼Œåˆ¤æ–­ä¾æ®ï¼šsetXxxxç±»å‹
                 if ((methodName.length() > 3) && (methodName.startsWith("set")) && (type.length == 1)) {
-                    //½«setºóÃæµÄ´óĞ´×ÖÄ¸×ª³ÉĞ¡Ğ´²¢½ØÈ¡³öÀ´
+                    //å°†setåé¢çš„å¤§å†™å­—æ¯è½¬æˆå°å†™å¹¶æˆªå–å‡ºæ¥
                     String name = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
                     Object objValue = getBindValue(request, name, type[0]);
                     if (objValue != null) {
@@ -65,14 +65,14 @@ public class DTOBuilder {
         }
     }
     /**
-     * Í¨¹ırequestµÃµ½ÏàÓ¦µÄÖµ
+     * é€šè¿‡requestå¾—åˆ°ç›¸åº”çš„å€¼
      *@param request HttpServletRequest
-     *@param bindName ÊôĞÔÃû
-     *@param bindType ÊôĞÔµÄÀàĞÍ
+     *@param bindName å±æ€§å
+     *@param bindType å±æ€§çš„ç±»å‹
      *@return
      */
     public static Object getBindValue(HttpServletRequest request, String bindName, Class bindType) {
-        //µÃµ½requestÖĞµÄÖµ
+        //å¾—åˆ°requestä¸­çš„å€¼
         String value = request.getParameter(bindName);
         if (value != null) {
             value = value.trim();
@@ -80,11 +80,11 @@ public class DTOBuilder {
         return getBindValue(value, bindType);
     }
     /**
-     * Í¨¹ıµ÷ÓÃ·½·¨Ãû£¨setXxxx£©½«ÖµÉèÖÃµ½ÊôĞÔÖĞ
-     *@param classObject ÊµÌåÀà¶ÔÏó
-     *@param strMethodName ·½·¨Ãû(Ò»°ã¶¼ÊÇsetXxxx)
-     *@param argsType ÊôĞÔÀàĞÍÊı×é
-     *@param args ÊôĞÔÖµÊı×é
+     * é€šè¿‡è°ƒç”¨æ–¹æ³•åï¼ˆsetXxxxï¼‰å°†å€¼è®¾ç½®åˆ°å±æ€§ä¸­
+     *@param classObject å®ä½“ç±»å¯¹è±¡
+     *@param strMethodName æ–¹æ³•å(ä¸€èˆ¬éƒ½æ˜¯setXxxx)
+     *@param argsType å±æ€§ç±»å‹æ•°ç»„
+     *@param args å±æ€§å€¼æ•°ç»„
      *@return
      *@throws NoSuchMethodException
      *@throws SecurityException
@@ -95,22 +95,22 @@ public class DTOBuilder {
     public static Object invokeMothod(Object classObject, String strMethodName, Class[] argsType, Object[] args)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
-        //µÃµ½classObjectÕâ¸öÀàµÄ·½·¨
+        //å¾—åˆ°classObjectè¿™ä¸ªç±»çš„æ–¹æ³•
         Method concatMethod = classObject.getClass().getMethod(strMethodName, argsType);
-        //µ÷ÓÃ·½·¨½«classObject¸³Öµµ½ÏàÓ¦µÄÊôĞÔ
+        //è°ƒç”¨æ–¹æ³•å°†classObjectèµ‹å€¼åˆ°ç›¸åº”çš„å±æ€§
         return concatMethod.invoke(classObject, args);
     }
     /**
-     * ¸ù¾İbindTypeÀàĞÍµÄ²»Í¬×ª³ÉÏàÓ¦µÄÀàĞÍÖµ
-     *@param value StringÀàĞÍµÄÖµ£¬Òª¸ù¾İbindTypeÀàĞÍµÄ²»Í¬×ª³ÉÏàÓ¦µÄÀàĞÍÖµ
-     *@param bindType ÊôĞÔµÄÀàĞÍ
+     * æ ¹æ®bindTypeç±»å‹çš„ä¸åŒè½¬æˆç›¸åº”çš„ç±»å‹å€¼
+     *@param value Stringç±»å‹çš„å€¼ï¼Œè¦æ ¹æ®bindTypeç±»å‹çš„ä¸åŒè½¬æˆç›¸åº”çš„ç±»å‹å€¼
+     *@param bindType å±æ€§çš„ç±»å‹
      *@return
      */
     public static Object getBindValue(String value, Class bindType) {
         if ((value == null) || (value.trim().length() == 0))
             return null;
         String typeName = bindType.getName();
-        //ÒÀ´ÎÅĞ¶Ï¸÷ÖÖÀàĞÍ²¢×ª»»ÏàÓ¦µÄÖµ
+        //ä¾æ¬¡åˆ¤æ–­å„ç§ç±»å‹å¹¶è½¬æ¢ç›¸åº”çš„å€¼
         if (typeName.equals("java.lang.String"))
             return value;
         if (typeName.equals("int"))

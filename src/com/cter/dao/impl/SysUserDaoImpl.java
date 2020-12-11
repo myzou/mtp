@@ -85,7 +85,7 @@ public class SysUserDaoImpl extends BaseDaOImpl<SysUser> {
 	}
 	
 	/**
-	 * ²éÕÒsys_user_role ±íµÄÖ÷¼ü×î´óÖµ
+	 * æŸ¥æ‰¾sys_user_role è¡¨çš„ä¸»é”®æœ€å¤§å€¼
 	 * @return
 	 */
 	public int queryMaxUserRoleId() {
@@ -137,7 +137,7 @@ public class SysUserDaoImpl extends BaseDaOImpl<SysUser> {
 	}
 	
 	/**
-	 * ¸ù¾İuser_idÉ¾³ı¶ÔÓ¦sys_user_role
+	 * æ ¹æ®user_idåˆ é™¤å¯¹åº”sys_user_role
 	 * @param user_id
 	 * @return
 	 */
@@ -173,7 +173,7 @@ public class SysUserDaoImpl extends BaseDaOImpl<SysUser> {
 	
 	
 	/**
-	 * ¸ù¾İÕÊºÅÃÜÂë»ñÈ¡ÕÊºÅĞÅÏ¢
+	 * æ ¹æ®å¸å·å¯†ç è·å–å¸å·ä¿¡æ¯
 	 * @param user_name
 	 * @param password
 	 * @return
@@ -192,7 +192,7 @@ public class SysUserDaoImpl extends BaseDaOImpl<SysUser> {
 	}
 	
 	/**
-	 * ¸ù¾İÕÊºÅ»ñÈ¡ÕÊºÅĞÅÏ¢
+	 * æ ¹æ®å¸å·è·å–å¸å·ä¿¡æ¯
 	 * @param user_name
 	 * @return
 	 */

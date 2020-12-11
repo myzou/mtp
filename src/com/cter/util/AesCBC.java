@@ -9,13 +9,13 @@ import javax.sound.midi.Soundbank;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-/**AES ÊÇÒ»ÖÖ¿ÉÄæ¼ÓÃÜËã·¨£¬¶ÔÓÃ»§µÄÃô¸ĞĞÅÏ¢¼ÓÃÜ´¦Àí
- * ¶ÔÔ­Ê¼Êı¾İ½øĞĞAES¼ÓÃÜºó£¬ÔÚ½øĞĞBase64±àÂë×ª»¯£»
+/**AES æ˜¯ä¸€ç§å¯é€†åŠ å¯†ç®—æ³•ï¼Œå¯¹ç”¨æˆ·çš„æ•æ„Ÿä¿¡æ¯åŠ å¯†å¤„ç†
+ * å¯¹åŸå§‹æ•°æ®è¿›è¡ŒAESåŠ å¯†åï¼Œåœ¨è¿›è¡ŒBase64ç¼–ç è½¬åŒ–ï¼›
  */
 public class AesCBC {
     /*
-     * ¼ÓÃÜÓÃµÄKey ¿ÉÒÔÓÃ26¸ö×ÖÄ¸ºÍÊı×Ö×é³É
-     * ´Ë´¦Ê¹ÓÃAES-128-CBC¼ÓÃÜÄ£Ê½£¬keyĞèÒªÎª16Î»¡£
+     * åŠ å¯†ç”¨çš„Key å¯ä»¥ç”¨26ä¸ªå­—æ¯å’Œæ•°å­—ç»„æˆ
+     * æ­¤å¤„ä½¿ç”¨AES-128-CBCåŠ å¯†æ¨¡å¼ï¼Œkeyéœ€è¦ä¸º16ä½ã€‚
      */
     private static String sKey="sklhdflsjfsdgdeg";
     private static String ivParameter="cfbsdfgsdfxccvd1";
@@ -28,18 +28,18 @@ public class AesCBC {
             instance= new AesCBC();
         return instance;
     }
-    // ¼ÓÃÜ
+    // åŠ å¯†
     public String encrypt(String sSrc, String encodingFormat, String sKey, String ivParameter) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         byte[] raw = sKey.getBytes();
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        IvParameterSpec iv = new IvParameterSpec(ivParameter.getBytes());//Ê¹ÓÃCBCÄ£Ê½£¬ĞèÒªÒ»¸öÏòÁ¿iv£¬¿ÉÔö¼Ó¼ÓÃÜËã·¨µÄÇ¿¶È
+        IvParameterSpec iv = new IvParameterSpec(ivParameter.getBytes());//ä½¿ç”¨CBCæ¨¡å¼ï¼Œéœ€è¦ä¸€ä¸ªå‘é‡ivï¼Œå¯å¢åŠ åŠ å¯†ç®—æ³•çš„å¼ºåº¦
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(sSrc.getBytes(encodingFormat));
-        return new BASE64Encoder().encode(encrypted);//´Ë´¦Ê¹ÓÃBASE64×ö×ªÂë¡£
+        return new BASE64Encoder().encode(encrypted);//æ­¤å¤„ä½¿ç”¨BASE64åšè½¬ç ã€‚
     }
 
-    // ½âÃÜ
+    // è§£å¯†
     public String decrypt(String sSrc, String encodingFormat, String sKey, String ivParameter) throws Exception {
         try {
             byte[] raw = sKey.getBytes("ASCII");
@@ -47,7 +47,7 @@ public class AesCBC {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             IvParameterSpec iv = new IvParameterSpec(ivParameter.getBytes());
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-            byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);//ÏÈÓÃbase64½âÃÜ
+            byte[] encrypted1 = new BASE64Decoder().decodeBuffer(sSrc);//å…ˆç”¨base64è§£å¯†
             byte[] original = cipher.doFinal(encrypted1);
             String originalString = new String(original,encodingFormat);
             return originalString;
@@ -57,28 +57,28 @@ public class AesCBC {
     }
 
     public static void main(String[] args) throws Exception {
-        // ĞèÒª¼ÓÃÜµÄ×Ö´®
+        // éœ€è¦åŠ å¯†çš„å­—ä¸²
         String cSrc = "NkxhMHVURitIWjQ2VzE2SWNUN1RZa1FycDRaSFJISDJzMkQvbmNwajNHWnZIK0pPNEQrWk12YlFvaUJpOXd0b09EcTF4TEFRaFpKbSUwQWdNMi9EOHNYRUNpalhuOXhyb2toajZWUlJnMnBNMmIzVkxOSEVWOU5ld3FEc293ejZ2MUhzQ3BLZi85cnI2Y3VIRHN0VnNQaEhGYjAlMEFScEJrV1RhNWdvVDVCVEFMVVVqNjhnb2FiN1VZT0c4UDRRUytQZDEzRlFyK2RGejlqTnBubzdHQ1JyUHdic0RFWDlNbTJ0QnFHOVhSJTBBaVU5SEwxdUdCRmhka0hNcXROWmc2S0VYK0xEQXNlV3BkcStwUGJUbXpBQWRySXY4cC9JRGh0akErcWpxRW0zbWVKaFFGeGRsc0tTTiUwQVdZZUU5MEVKc3F6eC9PYXJuRHJ3T04vN1hPRlhNNjRRdEh3eWFJdzd2WEJxWGxRTWs3eE0vSXVXZmgwSDFsOERjdmUxTXBGcXFLa3clMEFBYjBPN2ZIRm5oaDJRdXArQ1RSNnhleW9rMFdUWURnMUJpS1BHMnFpOXV6TzRvK1owcG84ejk2MmphQkxBVkVoUzgwbTVmTzNKY3hIJTBBRVFJWjZXM2ptcFl2ekNmbzFvd2piQlRneU9BWEpIYUJRV1Fiait5dkl4dDdZbDU4TWpuRkJab3d6RXlsTDJLbXkrbUhyREpudEtCRSUwQUE4OUd3ZnZrdisyWEF6Tm9qRTZPTGlzMHJLNUhyZTZBaXNDYm9EdjBjaUFYVU5ZRGgzMzJMa1lLUm9lS2dIT3JVNmlObzkvMTNCbXklMEE3cHhXR2d2UHhWMVpxbk5neG54U3FKS2Z4U2tlSlFGemxLS3UyOE9aekY1TG9NZS80SkJHdE8xeDJUa0s4ZTBqZy9tN1NSSEZuUFdSJTBBb1hiSS91SjZjOURqTFJkYnN0aVdpTXFXSUxYVTg3Q25DV2xHTzhlSDRJS1FlNTgzWUNCSGpBdGJJY0NUMnIxOHBURVB1eUxSbTNPOSUwQWNXa2NpcXhOWjJKaERHQVd3Y3l0cEU0RktldzdJLzRwVG1IaHlTczVQUnVQN2JCVVdNTDFNK2oxRUdRbzlOTXM1bmtRWUpobWplWS8lMEFNMndiZmtPcDhEdlgvQmhqTk1EMFgyQzY5TlBTWFhPR3c0RU1tTkxRcnhFV3R3RFRnRmo1azVMYWxUWW1jZUZTbk1EYzRNVGhxUGc5JTBBRTZFZ3B3JTNEJTNE";
         System.out.println(cSrc);
-        // ¼ÓÃÜ
+        // åŠ å¯†
         long lStart = System.currentTimeMillis();
         String enString = AesCBC.getInstance().encrypt(cSrc,"utf-8",sKey,ivParameter);
-        System.out.println("¼ÓÃÜºóµÄ×Ö´®ÊÇ£º"+ enString);
+        System.out.println("åŠ å¯†åçš„å­—ä¸²æ˜¯ï¼š"+ enString);
 
         long lUseTime = System.currentTimeMillis() - lStart;
-        System.out.println("¼ÓÃÜºÄÊ±£º" + lUseTime + "ºÁÃë");
-        // ½âÃÜ
+        System.out.println("åŠ å¯†è€—æ—¶ï¼š" + lUseTime + "æ¯«ç§’");
+        // è§£å¯†
         lStart = System.currentTimeMillis();
         String DeString = AesCBC.getInstance().decrypt(enString,"utf-8",sKey,ivParameter);
-        System.out.println("½âÃÜºóµÄ×Ö´®ÊÇ£º" + DeString);
+        System.out.println("è§£å¯†åçš„å­—ä¸²æ˜¯ï¼š" + DeString);
         lUseTime = System.currentTimeMillis() - lStart;
-        System.out.println("½âÃÜºÄÊ±£º" + lUseTime + "ºÁÃë");
+        System.out.println("è§£å¯†è€—æ—¶ï¼š" + lUseTime + "æ¯«ç§’");
         System.out.println("==================================================================");
         BASE64Encoder encode=new BASE64Encoder();
         BASE64Decoder decoder=new BASE64Decoder();
         String data=encode.encode(cSrc.getBytes());
-        System.out.println("base64¼ÓÃÜºó£º "+ data);
-        System.out.println("base64½âÃÜºó£º "+ new String(decoder.decodeBuffer(data) ) );
+        System.out.println("base64åŠ å¯†åï¼š "+ data);
+        System.out.println("base64è§£å¯†åï¼š "+ new String(decoder.decodeBuffer(data) ) );
 
     }
 

@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * ÍÆËÍ½á¹ûµ½remedy
+ * æ¨é€ç»“æœåˆ°remedy
  * @author op1768
  * @create 2019-10-24 11:42
  * @project mtp
@@ -30,7 +30,7 @@ public class SendResultToRemedy {
 
 
     private  BaseLog MTPQueryLog = new BaseLog("MTPQueryLog");
-    String loginUrl;String loginOutUrl;String sendToRemedyUrl;String result; //Ïß³ÌµÈ´ı
+    String loginUrl;String loginOutUrl;String sendToRemedyUrl;String result; //çº¿ç¨‹ç­‰å¾…
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
     private static final String loginUserName = otherMap.get("loginUserName");
     private static final String loginPassword = otherMap.get("loginPassword");
@@ -84,8 +84,8 @@ public class SendResultToRemedy {
     }
 
     /**
-     * ·¢ËÍ½á¹ûµ½remedy
-     * @param token µÇÂ½µÄtoken£¬·½·¨login»ñµÃ
+     * å‘é€ç»“æœåˆ°remedy
+     * @param token ç™»é™†çš„tokenï¼Œæ–¹æ³•loginè·å¾—
      * @param ticketName
      * @param msg
      * @param MTP_status
@@ -113,7 +113,7 @@ public class SendResultToRemedy {
         valuesObject.put("msg",msg);
         valuesObject.put("tense",tense);
         jsonObject.put("values",valuesObject);
-        MTPQueryLog.info("·¢ËÍµ½remedyµÄÄÚÈİ£º"+ JSONUtil.toJsonStr(jsonObject));
+        MTPQueryLog.info("å‘é€åˆ°remedyçš„å†…å®¹ï¼š"+ JSONUtil.toJsonStr(jsonObject));
         String sendJson=JSONUtil.toJsonStr(jsonObject);
         httpPost.setEntity(new StringEntity(sendJson, ContentType.APPLICATION_JSON));
         httpPost.addHeader("Authorization", "AR-JWT " + token);
@@ -121,14 +121,14 @@ public class SendResultToRemedy {
         // make the call and print the Location
         CloseableHttpResponse response = httpClient.execute(httpPost);
         String  returnLocation = response.getFirstHeader("Location").getValue();
-        MTPQueryLog.info("½ÓÊÜ·µ»ØµÄÖµ£º"+returnLocation);
+        MTPQueryLog.info("æ¥å—è¿”å›çš„å€¼ï¼š"+returnLocation);
         return returnLocation;
     }
 
     /**
-     * Èç¹û×Ö·û´®Îª¿Õ¾ÍÉèÖÃÎªÖ¸¶¨×Ö·û´®£¬Èç¹û²»Îª¿Õ¾ÍÊä³ö
-     * @param ifStr   ÅĞ¶Ï×Ö·û´®
-     * @param setStr  ÉèÖÃµÄ×Ö·û´®
+     * å¦‚æœå­—ç¬¦ä¸²ä¸ºç©ºå°±è®¾ç½®ä¸ºæŒ‡å®šå­—ç¬¦ä¸²ï¼Œå¦‚æœä¸ä¸ºç©ºå°±è¾“å‡º
+     * @param ifStr   åˆ¤æ–­å­—ç¬¦ä¸²
+     * @param setStr  è®¾ç½®çš„å­—ç¬¦ä¸²
      * @return
      */
     public static String ifNotNullSet(String ifStr,String setStr){
@@ -139,7 +139,7 @@ public class SendResultToRemedy {
     }
 
     /**
-     * µÇÂ½µ½remedy »ñÈ¡token
+     * ç™»é™†åˆ°remedy è·å–token
      * @param loginUrl
      * @param username
      * @param password
@@ -162,15 +162,15 @@ public class SendResultToRemedy {
         CloseableHttpResponse response = httpClient.execute(httpPost);
         HttpEntity entity=response.getEntity();
         String token= EntityUtils.toString(entity,"utf-8");
-        MTPQueryLog.info("³É¹¦»ñÈ¡µ½:"+token);
+        MTPQueryLog.info("æˆåŠŸè·å–åˆ°:"+token);
         response.close();
         httpClient.close();
-        MTPQueryLog.info("Ä£ÄâµÇÂ½³É¹¦");
+        MTPQueryLog.info("æ¨¡æ‹Ÿç™»é™†æˆåŠŸ");
         return token;
     }
 
     /**
-     * ÍË³ö¶ÔÓ¦µÄtoken
+     * é€€å‡ºå¯¹åº”çš„token
      * @param loginOut
      * @param token
      * @return
@@ -188,31 +188,31 @@ public class SendResultToRemedy {
         // make the call and print the Location
         CloseableHttpResponse response = httpClient.execute(httpPost);
         String  loginOutDate = response.getFirstHeader("Date").getValue();
-        MTPQueryLog.info("ÍË³öÊ±¼ä:"+loginOutDate);
+        MTPQueryLog.info("é€€å‡ºæ—¶é—´:"+loginOutDate);
         response.close();
         httpClient.close();
-        MTPQueryLog.info("Ä£ÄâÍË³ö³É¹¦");
+        MTPQueryLog.info("æ¨¡æ‹Ÿé€€å‡ºæˆåŠŸ");
         return token;
     }
 
 
     /**
-     * ²âÊÔÒ»¸öurl·µ»ØµÄÄÚÈİ
+     * æµ‹è¯•ä¸€ä¸ªurlè¿”å›çš„å†…å®¹
      * @param url
      * @throws Exception
      */
     public  void testHttpUrl(String url)throws  Exception{
         url=ifNotNullSet(url,"http://idc.china-entercom.net:8081/X-admin-2.3/login.jsp");
-        CloseableHttpClient httpClient = HttpClients.createDefault();//?´´½¨httpClientÊµÀı
-        HttpGet httpGet = new HttpGet(url);//?´´½¨httpgetÊµÀı
-        httpGet.setHeader("User-Agent", "Mozilla/5.0?(Windows?NT?6.1;?Win64;?x64;?rv:50.0)?Gecko/20100101?Firefox/50.0");//?ÉèÖÃÇëÇóÍ·ÏûÏ¢User-Agent
-        CloseableHttpResponse response = httpClient.execute(httpGet);//?Ö´ĞĞhttp?getÇëÇó
+        CloseableHttpClient httpClient = HttpClients.createDefault();//?åˆ›å»ºhttpClientå®ä¾‹
+        HttpGet httpGet = new HttpGet(url);//?åˆ›å»ºhttpgetå®ä¾‹
+        httpGet.setHeader("User-Agent", "Mozilla/5.0?(Windows?NT?6.1;?Win64;?x64;?rv:50.0)?Gecko/20100101?Firefox/50.0");//?è®¾ç½®è¯·æ±‚å¤´æ¶ˆæ¯User-Agent
+        CloseableHttpResponse response = httpClient.execute(httpGet);//?æ‰§è¡Œhttp?getè¯·æ±‚
         MTPQueryLog.info("Status:" + response.getStatusLine().getStatusCode());
-        HttpEntity entity = response.getEntity();//?»ñÈ¡·µ»ØÊµÌå
+        HttpEntity entity = response.getEntity();//?è·å–è¿”å›å®ä½“
         MTPQueryLog.info("Content-Type:" + entity.getContentType().getValue());
-        //MTPQueryLog.info("ÍøÒ³ÄÚÈİ£º"+EntityUtils.toString(entity,?"utf-8"));?//?»ñÈ¡ÍøÒ³ÄÚÈİ
-        response.close();//?response¹Ø±Õ
-        httpClient.close();//?httpClient¹Ø±Õ
+        //MTPQueryLog.info("ç½‘é¡µå†…å®¹ï¼š"+EntityUtils.toString(entity,?"utf-8"));?//?è·å–ç½‘é¡µå†…å®¹
+        response.close();//?responseå…³é—­
+        httpClient.close();//?httpClientå…³é—­
 
     }
 
@@ -229,13 +229,13 @@ public class SendResultToRemedy {
 
             token=login(loginUrl,"","");
             if(token.indexOf("ERROR")>-1){
-                MTPQueryLog.info( " µÇÂ¼µ½Remedy»ñÈ¡token´íÎó£º");
+                MTPQueryLog.info( " ç™»å½•åˆ°Remedyè·å–tokené”™è¯¯ï¼š");
             }else{
                 String returnLocation=sendReult(sendToRemedyUrl,token,ticketName,msg ,MTP_status,tense);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            MTPQueryLog.info( " ·¢ËÍ½á¹ûµ½Remedy´íÎó£º");
+            MTPQueryLog.info( " å‘é€ç»“æœåˆ°Remedyé”™è¯¯ï¼š");
             MTPQueryLog.printStackTrace(e);
             SendMailUtil mail=SendMailUtil.getInstance();
             String[]  to=toStr.split(";");
@@ -254,7 +254,7 @@ public class SendResultToRemedy {
                 String loginOutDate=loginOut(loginOutUrl,token);
             } catch (Exception e) {
                 e.printStackTrace();
-                MTPQueryLog.info( "ÍË³öµÇÂ¼ ´íÎó£º");
+                MTPQueryLog.info( "é€€å‡ºç™»å½• é”™è¯¯ï¼š");
                 MTPQueryLog.printStackTrace(e);
             }
         }

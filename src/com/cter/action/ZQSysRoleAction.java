@@ -32,7 +32,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	
 	
 	/**
-	 * ╪стькЫсп╣д╫ги╚
+	 * Е┼═Х╫╫Ф┴─Ф°┴Г └Х╖▓Х┴╡
 	 * @return
 	 * @throws Exception
 	 */
@@ -45,7 +45,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	}
 	
 	/**
-	 * ╪стькЫсп╣д╫ги╚
+	 * Е┼═Х╫╫Ф┴─Ф°┴Г └Х╖▓Х┴╡
 	 * @return
 	 * @throws Exception
 	 */
@@ -57,7 +57,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	
 	
 	/**
-	 *лМ╪с╫ги╚
+	 *Ф╥╩Е┼═Х╖▓Х┴╡
 	 * @return
 	 * @throws Exception
 	 */
@@ -69,7 +69,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	}
 	
 	/**
-	 * пч╦д╫ги╚
+	 * Д©╝Ф■╧Х╖▓Х┴╡
 	 * @return
 	 * @throws Exception
 	 */
@@ -81,7 +81,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	}
 	
 	/**
-	 * и╬ЁЩ╫ги╚
+	 * Е┬═И≥╓Х╖▓Х┴╡
 	 * @return
 	 * @throws Exception
 	 */
@@ -95,7 +95,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	}
 	
 	/**
-	 *╦Ы╬щroleId ╡И©╢╫ги╚пео╒
+	 *Ф═╧Ф█╝roleId Ф÷╔Г°▀Х╖▓Х┴╡Д©║Ф│╞
 	 * @return
 	 * @throws Exception
 	 */
@@ -109,7 +109,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	}
 	
 	/**
-	 *╦Ы╬щroleId ╡И©╢╫ги╚пео╒
+	 *Ф═╧Ф█╝roleId Ф÷╔Г°▀Х╖▓Х┴╡Д©║Ф│╞
 	 * @return
 	 * @throws Exception
 	 */
@@ -124,7 +124,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	
 	
 	/**
-	 * и╬ЁЩ╫ги╚ж╝г╟╦Ы╬щroleId╪Л╡И╡к╣╔
+	 * Е┬═И≥╓Х╖▓Х┴╡Д╧▀Е┴█Ф═╧Ф█╝roleIdФё─Ф÷╔Х▐°Е█∙
 	 * sys_role_menu
 	 * @return
 	 * @throws Exception
@@ -139,7 +139,7 @@ public class ZQSysRoleAction extends ActionSupport {
 	}
 	
 	/**
-	 * и╬ЁЩ╫ги╚ж╝г╟╦Ы╬щroleId╪Л╡Исц╩╖╫ги╚
+	 * Е┬═И≥╓Х╖▓Х┴╡Д╧▀Е┴█Ф═╧Ф█╝roleIdФё─Ф÷╔Г■╗Ф┬╥Х╖▓Х┴╡
 	 * sys_user_role
 	 * @return
 	 * @throws Exception

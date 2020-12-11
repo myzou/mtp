@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
  
 /**
- * ���ط�ֹsqlע�롢xssע�� 
+ * 拦截防止sql注入、xss注入 
  * @author op1768
  */
 public class XssFilter implements Filter {

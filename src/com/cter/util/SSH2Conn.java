@@ -29,10 +29,10 @@ public class SSH2Conn {
 	}
 	
 	/**
-	 * ¸ù¾İÁ¬½ÓºÍÕËºÅÃÜÂëÀ´ÑéÖ¤µÇÂ¼ĞÅÏ¢
-	 * @param conn			Á¬½Ó
-	 * @param name			ÕËºÅ
-	 * @param password  ÃÜÂë
+	 * æ ¹æ®è¿æ¥å’Œè´¦å·å¯†ç æ¥éªŒè¯ç™»å½•ä¿¡æ¯
+	 * @param conn			è¿æ¥
+	 * @param name			è´¦å·
+	 * @param password  å¯†ç 
 	 * @return
 	 */
 	public static String  checkdUserInfo(Connection conn,String name,String password){
@@ -42,14 +42,14 @@ public class SSH2Conn {
 			message="PASS";
 		} catch (IOException e) {
 			e.printStackTrace();
-			message= "ERROR:ÓÃ»§ÃÜÂëÑéÖ¤´íÎó£º\r\nname:"+name+"\r\npassword:"+password;
+			message= "ERROR:ç”¨æˆ·å¯†ç éªŒè¯é”™è¯¯ï¼š\r\nname:"+name+"\r\npassword:"+password;
 		}
 		return message;
 	}
 	
 	/**
-	 *  ¸ù¾İConnection »ñÈ¡session
-	 * @param conn  Á¬½Ó
+	 *  æ ¹æ®Connection è·å–session
+	 * @param conn  è¿æ¥
 	 * @return
 	 */
 	public static Session getSesssion(Connection conn){
@@ -110,7 +110,7 @@ public class SSH2Conn {
 	}
 	
 	/** 
-	 * @¹¦ÄÜ ¶ÁÈ¡Á÷ 
+	 * @åŠŸèƒ½ è¯»å–æµ 
 	 * @param inStream 
 	 * @return String
 	 * @throws Exception 

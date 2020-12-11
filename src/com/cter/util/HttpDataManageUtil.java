@@ -23,7 +23,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 /**
- * ´¦ÀíÇëÇóºÍ·¢ËÍ²ÎÊı¹¤¾ßÀà
+ * å¤„ç†è¯·æ±‚å’Œå‘é€å‚æ•°å·¥å…·ç±»
  * @author op1768
  *
  */
@@ -31,9 +31,9 @@ public class HttpDataManageUtil {
 	
 			private static final   String  dateFormat ="yyyy-MM-dd HH:mm:ss";
 			/**
-			 * ¸ù¾İÇëÇó(²ÎÊıÃû³Æ)»ñÈ¡²ÎÊıµ½map
+			 * æ ¹æ®è¯·æ±‚(å‚æ•°åç§°)è·å–å‚æ•°åˆ°map
 			 * @param request
-			 * @param jsonStrName	²ÎÊıÃû³Æ
+			 * @param jsonStrName	å‚æ•°åç§°
 			 * @return
 			 */
 			public static Map<String,String >  request2Map(HttpServletRequest request,String jsonStrName ){
@@ -41,25 +41,25 @@ public class HttpDataManageUtil {
 				JSONObject jsonObject=	JSONObject.fromObject(jsonStr);
 				 Map<String, String> map = new HashMap<String, String>();
 				    Iterator ite = jsonObject.keys();
-				    // ±éÀújsonObjectÊı¾İ,Ìí¼Óµ½Map¶ÔÏó
+				    // éå†jsonObjectæ•°æ®,æ·»åŠ åˆ°Mapå¯¹è±¡
 				    while (ite.hasNext()) {
 				        String key = ite.next().toString();
 				        String value = jsonObject.get(key).toString();
 				        map.put(key, value);
 				    }
-				    //±éÀú
+				    //éå†
 				    Iterator<Entry<String, String>>  iterator= map.entrySet().iterator();
 				    while(iterator.hasNext()){
 				    	 Entry<String, String> entry=iterator.next();
-				    	 System.out.println("¼ü£º"+entry.getKey()+"\tÖµ£º"+entry.getValue());
+				    	 System.out.println("é”®ï¼š"+entry.getKey()+"\tå€¼ï¼š"+entry.getValue());
 				    }
 				 return map;
 			}
 			
 			/**
-			 * ¸ù¾İ²ÎÊıÃû³Æ»ñÈ¡JSON¶ÔÏó
+			 * æ ¹æ®å‚æ•°åç§°è·å–JSONå¯¹è±¡
 			 * @param request
-			 * @param jsonStrName	²ÎÊıÃû³Æ
+			 * @param jsonStrName	å‚æ•°åç§°
 			 * @return
 			 */
 			public static Object request2Object(HttpServletRequest request,String jsonStrName,Class classType  ){
@@ -71,10 +71,10 @@ public class HttpDataManageUtil {
 			}
 			
 			/**
-			 * Ê¹ÓÃ Gson
-			 * ¸ù¾İ²ÎÊıÃû³Æ»ñÈ¡JSON¶ÔÏó 
+			 * ä½¿ç”¨ Gson
+			 * æ ¹æ®å‚æ•°åç§°è·å–JSONå¯¹è±¡ 
 			 * @param request
-			 * @param jsonStrName	²ÎÊıÃû³Æ
+			 * @param jsonStrName	å‚æ•°åç§°
 			 * @return
 			 */
 			public static  <T> T   requestGson2Object(HttpServletRequest request,String jsonStrName,Class<T>  clazz){
@@ -86,8 +86,8 @@ public class HttpDataManageUtil {
 			}
 			
 			/**
-			 * String¼üÖµ¶Ô»ñÈ¡
-			 * ¸ù¾İÇëÇó»ñÈ¡²ÎÊıµ½map£¨È«string£©
+			 * Stringé”®å€¼å¯¹è·å–
+			 * æ ¹æ®è¯·æ±‚è·å–å‚æ•°åˆ°mapï¼ˆå…¨stringï¼‰
 			 * @param request
 			 * @return
 			 * @throws UnsupportedEncodingException 
@@ -95,7 +95,7 @@ public class HttpDataManageUtil {
 			public static Map<String,String  >  request2MapAllString(HttpServletRequest request,BaseLog log){
 				Enumeration<String>  enumeration =	request.getParameterNames();
 				Map<String,String  > map =new HashMap<String,String  >();
-				    //±éÀú
+				    //éå†
 //				String str=new String(request.getParameter("menu_name").getBytes("ISO8859-1"),"UTF-8");
 //				request.setCharacterEncoding("utf-8");
 				String methodType=request.getMethod();
@@ -113,28 +113,28 @@ public class HttpDataManageUtil {
 								log.printStackTrace(e);
 							}
 				    	map.put(name, value);
-				    	 System.out.println("¼ü£º"+name+"\tÖµ£º"+value);
+				    	 System.out.println("é”®ï¼š"+name+"\tå€¼ï¼š"+value);
 				    }
 				 return map;
 			}
 			
 			
 			/**
-			 * ·µ»Øµ½½çÃæµÄJSONÊı×é
-			 * @param o ·µ»ØµÄÊı¾İ¶ÔÏó
+			 * è¿”å›åˆ°ç•Œé¢çš„JSONæ•°ç»„
+			 * @param o è¿”å›çš„æ•°æ®å¯¹è±¡
 			 * @throws IOException
 			 */
 			public static void 	retJson(Object o,BaseLog log)  {
 				 HttpServletResponse response=ServletActionContext.getResponse();
-				 //ÖØĞ´·½·¨ÅäÖÃ£¬ÊµÏÖÈÕÆÚ×ª»»Îª×Ö·û´®
+				 //é‡å†™æ–¹æ³•é…ç½®ï¼Œå®ç°æ—¥æœŸè½¬æ¢ä¸ºå­—ç¬¦ä¸²
 				 JSONArray jsonList=JSONArray.fromObject(o,getJsonConfig());
 				 String result =JSONArray.fromObject(jsonList).toString();
 		        response.setContentType("text/json; charset=utf-8");
-		        response.setHeader("Cache-Control", "no-cache"); //ÉèÖÃÍ·ĞÅÏ¢
+		        response.setHeader("Cache-Control", "no-cache"); //è®¾ç½®å¤´ä¿¡æ¯
 		        PrintWriter out=null;
 				try {
 					out = response.getWriter(); 
-					log.info("·µ»Ø½çÃæÊı¾İ£º"+result);
+					log.info("è¿”å›ç•Œé¢æ•°æ®ï¼š"+result);
 			        out.print(result);
 			        out.flush();
 			        out.close();
@@ -145,16 +145,16 @@ public class HttpDataManageUtil {
 			}
 			
 			/**
-			 * ·µ»Ø¸ø½çÃæÆÕÍ¨µÄJSON¶ÔÏó
-			 * @param o ·µ»ØµÄÊı¾İ¶ÔÏó
+			 * è¿”å›ç»™ç•Œé¢æ™®é€šçš„JSONå¯¹è±¡
+			 * @param o è¿”å›çš„æ•°æ®å¯¹è±¡
 			 * @throws IOException
 			 */
 			public static void 	retJSON(Object o,BaseLog log ) {
 				 HttpServletResponse response=ServletActionContext.getResponse();
-				 //ÖØĞ´·½·¨ÅäÖÃ£¬ÊµÏÖÈÕÆÚ×ª»»Îª×Ö·û´®
+				 //é‡å†™æ–¹æ³•é…ç½®ï¼Œå®ç°æ—¥æœŸè½¬æ¢ä¸ºå­—ç¬¦ä¸²
 				 JSONObject result =JSONObject.fromObject(o,getJsonConfig());
 		        response.setContentType("text/json; charset=utf-8");
-		        response.setHeader("Cache-Control", "no-cache"); //ÉèÖÃÍ·ĞÅÏ¢
+		        response.setHeader("Cache-Control", "no-cache"); //è®¾ç½®å¤´ä¿¡æ¯
 		        PrintWriter out=null;
 				try {
 					out = response.getWriter();
@@ -169,19 +169,19 @@ public class HttpDataManageUtil {
 			}
 			
 			/**
-			 * ·µ»Ø¸ø½çÃæ text ÎÄ±¾
-			 * @param str ·µ»ØµÄÊı¾İ×Ö·û´®
+			 * è¿”å›ç»™ç•Œé¢ text æ–‡æœ¬
+			 * @param str è¿”å›çš„æ•°æ®å­—ç¬¦ä¸²
 			 * @throws IOException
 			 */
 			public static void 	retString(String str,BaseLog log ) {
 				 HttpServletResponse response=ServletActionContext.getResponse();
-				 //ÖØĞ´·½·¨ÅäÖÃ£¬ÊµÏÖÈÕÆÚ×ª»»Îª×Ö·û´®
+				 //é‡å†™æ–¹æ³•é…ç½®ï¼Œå®ç°æ—¥æœŸè½¬æ¢ä¸ºå­—ç¬¦ä¸²
 		        response.setContentType("text/json; charset=utf-8");
-		        response.setHeader("Cache-Control", "no-cache"); //ÉèÖÃÍ·ĞÅÏ¢
+		        response.setHeader("Cache-Control", "no-cache"); //è®¾ç½®å¤´ä¿¡æ¯
 		        PrintWriter out=null;
 				try {
 					out = response.getWriter();
-					   log.info("·µ»Øµ½½çÃæµÄ²ÎÊı£º"+str);
+					   log.info("è¿”å›åˆ°ç•Œé¢çš„å‚æ•°ï¼š"+str);
 				        out.print(str);
 				        out.flush();
 				        out.close();
@@ -194,8 +194,8 @@ public class HttpDataManageUtil {
 			
 			
 			/**
-			 * ÉèÖÃ·µ»ØµÄjsonConfig 
-			 * °Ñ¶ÔÏóÖĞµÄÈÕÆÚ×ª»»Îª×Ö·û´®
+			 * è®¾ç½®è¿”å›çš„jsonConfig 
+			 * æŠŠå¯¹è±¡ä¸­çš„æ—¥æœŸè½¬æ¢ä¸ºå­—ç¬¦ä¸²
 			 */
 			public static JsonConfig  getJsonConfig(){
 			     JsonConfig jsonConfig = new JsonConfig();
@@ -204,16 +204,16 @@ public class HttpDataManageUtil {
 			}
 			
 			/**
-			 * °ÑÒªÉèÖÃµÄÖµÉèÖÃ½øÈ¥ÖµÕ»
+			 * æŠŠè¦è®¾ç½®çš„å€¼è®¾ç½®è¿›å»å€¼æ ˆ
 			 * @throws IOException
 			 */
 			public static void setValueStack(JSONObject jsonObject,BaseLog log) {
-//				ValueStack  valueStack=ActionContext.getContext().getValueStack();//»ñÈ¡·µ»ØµÄÖµÕ»
-//				valueStack.set("jsonData",jsonObject);//ÉèÖÃ·µ»ØµÄÖµÕ»
+//				ValueStack  valueStack=ActionContext.getContext().getValueStack();//è·å–è¿”å›çš„å€¼æ ˆ
+//				valueStack.set("jsonData",jsonObject);//è®¾ç½®è¿”å›çš„å€¼æ ˆ
 				 HttpServletResponse response=ServletActionContext.getResponse();
 				 String result =jsonObject.toString();
 		        response.setContentType("text/json; charset=utf-8");
-		        response.setHeader("Cache-Control", "no-cache"); //ÉèÖÃÍ·ĞÅÏ¢
+		        response.setHeader("Cache-Control", "no-cache"); //è®¾ç½®å¤´ä¿¡æ¯
 		        PrintWriter out=null;
 		    	try {
 					out = response.getWriter();
@@ -228,15 +228,15 @@ public class HttpDataManageUtil {
 			
 			
 			/**
-			 * Ô­ÖµÉèÖÃ
+			 * åŸå€¼è®¾ç½®
 			 * @throws IOException
 			 */
 			public static void setValueToV(Object o,BaseLog log)throws IOException{
-//				ValueStack  valueStack=ActionContext.getContext().getValueStack();//»ñÈ¡·µ»ØµÄÖµÕ»
-//				valueStack.set("jsonData",jsonObject);//ÉèÖÃ·µ»ØµÄÖµÕ»
+//				ValueStack  valueStack=ActionContext.getContext().getValueStack();//è·å–è¿”å›çš„å€¼æ ˆ
+//				valueStack.set("jsonData",jsonObject);//è®¾ç½®è¿”å›çš„å€¼æ ˆ
 				 HttpServletResponse response=ServletActionContext.getResponse();
 		        response.setContentType("text/json; charset=utf-8");
-		        response.setHeader("Cache-Control", "no-cache"); //ÉèÖÃÍ·ĞÅÏ¢
+		        response.setHeader("Cache-Control", "no-cache"); //è®¾ç½®å¤´ä¿¡æ¯
 		        PrintWriter out = response.getWriter();
 		        log.info(o.toString());
 		        out.print(o);
@@ -245,7 +245,7 @@ public class HttpDataManageUtil {
 			}
 			
 			/**
-			 * ·ÖÒ³Í¨ÓÃ´¦Àí
+			 * åˆ†é¡µé€šç”¨å¤„ç†
 			 * @throws Exception
 			 */
 			public static void layuiPagination( int count,List list,BaseLog log){

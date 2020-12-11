@@ -43,17 +43,17 @@ public class SqlFilter implements Filter{
 		             String name = names.nextElement();  
 		             String[] values = req.getParameterValues(name);  
 		             for(String value: values){
-		                 //sql×¢ÈëÖ±½ÓÀ¹½Ø
+		                 //sqlæ³¨å…¥ç›´æ¥æ‹¦æˆª
 		            	   bool=judgeSQLInject(value.toLowerCase());
 		                 	if(bool){
 //			                 	 res.setContentType("text/html;charset=UTF-8");  
-//			                 	res.getWriter().print(" <script type='text/javascript'>alert('²ÎÊıº¬ÓĞ·Ç·¨¹¥»÷×Ö·û,ÒÑ½ûÖ¹¼ÌĞø·ÃÎÊ£¡');</script>");
+//			                 	res.getWriter().print(" <script type='text/javascript'>alert('å‚æ•°å«æœ‰éæ³•æ”»å‡»å­—ç¬¦,å·²ç¦æ­¢ç»§ç»­è®¿é—®ï¼');</script>");
 //			                 	res.getWriter().close();
 //			               	     chain. doFilter ( request , response);
 //			     				request.getRequestDispatcher("error.jsp").forward(request, response);
-			                 	System.out.println("ÒÉËÆsql×¢Èë{},ÖÕÖ¹·ÃÎÊ,"+value);
+			                 	System.out.println("ç–‘ä¼¼sqlæ³¨å…¥{},ç»ˆæ­¢è®¿é—®,"+value);
 			                 	   request.getRequestDispatcher("error2.jsp").forward(request, response);
-			                 	  throw new IOException("²ÎÊıº¬ÓĞ·Ç·¨¹¥»÷×Ö·û,ÒÑ½ûÖ¹¼ÌĞø·ÃÎÊ£¡");
+			                 	  throw new IOException("å‚æ•°å«æœ‰éæ³•æ”»å‡»å­—ç¬¦,å·²ç¦æ­¢ç»§ç»­è®¿é—®ï¼");
  			         }
 		             }  
 		         }  
@@ -65,7 +65,7 @@ public class SqlFilter implements Filter{
  
 
 	    /** 
-	     * ÅĞ¶Ï²ÎÊıÊÇ·ñº¬ÓĞ¹¥»÷´® 
+	     * åˆ¤æ–­å‚æ•°æ˜¯å¦å«æœ‰æ”»å‡»ä¸² 
 	     * @param value 
 	     * @return 
 	     */  
@@ -77,8 +77,8 @@ public class SqlFilter implements Filter{
 	        String xssStr = "'|exec |insert |select |delete |update | count | % |chr| mid|master |truncate | char|declare| or|+|--| and";  
             String[] xssArr = xssStr.split("\\|");  
             
-	        //ÅĞ¶ÏÊÇ²»ÊÇjson×Ö·û´®È»ºóÔÙÅĞ¶Ï
-	        if(CommonUtil.isJsonStr(value)){//json¸ù¾İvalueÅĞ¶Ï
+	        //åˆ¤æ–­æ˜¯ä¸æ˜¯jsonå­—ç¬¦ä¸²ç„¶åå†åˆ¤æ–­
+	        if(CommonUtil.isJsonStr(value)){//jsonæ ¹æ®valueåˆ¤æ–­
 	        	 Map <String , String >  map= CommonUtil.simpleJson2Map(value);
 	        	 for(String  key :map.keySet() ){
 	        		 String val=map.get(key);

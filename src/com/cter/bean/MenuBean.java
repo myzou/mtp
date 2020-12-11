@@ -2,31 +2,31 @@ package com.cter.bean;
 
 
 /**
- * ²Ëµ¥±íµ¥Ò³Ãæ½ÓÊÕÊı¾İÊµÌåÀà
+ * èœå•è¡¨å•é¡µé¢æ¥æ”¶æ•°æ®å®ä½“ç±»
  * @author Administrator
  *
  */
 public class MenuBean {
 
-	private int menu_id;//²Ëµ¥Ö÷¼ü
-	private int m_id;//²Ëµ¥id Ò»¼¶²Ëµ¥1000Îªµ¥Î»£¬¶ş¼¶²Ëµ¥ÔÚ1000»ù´¡ÉÏ¼Ó1
-	private String menu_name;//²Ëµ¥Ãû³Æ
-	private String menu_path;//²Ëµ¥Â·¾¶
-	private int parent_m_id;//ÉÏ¼¶²Ëµ¥id
-	private int parent_order_num;//Ò»¼¶²Ëµ¥ÅÅĞò
-	private int child_order_num;//¶ş¼¶²Ëµ¥ÅÅĞò
-	private String status;//×´Ì¬0Õı³££¬1²»¿É¼û
+	private int menu_id;//èœå•ä¸»é”®
+	private int m_id;//èœå•id ä¸€çº§èœå•1000ä¸ºå•ä½ï¼ŒäºŒçº§èœå•åœ¨1000åŸºç¡€ä¸ŠåŠ 1
+	private String menu_name;//èœå•åç§°
+	private String menu_path;//èœå•è·¯å¾„
+	private int parent_m_id;//ä¸Šçº§èœå•id
+	private int parent_order_num;//ä¸€çº§èœå•æ’åº
+	private int child_order_num;//äºŒçº§èœå•æ’åº
+	private String status;//çŠ¶æ€0æ­£å¸¸ï¼Œ1ä¸å¯è§
 	
-	private String user_name;//ÓÃ»§Ãû³Æ
+	private String user_name;//ç”¨æˆ·åç§°
 	
-	private String role_name;//½ÇÉ«Ãû³Æ
-	private int role_id;//½ÇÉ«id
-	private String r_status;//½ÇÉ«×´Ì¬  0Õı³£ 
-	private String m_status;//²Ëµ¥×´Ì¬ 0Õı³£
-	private String rm_status;//½ÇÉ«²Ëµ¥×´Ì¬  0Õı³£
-	private String u_status;//½ÇÉ«×´Ì¬ 0Õı³£
+	private String role_name;//è§’è‰²åç§°
+	private int role_id;//è§’è‰²id
+	private String r_status;//è§’è‰²çŠ¶æ€  0æ­£å¸¸ 
+	private String m_status;//èœå•çŠ¶æ€ 0æ­£å¸¸
+	private String rm_status;//è§’è‰²èœå•çŠ¶æ€  0æ­£å¸¸
+	private String u_status;//è§’è‰²çŠ¶æ€ 0æ­£å¸¸
 	
-	private long cnull;//È¥ÖØ¶àÓàµÄ×Ö¶Î
+	private long cnull;//å»é‡å¤šä½™çš„å­—æ®µ
 	
 	public int getMenu_id() {
 		return menu_id;

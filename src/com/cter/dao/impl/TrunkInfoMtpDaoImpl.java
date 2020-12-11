@@ -126,7 +126,7 @@ public class TrunkInfoMtpDaoImpl extends BaseDaOImpl<TrunkInfoMtp> {
 	}
 	
 	/**
-	 * ¸ù¾İ Éè±¸peÃû³ÆºÍ¶Ë¿Ú²éÑ¯
+	 * æ ¹æ® è®¾å¤‡peåç§°å’Œç«¯å£æŸ¥è¯¢
 	 * @param provider_circuit_num
 	 * @return
 	 */

@@ -23,7 +23,7 @@ public class RsaTest {
 
 
         long end = System.currentTimeMillis();
-        System.out.println("ºÄÊ±£º" + (end - strat) / 1000.00 + "s");
+        System.out.println("è€—æ—¶ï¼š" + (end - strat) / 1000.00 + "s");
 
 
     }
@@ -49,7 +49,7 @@ public class RsaTest {
 
 
     /**
-     * ĞŞ¸Ä¹«Ô¿ÃØÔ¿Ğ´ËÀ
+     * ä¿®æ”¹å…¬é’¥ç§˜é’¥å†™æ­»
      *
      * @throws Exception
      */
@@ -95,98 +95,98 @@ public class RsaTest {
         System.out.println(publicKey);
 
 
-        System.out.println("--------------¹«Ô¿¼ÓÃÜË½Ô¿½âÃÜ¹ı³Ì-------------------");
+        System.out.println("--------------å…¬é’¥åŠ å¯†ç§é’¥è§£å¯†è¿‡ç¨‹-------------------");
         String plainText = "" +
                 "username=op1768&&password=Abc10151015461803&&sign=123456&&timestamp=1573097703";
-        //¹«Ô¿¼ÓÃÜ¹ı³Ì
+        //å…¬é’¥åŠ å¯†è¿‡ç¨‹
         byte[] cipherData = RSAEncrypt.encrypt(RSAEncrypt.loadPublicKeyByStr(publicKey), plainText.getBytes());
         String cipher = Base64.encode(cipherData);
-        //Ë½Ô¿½âÃÜ¹ı³Ì
+        //ç§é’¥è§£å¯†è¿‡ç¨‹
         byte[] res = RSAEncrypt.decrypt(RSAEncrypt.loadPrivateKeyByStr(privateKey), Base64.decode(cipher));
         String restr = new String(res);
-        System.out.println("Ô­ÎÄ£º" + plainText);
-        System.out.println("¼ÓÃÜ£º" + cipher);
-        System.out.println("½âÃÜ£º" + restr);
+        System.out.println("åŸæ–‡ï¼š" + plainText);
+        System.out.println("åŠ å¯†ï¼š" + cipher);
+        System.out.println("è§£å¯†ï¼š" + restr);
         System.out.println();
 
-        System.out.println("--------------Ë½Ô¿¼ÓÃÜ¹«Ô¿½âÃÜ¹ı³Ì-------------------");
-        plainText = "ihep_Ë½Ô¿¼ÓÃÜ¹«Ô¿½âÃÜ";
-        //Ë½Ô¿¼ÓÃÜ¹ı³Ì
+        System.out.println("--------------ç§é’¥åŠ å¯†å…¬é’¥è§£å¯†è¿‡ç¨‹-------------------");
+        plainText = "ihep_ç§é’¥åŠ å¯†å…¬é’¥è§£å¯†";
+        //ç§é’¥åŠ å¯†è¿‡ç¨‹
         cipherData = RSAEncrypt.encrypt(RSAEncrypt.loadPrivateKeyByStr(privateKey), plainText.getBytes());
         cipher = Base64.encode(cipherData);
-        //¹«Ô¿½âÃÜ¹ı³Ì
+        //å…¬é’¥è§£å¯†è¿‡ç¨‹
         res = RSAEncrypt.decrypt(RSAEncrypt.loadPublicKeyByStr(publicKey), Base64.decode(cipher));
         restr = new String(res);
-        System.out.println("Ô­ÎÄ£º" + plainText);
-        System.out.println("¼ÓÃÜ£º" + cipher);
-        System.out.println("½âÃÜ£º" + restr);
+        System.out.println("åŸæ–‡ï¼š" + plainText);
+        System.out.println("åŠ å¯†ï¼š" + cipher);
+        System.out.println("è§£å¯†ï¼š" + restr);
         System.out.println();
 
-        System.out.println("---------------Ë½Ô¿Ç©Ãû¹ı³Ì------------------");
-        String content = "ihep_ÕâÊÇÓÃÓÚÇ©ÃûµÄÔ­Ê¼Êı¾İ";
+        System.out.println("---------------ç§é’¥ç­¾åè¿‡ç¨‹------------------");
+        String content = "ihep_è¿™æ˜¯ç”¨äºç­¾åçš„åŸå§‹æ•°æ®";
         String signstr = RSASignature.sign(content, privateKey);
-        System.out.println("Ç©ÃûÔ­´®£º" + content);
-        System.out.println("Ç©Ãû´®£º" + signstr);
+        System.out.println("ç­¾ååŸä¸²ï¼š" + content);
+        System.out.println("ç­¾åä¸²ï¼š" + signstr);
         System.out.println();
 
-        System.out.println("---------------¹«Ô¿Ğ£ÑéÇ©Ãû------------------");
-        System.out.println("Ç©ÃûÔ­´®£º" + content);
-        System.out.println("Ç©Ãû´®£º" + signstr);
+        System.out.println("---------------å…¬é’¥æ ¡éªŒç­¾å------------------");
+        System.out.println("ç­¾ååŸä¸²ï¼š" + content);
+        System.out.println("ç­¾åä¸²ï¼š" + signstr);
 
-        System.out.println("ÑéÇ©½á¹û£º" + RSASignature.doCheck(content, signstr, publicKey));
+        System.out.println("éªŒç­¾ç»“æœï¼š" + RSASignature.doCheck(content, signstr, publicKey));
         System.out.println();
 
     }
 
     /**
-     * ÍøÉÏÕª³­µÄ·½·¨
+     * ç½‘ä¸Šæ‘˜æŠ„çš„æ–¹æ³•
      */
     public static void initMethod() throws Exception {
         RSAEncrypt rsaEncrypt = new RSAEncrypt();
 
         String filepath = "D:/";
 
-        //Éú³É¹«Ô¿ºÍË½Ô¿ÎÄ¼ş
+        //ç”Ÿæˆå…¬é’¥å’Œç§é’¥æ–‡ä»¶
         RSAEncrypt.genKeyPair(filepath);
 
-        System.out.println("--------------¹«Ô¿¼ÓÃÜË½Ô¿½âÃÜ¹ı³Ì-------------------");
-        String plainText = "ihep_¹«Ô¿¼ÓÃÜË½Ô¿½âÃÜ";
-        //¹«Ô¿¼ÓÃÜ¹ı³Ì
+        System.out.println("--------------å…¬é’¥åŠ å¯†ç§é’¥è§£å¯†è¿‡ç¨‹-------------------");
+        String plainText = "ihep_å…¬é’¥åŠ å¯†ç§é’¥è§£å¯†";
+        //å…¬é’¥åŠ å¯†è¿‡ç¨‹
         byte[] cipherData = RSAEncrypt.encrypt(RSAEncrypt.loadPublicKeyByStr(RSAEncrypt.loadPublicKeyByFile(filepath)), plainText.getBytes());
         String cipher = Base64.encode(cipherData);
-        //Ë½Ô¿½âÃÜ¹ı³Ì
+        //ç§é’¥è§£å¯†è¿‡ç¨‹
         byte[] res = RSAEncrypt.decrypt(RSAEncrypt.loadPrivateKeyByStr(RSAEncrypt.loadPrivateKeyByFile(filepath)), Base64.decode(cipher));
         String restr = new String(res);
-        System.out.println("Ô­ÎÄ£º" + plainText);
-        System.out.println("¼ÓÃÜ£º" + cipher);
-        System.out.println("½âÃÜ£º" + restr);
+        System.out.println("åŸæ–‡ï¼š" + plainText);
+        System.out.println("åŠ å¯†ï¼š" + cipher);
+        System.out.println("è§£å¯†ï¼š" + restr);
         System.out.println();
 
-        System.out.println("--------------Ë½Ô¿¼ÓÃÜ¹«Ô¿½âÃÜ¹ı³Ì-------------------");
-        plainText = "ihep_Ë½Ô¿¼ÓÃÜ¹«Ô¿½âÃÜ";
-        //Ë½Ô¿¼ÓÃÜ¹ı³Ì
+        System.out.println("--------------ç§é’¥åŠ å¯†å…¬é’¥è§£å¯†è¿‡ç¨‹-------------------");
+        plainText = "ihep_ç§é’¥åŠ å¯†å…¬é’¥è§£å¯†";
+        //ç§é’¥åŠ å¯†è¿‡ç¨‹
         cipherData = RSAEncrypt.encrypt(RSAEncrypt.loadPrivateKeyByStr(RSAEncrypt.loadPrivateKeyByFile(filepath)), plainText.getBytes());
         cipher = Base64.encode(cipherData);
-        //¹«Ô¿½âÃÜ¹ı³Ì
+        //å…¬é’¥è§£å¯†è¿‡ç¨‹
         res = RSAEncrypt.decrypt(RSAEncrypt.loadPublicKeyByStr(RSAEncrypt.loadPublicKeyByFile(filepath)), Base64.decode(cipher));
         restr = new String(res);
-        System.out.println("Ô­ÎÄ£º" + plainText);
-        System.out.println("¼ÓÃÜ£º" + cipher);
-        System.out.println("½âÃÜ£º" + restr);
+        System.out.println("åŸæ–‡ï¼š" + plainText);
+        System.out.println("åŠ å¯†ï¼š" + cipher);
+        System.out.println("è§£å¯†ï¼š" + restr);
         System.out.println();
 
-        System.out.println("---------------Ë½Ô¿Ç©Ãû¹ı³Ì------------------");
-        String content = "ihep_ÕâÊÇÓÃÓÚÇ©ÃûµÄÔ­Ê¼Êı¾İ";
+        System.out.println("---------------ç§é’¥ç­¾åè¿‡ç¨‹------------------");
+        String content = "ihep_è¿™æ˜¯ç”¨äºç­¾åçš„åŸå§‹æ•°æ®";
         String signstr = RSASignature.sign(content, RSAEncrypt.loadPrivateKeyByFile(filepath));
-        System.out.println("Ç©ÃûÔ­´®£º" + content);
-        System.out.println("Ç©Ãû´®£º" + signstr);
+        System.out.println("ç­¾ååŸä¸²ï¼š" + content);
+        System.out.println("ç­¾åä¸²ï¼š" + signstr);
         System.out.println();
 
-        System.out.println("---------------¹«Ô¿Ğ£ÑéÇ©Ãû------------------");
-        System.out.println("Ç©ÃûÔ­´®£º" + content);
-        System.out.println("Ç©Ãû´®£º" + signstr);
+        System.out.println("---------------å…¬é’¥æ ¡éªŒç­¾å------------------");
+        System.out.println("ç­¾ååŸä¸²ï¼š" + content);
+        System.out.println("ç­¾åä¸²ï¼š" + signstr);
 
-        System.out.println("ÑéÇ©½á¹û£º" + RSASignature.doCheck(content, signstr, RSAEncrypt.loadPublicKeyByFile(filepath)));
+        System.out.println("éªŒç­¾ç»“æœï¼š" + RSASignature.doCheck(content, signstr, RSAEncrypt.loadPublicKeyByFile(filepath)));
         System.out.println();
     }
 }

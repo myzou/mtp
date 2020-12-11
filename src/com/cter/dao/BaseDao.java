@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * »ù´¡Êı¾İ¿â²Ù×÷Àà
+ * åŸºç¡€æ•°æ®åº“æ“ä½œç±»
  * 
  * @author www.java1234.com
  * 
@@ -12,54 +12,54 @@ import java.util.List;
 public interface BaseDao<T> {
 
 	/**
-	 * ±£´æÒ»¸ö¶ÔÏóT
+	 * ä¿å­˜ä¸€ä¸ªå¯¹è±¡T
 	 * 
 	 * @param o
 	 * @return
 	 */
 	public Serializable save(T o);
 	/**
-	 * ±£´æÒ»¸ö¶ÔÏó
+	 * ä¿å­˜ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param o
 	 * @return
 	 */
 	public Serializable saveO(Object o);
 	/**
-	 * É¾³ıÒ»¸ö¶ÔÏó
+	 * åˆ é™¤ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param o
 	 */
 	public void delete(T o);
 
 	/**
-	 * É¾³ıÒ»¸ö¶ÔÏóObject
+	 * åˆ é™¤ä¸€ä¸ªå¯¹è±¡Object
 	 * 
 	 * @param o
 	 */
 	public void deleteO(Object o);
 	/**
-	 * ¸üĞÂÒ»¸ö¶ÔÏó
+	 * æ›´æ–°ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param o
 	 */
 	public void update(T o);
 	/**
-	 * ¸üĞÂÒ»¸ö¶ÔÏó
+	 * æ›´æ–°ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param o
 	 */
 	public void updateO(Object o);
 
 	/**
-	 * ±£´æ»ò¸üĞÂ¶ÔÏó
+	 * ä¿å­˜æˆ–æ›´æ–°å¯¹è±¡
 	 * 
 	 * @param o
 	 */
 	public void saveOrUpdate(T o);
 
 	/**
-	 * ²éÑ¯
+	 * æŸ¥è¯¢
 	 * 
 	 * @param hql
 	 * @return
@@ -67,7 +67,7 @@ public interface BaseDao<T> {
 	public List<T> find(String hql);
 
 	/**
-	 * ²éÑ¯¼¯ºÏ
+	 * æŸ¥è¯¢é›†åˆ
 	 * 
 	 * @param hql
 	 * @param param
@@ -76,7 +76,7 @@ public interface BaseDao<T> {
 	public List<T> find(String hql, Object[] param);
 
 	/**
-	 * ²éÑ¯¼¯ºÏ Object
+	 * æŸ¥è¯¢é›†åˆ Object
 	 * 
 	 * @param hql
 	 * @param param
@@ -85,14 +85,14 @@ public interface BaseDao<T> {
 	public List<Object> findO(String hql, Object[] param);
 	
 	/**
-	 * ²éÑ¯¼¯ºÏ Object
+	 * æŸ¥è¯¢é›†åˆ Object
 	 * @param hql
 	 * @param List<Object>
 	 * @return
 	 */
 	public List<Object> findO(String hql, List<Object> param);
 	/**
-	 * ²éÑ¯¼¯ºÏ
+	 * æŸ¥è¯¢é›†åˆ
 	 * 
 	 * @param hql
 	 * @param param
@@ -101,12 +101,12 @@ public interface BaseDao<T> {
 	public List<T> find(String hql, List<Object> param);
 
 	/**
-	 * ²éÑ¯¼¯ºÏ(´ø·ÖÒ³)
+	 * æŸ¥è¯¢é›†åˆ(å¸¦åˆ†é¡µ)
 	 * 
 	 * @param hql
-	 * @param param ³¢ÊÔÊÇ Object ¼¯ºÏ
-	 * @param page  ²éÑ¯µÚ¼¸Ò³
-	 * @param rows  Ã¿Ò³ÏÔÊ¾¼¸Ìõ¼ÇÂ¼
+	 * @param param å°è¯•æ˜¯ Object é›†åˆ
+	 * @param page  æŸ¥è¯¢ç¬¬å‡ é¡µ
+	 * @param rows  æ¯é¡µæ˜¾ç¤ºå‡ æ¡è®°å½•
 	 * @return
 	 */
 	public List<T> find(String hql, Object[] param, Integer page, Integer rows);
@@ -114,24 +114,24 @@ public interface BaseDao<T> {
 	
 
 	/**
-	 * ²éÑ¯¼¯ºÏ(´ø·ÖÒ³)T
+	 * æŸ¥è¯¢é›†åˆ(å¸¦åˆ†é¡µ)T
 	 * 
 	 * @param hql
-	 * @param param ²ÎÊıÊÇList<Object>
-	 * @param page  ²éÑ¯µÚ¼¸Ò³
-	 * @param rows  Ã¿Ò³ÏÔÊ¾¼¸Ìõ¼ÇÂ¼
+	 * @param param å‚æ•°æ˜¯List<Object>
+	 * @param page  æŸ¥è¯¢ç¬¬å‡ é¡µ
+	 * @param rows  æ¯é¡µæ˜¾ç¤ºå‡ æ¡è®°å½•
 	 * @return
 	 */
 	public List<T> find(String hql, List<Object> param, Integer page, Integer rows);
 	
 	/**
-	 * ²éÑ¯¼¯ºÏ(´ø·ÖÒ³)Object
+	 * æŸ¥è¯¢é›†åˆ(å¸¦åˆ†é¡µ)Object
 	 * 
 	 * @param hql
-	 * @param param ²ÎÊıÊÇList<Object>
-	 * @param page  ²éÑ¯µÚ¼¸Ò³
-	 * @param rows  Ã¿Ò³ÏÔÊ¾¼¸Ìõ¼ÇÂ¼
-	 * @return   ·µ»ØµÄÊÇ¶ÔÏó
+	 * @param param å‚æ•°æ˜¯List<Object>
+	 * @param page  æŸ¥è¯¢ç¬¬å‡ é¡µ
+	 * @param rows  æ¯é¡µæ˜¾ç¤ºå‡ æ¡è®°å½•
+	 * @return   è¿”å›çš„æ˜¯å¯¹è±¡
 	 */
 	public List<Object> findO(String hql, List<Object> param, Integer page, Integer rows);
 
@@ -139,17 +139,17 @@ public interface BaseDao<T> {
 	
 	
 	/**
-	 * »ñµÃÒ»¸ö¶ÔÏó
+	 * è·å¾—ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param c
-	 *            ¶ÔÏóÀàĞÍ
+	 *            å¯¹è±¡ç±»å‹
 	 * @param id
 	 * @return Object
 	 */
 	public T get(Class<T> c, Serializable id);
 
 	/**
-	 * »ñµÃÒ»¸ö¶ÔÏó
+	 * è·å¾—ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param hql
 	 * @param param
@@ -158,7 +158,7 @@ public interface BaseDao<T> {
 	public T get(String hql, Object[] param);
 
 	/**
-	 * »ñµÃÒ»¸ö¶ÔÏó
+	 * è·å¾—ä¸€ä¸ªå¯¹è±¡
 	 * 
 	 * @param hql
 	 * @param param
@@ -167,29 +167,29 @@ public interface BaseDao<T> {
 	public T get(String hql, List<Object> param);
 
 	/**
-	 * ¸ù¾İ´«½øÀ´µÄ±íÃû ²éÑ¯¶ÔÓ¦µÄ×ÜĞĞÊı
+	 * æ ¹æ®ä¼ è¿›æ¥çš„è¡¨å æŸ¥è¯¢å¯¹åº”çš„æ€»è¡Œæ•°
 	 * @param hql
 	 * @return
 	 */
 	public int countO(String tableName);
 	
 	/**
-	 * ¸ù¾İhql ²éÑ¯·ÖÒ³×ÜÊı
+	 * æ ¹æ®hql æŸ¥è¯¢åˆ†é¡µæ€»æ•°
 	 * @param hql
-	 * @param param ²ÎÊı
+	 * @param param å‚æ•°
 	 * @return
 	 */
 	public int countHql(String hql,List<Object> param);
 	
 	/**
-	 * Í³¼Æµ±Ç°¼Ì³ĞÀà×ÜÊı
+	 * ç»Ÿè®¡å½“å‰ç»§æ‰¿ç±»æ€»æ•°
 	 * @param hql
 	 * @return
 	 */
 	public int count();
 
 	/**
-	 * select count(*) from Àà
+	 * select count(*) from ç±»
 	 * 
 	 * @param hql
 	 * @param param
@@ -198,7 +198,7 @@ public interface BaseDao<T> {
 	public Long count(String hql, Object[] param);
 
 	/**
-	 * select count(*) from Àà
+	 * select count(*) from ç±»
 	 * 
 	 * @param hql
 	 * @param param
@@ -207,24 +207,24 @@ public interface BaseDao<T> {
 	public Long count(String hql, List<Object> param);
 
 	/**
-	 * Ö´ĞĞHQLÓï¾ä
+	 * æ‰§è¡ŒHQLè¯­å¥
 	 * 
 	 * @param hql
-	 * @return ÏìÓ¦ÊıÄ¿
+	 * @return å“åº”æ•°ç›®
 	 */
 	public Integer executeHql(String hql);
 
 	/**
-	 * Ö´ĞĞHQLÓï¾ä
+	 * æ‰§è¡ŒHQLè¯­å¥
 	 * 
 	 * @param hql
 	 * @param param
-	 * @return ÏìÓ¦ÊıÄ¿
+	 * @return å“åº”æ•°ç›®
 	 */
 	public Integer executeHql(String hql, Object[] param);
 
 	/**
-	 * Ö´ĞĞHQLÓï¾ä
+	 * æ‰§è¡ŒHQLè¯­å¥
 	 * 
 	 * @param hql
 	 * @param param
@@ -233,14 +233,14 @@ public interface BaseDao<T> {
 	public Integer executeHql(String hql, List<Object> param);
 	
 	/**
-	 * Ö´ĞĞsqlÓï¾ä ²éÑ¯³öList<String>¼¯ºÏ
+	 * æ‰§è¡Œsqlè¯­å¥ æŸ¥è¯¢å‡ºList<String>é›†åˆ
 	 * @param sql
 	 * @return
 	 */
 	public List<String> queryBySqlStrList(String sql) ;
 
 	/**
-	 * Ö´ĞĞsqlÓï¾ä ²éÑ¯³öList<T>¼¯ºÏ
+	 * æ‰§è¡Œsqlè¯­å¥ æŸ¥è¯¢å‡ºList<T>é›†åˆ
 	 * @param sql
 	 * @return
 	 */

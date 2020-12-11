@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 
 /**
- * ½ÇÉ«±í
+ * è§’è‰²è¡¨
  * @author op1768
  *
  */
@@ -29,14 +29,14 @@ public class SysRole {
 	private String role_name;
 	@Column(name="create_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date create_time;	//´´½¨Ê±¼ä
+	private Date create_time;	//åˆ›å»ºæ—¶é—´
 	@Column(name="update_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date update_time;	//¸üĞÂÊ±¼ä
+	private Date update_time;	//æ›´æ–°æ—¶é—´
 	@Column(name="create_from")
-	private String create_from;//´´½¨½ÇÉ«À´Ô´
+	private String create_from;//åˆ›å»ºè§’è‰²æ¥æº
 	@Column(name="status")
-	private String status;//×´Ì¬ 0Õı³££¬1É¾³ı
+	private String status;//çŠ¶æ€ 0æ­£å¸¸ï¼Œ1åˆ é™¤
 	
 	public Date getCreate_time() {
 		return create_time;

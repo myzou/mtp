@@ -14,93 +14,93 @@ import javax.mail.Store;
 import javax.mail.internet.InternetAddress;
 
 /**
- * ÊÕÈ¡ÓÊÏäÓÊ¼ş Àà 
- * ²âÊÔdate:2019-02-20
+ * æ”¶å–é‚®ç®±é‚®ä»¶ ç±» 
+ * æµ‹è¯•date:2019-02-20
  * @author op1768
  *
  */
 public class RecipientMail {
-    //ÊÕ¼şÈËµØÖ·
+    //æ”¶ä»¶äººåœ°å€
     public static String recipientAddress = "maibaobao1995@163.com";
-    //ÊÕ¼şÈËÕË»§Ãû
+    //æ”¶ä»¶äººè´¦æˆ·å
     public static String recipientAccount = "maibaobao1995@163.com";
-    //ÊÕ¼şÈËÕË»§ÃÜÂë
+    //æ”¶ä»¶äººè´¦æˆ·å¯†ç 
     public static String recipientPassword = "163mail19951995";
      
     
     
     public static void main(String[] args) throws Exception {
     	
-        //1¡¢Á¬½ÓÓÊ¼ş·şÎñÆ÷µÄ²ÎÊıÅäÖÃ
+        //1ã€è¿æ¥é‚®ä»¶æœåŠ¡å™¨çš„å‚æ•°é…ç½®
         Properties props = new Properties();
-        //ÉèÖÃ´«ÊäĞ­Òé
+        //è®¾ç½®ä¼ è¾“åè®®
         props.setProperty("mail.store.protocol", "pop3");
-        //ÉèÖÃÊÕ¼şÈËµÄPOP3·şÎñÆ÷
+        //è®¾ç½®æ”¶ä»¶äººçš„POP3æœåŠ¡å™¨
         props.setProperty("mail.pop3.host", "pop3.163.com");
-        //2¡¢´´½¨¶¨ÒåÕû¸öÓ¦ÓÃ³ÌĞòËùĞèµÄ»·¾³ĞÅÏ¢µÄ Session ¶ÔÏó
+        //2ã€åˆ›å»ºå®šä¹‰æ•´ä¸ªåº”ç”¨ç¨‹åºæ‰€éœ€çš„ç¯å¢ƒä¿¡æ¯çš„ Session å¯¹è±¡
         Session session = Session.getInstance(props);
-        //ÉèÖÃµ÷ÊÔĞÅÏ¢ÔÚ¿ØÖÆÌ¨´òÓ¡³öÀ´
+        //è®¾ç½®è°ƒè¯•ä¿¡æ¯åœ¨æ§åˆ¶å°æ‰“å°å‡ºæ¥
 //        session.setDebug(true);
          
         Store store = session.getStore("pop3");
-        //Á¬½ÓÊÕ¼şÈËPOP3·şÎñÆ÷
+        //è¿æ¥æ”¶ä»¶äººPOP3æœåŠ¡å™¨
         store.connect("pop3.163.com", recipientAccount, recipientPassword);
-        //»ñµÃÓÃ»§µÄÓÊ¼şÕË»§£¬×¢ÒâÍ¨¹ıpop3Ğ­Òé»ñÈ¡Ä³¸öÓÊ¼ş¼ĞµÄÃû³ÆÖ»ÄÜÎªinbox
+        //è·å¾—ç”¨æˆ·çš„é‚®ä»¶è´¦æˆ·ï¼Œæ³¨æ„é€šè¿‡pop3åè®®è·å–æŸä¸ªé‚®ä»¶å¤¹çš„åç§°åªèƒ½ä¸ºinbox
         Folder folder = store.getFolder("inbox");
-        //ÉèÖÃ¶ÔÓÊ¼şÕË»§µÄ·ÃÎÊÈ¨ÏŞ
+        //è®¾ç½®å¯¹é‚®ä»¶è´¦æˆ·çš„è®¿é—®æƒé™
         folder.open(Folder.READ_WRITE);
          
-        //µÃµ½ÓÊ¼şÕË»§µÄËùÓĞÓÊ¼şĞÅÏ¢
+        //å¾—åˆ°é‚®ä»¶è´¦æˆ·çš„æ‰€æœ‰é‚®ä»¶ä¿¡æ¯
         Message [] ms = folder.getMessages();
         for(int i = 0 ; i < ms.length ; i++){
         	System.out.println("--------------Message"+(i+1)+"---------------");  
             String from =InternetAddress.toString(ms[i].getFrom());  
             if(from!=null){  
-                System.out.println("ÏûÏ¢À´×Ô£º"+from);  
+                System.out.println("æ¶ˆæ¯æ¥è‡ªï¼š"+from);  
             }  
             String to=InternetAddress.toString(ms[i].getRecipients(Message.RecipientType.TO));  
             if(to!=null){  
-                System.out.println("ÏûÏ¢È¥Íù£º"+to);  
+                System.out.println("æ¶ˆæ¯å»å¾€ï¼š"+to);  
             }  
             String replyTo=InternetAddress.toString(ms[i].getReplyTo());  
             if(replyTo!=null){  
-                System.out.println("ÏûÏ¢»Ø¸´¸ø£º"+replyTo);  
+                System.out.println("æ¶ˆæ¯å›å¤ç»™ï¼š"+replyTo);  
             }  
             String cc=InternetAddress.toString(ms[i].getRecipients(Message.RecipientType.CC));  
             if(cc!=null){  
-                System.out.println("ÏûÏ¢³­ËÍ£º"+cc);  
+                System.out.println("æ¶ˆæ¯æŠ„é€ï¼š"+cc);  
             }  
             Date sent=ms[i].getSentDate();  
             if(sent!=null){  
-                System.out.println("ÏûÏ¢·¢ËÍÊ±¼ä£º£º"+sent);  
+                System.out.println("æ¶ˆæ¯å‘é€æ—¶é—´ï¼šï¼š"+sent);  
             }  
             String subject=ms[i].getSubject();  
             if(subject!=null){  
-                System.out.println("ÏûÏ¢Ö÷Ìâ£º"+subject);  
+                System.out.println("æ¶ˆæ¯ä¸»é¢˜ï¼š"+subject);  
             }  
             Date received=ms[i].getReceivedDate();  
             if(received!=null){  
-                System.out.println("ÏûÏ¢½ÓÊÕÊ±¼ä£º"+received);  
+                System.out.println("æ¶ˆæ¯æ¥æ”¶æ—¶é—´ï¼š"+received);  
             }  
-            System.out.println("ÏûÏ¢ÄÚÈİ£º");  
-            String content = getMailContent((Part)ms[i]);//»ñÈ¡ÄÚÈİ
-            System.out.println("½ÓÊÕÏûÏ¢ÄÚÈİ£º"+content);  
+            System.out.println("æ¶ˆæ¯å†…å®¹ï¼š");  
+            String content = getMailContent((Part)ms[i]);//è·å–å†…å®¹
+            System.out.println("æ¥æ”¶æ¶ˆæ¯å†…å®¹ï¼š"+content);  
 
 
         }
          
-        //¹Ø±ÕÓÊ¼ş¼Ğ¶ÔÏó
+        //å…³é—­é‚®ä»¶å¤¹å¯¹è±¡
         folder.close(false);
-        //¹Ø±ÕÁ¬½Ó¶ÔÏó
+        //å…³é—­è¿æ¥å¯¹è±¡
         store.close();
     }
     /**
-     * »ñÈ¡ÓÊ¼şÄÚÈİ
-     * @param part£ºPart
+     * è·å–é‚®ä»¶å†…å®¹
+     * @param partï¼šPart
      */
 	public static String getMailContent(Part part) throws Exception {    
-		StringBuffer bodytext = new StringBuffer();//´æ·ÅÓÊ¼şÄÚÈİ
-		//ÅĞ¶ÏÓÊ¼şÀàĞÍ,²»Í¬ÀàĞÍ²Ù×÷²»Í¬
+		StringBuffer bodytext = new StringBuffer();//å­˜æ”¾é‚®ä»¶å†…å®¹
+		//åˆ¤æ–­é‚®ä»¶ç±»å‹,ä¸åŒç±»å‹æ“ä½œä¸åŒ
 		if (part.isMimeType("text/plain")) {    
             bodytext.append((String) part.getContent());    
         } else if (part.isMimeType("text/html")) {    

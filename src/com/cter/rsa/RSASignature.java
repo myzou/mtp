@@ -9,21 +9,21 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * RSAÇ©ÃûÑéÇ©Àà
+ * RSAç­¾åéªŒç­¾ç±»
  */
 public class RSASignature{
 
     /**
-     * Ç©ÃûËã·¨ SHA1WithRSA
+     * ç­¾åç®—æ³• SHA1WithRSA
      */
     public static final String SIGN_ALGORITHMS = "SHA1WithRSA";
 
     /**
-     * RSAÇ©Ãû
-     * @param content ´ıÇ©ÃûÊı¾İ
-     * @param privateKey ÉÌ»§Ë½Ô¿
-     * @param encode ×Ö·û¼¯±àÂë
-     * @return Ç©ÃûÖµ
+     * RSAç­¾å
+     * @param content å¾…ç­¾åæ•°æ®
+     * @param privateKey å•†æˆ·ç§é’¥
+     * @param encode å­—ç¬¦é›†ç¼–ç 
+     * @return ç­¾åå€¼
      */
     public static String sign(String content, String privateKey, String encode)
     {
@@ -72,12 +72,12 @@ public class RSASignature{
     }
 
     /**
-     * RSAÑéÇ©Ãû¼ì²é
-     * @param content ´ıÇ©ÃûÊı¾İ
-     * @param sign Ç©ÃûÖµ
-     * @param publicKey ·ÖÅä¸ø¿ª·¢ÉÌ¹«Ô¿
-     * @param encode ×Ö·û¼¯±àÂë
-     * @return ²¼¶ûÖµ
+     * RSAéªŒç­¾åæ£€æŸ¥
+     * @param content å¾…ç­¾åæ•°æ®
+     * @param sign ç­¾åå€¼
+     * @param publicKey åˆ†é…ç»™å¼€å‘å•†å…¬é’¥
+     * @param encode å­—ç¬¦é›†ç¼–ç 
+     * @return å¸ƒå°”å€¼
      */
     public static boolean doCheck(String content, String sign, String publicKey,String encode)
     {

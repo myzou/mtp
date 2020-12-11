@@ -48,9 +48,9 @@ import net.sf.json.JSONObject;
 public class ZQMailExcelService {
 	
 			private BaseLog log=new BaseLog("EmailLog");
-//			private static  final String  fileLoaclPath="D:\\op1768\\TIM\\file\\ÓÊÏäÄ£°æ.xlsx";
-			private static  final String  fileLoaclPath="D:\\op1768\\TIM\\file\\ÖĞĞÅÍøÂçÊ©¹¤ÉêÇëµ¥.xlsx";
-			private static  final String  fileLoaclPath2="D:\\op1768\\TIM\\file\\944711140\\È«¹úÖ÷ÒªIDCÊÚÈ¨ÊÖ²á2018-07-11.xlsx";
+//			private static  final String  fileLoaclPath="D:\\op1768\\TIM\\file\\é‚®ç®±æ¨¡ç‰ˆ.xlsx";
+			private static  final String  fileLoaclPath="D:\\op1768\\TIM\\file\\ä¸­ä¿¡ç½‘ç»œæ–½å·¥ç”³è¯·å•.xlsx";
+			private static  final String  fileLoaclPath2="D:\\op1768\\TIM\\file\\944711140\\å…¨å›½ä¸»è¦IDCæˆæƒæ‰‹å†Œ2018-07-11.xlsx";
 			private static Map<String, String >  idMap=LoadPropertiestUtil.loadProperties("config/idcEmail.properties");
 			private static final String SENDTOEMAIL=idMap.get("sendToEmail");
 		
@@ -99,8 +99,8 @@ public class ZQMailExcelService {
 	
 	
 			public boolean  sendEmail(Map<String, String> map ) throws Exception{
-			String email_uuid=map.get("email_uuid");//·¢ËÍµÄemail µÄemail_uuid
-			String yesOrNo=map.get("yesOrNo");//ÊÇ·ñ·¢ËÍ
+			String email_uuid=map.get("email_uuid");//å‘é€çš„email çš„email_uuid
+			String yesOrNo=map.get("yesOrNo");//æ˜¯å¦å‘é€
 	       CaseEmail caseEmail=new CaseEmail();
 	       SendEmail email=baseDao.getSendEmailByKey(email_uuid);
 	        caseEmail.setCase_uuid(UuidUtil.getUUID32());
@@ -116,14 +116,14 @@ public class ZQMailExcelService {
 	        	 caseEmail.setAdd_into_personnel(map.get("addIntoPersonnel"));
 	        }
 	        caseEmail.setPop_name(map.get("popNames"));
-//	        caseEmail.setIns_type(map.get("insType"));20181113É¾³ı Ö÷ÌâÉÏÄÚÈİ
+//	        caseEmail.setIns_type(map.get("insType"));20181113åˆ é™¤ ä¸»é¢˜ä¸Šå†…å®¹
 	        caseEmail.setCarry_facility(map.get("carryFacility"));
 	        caseEmail.setCase_status("T");
 	        caseEmail.setCreate_time(DateUtil.getDate(new Date()));
 	        caseEmail.setSend_email(email.getEmail_code());
 	        caseEmail.setSend_email_uuid(email.getEmail_uuid());
 	        caseEmail.setPassword_key(  baseDao.loadPasswordKeys().getParam_value1());
-	        if(yesOrNo.equals("ÊÇ")){//Èç¹ûÒ³ÃæÊÇ·¢ËÍÓÊ¼şµÄµÄ»°¾Í×é×°Êı¾İ½øĞĞ·¢ËÍÓÊ¼ş ÎªÁË·½±ã×Ô²â¼ÓµÄ
+	        if(yesOrNo.equals("æ˜¯")){//å¦‚æœé¡µé¢æ˜¯å‘é€é‚®ä»¶çš„çš„è¯å°±ç»„è£…æ•°æ®è¿›è¡Œå‘é€é‚®ä»¶ ä¸ºäº†æ–¹ä¾¿è‡ªæµ‹åŠ çš„
 	        	this.packaging(caseEmail,map,email);
 	        }else{
 	             baseDao.saveO(caseEmail);
@@ -132,7 +132,7 @@ public class ZQMailExcelService {
 			}
 	
 	/**
-	 * ¸ù¾İ²ÎÊı½øĞĞ×é×°ÓÊ¼ş
+	 * æ ¹æ®å‚æ•°è¿›è¡Œç»„è£…é‚®ä»¶
 	 * @param caseEmail
 	 * @param map
 	 * @throws ParseException 
@@ -144,11 +144,11 @@ public class ZQMailExcelService {
 		EmpowerMessage empowerMessage=baseDao.getEmpowerMessageBypopName(caseEmail.getPop_name());
 		String[]   to=null;
 		String[]   cs=null;
-		String emailMode= map.get("emailMode");//ÓÊ¼şÄ£°æÀàĞÍ ¼òÌåÖĞÎÄ£¬·±ÌåÖĞÎÄ£¬English
+		String emailMode= map.get("emailMode");//é‚®ä»¶æ¨¡ç‰ˆç±»å‹ ç®€ä½“ä¸­æ–‡ï¼Œç¹ä½“ä¸­æ–‡ï¼ŒEnglish
 		 String addressee_email=map.get("addressee_email").trim();
 	    String cc_addressee_email=map.get("cc_addressee_email").trim();
 	
-	    if(StringUtil.isBlank(addressee_email)){//ÊÕ¼şÈËÓÊÏäÈç¹û¿Õ¾ÍÉèÖÃ944ºÍLuke
+	    if(StringUtil.isBlank(addressee_email)){//æ”¶ä»¶äººé‚®ç®±å¦‚æœç©ºå°±è®¾ç½®944å’ŒLuke
 	    	addressee_email="944711140@qq.com###luke.zou@china-entercom.net";
 	    }else{
 	    	addressee_email=addressee_email.replaceAll(";", "###");
@@ -156,7 +156,7 @@ public class ZQMailExcelService {
 	    caseEmail.setAddressee_email(addressee_email);
 	    to=addressee_email.split("###");
 	    
-	    if(!StringUtil.isBlank(cc_addressee_email)){//Èç¹û³­ËÍÈË
+	    if(!StringUtil.isBlank(cc_addressee_email)){//å¦‚æœæŠ„é€äºº
 	    	cc_addressee_email=cc_addressee_email.replaceAll(";", "###");
 	    	cs=cc_addressee_email.split("###");
 	    	caseEmail.setCc_addressee_email(cc_addressee_email);
@@ -173,65 +173,65 @@ public class ZQMailExcelService {
 		String endTime=caseEmail.getEnd_time();
 		String pop_name=caseEmail.getPop_name();
 		SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat df2=new SimpleDateFormat("MMÔÂddÈÕ");
+		SimpleDateFormat df2=new SimpleDateFormat("MMæœˆddæ—¥");
 		Date date =	df1.parse(startTime);
-		//¸ù¾İ¿ªÊ¼Ê±¼äÅĞ¶ÏÊÇ·ñÊÇ½ô¼±ÊÚÈ¨  ÊÚÈ¨Ê±¼äÎªµ±Ç°Ê±¼ä24Ğ¡Ê±ÄÚÎª½ô¼±
-		Long startLong_24=DateUtil.addHour(caseEmail.getCreate_time(),24).getTime();//µ±Ç°Ê±¼ä+24
-		Long long_start=	df1.parse(startTime).getTime();//ÊÚÈ¨Ê±¼ä
+		//æ ¹æ®å¼€å§‹æ—¶é—´åˆ¤æ–­æ˜¯å¦æ˜¯ç´§æ€¥æˆæƒ  æˆæƒæ—¶é—´ä¸ºå½“å‰æ—¶é—´24å°æ—¶å†…ä¸ºç´§æ€¥
+		Long startLong_24=DateUtil.addHour(caseEmail.getCreate_time(),24).getTime();//å½“å‰æ—¶é—´+24
+		Long long_start=	df1.parse(startTime).getTime();//æˆæƒæ—¶é—´
 		String pressing="";
 		String dateStr="";
 		String subject ="";
-//				pressing+dateStr+"ÖĞÆóÍ¨ĞÅÉêÇëÊÚÈ¨½øÈë"+pop_name+"#"+caseEmail.getCase_id();
+//				pressing+dateStr+"ä¸­ä¼é€šä¿¡ç”³è¯·æˆæƒè¿›å…¥"+pop_name+"#"+caseEmail.getCase_id();
 		String content=""; 
-		if(emailMode.equals("·±ÌåÖĞÎÄ")){
+		if(emailMode.equals("ç¹ä½“ä¸­æ–‡")){
 			try {
-				dateStr=new SimpleDateFormat("MMÔÂddÈÕ").format(df1.parse(startTime));
+				dateStr=new SimpleDateFormat("MMæœˆddæ—¥").format(df1.parse(startTime));
 			} catch (ParseException e) {
 				log.printStackTrace(e);
 			}
 			if(long_start<startLong_24){
-				pressing="¾o¼±ÊÚ™à:";
+				pressing="ç·Šæ€¥æˆæ¬Š:";
 			}
 			
-			subject =	pressing+dateStr+"ÖĞÆóÍ¨ĞÅÉêÕˆÊÚ™àßMÈë"+pop_name;
-			if(caseEmail.getOp_type().indexOf("…¢Ó^")>-1){
-				subject+=" …¢Ó^";
+			subject =	pressing+dateStr+"ä¸­ä¼é€šä¿¡ç”³è«‹æˆæ¬Šé€²å…¥"+pop_name;
+			if(caseEmail.getOp_type().indexOf("åƒè§€")>-1){
+				subject+=" åƒè§€";
 			}
 			subject+="#"+caseEmail.getCase_id();
-			if(!StringUtil.isBlank(map.get("edit_mode"))&&map.get("edit_mode").equals("×·¼ÓÈËÔ±")){
-				subject="×·¼ÓÈË†T "+pressing+dateStr+"ÖĞÆóÍ¨ĞÅÉêÕˆÊÚ™àßMÈë"+pop_name+"#"+caseEmail.getCase_id();
-				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"£¬<br>" + 	"<br>" + 
-						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ÿ©Õˆ×·¼ÓÒÔÏÂÈË†TßMÈë™C·¿"+"£¬ÖxÖx¡£<br>"  ;
+			if(!StringUtil.isBlank(map.get("edit_mode"))&&map.get("edit_mode").equals("è¿½åŠ äººå‘˜")){
+				subject="è¿½åŠ äººå“¡ "+pressing+dateStr+"ä¸­ä¼é€šä¿¡ç”³è«‹æˆæ¬Šé€²å…¥"+pop_name+"#"+caseEmail.getCase_id();
+				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"ï¼Œ<br>" + 	"<br>" + 
+						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ç…©è«‹è¿½åŠ ä»¥ä¸‹äººå“¡é€²å…¥æ©Ÿæˆ¿"+"ï¼Œè¬è¬ã€‚<br>"  ;
 					  if(!StringUtil.isBlank_new(caseEmail.getAdd_into_personnel())){
-						  content+= " ×·¼ÓÈË†T:<br>"+
+						  content+= " è¿½åŠ äººå“¡:<br>"+
 						  caseEmail.getAdd_into_personnel().replace("\n", "<br>")+ 
 					  " <br>" +  "<br>";
 					  }
 			}else{
-				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"£¬<br>" + 	"<br>" +
-						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ÿ©ÕˆÍ¬ÒâÎÒË¾¹¤³ÌŸßMÈë™C·¿"+"£¬ÖxÖx¡£<br>" + 
+				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"ï¼Œ<br>" + 	"<br>" +
+						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ç…©è«‹åŒæ„æˆ‘å¸å·¥ç¨‹å¸«é€²å…¥æ©Ÿæˆ¿"+"ï¼Œè¬è¬ã€‚<br>" + 
 						"<br>" + 
-						"•rég£º"+startTime+"-----"+endTime+"<br>" + "<br>" + 
-						" ßMÈëÈË†TÙYÓ£º<br>" + 
+						"æ™‚é–“ï¼š"+startTime+"-----"+endTime+"<br>" + "<br>" + 
+						" é€²å…¥äººå“¡è³‡è¨Šï¼š<br>" + 
 						caseEmail.getInto_personnel().replace("\n", "<br>")+ 
 						"<br>" +  " <br>" ;
-						  content+="²Ù×÷£º"+caseEmail.getOp_type()+"<br>" + 
-						"™C™™£º"+caseEmail.getCabinet()+"<br>" + 
-						"”y§ÔO‚ä£º"+(caseEmail.getCarry_facility().equals("ÎŞ")?"ÎŞ":(caseEmail.getCarry_facility().length()<80)?caseEmail.getCarry_facility():"<br>"+caseEmail.getCarry_facility())+"<br>";	 
+						  content+="æ“ä½œï¼š"+caseEmail.getOp_type()+"<br>" + 
+						"æ©Ÿæ«ƒï¼š"+caseEmail.getCabinet()+"<br>" + 
+						"æ”œå¸¶è¨­å‚™ï¼š"+(caseEmail.getCarry_facility().equals("æ— ")?"æ— ":(caseEmail.getCarry_facility().length()<80)?caseEmail.getCarry_facility():"<br>"+caseEmail.getCarry_facility())+"<br>";	 
 						  if(!StringUtil.isBlank(caseEmail.getRemarks())){
-							  content+="‚äÔ]:"+caseEmail.getRemarks()+"<br><br>";
+							  content+="å‚™è¨»:"+caseEmail.getRemarks()+"<br><br>";
 						  }
 			}
-					content+="ÕJ×C¿ÚÁî£º"+caseEmail.getPassword_key()+"<br>" + "<br>" +
+					content+="èªè­‰å£ä»¤ï¼š"+caseEmail.getPassword_key()+"<br>" + "<br>" +
 					"Best regards<br>" + 
 					"DC Access<br>" + 
 					"Network Engineer<br>" + 
 					"Network Operation Center<br>" +
 					"China Enterprise ICT Solutions Limited<br>" +  "<br>" + 
 					"6F, Building A, Guangzhou Information Port, No.16,Keyun Road, Tianhe District, Guangzhou, P.R.CHINA   510665<br>" + 
-					"D£º <callto:(86)20-8518%201311> (86)20-8518 1311&nbsp; <br>" + 
-					"E£ºDC Access <mailto:dcaccess@china-entercom.net> dcaccess@china-entercom.net&emsp;&emsp;&emsp;&emsp;" + 
-					"W£ºwww.china-entercom.com <http://www.china-entercom.com/> <br>" + "<br>" + 	
+					"Dï¼š <callto:(86)20-8518%201311> (86)20-8518 1311&nbsp; <br>" + 
+					"Eï¼šDC Access <mailto:dcaccess@china-entercom.net> dcaccess@china-entercom.net&emsp;&emsp;&emsp;&emsp;" + 
+					"Wï¼šwww.china-entercom.com <http://www.china-entercom.com/> <br>" + "<br>" + 	
 					"Email Disclaimer<br>" + "<br>" + 
 					"The information contained in this e-mail (and attachment(s)) is confidential and is intended solely for the addressee.  If you are not "
 					+ "the intended recipient, please notify the sender immediately and delete this e-mail from your system.  Any unauthorized use,"
@@ -256,40 +256,40 @@ public class ZQMailExcelService {
 				subject+=" Visit";
 			}
 			subject+="#"+caseEmail.getCase_id();
-			if(!StringUtil.isBlank(map.get("edit_mode"))&&map.get("edit_mode").equals("×·¼ÓÈËÔ±")){
+			if(!StringUtil.isBlank(map.get("edit_mode"))&&map.get("edit_mode").equals("è¿½åŠ äººå‘˜")){
 				subject =	"Additional personnel "+pressing+dateStr+"CSCC applies for authorization to enter "+pop_name+"#"+caseEmail.getCase_id();
-				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"£¬<br>" + 	"<br>" + 
-						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please additional personnel  authorize access permit for our below engineer(s) to "+" in "+pop_name + "£¬Thank you¡£<br>";
+				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"ï¼Œ<br>" + 	"<br>" + 
+						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please additional personnel  authorize access permit for our below engineer(s) to "+" in "+pop_name + "ï¼ŒThank youã€‚<br>";
 						  if(!StringUtil.isBlank_new(caseEmail.getAdd_into_personnel())){
 							  content+= "Additional Personnel:<br>"+
 							  caseEmail.getAdd_into_personnel().replace("\n", "<br>")+  " <br>" +  "<br>";
 						 }
 			}else{
-			content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"£¬<br>" + 	"<br>" + 
-					"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please authorize access permit for our below engineer(s) to "+" in "+pop_name + "£¬Thank you¡£<br>" + 
+			content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"ï¼Œ<br>" + 	"<br>" + 
+					"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please authorize access permit for our below engineer(s) to "+" in "+pop_name + "ï¼ŒThank youã€‚<br>" + 
 					"<br>" + 
-					"Access Hour£º"+startTime+"-----"+endTime+"<br>" + "<br>" + 
-					"Visitor Name&Infor£º<br>" + 
+					"Access Hourï¼š"+startTime+"-----"+endTime+"<br>" + "<br>" + 
+					"Visitor Name&Inforï¼š<br>" + 
 					caseEmail.getInto_personnel().replace("\n", "<br>")+ 
 					"<br>" +  " <br>";
 					  content+="Operation:"+caseEmail.getOp_type()+"<br>" + 
 					" Access Area:"+caseEmail.getCabinet()+"<br>" + 
-//					"Equipment information£º"+(caseEmail.getCarry_facility().equals("ÎŞ")?"":caseEmail.getCarry_facility())+"<br>"+ " <br>" ;
-						"Equipment information£º"+(caseEmail.getCarry_facility().equals("ÎŞ")?"":(caseEmail.getCarry_facility().length()<80)?caseEmail.getCarry_facility():"<br>"+caseEmail.getCarry_facility())+"<br>" ;	 
+//					"Equipment informationï¼š"+(caseEmail.getCarry_facility().equals("æ— ")?"":caseEmail.getCarry_facility())+"<br>"+ " <br>" ;
+						"Equipment informationï¼š"+(caseEmail.getCarry_facility().equals("æ— ")?"":(caseEmail.getCarry_facility().length()<80)?caseEmail.getCarry_facility():"<br>"+caseEmail.getCarry_facility())+"<br>" ;	 
 					  if(!StringUtil.isBlank(caseEmail.getRemarks())){
 						  content+="remarks:"+caseEmail.getRemarks()+"<br><br>";
 					  }
 					  }
-					 content+="Authentication password£º"+caseEmail.getPassword_key()+"<br>" + "<br>" +
+					 content+="Authentication passwordï¼š"+caseEmail.getPassword_key()+"<br>" + "<br>" +
 					"Best regards<br>" + 
 					"DC Access<br>" + 
 					"Network Engineer<br>" + 
 					"Network Operation Center<br>" +
 					"China Enterprise ICT Solutions Limited<br>" +  "<br>" + 
 					"6F, Building A, Guangzhou Information Port, No.16,Keyun Road, Tianhe District, Guangzhou, P.R.CHINA   510665<br>" + 
-					"D£º <callto:852  21707219> 852  21707219&nbsp; <br>" + 
-					"E£ºDC Access <mailto:gnoc@citictel-cpc.com> gnoc@citictel-cpc.com&emsp;&emsp;&emsp;&emsp;" + 
-					"W£ºwww.china-entercom.com <http://www.china-entercom.com/> <br>" + "<br>" + 	
+					"Dï¼š <callto:852  21707219> 852  21707219&nbsp; <br>" + 
+					"Eï¼šDC Access <mailto:gnoc@citictel-cpc.com> gnoc@citictel-cpc.com&emsp;&emsp;&emsp;&emsp;" + 
+					"Wï¼šwww.china-entercom.com <http://www.china-entercom.com/> <br>" + "<br>" + 	
 					"Email Disclaimer<br>" + "<br>" + 
 					"The information contained in this e-mail (and attachment(s)) is confidential and is intended solely for the addressee.  If you are not "
 					+ "the intended recipient, please notify the sender immediately and delete this e-mail from your system.  Any unauthorized use,"
@@ -300,95 +300,95 @@ public class ZQMailExcelService {
 					+ "the Company does not accept liability or obligation for any errors or omissions in the contents of this e-mail (and attachment(s)), which "
 					+ "arise as result of email transmission.  Where applicable, if the sender sends this e-mail as an agent for a principal (disclosed or otherwise),"
 					+ " all rights of such principal regarding confidentiality, non-disclosure and privilege against the recipient are hereby reserved." ;
-		}else if(emailMode.equals("¼òÌåÖĞÎÄ")){
+		}else if(emailMode.equals("ç®€ä½“ä¸­æ–‡")){
 			try {
-				dateStr=new SimpleDateFormat("MMÔÂddÈÕ").format(df1.parse(startTime));
+				dateStr=new SimpleDateFormat("MMæœˆddæ—¥").format(df1.parse(startTime));
 			} catch (ParseException e) {
 				log.printStackTrace(e);
 			}
 			if(long_start<startLong_24){
-				pressing="½ô¼±ÊÚÈ¨£º";
+				pressing="ç´§æ€¥æˆæƒï¼š";
 			}
-			subject =	pressing+dateStr+"ÖĞÆóÍ¨ĞÅÉêÇëÊÚÈ¨½øÈë"+pop_name;
-			if(caseEmail.getOp_type().indexOf("²Î¹Û")>-1){
-				subject+=" ²Î¹Û";
+			subject =	pressing+dateStr+"ä¸­ä¼é€šä¿¡ç”³è¯·æˆæƒè¿›å…¥"+pop_name;
+			if(caseEmail.getOp_type().indexOf("å‚è§‚")>-1){
+				subject+=" å‚è§‚";
 			}
 			subject+="#"+caseEmail.getCase_id();
-			if(!StringUtil.isBlank(map.get("edit_mode"))&&map.get("edit_mode").equals("×·¼ÓÈËÔ±")){
-				subject =	"×·¼ÓÈËÔ± "+pressing+dateStr+"ÖĞÆóÍ¨ĞÅÉêÇëÊÚÈ¨½øÈë"+pop_name+"#"+caseEmail.getCase_id();
-				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"£¬<br>" + 	"<br>" + 
-						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·³Çë×·¼ÓÒÔÏÂÈËÔ±½øÈë»ú·¿"+"£¬Ğ»Ğ»¡£<br>" +  "<br>" ;
+			if(!StringUtil.isBlank(map.get("edit_mode"))&&map.get("edit_mode").equals("è¿½åŠ äººå‘˜")){
+				subject =	"è¿½åŠ äººå‘˜ "+pressing+dateStr+"ä¸­ä¼é€šä¿¡ç”³è¯·æˆæƒè¿›å…¥"+pop_name+"#"+caseEmail.getCase_id();
+				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"ï¼Œ<br>" + 	"<br>" + 
+						"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;çƒ¦è¯·è¿½åŠ ä»¥ä¸‹äººå‘˜è¿›å…¥æœºæˆ¿"+"ï¼Œè°¢è°¢ã€‚<br>" +  "<br>" ;
 				  if(!StringUtil.isBlank_new(caseEmail.getAdd_into_personnel())){
-					  content+= "×·¼ÓÈËÔ±:<br>"+
+					  content+= "è¿½åŠ äººå‘˜:<br>"+
 					  caseEmail.getAdd_into_personnel().replace("\n", "<br>")+  " <br>" +  "<br>";
 				  }
 			}else{
-				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"£¬<br>" + 	"<br>" + 
-				"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·³ÇëÍ¬ÒâÎÒË¾¹¤³ÌÊ¦½øÈë»ú·¿"+"£¬Ğ»Ğ»¡£<br>" + 
+				content="Dear&nbsp;&nbsp;&nbsp;"+(!(StringUtil.isBlank(map.get("supplier_name")))?map.get("supplier_name"):pop_name)+"ï¼Œ<br>" + 	"<br>" + 
+				"&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;çƒ¦è¯·åŒæ„æˆ‘å¸å·¥ç¨‹å¸ˆè¿›å…¥æœºæˆ¿"+"ï¼Œè°¢è°¢ã€‚<br>" + 
 				"<br>" + 
-				"Ê±¼ä£º"+startTime+"-----"+endTime+"<br>" + "<br>" + 
-				" ½øÈëÈËÔ±ĞÅÏ¢£º<br>" + 
+				"æ—¶é—´ï¼š"+startTime+"-----"+endTime+"<br>" + "<br>" + 
+				" è¿›å…¥äººå‘˜ä¿¡æ¯ï¼š<br>" + 
 				caseEmail.getInto_personnel().replace("\n", "<br>")+ " <br>" +  "<br>"+
-				"²Ù×÷£º"+caseEmail.getOp_type()+"<br>" + 
-				"»ú¹ñ£º"+caseEmail.getCabinet()+"<br>" + 
-				"Ğ¯´øÉè±¸£º"+(caseEmail.getCarry_facility().equals("ÎŞ")?"ÎŞ":(caseEmail.getCarry_facility().length()<80)?caseEmail.getCarry_facility():"<br>"+caseEmail.getCarry_facility())+"<br><br>";	 
+				"æ“ä½œï¼š"+caseEmail.getOp_type()+"<br>" + 
+				"æœºæŸœï¼š"+caseEmail.getCabinet()+"<br>" + 
+				"æºå¸¦è®¾å¤‡ï¼š"+(caseEmail.getCarry_facility().equals("æ— ")?"æ— ":(caseEmail.getCarry_facility().length()<80)?caseEmail.getCarry_facility():"<br>"+caseEmail.getCarry_facility())+"<br><br>";	 
 				  if(!StringUtil.isBlank(caseEmail.getRemarks())){
-					  content+="±¸×¢:"+caseEmail.getRemarks()+"<br><br>";
+					  content+="å¤‡æ³¨:"+caseEmail.getRemarks()+"<br><br>";
 				  }
 			} 
-				 content+="ÈÏÖ¤¿ÚÁî£º"+caseEmail.getPassword_key()+"<br>" + "<br>" +
-				"Ë³×£ÉÌì÷,<br>" + 
+				 content+="è®¤è¯å£ä»¤ï¼š"+caseEmail.getPassword_key()+"<br>" + "<br>" +
+				"é¡ºç¥å•†ç¥º,<br>" + 
 				"DC Access<br>" + 
-				"ÍøÂç¹¤³ÌÊ¦<br>" + 
-				"ÍøÂçÔËÎ¬²¿<br>" +
-				"ÖĞÆóÍøÂçÍ¨ĞÅ¼¼ÊõÓĞÏŞ¹«Ë¾<br>" +  "<br>" + 
-				"¹ãÖİÊĞÌìºÓÇø¿ÆÔÏÂ·12ºÅÖ®Ò»·½Ô²EÊ±¹âÎ÷×ù2706£­2708·¿&nbsp;510665<br>" + 
-				"µç»°£º <callto:(86)20-8518%201311> (86)20-8518 1311&nbsp; <br>" + 
-				"ÓÊÏä£ºDC Access <mailto:dcaccess@china-entercom.net> dcaccess@china-entercom.net&emsp;&emsp;&emsp;&emsp;" + 
-				"ÍøÖ·£ºwww.china-entercom.com <http://www.china-entercom.com/> <br>" + "<br>" + 	
-				"ÓÊ¼şÃâÔğÉùÃ÷<br>" + "<br>" + 
-				"±¾ÓÊ¼ş£¨¼°¸½¼ş£©º¬ÓĞÖĞÆóÍøÂçÍ¨ĞÅ¼¼ÊõÓĞÏŞ¹«Ë¾µÄ±£ÃÜĞÅÏ¢£¬½ö¹©Ö¸¶¨ÊÕ¼şÈËÔÄÀÀ£¬" + 
-				"ÊÕ¼şÈË±ØĞë±£ÃÜ! Èç¸óÏÂ²»ÊÇÖ¸¶¨ÊÕ¼şÈË£¬·¢¼şÈËÔÚ´ËÉî±íÇ¸Òâ£¡·³Çë¸óÏÂÁ¢¼´Í¨Öª·¢" + 
-				"¼şÈË£¬KÉ¾³ı±¾ÓÊ¼ş£¨¼°¸½¼ş£©¡£Î´¾­±¾¹«Ë¾ÊéÃæÊÚÈ¨»òÍ¬Òâ£¬ÑÏ½ûÊ¹ÓÃ¡¢¹«¿ª¡¢¸´" + 
-				"ÖÆ¡¢´òÓ¡¡¢×ª·¢¼°·Ö·¢±¾ÓÊ¼ş£¨¼°¸½¼ş£©ÈÎºÎ²¿·ÖÖ®ÄÚÈİ,·ñÔò¸óÏÂĞè³Ğµ£ÏàÓ¦µÄ·¨ÂÉ" + 
-				"ÔğÈÎ¡£ÓÉÓÚÍøÂçÍ¨Ñ¶µÄÌØÊâĞÔ£¬±¾ÓÊ¼ş£¨¼°¸½¼ş£©ÄÚµÄĞÅÏ¢¿ÉÄÜ»á±»½ØÔØ¡¢´Û¸Ä¡¢ÒÅ" + 
-				"Ê§¡¢Ëğ»µ¡¢²»ÍêÕû¡¢ÑÓ³Ù¡¢ÒÔ¼°º¬ÓĞ²¡¶¾£¬¶ÔÓÚ´«ËÍ¸Ãµç×ÓÓÊ¼şµÄÄÚÈİ£¨¼°¸½¼ş£©¶øÒı" + 
-				"ÖÂµÄ´íÎó¼°ÒÅÂ©»òÆäËûºó¹û£¬±¾¹«Ë¾¸Å²»¸ºÔğ¡£" ;
+				"ç½‘ç»œå·¥ç¨‹å¸ˆ<br>" + 
+				"ç½‘ç»œè¿ç»´éƒ¨<br>" +
+				"ä¸­ä¼ç½‘ç»œé€šä¿¡æŠ€æœ¯æœ‰é™å…¬å¸<br>" +  "<br>" + 
+				"å¹¿å·å¸‚å¤©æ²³åŒºç§‘éŸµè·¯12å·ä¹‹ä¸€æ–¹åœ†Eæ—¶å…‰è¥¿åº§2706ï¼2708æˆ¿&nbsp;510665<br>" + 
+				"ç”µè¯ï¼š <callto:(86)20-8518%201311> (86)20-8518 1311&nbsp; <br>" + 
+				"é‚®ç®±ï¼šDC Access <mailto:dcaccess@china-entercom.net> dcaccess@china-entercom.net&emsp;&emsp;&emsp;&emsp;" + 
+				"ç½‘å€ï¼šwww.china-entercom.com <http://www.china-entercom.com/> <br>" + "<br>" + 	
+				"é‚®ä»¶å…è´£å£°æ˜<br>" + "<br>" + 
+				"æœ¬é‚®ä»¶ï¼ˆåŠé™„ä»¶ï¼‰å«æœ‰ä¸­ä¼ç½‘ç»œé€šä¿¡æŠ€æœ¯æœ‰é™å…¬å¸çš„ä¿å¯†ä¿¡æ¯ï¼Œä»…ä¾›æŒ‡å®šæ”¶ä»¶äººé˜…è§ˆï¼Œ" + 
+				"æ”¶ä»¶äººå¿…é¡»ä¿å¯†! å¦‚é˜ä¸‹ä¸æ˜¯æŒ‡å®šæ”¶ä»¶äººï¼Œå‘ä»¶äººåœ¨æ­¤æ·±è¡¨æ­‰æ„ï¼çƒ¦è¯·é˜ä¸‹ç«‹å³é€šçŸ¥å‘" + 
+				"ä»¶äººï¼Œä¸¦åˆ é™¤æœ¬é‚®ä»¶ï¼ˆåŠé™„ä»¶ï¼‰ã€‚æœªç»æœ¬å…¬å¸ä¹¦é¢æˆæƒæˆ–åŒæ„ï¼Œä¸¥ç¦ä½¿ç”¨ã€å…¬å¼€ã€å¤" + 
+				"åˆ¶ã€æ‰“å°ã€è½¬å‘åŠåˆ†å‘æœ¬é‚®ä»¶ï¼ˆåŠé™„ä»¶ï¼‰ä»»ä½•éƒ¨åˆ†ä¹‹å†…å®¹,å¦åˆ™é˜ä¸‹éœ€æ‰¿æ‹…ç›¸åº”çš„æ³•å¾‹" + 
+				"è´£ä»»ã€‚ç”±äºç½‘ç»œé€šè®¯çš„ç‰¹æ®Šæ€§ï¼Œæœ¬é‚®ä»¶ï¼ˆåŠé™„ä»¶ï¼‰å†…çš„ä¿¡æ¯å¯èƒ½ä¼šè¢«æˆªè½½ã€ç¯¡æ”¹ã€é—" + 
+				"å¤±ã€æŸåã€ä¸å®Œæ•´ã€å»¶è¿Ÿã€ä»¥åŠå«æœ‰ç—…æ¯’ï¼Œå¯¹äºä¼ é€è¯¥ç”µå­é‚®ä»¶çš„å†…å®¹ï¼ˆåŠé™„ä»¶ï¼‰è€Œå¼•" + 
+				"è‡´çš„é”™è¯¯åŠé—æ¼æˆ–å…¶ä»–åæœï¼Œæœ¬å…¬å¸æ¦‚ä¸è´Ÿè´£ã€‚" ;
 		}
 					content=content.replace("\n", "<br>");
-					log.info("ÓÊ¼ş·¢ËÍÈËĞÅÏ¢£º"+email.toString());
-					log.info("ÓÊ¼şÊÕ¼şÈË£º"+CommonUtil.toString(to));
+					log.info("é‚®ä»¶å‘é€äººä¿¡æ¯ï¼š"+email.toString());
+					log.info("é‚®ä»¶æ”¶ä»¶äººï¼š"+CommonUtil.toString(to));
 					System.out.println(Arrays.toString(cs));
-					log.info("ÓÊ¼ş³­ËÍ¼şÈË£º"+CommonUtil.toString(cs));
-					log.info("ÓÊ¼ş°üº¬¸½¼şµØÖ·£º"+CommonUtil.toString(fileList));
-					log.info("ÓÊ¼şÖ÷Ìâ£º"+subject);
-					log.info("ÓÊ¼şÄÚÈİ£º"+content);
+					log.info("é‚®ä»¶æŠ„é€ä»¶äººï¼š"+CommonUtil.toString(cs));
+					log.info("é‚®ä»¶åŒ…å«é™„ä»¶åœ°å€ï¼š"+CommonUtil.toString(fileList));
+					log.info("é‚®ä»¶ä¸»é¢˜ï¼š"+subject);
+					log.info("é‚®ä»¶å†…å®¹ï¼š"+content);
 				    baseDao.sendEmail(caseEmail);
 					mail.send(to,cs, null , subject, content, formEmail, fileList, host, password);
-					log.info("ÓÊ¼ş·¢ËÍ³É¹¦");
+					log.info("é‚®ä»¶å‘é€æˆåŠŸ");
 					
-				    log.info("±£´æcaseEmail:"+caseEmail.toString());
+				    log.info("ä¿å­˜caseEmail:"+caseEmail.toString());
 				}
 	
 					/**
-					 * ¶ÁÈ¡Excel»ú·¿ĞÅÏ¢²åÈëÊı¾İ¿â
+					 * è¯»å–Excelæœºæˆ¿ä¿¡æ¯æ’å…¥æ•°æ®åº“
 					 * @throws Exception
 					 */
 					public   void readExcel() throws Exception{
-					Map<String ,String >  map =baseDao.getPopCodes();//²éÑ¯ËùÓĞµÄpopName ºÍÕâ´ÎµÄexcel¶Ô±È
-					List<String>  errorList =new ArrayList<String>();//ÓëÖØ¸´µÄpopName
+					Map<String ,String >  map =baseDao.getPopCodes();//æŸ¥è¯¢æ‰€æœ‰çš„popName å’Œè¿™æ¬¡çš„excelå¯¹æ¯”
+					List<String>  errorList =new ArrayList<String>();//ä¸é‡å¤çš„popName
 					InputStream is =new FileInputStream( new File(fileLoaclPath));
 					XSSFWorkbook workbook = new XSSFWorkbook(is);
 					StringBuffer bf=new StringBuffer();
 						
-					// Ñ­»·¹¤×÷±íSheet
+					// å¾ªç¯å·¥ä½œè¡¨Sheet
 					for (int numSheet = 0; numSheet <1/* workbook.getNumberOfSheets()*/; numSheet++) {
 						XSSFSheet xssfSheet = workbook.getSheetAt(numSheet);
 					if (xssfSheet == null) {
 					    continue;
 					}
-					System.out.println("sheetÃû³Æ£º"+xssfSheet.getSheetName());
-            		// Ñ­»·ĞĞRow
+					System.out.println("sheetåç§°ï¼š"+xssfSheet.getSheetName());
+            		// å¾ªç¯è¡ŒRow
                 	 for (int rowNum = 2; rowNum <=xssfSheet.getLastRowNum(); rowNum++) {
                 	  XSSFRow row = xssfSheet.getRow(rowNum);
 //                	  System.out.println(row.getRowNum());
@@ -415,15 +415,15 @@ public class ZQMailExcelService {
                 		 }
                 	  }
                 	  
-                	/*	private String accessory;//¸½¼ş
-                		private String mode;//Ä£Ê½
-                		private String cabinet;//»ú¹ñ£¬¶ººÅ·Ö¿ª
+                	/*	private String accessory;//é™„ä»¶
+                		private String mode;//æ¨¡å¼
+                		private String cabinet;//æœºæŸœï¼Œé€—å·åˆ†å¼€
                 	 	*/                	  
 			}
                 
                 
-                System.out.println("ÖØ¸´´æÈëµÄpopName£º"+errorList.toString());
-                System.out.println("¹²£º"+errorList.size()+"¼Ò¡£¡£");
+                System.out.println("é‡å¤å­˜å…¥çš„popNameï¼š"+errorList.toString());
+                System.out.println("å…±ï¼š"+errorList.size()+"å®¶ã€‚ã€‚");
 				        }
 				        if(is!=null){
 				     	   is.close();
@@ -434,14 +434,14 @@ public class ZQMailExcelService {
 			
 	
 			/**
-			 * cell×ª»»Îª×Ö·û´®
+			 * cellè½¬æ¢ä¸ºå­—ç¬¦ä¸²
 			 * @param cell
-			 * ÊıÖµĞÍ	0
-				CELL_TYPE_STRING	×Ö·û´®ĞÍ	1
-				CELL_TYPE_FORMULA	¹«Ê½ĞÍ	2
-				CELL_TYPE_BLANK	¿ÕÖµ	3
-				CELL_TYPE_BOOLEAN	²¼¶ûĞÍ	4
-				CELL_TYPE_ERROR	´íÎó	5
+			 * æ•°å€¼å‹	0
+				CELL_TYPE_STRING	å­—ç¬¦ä¸²å‹	1
+				CELL_TYPE_FORMULA	å…¬å¼å‹	2
+				CELL_TYPE_BLANK	ç©ºå€¼	3
+				CELL_TYPE_BOOLEAN	å¸ƒå°”å‹	4
+				CELL_TYPE_ERROR	é”™è¯¯	5
 			 * @return
 			 */
 			public    String nullToString ( XSSFCell  cell){
@@ -496,77 +496,10 @@ public class ZQMailExcelService {
 				return baseDao.loadEmpowerMessageByDao(pop_name);
 			}
 			
+
+
 			/**
-			 * ÊÚÈ¨ÉêÇëÌí¼Ó
-			 * @param JsonStr
-			 * @throws Exception
-			 */
-			public  void  authorizationAdd( String JsonStr  ) {
-				AuthorizationEmail email=(AuthorizationEmail) JSONObject.toBean(JSONObject.fromObject(JsonStr),AuthorizationEmail.class);
-				JSONObject jsonObject1=JSONObject.fromObject(JsonStr);
-				JSONArray  ipArr= jsonObject1.getJSONArray("intoPersonnelList");
-				JSONArray cfArr= jsonObject1.getJSONArray("carryFacilityList");
-				int maxAuthId=baseDao.queryMaxAuthId();
-				email.setAuth_id(maxAuthId+1);
-				email.setCreate_time(DateUtil.getDate(new Date()));
-				email.setUpdate_time(email.getCreate_time());
-				email.setAu_status("T");
-				String carry_facilityStr="";
-				String IntoPersonnelStr="";
-				
-				for(Object o:ipArr){
-					 IntoPersonnel intoPersonnel=(IntoPersonnel) JSONObject.toBean(JSONObject.fromObject(o),IntoPersonnel.class);
-					intoPersonnel.setAuth_id(email.getAuth_id());
-					String name=(StringUtil.isBlank(intoPersonnel.getP_name()))?"":intoPersonnel.getP_name();
-					String id=(StringUtil.isBlank(intoPersonnel.getP_id()))?"":intoPersonnel.getP_id();
-					IntoPersonnelStr+=(name+"\t");
-					IntoPersonnelStr+=(id+"\t\n");
-					 baseDao.saveO(intoPersonnel);
-				}
-				email.setInto_personnel(IntoPersonnelStr);
-				String testTool="    ²âÊÔ¹¤¾ß£º";//²âÊÔ¹¤¾ß
-				 String car="    ³µÁ¾£º";//³µÁ¾
-				 String grounding="    ÉÏ¼Ü£º";//ÉÏ¼Ü
-				 String undercarriage="    ÏÂ¼Ü£º";//ÏÂ¼Ü
-				 String others="    ÆäËû£º";//ÆäËû
-				
-				for(Object o:cfArr){
-					 CarryFacility facility=(CarryFacility) JSONObject.toBean(JSONObject.fromObject(o),CarryFacility.class);
-					 facility.setAuth_id(email.getAuth_id());
-					 switch (facility.getC_operate()) {
-					case "²âÊÔ¹¤¾ß":
-						testTool+=facility.getC_manufacturer()+"  "+facility.getC_model()+"  "+facility.getC_serial_no()+",";
-						break;
-					case "³µÁ¾":
-						car+=facility.getC_manufacturer()+"  "+facility.getC_model()+"  "+facility.getC_serial_no()+",";
-						break;
-					case "ÉÏ¼Ü":
-						grounding+=facility.getC_manufacturer()+"  "+facility.getC_model()+"  "+facility.getC_serial_no()+",";
-						break;
-					case "ÏÂ¼Ü":
-						undercarriage+=facility.getC_manufacturer()+"  "+facility.getC_model()+"  "+facility.getC_serial_no()+",";
-						break;
-					case "ÆäËû":
-						others+=facility.getC_manufacturer()+"  "+facility.getC_model()+"  "+facility.getC_serial_no()+",";
-						break;
-					default:
-						break;
-					}
-					 baseDao.saveO(facility);
-					 System.out.println(facility.toString());
-				}
-				 testTool=(testTool.substring(testTool.length()-1).equals(","))?testTool.substring(0, testTool.length()-1):"";
-				 car=(car.substring(car.length()-1).equals(","))?car.substring(0, car.length()-1):"";
-				 grounding=(grounding.substring(grounding.length()-1).equals(","))?grounding.substring(0, grounding.length()-1):"";
-				 undercarriage=(undercarriage.substring(undercarriage.length()-1).equals(","))?undercarriage.substring(0, undercarriage.length()-1):"";
-				 others=(others.substring(others.length()-1).equals(","))?others.substring(0, others.length()-1):"";
-				 carry_facilityStr=testTool+"\n"+car+"\n"+grounding+"\n"+undercarriage+"\n"+others;
-				 email.setCarry_facility((carry_facilityStr.length()!=0)?carry_facilityStr:"ÎŞ");
-				 baseDao.saveO(email);
-			}
-			
-			/**
-			 * ÊÚÈ¨ÉêÇëÌí¼Ó
+			 * æˆæƒç”³è¯·æ·»åŠ 
 			 * @param JsonStr
 			 * @throws Exception
 			 */
@@ -582,8 +515,8 @@ public class ZQMailExcelService {
 				baseDao.updateO(email);
 				baseDao.delIPCFByAuth_id(String.valueOf(email.getAuth_id()));
 				
-				String email_uuid=map.get("email_uuid");//·¢ËÍµÄemail µÄemail_uuid
-				String yesOrNo=map.get("yesOrNo");//ÊÇ·ñ·¢ËÍ
+				String email_uuid=map.get("email_uuid");//å‘é€çš„email çš„email_uuid
+				String yesOrNo=map.get("yesOrNo");//æ˜¯å¦å‘é€
 		       SendEmail sEmail=baseDao.getSendEmailByKey(email_uuid);
 		        caseEmail.setCase_uuid(UuidUtil.getUUID32());
 		        caseEmail.setCase_id(map.get("case_id"));
@@ -628,16 +561,16 @@ public class ZQMailExcelService {
 				}
 				System.out.println(facilityStr);
 				if(StringUtil.isBlank(facilityStr)){
-					map.put("carryFacility",  "ÎŞ");
+					map.put("carryFacility",  "æ— ");
 				}else{
 					facilityStr=facilityStr.substring(0, facilityStr.length()-1);
 //					map.put("carryFacility",  facilityStr);
 				}
 //		        caseEmail.setCarry_facility(map.get("carryFacility"));
 
-				if(yesOrNo.equals("ÊÇ")){//Èç¹ûÒ³ÃæÊÇ·¢ËÍÓÊ¼şµÄµÄ»°¾Í×é×°Êı¾İ½øĞĞ·¢ËÍÓÊ¼ş ÎªÁË·½±ã×Ô²â¼ÓµÄ
+				if(yesOrNo.equals("æ˜¯")){//å¦‚æœé¡µé¢æ˜¯å‘é€é‚®ä»¶çš„çš„è¯å°±ç»„è£…æ•°æ®è¿›è¡Œå‘é€é‚®ä»¶ ä¸ºäº†æ–¹ä¾¿è‡ªæµ‹åŠ çš„
 		        	this.packaging(caseEmail,map,sEmail);
-		        }else if(yesOrNo.equals("·ñ")){
+		        }else if(yesOrNo.equals("å¦")){
 		        	baseDao.saveO(caseEmail);
 		        }
 				
@@ -673,7 +606,7 @@ public class ZQMailExcelService {
 			
 			
 			/**
-			 * ²âÊÔ×¨ÓÃ
+			 * æµ‹è¯•ä¸“ç”¨
 			 * @throws Exception 
 			 */
 			public  void  test( String JsonStr  )  {
@@ -697,7 +630,7 @@ public class ZQMailExcelService {
 					}
 					
 					
-	/*			for(int i=0;i<100;i++){ //²åÈëcaseEmail
+	/*			for(int i=0;i<100;i++){ //æ’å…¥caseEmail
 				    CaseEmail caseEmail=new CaseEmail();
 			        caseEmail.setCase_uuid(UuidUtil.getUUID32());
 			        caseEmail.setSend_email("2656566@qq.com");
@@ -705,16 +638,16 @@ public class ZQMailExcelService {
 			        caseEmail.setAddressee_email("123456@qq.com###2656566@qq.com");
 			        caseEmail.setCc_addressee_email("123456@qq.com###2656566@qq.com");
 			        caseEmail.setCase_id(String.valueOf((2439558+i)));
-			        caseEmail.setCabinet("A13»ú¹ñ");
+			        caseEmail.setCabinet("A13æœºæŸœ");
 			        caseEmail.setPassword_key("KpCh4864");
-			        caseEmail.setOp_type("ÏßÂ·ÇÀĞŞ"+i);
+			        caseEmail.setOp_type("çº¿è·¯æŠ¢ä¿®"+i);
 			        caseEmail.setEnd_time("2018-10-25  24:00");
 			        caseEmail.setStart_time("2018-10-25  11:00");
-			        caseEmail.setInto_personnel("ÅíÏş´º ID£º£¨44098219780210669X£©\r\n" + 
-			        		"ÅíĞ¡½« ID£º£¨441523198811026791£©");
-			        caseEmail.setPop_name("¹ãÖİ¸ßÑ¸»ú·¿");
-			        caseEmail.setIns_type("ÇÀĞŞ");
-			        caseEmail.setCarry_facility("ÇÀĞŞĞèÒªµÄ¹¤¾ß");
+			        caseEmail.setInto_personnel("å½­æ™“æ˜¥ IDï¼šï¼ˆ44098219780210669Xï¼‰\r\n" + 
+			        		"å½­å°å°† IDï¼šï¼ˆ441523198811026791ï¼‰");
+			        caseEmail.setPop_name("å¹¿å·é«˜è¿…æœºæˆ¿");
+			        caseEmail.setIns_type("æŠ¢ä¿®");
+			        caseEmail.setCarry_facility("æŠ¢ä¿®éœ€è¦çš„å·¥å…·");
 			        String datefor="yyyy-MM-dd HH:mm:ss";
 			        Date createDate= DateUtil.getDateByString(StringUtil.formatDate(new Date(),datefor), datefor);
 			        caseEmail.setCreate_time(createDate);
@@ -725,7 +658,7 @@ public class ZQMailExcelService {
 			}
 	
 			/**
-			 * ¸ù¾İcase_uuid É¾³ıCaseEmail
+			 * æ ¹æ®case_uuid åˆ é™¤CaseEmail
 			 * @param case_uuid 
 			 * @return
 			 */
@@ -757,12 +690,12 @@ public class ZQMailExcelService {
 	
 	
 			/**
-			 * Ê±¼ä¶Ô±È
-			 * @param startDate ¿ªÊ¼Ê±¼ä
-			 * @param endDate   ½áÊøÊ±¼ä
-			 * @param type 			Ê±¼äÀàĞÍ£¬yMdHms´ú±íÄêÔÂÈÕÊ±·ÖÃë
-			 * @param size			  ÕıÊıÊÇ¼Ó£¬¸ºÊıÊÇ¼õ £¨È»ºó¶Ô½áÊøÊ±¼äÏà±È£©
-			 * @return  ½áÊøÊ±¼ä´óÓÚ¿ªÊ¼Ê±¼ä·µ»Øtrue£¬·ñÔò·µ»Øfalse
+			 * æ—¶é—´å¯¹æ¯”
+			 * @param startDate å¼€å§‹æ—¶é—´
+			 * @param endDate   ç»“æŸæ—¶é—´
+			 * @param type 			æ—¶é—´ç±»å‹ï¼ŒyMdHmsä»£è¡¨å¹´æœˆæ—¥æ—¶åˆ†ç§’
+			 * @param size			  æ­£æ•°æ˜¯åŠ ï¼Œè´Ÿæ•°æ˜¯å‡ ï¼ˆç„¶åå¯¹ç»“æŸæ—¶é—´ç›¸æ¯”ï¼‰
+			 * @return  ç»“æŸæ—¶é—´å¤§äºå¼€å§‹æ—¶é—´è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 			 */
 			public static boolean dateComparison(Date startDate,Date endDate ,String type,int size){
 				
@@ -770,11 +703,11 @@ public class ZQMailExcelService {
 			}
 	
 			/**
-			 * Ê±¼äÏà¼Ó»òÕßÏà¼õ
-			 * @param startDate ¿ªÊ¼Ê±¼ä
-			 * @param type 			Ê±¼äÀàĞÍ£¬yMdHms´ú±íÄêÔÂÈÕÊ±·ÖÃë
-			 * @param size			  ÕıÊıÊÇ¼Ó£¬¸ºÊıÊÇ¼õ  
-			 * @return   ·µ»Ø¶ÔÓ¦µÄÊ±¼ä
+			 * æ—¶é—´ç›¸åŠ æˆ–è€…ç›¸å‡
+			 * @param startDate å¼€å§‹æ—¶é—´
+			 * @param type 			æ—¶é—´ç±»å‹ï¼ŒyMdHmsä»£è¡¨å¹´æœˆæ—¥æ—¶åˆ†ç§’
+			 * @param size			  æ­£æ•°æ˜¯åŠ ï¼Œè´Ÿæ•°æ˜¯å‡  
+			 * @return   è¿”å›å¯¹åº”çš„æ—¶é—´
 			 */
 			public static Date addOrSubDate(Date startDate ,String type,int size){
 				

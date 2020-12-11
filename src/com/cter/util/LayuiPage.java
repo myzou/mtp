@@ -3,17 +3,17 @@ package com.cter.util;
 import java.util.List;
 
 /**
- * Layui ·ÖÀà
+ * Layui åˆ†ç±»
  * @author op1768
  *
  */
 public class LayuiPage<T>{
 	
 	private List<T> datas;
-	private int countSize;//×ÜÌõÊı
-	private int page;//Ò³Âë
-	private int limit;//Ã¿Ò³ÌõÊı
-	private int  pageSize;//×ÜÒ³Âë ±¸ÓÃ
+	private int countSize;//æ€»æ¡æ•°
+	private int page;//é¡µç 
+	private int limit;//æ¯é¡µæ¡æ•°
+	private int  pageSize;//æ€»é¡µç  å¤‡ç”¨
 	public List<T> getDatas() {
 		return datas;
 	}

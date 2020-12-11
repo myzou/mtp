@@ -31,7 +31,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	private BaseLog log=new BaseLog("EmailLog");
 /*	
 	*//**
-	 * »ñÈ¡ËùÓĞpopnameµÄ¼¯ºÏ
+	 * è·å–æ‰€æœ‰popnameçš„é›†åˆ
 	 * @return
 	 */
 	public Map<String ,String >  getPopCodes(){
@@ -72,7 +72,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	
 	
 	/**
-	 * ¸ù¾İ³ÇÊĞÃû³Æ¼ÓÔØ³ÇÊĞpopName  List ÁĞ±í
+	 * æ ¹æ®åŸå¸‚åç§°åŠ è½½åŸå¸‚popName  List åˆ—è¡¨
 	 * @param cityName
 	 * @return
 	 */
@@ -102,7 +102,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	
 	
  /**
-	 * ±£´æ·¢ËÍµÄcaseµ¥
+	 * ä¿å­˜å‘é€çš„caseå•
 	 * @param map
 	 */
 	public void sendEmail(CaseEmail caseEmail) {
@@ -111,7 +111,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	
 	
 	/**
-	 * ¸üĞÂÏµÍ³²ÎÊı±íµÄĞÅÏ¢passwordKeys
+	 * æ›´æ–°ç³»ç»Ÿå‚æ•°è¡¨çš„ä¿¡æ¯passwordKeys
 	 * @param passwordKeys 
 	 */
 	public void updateKey(String passwordKeys) {
@@ -130,7 +130,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸üĞÂSendEmail
+	 * æ›´æ–°SendEmail
 	 */
 	public int updateSendEmail(SendEmail email) {
 		DBUtils  db=DBUtils.getDBUtils();
@@ -153,7 +153,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸ù¾İPopName¼ÓÔØEmpowerMessage ÊµÌåÀàlist
+	 * æ ¹æ®PopNameåŠ è½½EmpowerMessage å®ä½“ç±»list
 	 * @return
 	 */
 	public List<EmpowerMessage> loadEmpowerMessageByDao(String pop_name) {
@@ -203,7 +203,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 /**
- * ¸ù¾İ»ú·¿Ãû³Æ ºÍ³ÇÊĞÃû³ÆÉ¾³ı¶ÔÓ¦µÄ»ú·¿
+ * æ ¹æ®æœºæˆ¿åç§° å’ŒåŸå¸‚åç§°åˆ é™¤å¯¹åº”çš„æœºæˆ¿
  * @param pop_name
  * @param city_name
  * @return
@@ -227,7 +227,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 
 	
 	/**
-	 * ´Ózq_data ±íÖĞ»ñÈ¡ÈÏÖ¤µÄ¿ÚÁî
+	 * ä»zq_data è¡¨ä¸­è·å–è®¤è¯çš„å£ä»¤
 	 * @return
 	 */
 	public ZqData loadPasswordKeys() {
@@ -240,7 +240,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸ù¾İpopNameÃû³Æ»ñÈ¡¶ÔÓ¦µÄEmpowerMessage
+	 * æ ¹æ®popNameåç§°è·å–å¯¹åº”çš„EmpowerMessage
 	 * @param pop_name 
 	 * @return
 	 */
@@ -338,8 +338,8 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸ù¾İemail_uuid »ñÈ¡send_Email
-	 * @param email_uuid  send_Email±íÖ÷¼ü
+	 * æ ¹æ®email_uuid è·å–send_Email
+	 * @param email_uuid  send_Emailè¡¨ä¸»é”®
 	 * @return
 	 */
 	public SendEmail  getSendEmailByKey(String email_uuid) {
@@ -354,7 +354,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸ù¾İcase_uuid É¾³ıCaseEmail
+	 * æ ¹æ®case_uuid åˆ é™¤CaseEmail
 	 * @param case_uuid
 	 * @return
 	 */
@@ -395,7 +395,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	
 	
 	/**
-	 * ¸ù¾İcase_uuid É¾³ıCaseEmail
+	 * æ ¹æ®case_uuid åˆ é™¤CaseEmail
 	 * @param case_uuid
 	 * @return
 	 */
@@ -418,7 +418,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸ù¾İau_status É¾³ıAuthorizationEmail
+	 * æ ¹æ®au_status åˆ é™¤AuthorizationEmail
 	 * @param case_uuid
 	 * @return
 	 */
@@ -483,8 +483,8 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 	}
 	
 	/**
-	 * ¸ù¾İauth_id É¾³ıAuthorizationEmail
-	 * Èë³¡ÈËÔ±ĞÅÏ¢ºÍÉè±¸ĞÅÏ¢
+	 * æ ¹æ®auth_id åˆ é™¤AuthorizationEmail
+	 * å…¥åœºäººå‘˜ä¿¡æ¯å’Œè®¾å¤‡ä¿¡æ¯
 	 * @param passwordKeys 
 	 */
 	public void delIPCFByAuth_id(String auth_id) {
@@ -496,7 +496,7 @@ public class EmpowerMessageDaoImpl extends BaseDaOImpl<EmpowerMessage> {
 		 try {
 			int cf=db.executeUpdate(cfSql, list);
 			int ip=db.executeUpdate(ipSql, list);
-			log.info("¸üĞÂÁËauth_id:("+auth_id+")ĞÅÏ¢,ip:"+ip+",cf:"+cf);
+			log.info("æ›´æ–°äº†auth_id:("+auth_id+")ä¿¡æ¯,ip:"+ip+",cf:"+cf);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

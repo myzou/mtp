@@ -28,18 +28,18 @@ public class LoginInterceptor extends AbstractInterceptor {
         Map session = ctx.getSession();
         String login_user = (String) session.get("login_user");
         String login_user_id = (String) session.get("login_user_id");
-        //Èç¹ûÃ»ÓĞ»ñÈ¡µ½ÓÃ»§ÃûºÍid,ĞèÒªµÇÂ¼
+        //å¦‚æœæ²¡æœ‰è·å–åˆ°ç”¨æˆ·åå’Œid,éœ€è¦ç™»å½•
         Boolean  ignoreArrIsContain =false;
         String []   ignoreArr=new String[]{"/excelConversion","/static_html","addMtpRecordDetailed"};
         ignoreArrIsContain=StringUtil.stringIndexOfArray(ignoreArr, uri);
 
-        //Èç¹ûÃ»ÓĞ»ñÈ¡µ½ÓÃ»§ÃûºÍid,ĞèÒªµÇÂ¼
+        //å¦‚æœæ²¡æœ‰è·å–åˆ°ç”¨æˆ·åå’Œid,éœ€è¦ç™»å½•
         if(ignoreArrIsContain||!StringUtil.isBlank(login_user)&&!StringUtil.isBlank(login_user_id)){
 //			System.out.println("login_user:"+login_user+",login_user_id:"+login_user_id);
             return invocation.invoke();
         }
-        System.out.println(request.getRemoteAddr() + ",ip,Ã»ÓĞµÇÂ¼·ÃÎÊ");
-        ctx.put("tip", request.getRemoteAddr() + ",ip,Ã»ÓĞµÇÂ¼·ÃÎÊ");
+        System.out.println(request.getRemoteAddr() + ",ip,æ²¡æœ‰ç™»å½•è®¿é—®");
+        ctx.put("tip", request.getRemoteAddr() + ",ip,æ²¡æœ‰ç™»å½•è®¿é—®");
         return "login";
     }
 

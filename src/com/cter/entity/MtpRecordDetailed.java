@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 /**
- * mtp_record_detailed	ÊµÌåÀà
+ * mtp_record_detailed	å®ä½“ç±»
  *
  * @author op1768
  * @date 2019-08-05 19:28
@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class MtpRecordDetailed {
     @Id
     @Column(name = "mtp_record_detailed_uuid")
-    private String mtpRecordDetailedUuid;//mtpÏßÂ·ÏêÏ¸uuid
+    private String mtpRecordDetailedUuid;//mtpçº¿è·¯è¯¦ç»†uuid
 
     @Column(name = "case_id")
     private String caseId;//case_id
@@ -25,19 +25,19 @@ public class MtpRecordDetailed {
     private String trunkId;
 
     @Column(name = "end_full_name")
-    private String endFullName;//Éè±¸È«Ãû
+    private String endFullName;//è®¾å¤‡å…¨å
 
     @Column(name = "end_interface")
-    private String endInterface;//pe¶Ë¿Ú
+    private String endInterface;//peç«¯å£
 
     @Column(name = "device_ip")
     private String deviceIp;//pe ip
 
     @Column(name = "provider_circuit_num")
-    private String providerCircuitNum;//ÏßÂ·±àºÅ
+    private String providerCircuitNum;//çº¿è·¯ç¼–å·
 
     @Column(name = "show_type")
-    private String showType;//Ö´ĞĞµÄÃüÁîÀàĞÍ
+    private String showType;//æ‰§è¡Œçš„å‘½ä»¤ç±»å‹
 
     @Column(name = "before_status")
     private String beforeStatus;
@@ -49,7 +49,7 @@ public class MtpRecordDetailed {
     private String afterPingStatus;
 
     @Column(name = "before_vrf_site_id")
-    private String beforeVrfSiteId;//Ö®Ç°µÄvrfSiteId Èç¹ûÓĞ£¬¾Í¸ù¾İÕâ¸öÀ´¶Ô±È£¬Èç¹ûÃ» ¾Í¸ù¾İ
+    private String beforeVrfSiteId;//ä¹‹å‰çš„vrfSiteId å¦‚æœæœ‰ï¼Œå°±æ ¹æ®è¿™ä¸ªæ¥å¯¹æ¯”ï¼Œå¦‚æœæ²¡ å°±æ ¹æ®
 
     @Column(name = "after_vrf_site_id")
     private String afterVrfSiteId;
@@ -58,7 +58,7 @@ public class MtpRecordDetailed {
     private String beforeResultUrl;
 
     @Column(name = "before_delay")
-    private String beforeDelay;//Î¬»¤µÄÖ®Ç°ÑÓ³Ù
+    private String beforeDelay;//ç»´æŠ¤çš„ä¹‹å‰å»¶è¿Ÿ
 
     @Column(name = "before_error_cause")
     private String beforeErrorCause;
@@ -67,7 +67,7 @@ public class MtpRecordDetailed {
     private String afterStatus;
 
     @Column(name = "after_delay")
-    private String afterDelay;//Î¬»¤µÄÖ®ºóÑÓ³Ù
+    private String afterDelay;//ç»´æŠ¤çš„ä¹‹åå»¶è¿Ÿ
 
     @Column(name = "after_result_url")
     private String afterResultUrl;
@@ -76,10 +76,10 @@ public class MtpRecordDetailed {
     private String afterErrorCause;
 
     @Column(name = "case_status")
-    private String caseStatus;//case×´Ì¬
+    private String caseStatus;//caseçŠ¶æ€
 
     @Column(name = "send_size")
-    private String sendSize;//°ü´óĞ¡
+    private String sendSize;//åŒ…å¤§å°
 
     @Column(name = "create_time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -93,7 +93,7 @@ public class MtpRecordDetailed {
     private String beforeCeWanIp;
 
     @Column(name = "internal_site_id")
-    private String internalSiteId;//ÏßÂ·±àºÅ
+    private String internalSiteId;//çº¿è·¯ç¼–å·
 
     @Column(name = "before_pe_wan_ip")
     private String beforePeWanIp;

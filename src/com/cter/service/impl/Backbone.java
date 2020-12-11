@@ -31,7 +31,6 @@ import java.util.*;
  */
 public class Backbone {
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
-    private static final String mtp_project = otherMap.get("mtp_project");
     private static String GGW_URL = otherMap.get("GGW_URL");
     private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
     private static Map<String, String> paramMap = new HashMap<String, String>();
@@ -61,7 +60,7 @@ public class Backbone {
         paramMap.put("sign", "123456");
         paramMap.put("command", command);
         paramMap.put("ip", ip);
-        System.out.println("ÊäÈëµÄ²ÎÊı£º" + paramMap);
+        System.out.println("è¾“å…¥çš„å‚æ•°ï¼š" + paramMap);
         for (int i = 1; i <= 3; i++) {
             System.out.println("===========================================================" + i + "===========================================================");
             Map<String, String> returnMap = execute(paramMap, log);
@@ -131,10 +130,10 @@ public class Backbone {
     }
 
     /**
-     * ¸ù¾İpeName ºÍ interfaceName ºÍ µÇÂ¼Éè±¸ĞÅÏ¢ Ö´ĞĞ¹Ç¸É²éÑ¯½á¹û
+     * æ ¹æ®peName å’Œ interfaceName å’Œ ç™»å½•è®¾å¤‡ä¿¡æ¯ æ‰§è¡Œéª¨å¹²æŸ¥è¯¢ç»“æœ
      * @param paramMap
-     * @param peName  Éè±¸Ãû³Æ
-     * @param interfaceName ¶Ë¿Ú
+     * @param peName  è®¾å¤‡åç§°
+     * @param interfaceName ç«¯å£
      * @return
      */
     public static List<List<String>> getBackboneResult(Map<String, String> paramMap, String peName, String interfaceName) {
@@ -199,7 +198,7 @@ public class Backbone {
     }
 
     /**
-     * ÁÙÊ±Ôö¼Ólist ·â×°ÖØ¸´´úÂë
+     * ä¸´æ—¶å¢åŠ list å°è£…é‡å¤ä»£ç 
      * @param backboneResult
      * @param tempList
      * @param comandRes
@@ -216,21 +215,21 @@ public class Backbone {
 
 
     /**
-     * ¹Ç¸É¸ù¾İshow½á¹ûÀ´µÃµ½²ÎÊı£¬
-     * descriptionPE£¬oppositeIP£¬localIP
+     * éª¨å¹²æ ¹æ®showç»“æœæ¥å¾—åˆ°å‚æ•°ï¼Œ
+     * descriptionPEï¼ŒoppositeIPï¼ŒlocalIP
      * @param showResult
      * @return
      */
     public static Map<String, String> getParamByShow(String showResult) {
         Map<String, String> map = new HashMap<>();
         try {
-            String descriptionPE = "";//¶Ô¶Ëpe
-            String oppositeIP = "";//¶Ô¶Ëip
+            String descriptionPE = "";//å¯¹ç«¯pe
+            String oppositeIP = "";//å¯¹ç«¯ip
             String localIP = "";
-            String destinationIP="";//Ä¿µÄip
-            String destinationIPPrefix="";//Ä¿µÄipÇ°×º
-            String broadcastIP="";//Âß¼­ip
-            String postType="";//¶Ë¿ÚÀàĞÍ
+            String destinationIP="";//ç›®çš„ip
+            String destinationIPPrefix="";//ç›®çš„ipå‰ç¼€
+            String broadcastIP="";//é€»è¾‘ip
+            String postType="";//ç«¯å£ç±»å‹
             descriptionPE=CommonUtil.subByStringAndString(showResult," to "," ");
             localIP=CommonUtil.subByStringAndString(showResult,"Local:","\\n").trim();
             destinationIP=CommonUtil.subByStringAndString(showResult,"Destination:",",").trim();
@@ -238,9 +237,9 @@ public class Backbone {
             broadcastIP=CommonUtil.subByStringAndString(showResult,"Broadcast:","\\n").trim();
             destinationIPPrefix=CommonUtil.subByStringAndString(destinationIP,"","/").trim();
 
-            int destinationIPSuffix=0;//Ä¿µÄipºó×º
-            int broadcastIPSuffix=0;//Âß¼­ipºó×º
-            int localIPSuffix=0;//±¾µØipºó×º
+            int destinationIPSuffix=0;//ç›®çš„ipåç¼€
+            int broadcastIPSuffix=0;//é€»è¾‘ipåç¼€
+            int localIPSuffix=0;//æœ¬åœ°ipåç¼€
             localIPSuffix=Integer.valueOf(localIP.split("\\.")[3]);
             destinationIPSuffix=Integer.valueOf(destinationIPPrefix.split("\\.")[3]);
 
@@ -271,8 +270,8 @@ public class Backbone {
 
 
     /**
-     * ¸ù¾İdicksonµÄapiÀ´²éÑ¯Éè±¸µÄip¡£
-     * ËûµÄÊı¾İÔ´ÓÚ Combined Tool
+     * æ ¹æ®dicksonçš„apiæ¥æŸ¥è¯¢è®¾å¤‡çš„ipã€‚
+     * ä»–çš„æ•°æ®æºäº Combined Tool
      *
      * @return
      */
@@ -296,19 +295,19 @@ public class Backbone {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "GGWAPI²éÑ¯Éè±¸Á¬½ÓÒÑ¾­¹Ø±Õ";
+            return "GGWAPIæŸ¥è¯¢è®¾å¤‡è¿æ¥å·²ç»å…³é—­";
         }
     }
 
 
     /**
-     * ÑéÖ¤²ÎÊıÊÇ·ñÓĞÎÊÌâ
+     * éªŒè¯å‚æ•°æ˜¯å¦æœ‰é—®é¢˜
      */
     public static Map<String, String> validateParam(String jsonStr, BaseLog log) {
         Map<String, String> returnMap = new HashMap<>();
         returnMap.put("status", "N");
         if (StringUtil.isBlank(jsonStr)) {
-            returnMap.put("msg", "jsonStr²»ÄÜÎª¿Õ");
+            returnMap.put("msg", "jsonSträ¸èƒ½ä¸ºç©º");
             return returnMap;
         }
         String tempString = "";
@@ -317,39 +316,39 @@ public class Backbone {
             MTPA mtpa = JSONUtil.toBean(jsonStr, MTPA.class);
             List<PePort> pePorts = mtpa.getPePorts();
             if (StringUtil.isBlank(mtpa.getTicketName())) {
-                returnMap.put("msg", "ticketName ²»ÄÜÎª¿Õ");
+                returnMap.put("msg", "ticketName ä¸èƒ½ä¸ºç©º");
                 return returnMap;
             }
             if (StringUtil.isBlank(mtpa.getTense()) || (!mtpa.getTense().equals("before") && !mtpa.getTense().equals("after"))) {
-                returnMap.put("msg", "tense ²»ÄÜÎª¿ÕÇÒÖ»ÄÜÎªbefore»òÕßafter");
+                returnMap.put("msg", "tense ä¸èƒ½ä¸ºç©ºä¸”åªèƒ½ä¸ºbeforeæˆ–è€…after");
                 return returnMap;
 
             }
             if (null == pePorts || pePorts.size() == 0) {
-                returnMap.put("msg", "pePorts ±ØĞëÒªÓĞ²ÎÊı");
+                returnMap.put("msg", "pePorts å¿…é¡»è¦æœ‰å‚æ•°");
                 return returnMap;
             }
             for (PePort pePort : pePorts) {
                 String tcpType = pePort.getTcpType();
                 if (StringUtil.isBlank(tcpType)) {
-                    returnMap.put("msg", "tcpType ²»ÄÜÎª¿Õ");
+                    returnMap.put("msg", "tcpType ä¸èƒ½ä¸ºç©º");
                     return returnMap;
                 } else if (tcpType.equals("tcp")) {
                     if (StringUtil.isBlank(pePort.getInternalSiteId())) {
-                        returnMap.put("msg", "internalSiteId ²»ÄÜÎª¿Õ");
+                        returnMap.put("msg", "internalSiteId ä¸èƒ½ä¸ºç©º");
                         return returnMap;
                     }
                     if (StringUtil.isBlank(pePort.getPeRouter())) {
-                        returnMap.put("msg", "peRouter ²»ÄÜÎª¿Õ");
+                        returnMap.put("msg", "peRouter ä¸èƒ½ä¸ºç©º");
                         return returnMap;
                     }
                 } else if (tcpType.equals("bacbone")) {
                     if (StringUtil.isBlank(pePort.getCircuiltNumber())) {
-                        returnMap.put("msg", "CircuiltNumber ²»ÄÜÎª¿Õ");
+                        returnMap.put("msg", "CircuiltNumber ä¸èƒ½ä¸ºç©º");
                         return returnMap;
                     }
                     if (StringUtil.isBlank(pePort.getPeInterface())) {
-                        returnMap.put("msg", "PeInterface ²»ÄÜÎª¿Õ");
+                        returnMap.put("msg", "PeInterface ä¸èƒ½ä¸ºç©º");
                         return returnMap;
                     }
                 }
@@ -368,11 +367,11 @@ public class Backbone {
 
 
     /**
-     * ¸ù¾İ²ÎÊı »ñÈ¡ ggw Æ´½ÓµÄ±ØĞë²ÎÊı
+     * æ ¹æ®å‚æ•° è·å– ggw æ‹¼æ¥çš„å¿…é¡»å‚æ•°
      *
      * @param paramMap
-     * @param passwordType ÃÜÂëÀàĞÍ,Ä¬ÈÏ²»¼ÓÉÏ totp 6Î»ÊıÑéÖ¤Âë
-     * @param urlType      µÇÂ¼ÀàĞÍ login execute
+     * @param passwordType å¯†ç ç±»å‹,é»˜è®¤ä¸åŠ ä¸Š totp 6ä½æ•°éªŒè¯ç 
+     * @param urlType      ç™»å½•ç±»å‹ login execute
      * @return
      */
     public static String getGGWParamAssemble(Map<String, String> paramMap, String passwordType, String urlType) {
@@ -397,8 +396,8 @@ public class Backbone {
             String loginGGWSuffix = encryptAfterStr;//+ "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip");
             return loginGGWSuffix;
         } else if (!StrUtil.isBlank(urlType) && "execute".equals(urlType)) {
-            //System.out.println("¼ÓÃÜÇ° encrypt:"+ encrypt);
-            //System.out.println("¼ÓÃÜºó encrypt:"+ encryptAfterStr);
+            //System.out.println("åŠ å¯†å‰ encrypt:"+ encrypt);
+            //System.out.println("åŠ å¯†å encrypt:"+ encryptAfterStr);
             String executeSuffix = "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
             return executeSuffix;
         }
@@ -408,10 +407,10 @@ public class Backbone {
 
 
     /**
-     * ¸ù¾İ²ÎÊıÀ´µ÷ÓÃggwAPI Ö´ĞĞÃüÁî
+     * æ ¹æ®å‚æ•°æ¥è°ƒç”¨ggwAPI æ‰§è¡Œå‘½ä»¤
      *
-     * @param paramMap paramMap²ÎÊı£¬username:opÕËºÅ£¬password:opÃÜÂë,sign£º¶ÔÓ¦µÄ·ÃÎÊ±ê¼Ç£¬Ò»¸öopÍ¬Ò»¸öÊ±¼ä¶ÎÖ»ÄÜÓĞ6¸ö£¬command:ÃüÁî£¬ip:µÇÂ¼µ½ggw¶ÔÓ¦µÄip
-     * @return Õı³£¶ÔÓ¦µÄ×´Ì¬ÂëºÍÖ´ĞĞÃüÁîµÄ×´Ì¬
+     * @param paramMap paramMapå‚æ•°ï¼Œusername:opè´¦å·ï¼Œpassword:opå¯†ç ,signï¼šå¯¹åº”çš„è®¿é—®æ ‡è®°ï¼Œä¸€ä¸ªopåŒä¸€ä¸ªæ—¶é—´æ®µåªèƒ½æœ‰6ä¸ªï¼Œcommand:å‘½ä»¤ï¼Œip:ç™»å½•åˆ°ggwå¯¹åº”çš„ip
+     * @return æ­£å¸¸å¯¹åº”çš„çŠ¶æ€ç å’Œæ‰§è¡Œå‘½ä»¤çš„çŠ¶æ€
      */
     public static String getGGWAPITotp(Map<String, String> paramMap) {
         String result = null;
@@ -442,9 +441,9 @@ public class Backbone {
 
                 result = HttpUtil.get(url);
             } catch (Exception e) {
-                System.out.println(e.getCause().getMessage());//»ñÈ¡Òì³£ĞÅÏ¢
+                System.out.println(e.getCause().getMessage());//è·å–å¼‚å¸¸ä¿¡æ¯
                 e.printStackTrace();
-                result = "error£»" + e.getCause().getMessage();
+                result = "errorï¼›" + e.getCause().getMessage();
             }
         } catch (HttpException e) {
             e.printStackTrace();
@@ -462,34 +461,34 @@ public class Backbone {
         try {
             Map<String, String> lastTimeMap = new HashMap<>();
             lastTimeMap = ipLastLoginTimeMap.get(paramMap.get("ip"));
-            Long intervalTime = 601L;//Ä¬ÈÏÊÇÒÑ¾­³¬Ê±£¬²¢Ã»ÓĞµÇÂ¼×´Ì¬
+            Long intervalTime = 601L;//é»˜è®¤æ˜¯å·²ç»è¶…æ—¶ï¼Œå¹¶æ²¡æœ‰ç™»å½•çŠ¶æ€
             if (lastTimeMap != null || (lastTimeMap != null && lastTimeMap.get(tempSgin) == null)) {
                 //ip>sign>op;lastTime
                 String opName = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[0];
                 String tempLoginLastTime = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[1];
                 Long ipLastLoginTime = Long.valueOf(tempLoginLastTime) * 1000L;
-                //¶ÔÓ¦µÄip¾àÀëÉÏ´ÎµÇÂ½µÄÊ±¼ä¼ä¸ô 600 ÃëµÇÂ¼×´Ì¬Ê§Ğ§
+                //å¯¹åº”çš„ipè·ç¦»ä¸Šæ¬¡ç™»é™†çš„æ—¶é—´é—´éš” 600 ç§’ç™»å½•çŠ¶æ€å¤±æ•ˆ
                 intervalTime = DateUtil.between(DateUtil.date(ipLastLoginTime), new Date(), DateUnit.SECOND);
             }
 
             if (intervalTime.intValue() < 600) {
-                int loginNumber = 2;//²ÎÊıµÇÂ¼´ÎÊı
+                int loginNumber = 2;//å‚æ•°ç™»å½•æ¬¡æ•°
                 Map<String, String> tempMap = new HashMap<>();
                 Map<String, String> tempTotpMap = new HashMap<>();
 
              /*   String methodType = "execute";
                 String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
-                log.info("ÑéÖ¤ÂëÖ´·½Ê½ĞĞÃüÁî url£º\n" + totpUrl);
+                log.info("éªŒè¯ç æ‰§æ–¹å¼è¡Œå‘½ä»¤ urlï¼š\n" + totpUrl);
                 tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
                 return tempTotpMap;*/
                 for (int i = 1; i <= loginNumber; i++) {
                     String methodType = "execute";
                     String url = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
-                    log.info("µÚ" + i + "´Î,ÎŞÑéÖ¤Âë·½Ê½Ö´ĞĞÃüÁî url£º\n" + url);
+                    log.info("ç¬¬" + i + "æ¬¡,æ— éªŒè¯ç æ–¹å¼æ‰§è¡Œå‘½ä»¤ urlï¼š\n" + url);
                     tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
                     if (!StrUtil.isBlank(tempMap.get("error"))) {
                         String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
-                        log.info("µÚ" + i + "´Î,ÑéÖ¤ÂëÖ´·½Ê½ĞĞÃüÁî url£º\n" + totpUrl);
+                        log.info("ç¬¬" + i + "æ¬¡,éªŒè¯ç æ‰§æ–¹å¼è¡Œå‘½ä»¤ urlï¼š\n" + totpUrl);
                         tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
                         if ((!StrUtil.isBlank(tempTotpMap.get("error")) && i == loginNumber) || !StrUtil.isBlank(tempTotpMap.get("pass"))) {
                             return tempTotpMap;
@@ -502,11 +501,11 @@ public class Backbone {
                 }
             } else {
                 String methodType = "login";
-                int loginNumber = 2;//²ÎÊıµÇÂ¼´ÎÊı
+                int loginNumber = 2;//å‚æ•°ç™»å½•æ¬¡æ•°
                 Map<String, String> tempMap = new HashMap<>();
                 for (int i = 1; i <= loginNumber; i++) {
                     String url = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
-                    log.info("µÚ" + i + "´Î,µÇÂ¼µ½ggw»ñÈ¡session url£º\n" + url);
+                    log.info("ç¬¬" + i + "æ¬¡,ç™»å½•åˆ°ggwè·å–session urlï¼š\n" + url);
                     tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
                     if ((!StrUtil.isBlank(tempMap.get("error")) && i == loginNumber)) {
                         return tempMap;
@@ -528,11 +527,11 @@ public class Backbone {
 
 
     /**
-     * Ö´ĞĞÃüÁîÀàĞÍ
+     * æ‰§è¡Œå‘½ä»¤ç±»å‹
      *
      * @param url
      * @param paramMap
-     * @param methodType Ö´ĞĞµÄ·½·¨£¬µÇÂ¼£ºlogin£¬Ö´ĞĞ£ºexecute
+     * @param methodType æ‰§è¡Œçš„æ–¹æ³•ï¼Œç™»å½•ï¼šloginï¼Œæ‰§è¡Œï¼šexecute
      * @param log
      * @return
      */
@@ -594,8 +593,8 @@ public class Backbone {
 
 
     /**
-     * ¸ù¾İdicksonµÄapiÀ´²éÑ¯Éè±¸µÄip¡£
-     * ËûµÄÊı¾İÔ´ÓÚ Combined Tool
+     * æ ¹æ®dicksonçš„apiæ¥æŸ¥è¯¢è®¾å¤‡çš„ipã€‚
+     * ä»–çš„æ•°æ®æºäº Combined Tool
      *
      * @return
      */
@@ -619,13 +618,13 @@ public class Backbone {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "GGWAPI²éÑ¯Éè±¸Á¬½ÓÒÑ¾­¹Ø±Õ";
+            return "GGWAPIæŸ¥è¯¢è®¾å¤‡è¿æ¥å·²ç»å…³é—­";
         }
     }
 
     /**
-     * ¸ù¾İ¹Ç¸É×Ö·û´®»ñÈ¡¶ÔÓ¦µÄ¹Ç¸ÉList
-     * error ´æÔÚ¸ñÊ½´íÎó,peName interfaceName
+     * æ ¹æ®éª¨å¹²å­—ç¬¦ä¸²è·å–å¯¹åº”çš„éª¨å¹²List
+     * error å­˜åœ¨æ ¼å¼é”™è¯¯,peName interfaceName
      *
      * @param backboneStr
      * @return
@@ -659,7 +658,7 @@ public class Backbone {
     }
 
     /**
-     * ¼ì²éÓĞ¶àÉÙÌõbackbone
+     * æ£€æŸ¥æœ‰å¤šå°‘æ¡backbone
      *
      * @param backbone
      * @return

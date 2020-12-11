@@ -11,8 +11,8 @@ public class MTPA {
 
     private String ticketName;
     private List<PePort> pePorts = new ArrayList<PePort>();
-    private String tense;//做维护前  还是之后
-    private String internalSiteIdAll;//用于接收所有的 siteid
+    private String tense;//鍋氱淮鎶ゅ墠  杩樻槸涔嬪悗
+    private String internalSiteIdAll;//鐢ㄤ簬鎺ユ敹鎵�鏈夌殑 siteid
 
 
     public String getTense() {

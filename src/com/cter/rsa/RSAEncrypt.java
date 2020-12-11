@@ -18,16 +18,16 @@ import java.security.spec.X509EncodedKeySpec;
 
 public class RSAEncrypt {
     /**
-     * ×Ö½ÚÊı¾İ×ª×Ö·û´®×¨ÓÃ¼¯ºÏ
+     * å­—èŠ‚æ•°æ®è½¬å­—ç¬¦ä¸²ä¸“ç”¨é›†åˆ
      */
     private static final char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5', '6',
             '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
-     * Ëæ»úÉú³ÉÃÜÔ¿¶Ô
+     * éšæœºç”Ÿæˆå¯†é’¥å¯¹
      */
     public static void genKeyPair(String filePath) {
-        // KeyPairGeneratorÀàÓÃÓÚÉú³É¹«Ô¿ºÍË½Ô¿¶Ô£¬»ùÓÚRSAËã·¨Éú³É¶ÔÏó
+        // KeyPairGeneratorç±»ç”¨äºç”Ÿæˆå…¬é’¥å’Œç§é’¥å¯¹ï¼ŒåŸºäºRSAç®—æ³•ç”Ÿæˆå¯¹è±¡
         KeyPairGenerator keyPairGen = null;
         try {
             keyPairGen = KeyPairGenerator.getInstance("RSA");
@@ -35,21 +35,21 @@ public class RSAEncrypt {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // ³õÊ¼»¯ÃÜÔ¿¶ÔÉú³ÉÆ÷£¬ÃÜÔ¿´óĞ¡Îª96-1024Î»
+        // åˆå§‹åŒ–å¯†é’¥å¯¹ç”Ÿæˆå™¨ï¼Œå¯†é’¥å¤§å°ä¸º96-1024ä½
         keyPairGen.initialize(2048, new SecureRandom());
-        // Éú³ÉÒ»¸öÃÜÔ¿¶Ô£¬±£´æÔÚkeyPairÖĞ
+        // ç”Ÿæˆä¸€ä¸ªå¯†é’¥å¯¹ï¼Œä¿å­˜åœ¨keyPairä¸­
         KeyPair keyPair = keyPairGen.generateKeyPair();
-        // µÃµ½Ë½Ô¿
+        // å¾—åˆ°ç§é’¥
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        // µÃµ½¹«Ô¿
+        // å¾—åˆ°å…¬é’¥
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         try {
 
-            // µÃµ½¹«Ô¿×Ö·û´®
+            // å¾—åˆ°å…¬é’¥å­—ç¬¦ä¸²
             String publicKeyString = Base64.encode(publicKey.getEncoded());
-            // µÃµ½Ë½Ô¿×Ö·û´®
+            // å¾—åˆ°ç§é’¥å­—ç¬¦ä¸²
             String privateKeyString = Base64.encode(privateKey.getEncoded());
-            // ½«ÃÜÔ¿¶ÔĞ´Èëµ½ÎÄ¼ş
+            // å°†å¯†é’¥å¯¹å†™å…¥åˆ°æ–‡ä»¶
             FileWriter pubfw = new FileWriter(filePath + "/publicKey.keystore");
             FileWriter prifw = new FileWriter(filePath + "/privateKey.keystore");
             BufferedWriter pubbw = new BufferedWriter(pubfw);
@@ -69,10 +69,10 @@ public class RSAEncrypt {
 
 
     /**
-     * ´ÓÎÄ¼şÖĞÊäÈëÁ÷ÖĞ¼ÓÔØ¹«Ô¿
+     * ä»æ–‡ä»¶ä¸­è¾“å…¥æµä¸­åŠ è½½å…¬é’¥
      *
-     * @param path ¹«Ô¿ÊäÈëÁ÷
-     * @throws Exception ¼ÓÔØ¹«Ô¿Ê±²úÉúµÄÒì³£
+     * @param path å…¬é’¥è¾“å…¥æµ
+     * @throws Exception åŠ è½½å…¬é’¥æ—¶äº§ç”Ÿçš„å¼‚å¸¸
      */
     public static String loadPublicKeyByFile(String path) throws Exception {
         try {
@@ -86,17 +86,17 @@ public class RSAEncrypt {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new Exception("¹«Ô¿Êı¾İÁ÷¶ÁÈ¡´íÎó");
+            throw new Exception("å…¬é’¥æ•°æ®æµè¯»å–é”™è¯¯");
         } catch (NullPointerException e) {
-            throw new Exception("¹«Ô¿ÊäÈëÁ÷Îª¿Õ");
+            throw new Exception("å…¬é’¥è¾“å…¥æµä¸ºç©º");
         }
     }
 
     /**
-     * ´Ó×Ö·û´®ÖĞ¼ÓÔØ¹«Ô¿
+     * ä»å­—ç¬¦ä¸²ä¸­åŠ è½½å…¬é’¥
      *
-     * @param publicKeyStr ¹«Ô¿Êı¾İ×Ö·û´®
-     * @throws Exception ¼ÓÔØ¹«Ô¿Ê±²úÉúµÄÒì³£
+     * @param publicKeyStr å…¬é’¥æ•°æ®å­—ç¬¦ä¸²
+     * @throws Exception åŠ è½½å…¬é’¥æ—¶äº§ç”Ÿçš„å¼‚å¸¸
      */
     public static RSAPublicKey loadPublicKeyByStr(String publicKeyStr)
             throws Exception {
@@ -117,21 +117,21 @@ public class RSAEncrypt {
             return publicKey;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            throw new Exception("ÎŞ´ËËã·¨");
+            throw new Exception("æ— æ­¤ç®—æ³•");
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
-            throw new Exception("¹«Ô¿·Ç·¨");
+            throw new Exception("å…¬é’¥éæ³•");
         } catch (NullPointerException e) {
             e.printStackTrace();
-            throw new Exception("¹«Ô¿Êı¾İÎª¿Õ");
+            throw new Exception("å…¬é’¥æ•°æ®ä¸ºç©º");
         }
     }
 
     /**
-     * ´ÓÎÄ¼şÖĞ¼ÓÔØË½Ô¿
-     * s     * @param path Ë½Ô¿ÎÄ¼şÃû
+     * ä»æ–‡ä»¶ä¸­åŠ è½½ç§é’¥
+     * s     * @param path ç§é’¥æ–‡ä»¶å
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      * @throws Exception
      */
     public static String loadPrivateKeyByFile(String path) throws Exception {
@@ -146,9 +146,9 @@ public class RSAEncrypt {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new Exception("Ë½Ô¿Êı¾İ¶ÁÈ¡´íÎó");
+            throw new Exception("ç§é’¥æ•°æ®è¯»å–é”™è¯¯");
         } catch (NullPointerException e) {
-            throw new Exception("Ë½Ô¿ÊäÈëÁ÷Îª¿Õ");
+            throw new Exception("ç§é’¥è¾“å…¥æµä¸ºç©º");
         }
     }
 
@@ -171,169 +171,169 @@ public class RSAEncrypt {
             return rsaPrivateKey;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            throw new Exception("ÎŞ´ËËã·¨");
+            throw new Exception("æ— æ­¤ç®—æ³•");
         } catch (NullPointerException e) {
             e.printStackTrace();
-            throw new Exception("Ë½Ô¿Êı¾İÎª¿Õ");
+            throw new Exception("ç§é’¥æ•°æ®ä¸ºç©º");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Ë½Ô¿Êı¾İÎª¿Õ");
+            throw new Exception("ç§é’¥æ•°æ®ä¸ºç©º");
         }
     }
 
     /**
-     * ¹«Ô¿¼ÓÃÜ¹ı³Ì
+     * å…¬é’¥åŠ å¯†è¿‡ç¨‹
      *
-     * @param publicKey     ¹«Ô¿
-     * @param plainTextData Ã÷ÎÄÊı¾İ
+     * @param publicKey     å…¬é’¥
+     * @param plainTextData æ˜æ–‡æ•°æ®
      * @return
-     * @throws Exception ¼ÓÃÜ¹ı³ÌÖĞµÄÒì³£ĞÅÏ¢
+     * @throws Exception åŠ å¯†è¿‡ç¨‹ä¸­çš„å¼‚å¸¸ä¿¡æ¯
      */
     public static byte[] encrypt(RSAPublicKey publicKey, byte[] plainTextData)
             throws Exception {
         if (publicKey == null) {
-            throw new Exception("¼ÓÃÜ¹«Ô¿Îª¿Õ, ÇëÉèÖÃ");
+            throw new Exception("åŠ å¯†å…¬é’¥ä¸ºç©º, è¯·è®¾ç½®");
         }
         Cipher cipher = null;
         try {
-            // Ê¹ÓÃÄ¬ÈÏRSA
+            // ä½¿ç”¨é»˜è®¤RSA
             cipher = Cipher.getInstance("RSA");
             // cipher= Cipher.getInstance("RSA", new BouncyCastleProvider());
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             byte[] output = cipher.doFinal(plainTextData);
             return output;
         } catch (NoSuchAlgorithmException e) {
-            throw new Exception("ÎŞ´Ë¼ÓÃÜËã·¨");
+            throw new Exception("æ— æ­¤åŠ å¯†ç®—æ³•");
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
             return null;
         } catch (InvalidKeyException e) {
-            throw new Exception("¼ÓÃÜ¹«Ô¿·Ç·¨,Çë¼ì²é");
+            throw new Exception("åŠ å¯†å…¬é’¥éæ³•,è¯·æ£€æŸ¥");
         } catch (IllegalBlockSizeException e) {
             e.printStackTrace();
-            throw new Exception("Ã÷ÎÄ³¤¶È·Ç·¨");
+            throw new Exception("æ˜æ–‡é•¿åº¦éæ³•");
         } catch (BadPaddingException e) {
             e.printStackTrace();
-            throw new Exception("Ã÷ÎÄÊı¾İÒÑËğ»µ");
+            throw new Exception("æ˜æ–‡æ•°æ®å·²æŸå");
         }
     }
 
     /**
-     * Ë½Ô¿¼ÓÃÜ¹ı³Ì
+     * ç§é’¥åŠ å¯†è¿‡ç¨‹
      *
-     * @param privateKey    Ë½Ô¿
-     * @param plainTextData Ã÷ÎÄÊı¾İ
+     * @param privateKey    ç§é’¥
+     * @param plainTextData æ˜æ–‡æ•°æ®
      * @return
-     * @throws Exception ¼ÓÃÜ¹ı³ÌÖĞµÄÒì³£ĞÅÏ¢
+     * @throws Exception åŠ å¯†è¿‡ç¨‹ä¸­çš„å¼‚å¸¸ä¿¡æ¯
      */
     public static byte[] encrypt(RSAPrivateKey privateKey, byte[] plainTextData)
             throws Exception {
         if (privateKey == null) {
-            throw new Exception("¼ÓÃÜË½Ô¿Îª¿Õ, ÇëÉèÖÃ");
+            throw new Exception("åŠ å¯†ç§é’¥ä¸ºç©º, è¯·è®¾ç½®");
         }
         Cipher cipher = null;
         try {
-            // Ê¹ÓÃÄ¬ÈÏRSA
+            // ä½¿ç”¨é»˜è®¤RSA
             cipher = Cipher.getInstance("RSA");
             cipher.init(Cipher.ENCRYPT_MODE, privateKey);
             byte[] output = cipher.doFinal(plainTextData);
             return output;
         } catch (NoSuchAlgorithmException e) {
-            throw new Exception("ÎŞ´Ë¼ÓÃÜËã·¨");
+            throw new Exception("æ— æ­¤åŠ å¯†ç®—æ³•");
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
             return null;
         } catch (InvalidKeyException e) {
-            throw new Exception("¼ÓÃÜË½Ô¿·Ç·¨,Çë¼ì²é");
+            throw new Exception("åŠ å¯†ç§é’¥éæ³•,è¯·æ£€æŸ¥");
         } catch (IllegalBlockSizeException e) {
-            throw new Exception("Ã÷ÎÄ³¤¶È·Ç·¨");
+            throw new Exception("æ˜æ–‡é•¿åº¦éæ³•");
         } catch (BadPaddingException e) {
-            throw new Exception("Ã÷ÎÄÊı¾İÒÑËğ»µ");
+            throw new Exception("æ˜æ–‡æ•°æ®å·²æŸå");
         }
     }
 
     /**
-     * Ë½Ô¿½âÃÜ¹ı³Ì
+     * ç§é’¥è§£å¯†è¿‡ç¨‹
      *
-     * @param privateKey Ë½Ô¿
-     * @param cipherData ÃÜÎÄÊı¾İ
-     * @return Ã÷ÎÄ
-     * @throws Exception ½âÃÜ¹ı³ÌÖĞµÄÒì³£ĞÅÏ¢
+     * @param privateKey ç§é’¥
+     * @param cipherData å¯†æ–‡æ•°æ®
+     * @return æ˜æ–‡
+     * @throws Exception è§£å¯†è¿‡ç¨‹ä¸­çš„å¼‚å¸¸ä¿¡æ¯
      */
     public static byte[] decrypt(RSAPrivateKey privateKey, byte[] cipherData)
             throws Exception {
         if (privateKey == null) {
-            throw new Exception("½âÃÜË½Ô¿Îª¿Õ, ÇëÉèÖÃ");
+            throw new Exception("è§£å¯†ç§é’¥ä¸ºç©º, è¯·è®¾ç½®");
         }
         Cipher cipher = null;
         try {
-            // Ê¹ÓÃÄ¬ÈÏRSA
+            // ä½¿ç”¨é»˜è®¤RSA
             cipher = Cipher.getInstance("RSA");
             // cipher= Cipher.getInstance("RSA", new BouncyCastleProvider());
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] output = cipher.doFinal(cipherData);
             return output;
         } catch (NoSuchAlgorithmException e) {
-            throw new Exception("ÎŞ´Ë½âÃÜËã·¨");
+            throw new Exception("æ— æ­¤è§£å¯†ç®—æ³•");
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
             return null;
         } catch (InvalidKeyException e) {
-            throw new Exception("½âÃÜË½Ô¿·Ç·¨,Çë¼ì²é");
+            throw new Exception("è§£å¯†ç§é’¥éæ³•,è¯·æ£€æŸ¥");
         } catch (IllegalBlockSizeException e) {
-            throw new Exception("ÃÜÎÄ³¤¶È·Ç·¨");
+            throw new Exception("å¯†æ–‡é•¿åº¦éæ³•");
         } catch (BadPaddingException e) {
-            throw new Exception("ÃÜÎÄÊı¾İÒÑËğ»µ");
+            throw new Exception("å¯†æ–‡æ•°æ®å·²æŸå");
         }
     }
 
     /**
-     * ¹«Ô¿½âÃÜ¹ı³Ì
+     * å…¬é’¥è§£å¯†è¿‡ç¨‹
      *
-     * @param publicKey  ¹«Ô¿
-     * @param cipherData ÃÜÎÄÊı¾İ
-     * @return Ã÷ÎÄ
-     * @throws Exception ½âÃÜ¹ı³ÌÖĞµÄÒì³£ĞÅÏ¢
+     * @param publicKey  å…¬é’¥
+     * @param cipherData å¯†æ–‡æ•°æ®
+     * @return æ˜æ–‡
+     * @throws Exception è§£å¯†è¿‡ç¨‹ä¸­çš„å¼‚å¸¸ä¿¡æ¯
      */
     public static byte[] decrypt(RSAPublicKey publicKey, byte[] cipherData)
             throws Exception {
         if (publicKey == null) {
-            throw new Exception("½âÃÜ¹«Ô¿Îª¿Õ, ÇëÉèÖÃ");
+            throw new Exception("è§£å¯†å…¬é’¥ä¸ºç©º, è¯·è®¾ç½®");
         }
         Cipher cipher = null;
         try {
-            // Ê¹ÓÃÄ¬ÈÏRSA
+            // ä½¿ç”¨é»˜è®¤RSA
             cipher = Cipher.getInstance("RSA");
             // cipher= Cipher.getInstance("RSA", new BouncyCastleProvider());
             cipher.init(Cipher.DECRYPT_MODE, publicKey);
             byte[] output = cipher.doFinal(cipherData);
             return output;
         } catch (NoSuchAlgorithmException e) {
-            throw new Exception("ÎŞ´Ë½âÃÜËã·¨");
+            throw new Exception("æ— æ­¤è§£å¯†ç®—æ³•");
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
             return null;
         } catch (InvalidKeyException e) {
-            throw new Exception("½âÃÜ¹«Ô¿·Ç·¨,Çë¼ì²é");
+            throw new Exception("è§£å¯†å…¬é’¥éæ³•,è¯·æ£€æŸ¥");
         } catch (IllegalBlockSizeException e) {
-            throw new Exception("ÃÜÎÄ³¤¶È·Ç·¨");
+            throw new Exception("å¯†æ–‡é•¿åº¦éæ³•");
         } catch (BadPaddingException e) {
-            throw new Exception("ÃÜÎÄÊı¾İÒÑËğ»µ");
+            throw new Exception("å¯†æ–‡æ•°æ®å·²æŸå");
         }
     }
 
     /**
-     * ×Ö½ÚÊı¾İ×ªÊ®Áù½øÖÆ×Ö·û´®
+     * å­—èŠ‚æ•°æ®è½¬åå…­è¿›åˆ¶å­—ç¬¦ä¸²
      *
-     * @param data ÊäÈëÊı¾İ
-     * @return Ê®Áù½øÖÆÄÚÈİ
+     * @param data è¾“å…¥æ•°æ®
+     * @return åå…­è¿›åˆ¶å†…å®¹
      */
     public static String byteArrayToString(byte[] data) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < data.length; i++) {
-            // È¡³ö×Ö½ÚµÄ¸ßËÄÎ» ×÷ÎªË÷ÒıµÃµ½ÏàÓ¦µÄÊ®Áù½øÖÆ±êÊ¶·û ×¢ÒâÎŞ·ûºÅÓÒÒÆ
+            // å–å‡ºå­—èŠ‚çš„é«˜å››ä½ ä½œä¸ºç´¢å¼•å¾—åˆ°ç›¸åº”çš„åå…­è¿›åˆ¶æ ‡è¯†ç¬¦ æ³¨æ„æ— ç¬¦å·å³ç§»
             stringBuilder.append(HEX_CHAR[(data[i] & 0xf0) >>> 4]);
-            // È¡³ö×Ö½ÚµÄµÍËÄÎ» ×÷ÎªË÷ÒıµÃµ½ÏàÓ¦µÄÊ®Áù½øÖÆ±êÊ¶·û
+            // å–å‡ºå­—èŠ‚çš„ä½å››ä½ ä½œä¸ºç´¢å¼•å¾—åˆ°ç›¸åº”çš„åå…­è¿›åˆ¶æ ‡è¯†ç¬¦
             stringBuilder.append(HEX_CHAR[(data[i] & 0x0f)]);
             if (i < data.length - 1) {
                 stringBuilder.append(' ');
@@ -343,10 +343,10 @@ public class RSAEncrypt {
     }
 
     /**
-     * Ë½Ô¿¼ÓÃÜ
+     * ç§é’¥åŠ å¯†
      *
-     * @param publicKey Ë½Ô¿×Ö·û´®
-     * @param plainText ĞèÒª¼ÓÃÜµÄË½Ô¿
+     * @param publicKey ç§é’¥å­—ç¬¦ä¸²
+     * @param plainText éœ€è¦åŠ å¯†çš„ç§é’¥
      * @return
      */
     public static String privateKeyEncrypt(String publicKey, String plainText) {
@@ -356,16 +356,16 @@ public class RSAEncrypt {
             encryptAfterStr = Base64.encode(cipherData);
         } catch (Exception e) {
             e.printStackTrace();
-            encryptAfterStr = "error£ºEncrypt fail";
+            encryptAfterStr = "errorï¼šEncrypt fail";
         }
         return encryptAfterStr;
     }
 
 
     /**
-     * ×ª»»×Ö·ûÎªÎÄ¼ş±àÂë
+     * è½¬æ¢å­—ç¬¦ä¸ºæ–‡ä»¶ç¼–ç 
      *
-     * @param str ×Ö·û
+     * @param str å­—ç¬¦
      * @return
      */
     public static String urlReplace(String str) {
@@ -381,7 +381,7 @@ public class RSAEncrypt {
     }
 
     /**
-     * Ê¹ÓÃggwapiµÄ¹«Ô¿À´¼ÓÃÜ×Ö·û´®
+     * ä½¿ç”¨ggwapiçš„å…¬é’¥æ¥åŠ å¯†å­—ç¬¦ä¸²
      *
      * @param plainText
      * @return
@@ -395,7 +395,7 @@ public class RSAEncrypt {
                 "Nfze1Y4ACyfvRczHEGxFEC9X7tj/Rcy2gmC9JCErxDQAHitX8DJrKtoeSJN8GvZZ\n" +
                 "JQIDAQAB";
 
-        //ÎÒ×Ô¼ºµÄ½Ó¿Ú
+        //æˆ‘è‡ªå·±çš„æ¥å£
      /*   publicKey="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmfu1E99t4bllV+DddFUZ\n" +
                 "xOSSvGMfoGbg/EEEL/tX5oW609k4kjwFQPgqh11q/KjkRBYoTJ/sF3r4wbNMxqBi\n" +
                 "AtIL//gVLNmhWeXQ1VuDV8RFhOhWtjFR7eS5GIq+5fzYQX5BKI3/I/DFGh09mNI8\n" +

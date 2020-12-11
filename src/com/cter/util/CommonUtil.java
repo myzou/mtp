@@ -15,14 +15,14 @@ import org.apache.struts2.StrutsConstants;
 import org.springframework.util.StringUtils;
 
 /**
- * ¼òµ¥µÄ¹¤¾ßÀà
+ * ç®€å•çš„å·¥å…·ç±»
  *
  * @author op1768
  */
 public class CommonUtil {
 
     /**
-     * »ñÈ¡list¶ÔÏóµÚÒ»¸öÔªËØ
+     * è·å–listå¯¹è±¡ç¬¬ä¸€ä¸ªå…ƒç´ 
      *
      * @param list
      * @return
@@ -58,12 +58,12 @@ public class CommonUtil {
 
 
     /**
-     * ½ØÈ¡Ò»¸ö×Ö·û´®ÖĞ´ÓÊ²Ã´¿ªÊ¼µ½Ê²Ã´½áÊøµÄÖĞ¼ä×Ö·û´®
+     * æˆªå–ä¸€ä¸ªå­—ç¬¦ä¸²ä¸­ä»ä»€ä¹ˆå¼€å§‹åˆ°ä»€ä¹ˆç»“æŸçš„ä¸­é—´å­—ç¬¦ä¸²
      * subByStringAndString("abcdefg","b","f") > cde
      *
-     * @param initStr ³õÊ¼×Ö·û´®
-     * @param prefix  Ç°×º
-     * @param suffix  ºó×º
+     * @param initStr åˆå§‹å­—ç¬¦ä¸²
+     * @param prefix  å‰ç¼€
+     * @param suffix  åç¼€
      * @return
      */
     public static String subByStringAndString(String initStr, String prefix, String suffix) {
@@ -107,8 +107,8 @@ public class CommonUtil {
 
 
     /**
-     * ¸ù¾İlist ÅĞ¶ÏÈ»ºó
-     * ·µ»Ølist »òÕßnull
+     * æ ¹æ®list åˆ¤æ–­ç„¶å
+     * è¿”å›list æˆ–è€…null
      *
      * @param list
      * @return
@@ -121,9 +121,9 @@ public class CommonUtil {
     }
 
     /**
-     * ¸ù¾İlist ÅĞ¶ÏÈ»ºó
-     * list ²»Îª¿Õ,´óĞ¡´óÓÚ0£¬·µ»Øtrue
-     * ·ñÔò·µ»Øfalse
+     * æ ¹æ®list åˆ¤æ–­ç„¶å
+     * list ä¸ä¸ºç©º,å¤§å°å¤§äº0ï¼Œè¿”å›true
+     * å¦åˆ™è¿”å›false
      *
      * @param list
      * @return
@@ -139,7 +139,7 @@ public class CommonUtil {
     }
 
     /**
-     * °ÑÊı×é¶ÔÏó×ª»»String×Ö·û´®
+     * æŠŠæ•°ç»„å¯¹è±¡è½¬æ¢Stringå­—ç¬¦ä¸²
      *
      * @param stringArray
      * @return
@@ -167,10 +167,10 @@ public class CommonUtil {
     }
 
     /**
-     * °Ñ¼òµ¥µÄjson¶ÔÏó×Ö·û´®×ª»»Îªmap
+     * æŠŠç®€å•çš„jsonå¯¹è±¡å­—ç¬¦ä¸²è½¬æ¢ä¸ºmap
      *
      * @param jsonStr
-     * @return ¼òµ¥×Ö·û´®Map<String, String>
+     * @return ç®€å•å­—ç¬¦ä¸²Map<String, String>
      */
     public static Map<String, String> simpleJson2Map(String jsonStr) {
         Map<String, String> map = new HashMap<String, String>();
@@ -185,19 +185,19 @@ public class CommonUtil {
     }
 
     /**
-     * °Ñ¸´ÔÓµÄjson¶ÔÏó×Ö·û´®×ª»»Îªmap
+     * æŠŠå¤æ‚çš„jsonå¯¹è±¡å­—ç¬¦ä¸²è½¬æ¢ä¸ºmap
      *
      * @param jsonStr
-     * @return ¶à²ã  Map<String ,Object >
+     * @return å¤šå±‚  Map<String ,Object >
      */
     public static Map<String, Object> complexJson2Map(String jsonStr) {
         Map<String, Object> map = new HashMap<String, Object>();
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         Iterator<Object> iterator = jsonObject.keys();
         while (iterator.hasNext()) {
-            //±éÀú¼ü
+            //éå†é”®
             Object key = iterator.next();
-            //×îÍâ²ã½âÎö
+            //æœ€å¤–å±‚è§£æ
             Object value = jsonObject.get(key);
             if (value instanceof JSONArray) {
                 List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -211,7 +211,7 @@ public class CommonUtil {
                 String aaa = ((JSONObject) value).toString();
                 map.put(key.toString(), complexJson2Map(aaa));
             } else if (value instanceof String) {
-                //ÆÕÍ¨String
+                //æ™®é€šString
                 map.put(key.toString(), value.toString());
             } else {
                 map.put(key.toString(), value);
@@ -222,25 +222,25 @@ public class CommonUtil {
     }
 
     /**
-     * »ñÈ¡InputStream ÖĞÄÚÈİ
+     * è·å–InputStream ä¸­å†…å®¹
      *
      * @param in
      * @return
      */
     public static String readStream(InputStream in) {
         try {
-            //1.´´½¨×Ö½ÚÁ÷Êı×éÊä³öÁ÷£¬ÓÃÀ´Êä³ö¶ÁÈ¡µ½µÄÄÚÈİ
+            //1.åˆ›å»ºå­—èŠ‚æµæ•°ç»„è¾“å‡ºæµï¼Œç”¨æ¥è¾“å‡ºè¯»å–åˆ°çš„å†…å®¹
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //2.´´½¨»º´æ´óĞ¡
-            byte[] buffer = new byte[1024];//1kb ,1kb ÓĞ1024×Ö½Ú
+            //2.åˆ›å»ºç¼“å­˜å¤§å°
+            byte[] buffer = new byte[1024];//1kb ,1kb æœ‰1024å­—èŠ‚
             int len = -1;
-            //3.¶ÁÈ¡ÊäÈëÁ÷ÖĞµÄÄÚÈİ
+            //3.è¯»å–è¾“å…¥æµä¸­çš„å†…å®¹
             while ((len = in.read(buffer)) != -1) {
                 baos.write(buffer, 0, len);
             }
-            //4 Ö±½ÓÊı×é×ª»»Îª×Ö·û´®
+            //4 ç›´æ¥æ•°ç»„è½¬æ¢ä¸ºå­—ç¬¦ä¸²
             String content = baos.toString();
-            //5.×ÊÔ´
+            //5.èµ„æº
             baos.close();
             return content;
 
@@ -251,10 +251,10 @@ public class CommonUtil {
     }
 
     /**
-     * ÅĞ¶Ï×Ö·û´®ÊÇ²»ÊÇJSON×Ö·û´®
+     * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯ä¸æ˜¯JSONå­—ç¬¦ä¸²
      *
-     * @param str JSON×Ö·û´®
-     * @return ÊÇ×Ö·û´®·µ»Øtrue£¬²»ÊÇ·µ»Øfalse
+     * @param str JSONå­—ç¬¦ä¸²
+     * @return æ˜¯å­—ç¬¦ä¸²è¿”å›trueï¼Œä¸æ˜¯è¿”å›false
      */
     public static boolean isJsonStr(String str) {
         try {

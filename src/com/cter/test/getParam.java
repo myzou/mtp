@@ -36,7 +36,7 @@ public class getParam {
 
 
     /**
-     * 根据hostname 获取connection
+     * 鏍规嵁hostname 鑾峰彇connection
      * @param hostname
      * @return
      */
@@ -62,7 +62,7 @@ public class getParam {
 
         mtpa.setTense("before");
         mtpa.setTicketName("2687324");
-        fileDir="D:/2687324.xlsx";//excel 路径
+        fileDir="D:/2687324.xlsx";//excel 璺緞
         InputStream is;
         try {
             is = new FileInputStream( new File(fileDir));
@@ -100,10 +100,10 @@ public class getParam {
 
 
     /**
-     * 根据连接和账号密码来验证登录信息
-     * @param conn			连接
-     * @param name			账号
-     * @param password  密码
+     * 鏍规嵁杩炴帴鍜岃处鍙峰瘑鐮佹潵楠岃瘉鐧诲綍淇℃伅
+     * @param conn			杩炴帴
+     * @param name			璐﹀彿
+     * @param password  瀵嗙爜
      * @return
      */
     public static String  checkdUserInfo(Connection conn,String name,String password){
@@ -113,7 +113,7 @@ public class getParam {
             message="PASS";
         } catch (IOException e) {
             e.printStackTrace();
-            message= "ERROR:用户密码验证错误：\r\nname:"+name+"\r\npassword:"+password;
+            message= "ERROR:鐢ㄦ埛瀵嗙爜楠岃瘉閿欒锛歕r\nname:"+name+"\r\npassword:"+password;
         }
         return message;
     }

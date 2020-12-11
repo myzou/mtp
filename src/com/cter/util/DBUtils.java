@@ -17,35 +17,35 @@ import java.util.Map;
 public class DBUtils {
 
     private static   Map<String, String> map=  map=	LoadPropertiestUtil.loadProperties("config/db.properties");
-    // ±íÊ¾¶¨ÒåÊı¾İ¿âµÄÓÃ»§Ãû
+    // è¡¨ç¤ºå®šä¹‰æ•°æ®åº“çš„ç”¨æˆ·å
     private static String USERNAME = map.get("jdbc1.name");
-    // ¶¨ÒåÊı¾İ¿âµÄÃÜÂë
+    // å®šä¹‰æ•°æ®åº“çš„å¯†ç 
     private static String PASSWORD = map.get("jdbc1.password");
-    // ¶¨ÒåÊı¾İ¿âµÄÇı¶¯ĞÅÏ¢
+    // å®šä¹‰æ•°æ®åº“çš„é©±åŠ¨ä¿¡æ¯
     private static String DRIVER = map.get("jdbc1.driver");
-    // ¶¨Òå·ÃÎÊÊı¾İ¿âµÄµØÖ·
+    // å®šä¹‰è®¿é—®æ•°æ®åº“çš„åœ°å€
     private static String URL =map.get("jdbc1.url");
 
     private static DBUtils per = null;
-    // ¶¨ÒåÊı¾İ¿âµÄÁ´½Ó
+    // å®šä¹‰æ•°æ®åº“çš„é“¾æ¥
     private  Connection con = null;
-    // ¶¨ÒåsqlÓï¾äµÄÖ´ĞĞ¶ÔÏó
+    // å®šä¹‰sqlè¯­å¥çš„æ‰§è¡Œå¯¹è±¡
     private PreparedStatement pstmt = null;
-    // ¶¨Òå²éÑ¯·µ»ØµÄ½á¹û¼¯ºÏ
+    // å®šä¹‰æŸ¥è¯¢è¿”å›çš„ç»“æœé›†åˆ
     private ResultSet resultSet = null;
 
     private DBUtils() {
     }
 
     /**
-     *  »ñµÃ¹¤¾ßÀàµÄÒ»¸ö¶ÔÏó
+     *  è·å¾—å·¥å…·ç±»çš„ä¸€ä¸ªå¯¹è±¡
      * @return
      */
     private synchronized static DBUtils getInstance() {
         per = new DBUtils();
         try {
             Class.forName(DRIVER);
-//					     System.out.println("×¢²áÇı¶¯³É¹¦£¡");
+//					     System.out.println("æ³¨å†Œé©±åŠ¨æˆåŠŸï¼");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class DBUtils {
 
 
     /**
-     * »ñµÃÊı¾İ¿âµÄÁ¬½Ó
+     * è·å¾—æ•°æ®åº“çš„è¿æ¥
      *
      * @return
      */
@@ -67,12 +67,12 @@ public class DBUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//		        System.out.println("Á¬½ÓÊı¾İ¿â³É¹¦!!");
+//		        System.out.println("è¿æ¥æ•°æ®åº“æˆåŠŸ!!");
         return con;
     }
 
     /**
-     * Íê³É¶ÔÊı¾İ¿âµÄ±íµÄÌí¼ÓÉ¾³ıºÍĞŞ¸ÄµÄ²Ù×÷
+     * å®Œæˆå¯¹æ•°æ®åº“çš„è¡¨çš„æ·»åŠ åˆ é™¤å’Œä¿®æ”¹çš„æ“ä½œ
      *
      * @param sql
      * @param params
@@ -103,10 +103,10 @@ public class DBUtils {
         return db;
     }
     /**
-     * ´ÓÊı¾İ¿âÖĞ²éÑ¯Êı¾İ
+     * ä»æ•°æ®åº“ä¸­æŸ¥è¯¢æ•°æ®
      *
      * @param sql		sql
-     * @param params  ? ²ÎÊıÉèÖµ
+     * @param params  ? å‚æ•°è®¾å€¼
      * @return
      * @throws SQLException
      */
@@ -142,10 +142,10 @@ public class DBUtils {
 
 
     /**
-     * ´¦ÀíÁËÒì³£ ²¢ÇÒ¹Ø±ÕÁËÁ¬½Ó
+     * å¤„ç†äº†å¼‚å¸¸ å¹¶ä¸”å…³é—­äº†è¿æ¥
      * @param sql   sql
-     * @param params  ²ÎÊı
-     * @param classz  ·µ»ØµÄÊµÌåÀàĞÍ
+     * @param params  å‚æ•°
+     * @param classz  è¿”å›çš„å®ä½“ç±»å‹
      * @return
      */
     public <T>  List<T> executeQueryByRefTExc(String sql,List<Object> params ,Class<T>  classz) {
@@ -165,7 +165,7 @@ public class DBUtils {
 
 
     /**
-     * jdbcµÄ·â×°¿ÉÒÔÓÃ·´Éä»úÖÆÀ´·â×°,°Ñ´ÓÊı¾İ¿âÖĞ»ñÈ¡µÄÊı¾İ·â×°µ½Ò»¸öÀàµÄ¶ÔÏóÀï
+     * jdbcçš„å°è£…å¯ä»¥ç”¨åå°„æœºåˆ¶æ¥å°è£…,æŠŠä»æ•°æ®åº“ä¸­è·å–çš„æ•°æ®å°è£…åˆ°ä¸€ä¸ªç±»çš„å¯¹è±¡é‡Œ
      *
      * @param sql
      * @param params
@@ -187,7 +187,7 @@ public class DBUtils {
         ResultSetMetaData metaData = resultSet.getMetaData();
         int cols_len = metaData.getColumnCount();
         while (resultSet.next()) {
-            T resultObject = cls.newInstance();  // Í¨¹ı·´Éä»úÖÆ´´½¨ÊµÀı
+            T resultObject = cls.newInstance();  // é€šè¿‡åå°„æœºåˆ¶åˆ›å»ºå®ä¾‹
             for (int i = 0; i < cols_len; i++) {
                 String cols_name = metaData.getColumnName(i + 1);
                 Object cols_value = resultSet.getObject(cols_name);
@@ -202,8 +202,8 @@ public class DBUtils {
                 }
 
 //		                System.out.println(cols_value+"\t"+cols_name+"\t"+field.getType());
-                field.setAccessible(true); // ´ò¿ªjavabeanµÄ·ÃÎÊprivateÈ¨ÏŞ
-                //Èç¹û·µ»ØÃ»ÓĞÖµµÄÊ±ºòBigDecimalºÍLongÀàĞÍ»á×ªÎªString£¬ËùÒÔÒªĞÂ¼Ó¸ö¶ÔÓ¦µÄÖµ
+                field.setAccessible(true); // æ‰“å¼€javabeançš„è®¿é—®privateæƒé™
+                //å¦‚æœè¿”å›æ²¡æœ‰å€¼çš„æ—¶å€™BigDecimalå’ŒLongç±»å‹ä¼šè½¬ä¸ºStringï¼Œæ‰€ä»¥è¦æ–°åŠ ä¸ªå¯¹åº”çš„å€¼
                 if(StringUtil.isBlank(cols_value.toString())){
                     if(field.getType().toString() .indexOf("BigDecimal")>-1){
                         field.set(resultObject, new BigDecimal(0));
@@ -222,7 +222,7 @@ public class DBUtils {
     }
 
     /**
-     * ¹¦ÄÜ£º½«ÊäÈë×Ö·û´®µÄÏÂ»®ÏßºóµÄ×ÖÄ¸¸Ä³É´óĞ´
+     * åŠŸèƒ½ï¼šå°†è¾“å…¥å­—ç¬¦ä¸²çš„ä¸‹åˆ’çº¿åçš„å­—æ¯æ”¹æˆå¤§å†™
      * @param str
      * @return
      */
@@ -251,12 +251,12 @@ public class DBUtils {
     }
 
     /**
-     * ²éÑ¯·ÖÒ³ºóÊı¾İ
-     * @param sql  sqlÓï¾ä
-     * @param params ²ÎÊı
-     * @param cls  calssÀàĞÍ
-     * @param page  µÚ¼¸Ò³¿ªÊ¼
-     * @param limit  Ò»Ò³¶àÉÙÌõ
+     * æŸ¥è¯¢åˆ†é¡µåæ•°æ®
+     * @param sql  sqlè¯­å¥
+     * @param params å‚æ•°
+     * @param cls  calssç±»å‹
+     * @param page  ç¬¬å‡ é¡µå¼€å§‹
+     * @param limit  ä¸€é¡µå¤šå°‘æ¡
      * @return
      * @throws Exception
      */
@@ -268,12 +268,12 @@ public class DBUtils {
     }
 
     /**
-     * ¸ù¾İsql²éÑ¯·ÖÒ³ ¹Ø±ÕÁËÁ¬½Ó
+     * æ ¹æ®sqlæŸ¥è¯¢åˆ†é¡µ å…³é—­äº†è¿æ¥
      * @param sql
-     * @param params  Õ¼Î»·ûµÄ²ÎÊı
-     * @param classz      ÊµÌåÀà¶îÀàĞÍ
-     * @param page		µÚ¼¸Ò³¿ªÊ¼
-     * @param limit		µÚ¼¸Ìõ
+     * @param params  å ä½ç¬¦çš„å‚æ•°
+     * @param classz      å®ä½“ç±»é¢ç±»å‹
+     * @param page		ç¬¬å‡ é¡µå¼€å§‹
+     * @param limit		ç¬¬å‡ æ¡
      * @return
      */
     public <T>  List<T> loadPageTExc(String sql,List<Object> params ,Class<T>  classz,int page,int limit) {
@@ -296,12 +296,12 @@ public class DBUtils {
 
 
     /**
-     * ²éÑ¯×ÜÊıÁ¿
-     * @param sql  sqlÓï¾ä
-     * @param params ²ÎÊı
-     * @param cls  calssÀàĞÍ
-     * @param page  µÚ¼¸Ò³¿ªÊ¼
-     * @param limit  Ò»Ò³¶àÉÙÌõ
+     * æŸ¥è¯¢æ€»æ•°é‡
+     * @param sql  sqlè¯­å¥
+     * @param params å‚æ•°
+     * @param cls  calssç±»å‹
+     * @param page  ç¬¬å‡ é¡µå¼€å§‹
+     * @param limit  ä¸€é¡µå¤šå°‘æ¡
      * @return
      * @throws Exception
      */
@@ -312,7 +312,7 @@ public class DBUtils {
     }
 
     /**
-     * ¹Ø±ÕÁ¬½Ó
+     * å…³é—­è¿æ¥
      */
     public void closeDB() {
         if (resultSet != null) {
@@ -372,9 +372,9 @@ public class DBUtils {
 
 
     /**
-     * map¶ÔÏó×ª»»ÎªÊµÌåÀà
-     * @param map mapÊµÌåÀà¶ÔÏó°üº¬ÊôĞÔ
-     * @param clazz ¶ÔÏóÊµÌåÀàÀàĞÍ
+     * mapå¯¹è±¡è½¬æ¢ä¸ºå®ä½“ç±»
+     * @param map mapå®ä½“ç±»å¯¹è±¡åŒ…å«å±æ€§
+     * @param clazz å¯¹è±¡å®ä½“ç±»ç±»å‹
      * @return
      */
     public static Object Map2Object (Map<String,Object> map,Class<?> clazz){
@@ -411,7 +411,7 @@ public class DBUtils {
         String sql = "select * from empower_message where city_name =  ?";
         List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
         List<Object> params=new ArrayList<Object>();
-        params.add("±±¾©");
+        params.add("åŒ—äº¬");
         try {
             list= db.executeQuery(sql, params);
             for(Object o:list){
@@ -428,8 +428,8 @@ public class DBUtils {
     }
 
     /**
-     * ¹Ø±ÕÁ¬½Ó
-     *  ¸ù¾İÓï¾äºÍ²ÎÊı ºÍdbUtils ·µ»Ø¸üĞÂÊÜÓ°ÏìĞĞÊı
+     * å…³é—­è¿æ¥
+     *  æ ¹æ®è¯­å¥å’Œå‚æ•° å’ŒdbUtils è¿”å›æ›´æ–°å—å½±å“è¡Œæ•°
      * @param db
      * @param sql
      * @param params
@@ -450,8 +450,8 @@ public class DBUtils {
 
 
     /**
-     * ¹Ø±ÕÁ¬½Ó
-     *  ¸ù¾İÓï¾äºÍ²ÎÊı ºÍdbUtils ·µ»Ø²éÑ¯½á¹û
+     * å…³é—­è¿æ¥
+     *  æ ¹æ®è¯­å¥å’Œå‚æ•° å’ŒdbUtils è¿”å›æŸ¥è¯¢ç»“æœ
      * @param db
      * @param sql
      * @param params

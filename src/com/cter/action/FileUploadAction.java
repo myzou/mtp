@@ -15,9 +15,9 @@ public class FileUploadAction  extends ActionSupport{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private File java1234;//ÉÏ´«µÄÎÄ¼şµÄ±íµ¥name
-	private String java1234FileName;//ÉÏ´«µÄÎÄ¼şÃû
-	private String java1234ContentType;//ÉÏ´«µÄÎÄ¼şÀàĞÍ
+	private File java1234;//ä¸Šä¼ çš„æ–‡ä»¶çš„è¡¨å•name
+	private String java1234FileName;//ä¸Šä¼ çš„æ–‡ä»¶å
+	private String java1234ContentType;//ä¸Šä¼ çš„æ–‡ä»¶ç±»å‹
 	
 	
 
@@ -48,18 +48,18 @@ public class FileUploadAction  extends ActionSupport{
 
 	@Override
 	public String execute() throws Exception {
-		System.out.println("ÉÏ´«µÄÎÄ¼şÃû£º"+java1234FileName);
-		System.out.println("ÉÏ´«µÄÀàĞÍ£º"+java1234ContentType);
-		System.out.println("ÉÏ´«µÄÎÄ¼şÂ·¾¶£º"+java1234);
-		//»ñÈ¡Òª±£´æÎÄ¼ş¼ĞµÄÎïÀíÂ·¾¶(¾ø¶ÔÂ·¾¶)
+		System.out.println("ä¸Šä¼ çš„æ–‡ä»¶åï¼š"+java1234FileName);
+		System.out.println("ä¸Šä¼ çš„ç±»å‹ï¼š"+java1234ContentType);
+		System.out.println("ä¸Šä¼ çš„æ–‡ä»¶è·¯å¾„ï¼š"+java1234);
+		//è·å–è¦ä¿å­˜æ–‡ä»¶å¤¹çš„ç‰©ç†è·¯å¾„(ç»å¯¹è·¯å¾„)
         String realPath=ServletActionContext.getServletContext().getRealPath("/upload");
-		File file=new File(realPath);//±£´æµÄÂ·¾¶
+		File file=new File(realPath);//ä¿å­˜çš„è·¯å¾„
 		File saveFile=new File(file, java1234FileName);
 		if(!file.exists()){
 			file.mkdirs();
 		}
 		FileUtils.copyFile(java1234,saveFile);
-		System.out.println("±£´æµÄÎÄ¼şÂ·¾¶£º"+saveFile);
+		System.out.println("ä¿å­˜çš„æ–‡ä»¶è·¯å¾„ï¼š"+saveFile);
 		return SUCCESS;
 	}
 

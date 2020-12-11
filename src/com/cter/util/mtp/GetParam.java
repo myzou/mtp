@@ -37,12 +37,12 @@ public class GetParam {
 
 
     /**
-     * ¸ù¾İexcelÂ·¾¶»ñÈ¡ÏßÂ·×é×°²ÎÊı»ñÈ¡²ÎÊı
+     * æ ¹æ®excelè·¯å¾„è·å–çº¿è·¯ç»„è£…å‚æ•°è·å–å‚æ•°
      *
      * @param caseId  case id
-     * @param fileDir excel Â·¾¶£¬¿ÕÄ¬ÈÏ  D:/testCase.xlsx
-     * @param period  »ñÈ¡Ö®Ç°»¹ÊÇÖ®ºóµÄ²ÎÊı before after£¬¿ÕÄ¬ÈÏbefore
-     * @return ·µ»Ø¸ù¾İexcel»ñÈ¡µÄ²ÎÊı²ÎÊı
+     * @param fileDir excel è·¯å¾„ï¼Œç©ºé»˜è®¤  D:/testCase.xlsx
+     * @param period  è·å–ä¹‹å‰è¿˜æ˜¯ä¹‹åçš„å‚æ•° before afterï¼Œç©ºé»˜è®¤before
+     * @return è¿”å›æ ¹æ®excelè·å–çš„å‚æ•°å‚æ•°
      */
     public static String getConnJson(String caseId, String fileDir, String period) {
         String retrunExcelParam = "";
@@ -59,7 +59,7 @@ public class GetParam {
                 mtpa.setTense("before");
             }
             if (StringUtil.isBlank(fileDir)) {
-                fileDir = "D:/testCase.xlsx";//excel Â·¾¶
+                fileDir = "D:/testCase.xlsx";//excel è·¯å¾„
             }
             if (!StringUtil.isBlank(caseId)) {
                 mtpa.setTicketName(caseId);
@@ -81,10 +81,10 @@ public class GetParam {
             }
             if (fileDir.endsWith(".csv")) {
                 CsvReader reader = CsvUtil.getReader();
-                //´ÓÎÄ¼şÖĞ¶ÁÈ¡CSVÊı¾İ
+                //ä»æ–‡ä»¶ä¸­è¯»å–CSVæ•°æ®
                 CsvData data = reader.read(FileUtil.file(fileDir));
                 List<CsvRow> rows = data.getRows();
-                //±éÀúĞĞ
+                //éå†è¡Œ
                 for (int i = 1; i < rows.size(); i++) {
                     CsvRow csvRow = rows.get(i);
                     List<String> rowList = csvRow.getRawList();
@@ -132,7 +132,7 @@ public class GetParam {
             System.out.println("mtpa:\t\n" + retrunExcelParam);
             return retrunExcelParam;
         } catch (Exception e) {
-            retrunExcelParam = "¸ù¾İexcelÎŞ·¨×ª»»²ÎÊı¡£Çë²é¿´excel¸ñÊ½ÊÇ·ñÓĞ´íÎó¡£";
+            retrunExcelParam = "æ ¹æ®excelæ— æ³•è½¬æ¢å‚æ•°ã€‚è¯·æŸ¥çœ‹excelæ ¼å¼æ˜¯å¦æœ‰é”™è¯¯ã€‚";
             log.info(retrunExcelParam);
             log.printStackTrace(e);
             return retrunExcelParam;
@@ -140,7 +140,7 @@ public class GetParam {
     }
 
     /**
-     * ¸ù¾İcell·Ç¿ÕÖµ
+     * æ ¹æ®celléç©ºå€¼
      *
      * @param cell
      * @return

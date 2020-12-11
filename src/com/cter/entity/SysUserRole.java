@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * ÓÃ»§½ÇÉ«¹ØÁª±í
+ * ç”¨æˆ·è§’è‰²å…³è”è¡¨
  * @author op1768
  *
  */
@@ -15,11 +15,11 @@ import javax.persistence.Table;
 public class SysUserRole {
 	@Id
 	@Column(name="user_role_id")
-	private int user_role_id;//Ö÷¼ü
+	private int user_role_id;//ä¸»é”®
 	@Column(name="role_id")
-	private int role_id;//½ÇÉ«id
+	private int role_id;//è§’è‰²id
 	@Column(name="user_id")
-	private int user_id;//ÓÃ»§id
+	private int user_id;//ç”¨æˆ·id
 	public int getUser_role_id() {
 		return user_role_id;
 	}

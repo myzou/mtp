@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * ½øÈë»ú·¿Ğ¯´øÉè±¸µÄĞÅÏ¢
+ * è¿›å…¥æœºæˆ¿æºå¸¦è®¾å¤‡çš„ä¿¡æ¯
  * @author op1768
  *
  */
@@ -18,17 +18,17 @@ public class CarryFacility {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)    
 	@Column(name="cf_id")
-	private int cf_id;// Ö÷¼ü
+	private int cf_id;// ä¸»é”®
 	@Column(name="auth_id")
-	private int auth_id;//¶ÔÓ¦µÄÊÚÈ¨AuthorizationEmailµÄÖ÷¼ü
+	private int auth_id;//å¯¹åº”çš„æˆæƒAuthorizationEmailçš„ä¸»é”®
 	@Column(name="c_manufacturer")
-	private String c_manufacturer;//Éú²ú³§¼Ò
+	private String c_manufacturer;//ç”Ÿäº§å‚å®¶
 	@Column(name="c_model")
-	private String c_model;//Ğ¯´øÉè±¸Éè±¸ĞÍºÅµÄÃû³Æ
+	private String c_model;//æºå¸¦è®¾å¤‡è®¾å¤‡å‹å·çš„åç§°
 	@Column(name="c_serial_no")
-	private String c_serial_no;//ĞòÁĞºÅ/³µÅÆºÅ
+	private String c_serial_no;//åºåˆ—å·/è½¦ç‰Œå·
 	@Column(name="c_operate")
-	private String c_operate;//ÓÃÍ¾/²Ù×÷
+	private String c_operate;//ç”¨é€”/æ“ä½œ
 	public int getCf_id() {
 		return cf_id;
 	}

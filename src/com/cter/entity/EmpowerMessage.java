@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 
 
 /**
- * ÊÚÈ¨ĞÅÏ¢ÊµÌåÀà
+ * æˆæƒä¿¡æ¯å®ä½“ç±»
  * @author op1768
  *
  */
@@ -23,21 +23,21 @@ public class EmpowerMessage {
 	@Column(name="uuid")
 	private String uuid ;//id uuid
 	@Column(name="city_name")
-	private String city_name;//³ÇÊĞÃû³Æ
+	private String city_name;//åŸå¸‚åç§°
 	@Column(name="pop_name")
-	private String pop_name;//popÃû³Æ£¨»ú·¿Ãû³Æ£©
-//	@Transient//·ÇÊı¾İ¿â×Ö¶Î\
+	private String pop_name;//popåç§°ï¼ˆæœºæˆ¿åç§°ï¼‰
+//	@Transient//éæ•°æ®åº“å­—æ®µ\
 	@Column(name="cc_addressee_email")
-	private String  cc_addressee_email;//ËùÓĞ³­ËÍÈËÓÊÏä£¬###·Ö¿ª
+	private String  cc_addressee_email;//æ‰€æœ‰æŠ„é€äººé‚®ç®±ï¼Œ###åˆ†å¼€
 	@Column(name="addressee_email")
-	private String  addressee_email;//ËùÓĞÊÕ¼şÈËÓÊÏä£¬###·Ö¿ª
+	private String  addressee_email;//æ‰€æœ‰æ”¶ä»¶äººé‚®ç®±ï¼Œ###åˆ†å¼€
 	@Column(name="create_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date create_time;	//´´½¨Ê±¼ä
+	private Date create_time;	//åˆ›å»ºæ—¶é—´
 	@Column(name="stem_from")
-	private String stem_from ;//À´Ô´
+	private String stem_from ;//æ¥æº
 	@Column(name="supplier_name")
-	private String supplier_name ;//¹©Ó¦ÉÌÃû³Æ
+	private String supplier_name ;//ä¾›åº”å•†åç§°
 	
 	public String getUuid() {
 		return uuid;

@@ -1,5 +1,9 @@
 package com.cter.util;
 
+import org.dom4j.Document;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
@@ -8,31 +12,22 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.Vector;
-
-import org.dom4j.Document;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
+import java.util.*;
 
 /**
- * String ¹¤¾ßÀà
+ * String å·¥å…·ç±»
  * @author op1768
  *Date 2018-11-11
  */
 public class StringUtil {
 
-	// SQL²ÎÊıµÄµ¥ÒıºÅ´¦Àí
+	// SQLå‚æ•°çš„å•å¼•å·å¤„ç†
 	public static String SQLConv( String str )
 	{
 		return str.replaceAll( "'", "''" );
 	}
 
-	// °Ñ´øhtml±êÇ©µÄ×Ö·û´®¸ñÊ½»¯
+	// æŠŠå¸¦htmlæ ‡ç­¾çš„å­—ç¬¦ä¸²æ ¼å¼åŒ–
 	public static String formatHtml( String str )
 	{
 		if ( str == null )
@@ -45,7 +40,7 @@ public class StringUtil {
 		return temp;
 	}
 
-	// °Ñ´øhtml±êÇ©µÄ×Ö·û´®¸ñÊ½»¯
+	// æŠŠå¸¦htmlæ ‡ç­¾çš„å­—ç¬¦ä¸²æ ¼å¼åŒ–
 	public static String formatStrToHtml( String str )
 	{
 		if ( str == null )
@@ -58,7 +53,7 @@ public class StringUtil {
 		return temp;
 	}
 
-	// °Ñnull¸ñÊ½»¯³É""
+	// æŠŠnullæ ¼å¼åŒ–æˆ""
 	public static String formatNull( String str )
 	{
 		if ( str == null || "null".equals( str ) )
@@ -67,7 +62,7 @@ public class StringUtil {
 			return str;
 	}
 
-	// ÅĞ¶ÏÒ»¸ö×Ö·û´®ÊÇ·ñnull»ò""
+	// åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦ä¸²æ˜¯å¦nullæˆ–""
 	public static boolean isBlank( String str )
 	{
 		if ( str == null )
@@ -81,7 +76,7 @@ public class StringUtil {
 		return false;
 	}
 
-	// ÅĞ¶ÏÒ»¸ö×Ö·û´®ÊÇ·ñnull»ò""»ò"null"
+	// åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦ä¸²æ˜¯å¦nullæˆ–""æˆ–"null"
 	public static boolean isBlank_new( String str )
 	{ // add by pengjian 2008-6-11 14:34:57
 		if ( str == null )
@@ -94,10 +89,10 @@ public class StringUtil {
 	}
 
 	/**
-	 * ÅĞ¶Ï×Ö·ûÊÇ·ñ°üº¬Êı×éÖĞÔªËØ£¬Êı×é»òÕß×Ö·û´®Îª¿Õ·µ»Øfalse
-	 * @param array Êı×é
-	 * @param str  ×Ö·û´®
-	 * @return  °üº¬·µ»Øtrue,²»°üº¬·µ»Øfalse
+	 * åˆ¤æ–­å­—ç¬¦æ˜¯å¦åŒ…å«æ•°ç»„ä¸­å…ƒç´ ï¼Œæ•°ç»„æˆ–è€…å­—ç¬¦ä¸²ä¸ºç©ºè¿”å›false
+	 * @param array æ•°ç»„
+	 * @param str  å­—ç¬¦ä¸²
+	 * @return  åŒ…å«è¿”å›true,ä¸åŒ…å«è¿”å›false
 	 */
 	public static boolean stringIndexOfArray(String [] array,String str){
 		Boolean  ignoreArrIsContain =false;
@@ -117,7 +112,7 @@ public class StringUtil {
 		return ignoreArrIsContain;
 	}
 
-	// ÈÕÆÚ×ª×Ö·û´®
+	// æ—¥æœŸè½¬å­—ç¬¦ä¸²
 	public static String formatDate( java.util.Date date, String pattern )
 	{
 		if ( date == null )
@@ -127,19 +122,19 @@ public class StringUtil {
 		return (new SimpleDateFormat( pattern )).format( date );
 	}
 
-	// ÈÕÆÚ×ª×Ö·û´®
+	// æ—¥æœŸè½¬å­—ç¬¦ä¸²
 	/**
 	 * @param date
 	 * @param pattern
-	 *            yyyyÄêMMÔÂddÈÕ¸ñÊ½
+	 *            yyyyå¹´MMæœˆddæ—¥æ ¼å¼
 	 * @return
 	 */
 	public static String formatDate3( java.util.Date date )
 	{
-		return (new SimpleDateFormat( "yyyyÄêMMÔÂddÈÕ" )).format( date );
+		return (new SimpleDateFormat( "yyyyå¹´MMæœˆddæ—¥" )).format( date );
 	}
 
-	// Êı×Ö×ª×Ö·û´®
+	// æ•°å­—è½¬å­—ç¬¦ä¸²
 	public static String formatNumeric( double numeric, String pattern )
 	{
 		if ( numeric == -0 )
@@ -148,7 +143,7 @@ public class StringUtil {
 		return decFormat.format( numeric );
 	}
 
-	// Êı×Ö×ª¶ººÅ·Ö¸ô×Ö·û´®
+	// æ•°å­—è½¬é€—å·åˆ†éš”å­—ç¬¦ä¸²
 	public static String formatNumeric( double numeric )
 	{
 		return formatNumeric( numeric, "#,##0.00" );
@@ -159,7 +154,7 @@ public class StringUtil {
 		return formatNumeric( numeric, "#,##0.00000000" );
 	}
 
-	// Êı×Ö×ª¶ººÅ·Ö¸ô×Ö·û´®,¸½¼ÓĞ¡ÊıÎ»Êı(±£Áô8Î»Ğ¡Êı£¬ÄÇÃ´dec²ÎÊıÎª6£¬¼´£¬×îÉÙÒªÓĞ2Î»Ğ¡Êı)
+	// æ•°å­—è½¬é€—å·åˆ†éš”å­—ç¬¦ä¸²,é™„åŠ å°æ•°ä½æ•°(ä¿ç•™8ä½å°æ•°ï¼Œé‚£ä¹ˆdecå‚æ•°ä¸º6ï¼Œå³ï¼Œæœ€å°‘è¦æœ‰2ä½å°æ•°)
 	public static String formatNumeric( double numeric, int dec )
 	{
 		String p = "";
@@ -168,7 +163,7 @@ public class StringUtil {
 		return formatNumeric( numeric, "#,##0.00" + p );
 	}
 
-	// Êı×Ö×ª¶ººÅ·Ö¸ô×Ö·û´®£»Èç¹ûÊı×ÖÎªÁã£¬Ôò·µ»Ø¿Õ
+	// æ•°å­—è½¬é€—å·åˆ†éš”å­—ç¬¦ä¸²ï¼›å¦‚æœæ•°å­—ä¸ºé›¶ï¼Œåˆ™è¿”å›ç©º
 	public static String formatNumericEx( double numeric )
 	{
 		String result;
@@ -184,7 +179,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * ÈÕÆÚ×Ö·û´®¸ñÊ½»¯Îªjava.sql.Date£¬ÈÕÆÚ×Ö·û´®Ğè°üº¬ÄêÔÂÈÕ£¬ÀıÈç2011-1-1»òÕß2011.1.1
+	 * æ—¥æœŸå­—ç¬¦ä¸²æ ¼å¼åŒ–ä¸ºjava.sql.Dateï¼Œæ—¥æœŸå­—ç¬¦ä¸²éœ€åŒ…å«å¹´æœˆæ—¥ï¼Œä¾‹å¦‚2011-1-1æˆ–è€…2011.1.1
 	 */
 	public static java.sql.Date formatDate( String dateStr )
 	{
@@ -204,7 +199,7 @@ public class StringUtil {
 			}
 			if ( tmp.length != 3 )
 			{
-				System.out.println( "ÈÕÆÚ¸ñÊ½²»·ûºÏÒªÇó" );
+				System.out.println( "æ—¥æœŸæ ¼å¼ä¸ç¬¦åˆè¦æ±‚" );
 				return null;
 			}
 			else
@@ -227,7 +222,7 @@ public class StringUtil {
 		return d;
 	}
 
-	// ½«´óÊı×Ö¸ñÊ½»¯Îª×Ö·û´®£¬±ÜÃâÒÔ¿ÆÑ§¼ÆÊı·¨ÏÔÊ¾
+	// å°†å¤§æ•°å­—æ ¼å¼åŒ–ä¸ºå­—ç¬¦ä¸²ï¼Œé¿å…ä»¥ç§‘å­¦è®¡æ•°æ³•æ˜¾ç¤º
 	public static String formatDouble( double numeric )
 	{
 		return formatNumeric( numeric, "#0.00" );
@@ -238,13 +233,13 @@ public class StringUtil {
 		return formatNumeric( numeric, "#,##0.0000" );
 	}
 
-	// ±£Áô6Î»Ğ¡Êı£¬²»×ã6Î»ÓÃ0´úÌæ
+	// ä¿ç•™6ä½å°æ•°ï¼Œä¸è¶³6ä½ç”¨0ä»£æ›¿
 	public static String formatDouble6( double numeric )
 	{
 		return formatNumeric( numeric, "#0.000000" );
 	}
 
-	// ½«´óÊı×Ö¸ñÊ½»¯Îª×Ö·û´®£¬±ÜÃâÒÔ¿ÆÑ§¼ÆÊı·¨ÏÔÊ¾5Î»
+	// å°†å¤§æ•°å­—æ ¼å¼åŒ–ä¸ºå­—ç¬¦ä¸²ï¼Œé¿å…ä»¥ç§‘å­¦è®¡æ•°æ³•æ˜¾ç¤º5ä½
 	public static String formatDoubles( double numeric )
 	{
 		return formatNumeric( numeric, "#0.00000" );
@@ -265,7 +260,7 @@ public class StringUtil {
 		return new java.sql.Date( new java.util.Date().getTime() );
 	}
 
-	// ½«´óÊı×Ö¸ñÊ½»¯Îª×Ö·û´®£¬±ÜÃâÒÔ¿ÆÑ§¼ÆÊı·¨ÏÔÊ¾
+	// å°†å¤§æ•°å­—æ ¼å¼åŒ–ä¸ºå­—ç¬¦ä¸²ï¼Œé¿å…ä»¥ç§‘å­¦è®¡æ•°æ³•æ˜¾ç¤º
 	public static String formatDouble( double numeric, int dec )
 	{
 		String p = "";
@@ -274,7 +269,7 @@ public class StringUtil {
 		return formatNumeric( numeric, "#0.00" + p );
 	}
 
-	// ½«ĞÎÈç234£¬567.00µÄ¶ººÅ·Ö¸ô×Ö·û´®¸ñÊ½»¯ÎªDouble
+	// å°†å½¢å¦‚234ï¼Œ567.00çš„é€—å·åˆ†éš”å­—ç¬¦ä¸²æ ¼å¼åŒ–ä¸ºDouble
 	public static double formatNumeric( String str )
 	{
 		try
@@ -287,7 +282,7 @@ public class StringUtil {
 		}
 	}
 
-	// ¸ñÊ½»¯java.sql.DateÎª¾äµã·Ö¸ô×Ö·û´®
+	// æ ¼å¼åŒ–java.sql.Dateä¸ºå¥ç‚¹åˆ†éš”å­—ç¬¦ä¸²
 	public static String formatDate( java.sql.Date date )
 	{
 		if ( date == null )
@@ -302,7 +297,7 @@ public class StringUtil {
 		return (new SimpleDateFormat( "yyyy.MM.dd" )).format( date );
 	}
 
-	// Ö¸¶¨µÄ¸ñÊ½¸ñÊ½date add by luoyh 2009-319
+	// æŒ‡å®šçš„æ ¼å¼æ ¼å¼date add by luoyh 2009-319
 	public static String fromatDate( java.sql.Date date, String pattern )
 	{
 		return (new SimpleDateFormat( pattern )).format( date );
@@ -329,7 +324,7 @@ public class StringUtil {
 		return (new SimpleDateFormat( "yyyy-MM-dd" )).format( date );
 	}
 
-	// ¸ñÊ½»¯java.sql.TimestampÎª¾äµã·Ö¸ô×Ö·û´®
+	// æ ¼å¼åŒ–java.sql.Timestampä¸ºå¥ç‚¹åˆ†éš”å­—ç¬¦ä¸²
 	public static String formatLongDate( java.sql.Timestamp date )
 	{
 		if ( date == null )
@@ -349,9 +344,9 @@ public class StringUtil {
 
 	public static SimpleDateFormat getFormat( String format )
 	{
-		String timeArea = "GMT+08:00";// Ê±Çø±äÁ¿
-		SimpleDateFormat formatter = new SimpleDateFormat( format );// ÉèÖÃÊ±¼ä¸ñÊ½
-		formatter.setTimeZone( TimeZone.getTimeZone( timeArea ) );// ÉèÖÃÊ±ÇøÎª¶«°ËÇø
+		String timeArea = "GMT+08:00";// æ—¶åŒºå˜é‡
+		SimpleDateFormat formatter = new SimpleDateFormat( format );// è®¾ç½®æ—¶é—´æ ¼å¼
+		formatter.setTimeZone( TimeZone.getTimeZone( timeArea ) );// è®¾ç½®æ—¶åŒºä¸ºä¸œå…«åŒº
 		return formatter;
 	}
 
@@ -370,7 +365,7 @@ public class StringUtil {
 		}
 	}
 
-	// ¸ñÊ½»¯×Ö·û Îªint
+	// æ ¼å¼åŒ–å­—ç¬¦ ä¸ºint
 	public static int formatInt( String temp, int defaultNum )
 	{
 		if ( temp != null && !temp.equals( "" ) )
@@ -391,21 +386,21 @@ public class StringUtil {
 		}
 	}
 
-	// È¡µÃµ±ÌìµÄÈÕÆÚ£¨sql¸ñÊ½£©
+	// å–å¾—å½“å¤©çš„æ—¥æœŸï¼ˆsqlæ ¼å¼ï¼‰
 	public static java.util.Date getToday()
 	{
 		java.util.Date date = new java.util.Date();
 		return new java.sql.Date( date.getTime() );
 	}
 
-	// È¡µÃµ±ÌìµÄÈÕÆÚ£¨sql¸ñÊ½£©
+	// å–å¾—å½“å¤©çš„æ—¥æœŸï¼ˆsqlæ ¼å¼ï¼‰
 	public static java.sql.Date getSQLToday()
 	{
 		java.util.Date date = new java.util.Date();
 		return new java.sql.Date( date.getTime() );
 	}
 
-	// °ÑBigDecimal ×ª»¯³Édouble
+	// æŠŠBigDecimal è½¬åŒ–æˆdouble
 	public static double getDouble( BigDecimal o1 )
 	{
 		if ( o1 == null )
@@ -421,19 +416,19 @@ public class StringUtil {
 		return date2;
 	}
 
-	// add by lixiuzhong ½«Ğ¡Ğ´½ğ¶î×ª³É´óĞ´½ğ¶î
+	// add by lixiuzhong å°†å°å†™é‡‘é¢è½¬æˆå¤§å†™é‡‘é¢
 	public static String ChgMoney( double smallmoney )
 	{
 		String value = String.valueOf( smallmoney );
 		if ( null == value || "".equals( value.trim() ) )
-			return "Áã";
+			return "é›¶";
 		// String strCheck,strArr,strFen,strDW,strNum,strBig,strNow;
 		String strCheck, strFen, strDW, strNum, strBig, strNow;
 		strCheck = value + ".";
 		int dot = strCheck.indexOf( "." );
 		if ( dot > 12 )
 		{
-			return "Êı¾İ" + value + "¹ı´ó£¬ÎŞ·¨´¦Àí£¡";
+			return "æ•°æ®" + value + "è¿‡å¤§ï¼Œæ— æ³•å¤„ç†ï¼";
 		}
 		try
 		{
@@ -450,169 +445,169 @@ public class StringUtil {
 				i++;
 				switch ( i ) {
 					case 1 :
-						strDW = "·Ö";
+						strDW = "åˆ†";
 						break;
 					case 2 :
-						strDW = "½Ç";
+						strDW = "è§’";
 						break;
 					case 3 :
-						strDW = "Ôª";
+						strDW = "å…ƒ";
 						break;
 					case 4 :
-						strDW = "Ê°";
+						strDW = "æ‹¾";
 						break;
 					case 5 :
-						strDW = "°Û";
+						strDW = "ä½°";
 						break;
 					case 6 :
-						strDW = "Çª";
+						strDW = "ä»Ÿ";
 						break;
 					case 7 :
-						strDW = "Íò";
+						strDW = "ä¸‡";
 						break;
 					case 8 :
-						strDW = "Ê°";
+						strDW = "æ‹¾";
 						break;
 					case 9 :
-						strDW = "°Û";
+						strDW = "ä½°";
 						break;
 					case 10 :
-						strDW = "Çª";
+						strDW = "ä»Ÿ";
 						break;
 					case 11 :
-						strDW = "ÒÚ";
+						strDW = "äº¿";
 						break;
 					case 12 :
-						strDW = "Ê°";
+						strDW = "æ‹¾";
 						break;
 					case 13 :
-						strDW = "°Û";
+						strDW = "ä½°";
 						break;
 					case 14 :
-						strDW = "Çª";
+						strDW = "ä»Ÿ";
 						break;
 				}
-				switch ( strFen.charAt( lenIntFen - 1 ) ) // Ñ¡ÔñÊı×Ö
+				switch ( strFen.charAt( lenIntFen - 1 ) ) // é€‰æ‹©æ•°å­—
 				{
 					case '1' :
-						strNum = "Ò¼";
+						strNum = "å£¹";
 						break;
 					case '2' :
-						strNum = "·¡";
+						strNum = "è´°";
 						break;
 					case '3' :
-						strNum = "Èş";
+						strNum = "å";
 						break;
 					case '4' :
-						strNum = "ËÁ";
+						strNum = "è‚†";
 						break;
 					case '5' :
-						strNum = "Îé";
+						strNum = "ä¼";
 						break;
 					case '6' :
-						strNum = "Â½";
+						strNum = "é™†";
 						break;
 					case '7' :
-						strNum = "Æâ";
+						strNum = "æŸ’";
 						break;
 					case '8' :
-						strNum = "°Æ";
+						strNum = "æŒ";
 						break;
 					case '9' :
-						strNum = "¾Á";
+						strNum = "ç–";
 						break;
 					case '0' :
-						strNum = "Áã";
+						strNum = "é›¶";
 						break;
 				}
-				// ´¦ÀíÌØÊâÇé¿ö
+				// å¤„ç†ç‰¹æ®Šæƒ…å†µ
 				strNow = strBig;
-				// ·ÖÎªÁãÊ±µÄÇé¿ö
+				// åˆ†ä¸ºé›¶æ—¶çš„æƒ…å†µ
 				if ( (i == 1) && (strFen.charAt( lenIntFen - 1 ) == '0') )
-					strBig = "Õû";
-				// ½ÇÎªÁãÊ±µÄÇé¿ö
+					strBig = "æ•´";
+				// è§’ä¸ºé›¶æ—¶çš„æƒ…å†µ
 				else if ( (i == 2) && (strFen.charAt( lenIntFen - 1 ) == '0') )
-				{ // ½Ç·ÖÍ¬Ê±ÎªÁãÊ±µÄÇé¿ö
-					if ( !strBig.equals( "Õû" ) )
-						strBig = "Áã" + strBig;
+				{ // è§’åˆ†åŒæ—¶ä¸ºé›¶æ—¶çš„æƒ…å†µ
+					if ( !strBig.equals( "æ•´" ) )
+						strBig = "é›¶" + strBig;
 				}
-				// ÔªÎªÁãµÄÇé¿ö
+				// å…ƒä¸ºé›¶çš„æƒ…å†µ
 				else if ( (i == 3) && (strFen.charAt( lenIntFen - 1 ) == '0') )
-					strBig = "Ôª" + strBig;
-				// Ê°£­ÇªÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»£¨ÔªÒÔÉÏ£©²»ÎªÁãµÄÇé¿öÊ±²¹Áã
-				else if ( (i < 7) && (i > 3) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) != 'Áã')
-						&& (strNow.charAt( 0 ) != 'Ôª') )
-					strBig = "Áã" + strBig;
-				// Ê°£­ÇªÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»£¨ÔªÒÔÉÏ£©Ò²ÎªÁãµÄÇé¿öÊ±¿ç¹ı
-				else if ( (i < 7) && (i > 3) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Áã') )
+					strBig = "å…ƒ" + strBig;
+				// æ‹¾ï¼ä»Ÿä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ï¼ˆå…ƒä»¥ä¸Šï¼‰ä¸ä¸ºé›¶çš„æƒ…å†µæ—¶è¡¥é›¶
+				else if ( (i < 7) && (i > 3) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) != 'é›¶')
+						&& (strNow.charAt( 0 ) != 'å…ƒ') )
+					strBig = "é›¶" + strBig;
+				// æ‹¾ï¼ä»Ÿä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ï¼ˆå…ƒä»¥ä¸Šï¼‰ä¹Ÿä¸ºé›¶çš„æƒ…å†µæ—¶è·¨è¿‡
+				else if ( (i < 7) && (i > 3) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'é›¶') )
 				{
 				}
-				// Ê°£­ÇªÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»ÊÇÔªÇÒÎªÁãµÄÇé¿öÊ±¿ç¹ı
-				else if ( (i < 7) && (i > 3) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Ôª') )
+				// æ‹¾ï¼ä»Ÿä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½æ˜¯å…ƒä¸”ä¸ºé›¶çš„æƒ…å†µæ—¶è·¨è¿‡
+				else if ( (i < 7) && (i > 3) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'å…ƒ') )
 				{
 				}
-				// µ±ÍòÎªÁãÊ±±ØĞë²¹ÉÏÍò×Ö
+				// å½“ä¸‡ä¸ºé›¶æ—¶å¿…é¡»è¡¥ä¸Šä¸‡å­—
 				else if ( (i == 7) && (strFen.charAt( lenIntFen - 1 ) == '0') )
-					strBig = "Íò" + strBig;
-				// Ê°Íò£­ÇªÍòÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»£¨ÍòÒÔÉÏ£©²»ÎªÁãµÄÇé¿öÊ±²¹Áã
-				else if ( (i < 11) && (i > 7) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) != 'Áã')
-						&& (strNow.charAt( 0 ) != 'Íò') )
-					strBig = "Áã" + strBig;
-				// Ê°Íò£­ÇªÍòÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»£¨ÍòÒÔÉÏ£©Ò²ÎªÁãµÄÇé¿öÊ±¿ç¹ı
-				else if ( (i < 11) && (i > 7) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Íò') )
+					strBig = "ä¸‡" + strBig;
+				// æ‹¾ä¸‡ï¼ä»Ÿä¸‡ä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ï¼ˆä¸‡ä»¥ä¸Šï¼‰ä¸ä¸ºé›¶çš„æƒ…å†µæ—¶è¡¥é›¶
+				else if ( (i < 11) && (i > 7) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) != 'é›¶')
+						&& (strNow.charAt( 0 ) != 'ä¸‡') )
+					strBig = "é›¶" + strBig;
+				// æ‹¾ä¸‡ï¼ä»Ÿä¸‡ä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ï¼ˆä¸‡ä»¥ä¸Šï¼‰ä¹Ÿä¸ºé›¶çš„æƒ…å†µæ—¶è·¨è¿‡
+				else if ( (i < 11) && (i > 7) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'ä¸‡') )
 				{
 				}
-				// Ê°Íò£­ÇªÍòÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»ÎªÍòÎ»ÇÒÎªÁãµÄÇé¿öÊ±¿ç¹ı
-				else if ( (i < 11) && (i > 7) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Áã') )
+				// æ‹¾ä¸‡ï¼ä»Ÿä¸‡ä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ä¸ºä¸‡ä½ä¸”ä¸ºé›¶çš„æƒ…å†µæ—¶è·¨è¿‡
+				else if ( (i < 11) && (i > 7) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'é›¶') )
 				{
 				}
-				// ÍòÎ»ÎªÁãÇÒ´æÔÚÇªÎ»ºÍÊ®ÍòÒÔÉÏÊ±£¬ÔÚÍòÇª¼ä²¹Áã
-				else if ( (i < 11) && (i > 8) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Íò')
-						&& (strNow.charAt( 2 ) == 'Çª') )
-					strBig = strNum + strDW + "ÍòÁã" + strBig.substring( 1, strBig.length() );
-				// µ¥¶À´¦ÀíÒÚÎ»
+				// ä¸‡ä½ä¸ºé›¶ä¸”å­˜åœ¨ä»Ÿä½å’Œåä¸‡ä»¥ä¸Šæ—¶ï¼Œåœ¨ä¸‡ä»Ÿé—´è¡¥é›¶
+				else if ( (i < 11) && (i > 8) && (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'ä¸‡')
+						&& (strNow.charAt( 2 ) == 'ä»Ÿ') )
+					strBig = strNum + strDW + "ä¸‡é›¶" + strBig.substring( 1, strBig.length() );
+				// å•ç‹¬å¤„ç†äº¿ä½
 				else if ( i == 11 )
 				{
-					// ÒÚÎ»ÎªÁãÇÒÍòÈ«ÎªÁã´æÔÚÇªÎ»Ê±£¬È¥µôÍò²¹ÎªÁã
-					if ( (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Íò')
-							&& (strNow.charAt( 2 ) == 'Çª') )
-						strBig = "ÒÚ" + "Áã" + strBig.substring( 1, strBig.length() );
-					// ÒÚÎ»ÎªÁãÇÒÍòÈ«ÎªÁã²»´æÔÚÇªÎ»Ê±£¬È¥µôÍò
-					else if ( (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'Íò')
-							&& (strNow.charAt( 2 ) != 'Çª') )
-						strBig = "ÒÚ" + strBig.substring( 1, strBig.length() );
-					// ÒÚÎ»²»ÎªÁãÇÒÍòÈ«ÎªÁã´æÔÚÇªÎ»Ê±£¬È¥µôÍò²¹ÎªÁã
-					else if ( (strNow.charAt( 0 ) == 'Íò') && (strNow.charAt( 2 ) == 'Çª') )
-						strBig = strNum + strDW + "Áã" + strBig.substring( 1, strBig.length() );
-					// ÒÚÎ»²»ÎªÁãÇÒÍòÈ«ÎªÁã²»´æÔÚÇªÎ»Ê±£¬È¥µôÍò
-					else if ( (strNow.charAt( 0 ) == 'Íò') && (strNow.charAt( 2 ) != 'Çª') )
+					// äº¿ä½ä¸ºé›¶ä¸”ä¸‡å…¨ä¸ºé›¶å­˜åœ¨ä»Ÿä½æ—¶ï¼Œå»æ‰ä¸‡è¡¥ä¸ºé›¶
+					if ( (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'ä¸‡')
+							&& (strNow.charAt( 2 ) == 'ä»Ÿ') )
+						strBig = "äº¿" + "é›¶" + strBig.substring( 1, strBig.length() );
+					// äº¿ä½ä¸ºé›¶ä¸”ä¸‡å…¨ä¸ºé›¶ä¸å­˜åœ¨ä»Ÿä½æ—¶ï¼Œå»æ‰ä¸‡
+					else if ( (strFen.charAt( lenIntFen - 1 ) == '0') && (strNow.charAt( 0 ) == 'ä¸‡')
+							&& (strNow.charAt( 2 ) != 'ä»Ÿ') )
+						strBig = "äº¿" + strBig.substring( 1, strBig.length() );
+					// äº¿ä½ä¸ä¸ºé›¶ä¸”ä¸‡å…¨ä¸ºé›¶å­˜åœ¨ä»Ÿä½æ—¶ï¼Œå»æ‰ä¸‡è¡¥ä¸ºé›¶
+					else if ( (strNow.charAt( 0 ) == 'ä¸‡') && (strNow.charAt( 2 ) == 'ä»Ÿ') )
+						strBig = strNum + strDW + "é›¶" + strBig.substring( 1, strBig.length() );
+					// äº¿ä½ä¸ä¸ºé›¶ä¸”ä¸‡å…¨ä¸ºé›¶ä¸å­˜åœ¨ä»Ÿä½æ—¶ï¼Œå»æ‰ä¸‡
+					else if ( (strNow.charAt( 0 ) == 'ä¸‡') && (strNow.charAt( 2 ) != 'ä»Ÿ') )
 						strBig = strNum + strDW + strBig.substring( 1, strBig.length() );
-					// ÆäËûÕı³£Çé¿ö
+					// å…¶ä»–æ­£å¸¸æƒ…å†µ
 					else
 						strBig = strNum + strDW + strBig;
 				}
-				// Ê°ÒÚ£­ÇªÒÚÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»£¨ÒÚÒÔÉÏ£©²»ÎªÁãµÄÇé¿öÊ±²¹Áã
+				// æ‹¾äº¿ï¼ä»Ÿäº¿ä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ï¼ˆäº¿ä»¥ä¸Šï¼‰ä¸ä¸ºé›¶çš„æƒ…å†µæ—¶è¡¥é›¶
 				else if ( (i < 15) && (i > 11) && (strFen.charAt( lenIntFen - 1 ) == '0')
-						&& (strNow.charAt( 0 ) != 'Áã') && (strNow.charAt( 0 ) != 'ÒÚ') )
-					strBig = "Áã" + strBig;
-				// Ê°ÒÚ£­ÇªÒÚÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»£¨ÒÚÒÔÉÏ£©Ò²ÎªÁãµÄÇé¿öÊ±¿ç¹ı
+						&& (strNow.charAt( 0 ) != 'é›¶') && (strNow.charAt( 0 ) != 'äº¿') )
+					strBig = "é›¶" + strBig;
+				// æ‹¾äº¿ï¼ä»Ÿäº¿ä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ï¼ˆäº¿ä»¥ä¸Šï¼‰ä¹Ÿä¸ºé›¶çš„æƒ…å†µæ—¶è·¨è¿‡
 				else if ( (i < 15) && (i > 11) && (strFen.charAt( lenIntFen - 1 ) == '0')
-						&& (strNow.charAt( 0 ) == 'ÒÚ') )
+						&& (strNow.charAt( 0 ) == 'äº¿') )
 				{
 				}
-				// Ê°ÒÚ£­ÇªÒÚÖĞÒ»Î»ÎªÁãÇÒÆäÇ°Ò»Î»ÎªÒÚÎ»ÇÒÎªÁãµÄÇé¿öÊ±¿ç¹ı
+				// æ‹¾äº¿ï¼ä»Ÿäº¿ä¸­ä¸€ä½ä¸ºé›¶ä¸”å…¶å‰ä¸€ä½ä¸ºäº¿ä½ä¸”ä¸ºé›¶çš„æƒ…å†µæ—¶è·¨è¿‡
 				else if ( (i < 15) && (i > 11) && (strFen.charAt( lenIntFen - 1 ) == '0')
-						&& (strNow.charAt( 0 ) == 'Áã') )
+						&& (strNow.charAt( 0 ) == 'é›¶') )
 				{
 				}
-				// ÒÚÎ»ÎªÁãÇÒ²»´æÔÚÇªÍòÎ»ºÍÊ®ÒÚÒÔÉÏÊ±È¥µôÉÏ´ÎĞ´ÈëµÄÁã
+				// äº¿ä½ä¸ºé›¶ä¸”ä¸å­˜åœ¨ä»Ÿä¸‡ä½å’Œåäº¿ä»¥ä¸Šæ—¶å»æ‰ä¸Šæ¬¡å†™å…¥çš„é›¶
 				else if ( (i < 15) && (i > 11) && (strFen.charAt( lenIntFen - 1 ) != '0')
-						&& (strNow.charAt( 0 ) == 'Áã') && (strNow.charAt( 1 ) == 'ÒÚ') && (strNow.charAt( 3 ) != 'Çª') )
+						&& (strNow.charAt( 0 ) == 'é›¶') && (strNow.charAt( 1 ) == 'äº¿') && (strNow.charAt( 3 ) != 'ä»Ÿ') )
 					strBig = strNum + strDW + strBig.substring( 1, strBig.length() );
-				// ÒÚÎ»ÎªÁãÇÒ´æÔÚÇªÍòÎ»ºÍÊ®ÒÚÒÔÉÏÊ±£¬ÔÚÒÚÇªÍò¼ä²¹Áã
+				// äº¿ä½ä¸ºé›¶ä¸”å­˜åœ¨ä»Ÿä¸‡ä½å’Œåäº¿ä»¥ä¸Šæ—¶ï¼Œåœ¨äº¿ä»Ÿä¸‡é—´è¡¥é›¶
 				else if ( (i < 15) && (i > 11) && (strFen.charAt( lenIntFen - 1 ) != '0')
-						&& (strNow.charAt( 0 ) == 'Áã') && (strNow.charAt( 1 ) == 'ÒÚ') && (strNow.charAt( 3 ) == 'Çª') )
-					strBig = strNum + strDW + "ÒÚÁã" + strBig.substring( 2, strBig.length() );
+						&& (strNow.charAt( 0 ) == 'é›¶') && (strNow.charAt( 1 ) == 'äº¿') && (strNow.charAt( 3 ) == 'ä»Ÿ') )
+					strBig = strNum + strDW + "äº¿é›¶" + strBig.substring( 2, strBig.length() );
 				else
 					strBig = strNum + strDW + strBig;
 				strFen = strFen.substring( 0, lenIntFen - 1 );
@@ -626,7 +621,7 @@ public class StringUtil {
 		}
 	}
 
-	// add by ÀîĞãÖÒ ×ª»»±àÂë ½â¾öÇëÇó£¬ÏìÓ¦ÖĞµÄÂÒÂëÎÊÌâ
+	// add by æç§€å¿  è½¬æ¢ç¼–ç  è§£å†³è¯·æ±‚ï¼Œå“åº”ä¸­çš„ä¹±ç é—®é¢˜
 	public static String getEncodeStr( String str )
 	{
 		if ( str == null )
@@ -646,7 +641,7 @@ public class StringUtil {
 		return null;
 	}
 
-	// add by gwb ±àÂë¼òµ¥ÅĞ¶Ï ½â¾öÊÇ·ñĞè±àÂë×ª»»
+	// add by gwb ç¼–ç ç®€å•åˆ¤æ–­ è§£å†³æ˜¯å¦éœ€ç¼–ç è½¬æ¢
 	public static boolean validateEncode( String str1, String str2 )
 	{
 		boolean bsuccess = false;
@@ -667,7 +662,7 @@ public class StringUtil {
 		return bsuccess;
 	}
 
-	// ¸ñÊ½»¯java.sql.TimestampÎª¾äµã·Ö¸ô×Ö·û´®
+	// æ ¼å¼åŒ–java.sql.Timestampä¸ºå¥ç‚¹åˆ†éš”å­—ç¬¦ä¸²
 	public static String formatTimestamp( java.sql.Timestamp date )
 	{
 		return (new SimpleDateFormat( "yyyy-MM-dd HH:mm" )).format( date );
@@ -680,7 +675,7 @@ public class StringUtil {
 		return str.replaceAll( " ", "&nbsp;" );
 	}
 
-	// Êı×Ö×ª¶ººÅ·Ö¸ô×Ö·û´®£»Èç¹û blankZero = true ÄÇÃ´ 0 ·µ»Ø¿Õ×Ö·û´®
+	// æ•°å­—è½¬é€—å·åˆ†éš”å­—ç¬¦ä¸²ï¼›å¦‚æœ blankZero = true é‚£ä¹ˆ 0 è¿”å›ç©ºå­—ç¬¦ä¸²
 	public static String formatNumeric( double numeric, boolean blankZero )
 	{
 		if ( blankZero && numeric == 0 )
@@ -695,7 +690,7 @@ public class StringUtil {
 		return formatNumeric( numeric, mask );
 	}
 
-	// É¾³ı×Ö·û´®×îºóÒ»¸ö×Ö·û
+	// åˆ é™¤å­—ç¬¦ä¸²æœ€åä¸€ä¸ªå­—ç¬¦
 	public static String deleteLastChar( String str )
 	{
 		if ( str == null )
@@ -706,13 +701,13 @@ public class StringUtil {
 	}
 
 	/**
-	 * ½«×Ö·û´®°´·Ö¸ô·û·Ö³É×Ö·û´®Êı×é£¨È¥³ı¿Õ×Ö·û´®£©
+	 * å°†å­—ç¬¦ä¸²æŒ‰åˆ†éš”ç¬¦åˆ†æˆå­—ç¬¦ä¸²æ•°ç»„ï¼ˆå»é™¤ç©ºå­—ç¬¦ä¸²ï¼‰
 	 * 
 	 * @param str
-	 *            ×Ö·û´®
+	 *            å­—ç¬¦ä¸²
 	 * @param format
-	 *            ·Ö¸ô·û
-	 * @return ×Ö·û´®Êı×é
+	 *            åˆ†éš”ç¬¦
+	 * @return å­—ç¬¦ä¸²æ•°ç»„
 	 */
 	public static String[] split( String str, String format )
 	{
@@ -734,7 +729,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * ½«excel´«¹ıÀ´µÄ½ğ¶î£¨£¤333,333£©×ª»»³ÉdoubleÊı×Ö¡£
+	 * å°†excelä¼ è¿‡æ¥çš„é‡‘é¢ï¼ˆï¿¥333,333ï¼‰è½¬æ¢æˆdoubleæ•°å­—ã€‚
 	 * 
 	 * @param str
 	 * @return
@@ -759,12 +754,12 @@ public class StringUtil {
 	}
 
 	/**
-	 * ÓÃÓÚÈ¡µÃSQLÓï¾äÖĞµÄIN²¿·Ö Add by Wang Xinping, 2006-1-11
+	 * ç”¨äºå–å¾—SQLè¯­å¥ä¸­çš„INéƒ¨åˆ† Add by Wang Xinping, 2006-1-11
 	 * 
 	 * @param vCorp
-	 *            Ò»°ãÊÇ²Ù×÷Ô±Ëù¹ÜÀíµÄµ¥Î»ÁĞ±í
+	 *            ä¸€èˆ¬æ˜¯æ“ä½œå‘˜æ‰€ç®¡ç†çš„å•ä½åˆ—è¡¨
 	 * @param sField
-	 *            ×Ö¶ÎÃû Èç: " and  p.corp_id "
+	 *            å­—æ®µå å¦‚: " and  p.corp_id "
 	 * @return
 	 */
 	public static String getInStr( Vector vCorp, String sField )
@@ -783,7 +778,7 @@ public class StringUtil {
 		return sb.toString();
 	}
 
-	// add by mbz ×ª»»±àÂë ½â¾öÇëÇó£¬ÏìÓ¦ÖĞµÄÂÒÂëÎÊÌâ
+	// add by mbz è½¬æ¢ç¼–ç  è§£å†³è¯·æ±‚ï¼Œå“åº”ä¸­çš„ä¹±ç é—®é¢˜
 	public static String getEncodeStr2( String str )
 	{
 		if ( str == null )
@@ -803,7 +798,7 @@ public class StringUtil {
 		return null;
 	}
 
-	// ½«dateµÄÇ°Ò»Ìì·µ»Ø
+	// å°†dateçš„å‰ä¸€å¤©è¿”å›
 	public static java.sql.Date formatDate3( java.sql.Date date )
 	{
 		DateUtil dateUtil = new DateUtil( date );
@@ -812,7 +807,7 @@ public class StringUtil {
 		return date;
 	}
 
-	// ½«ĞÎÈç2000.01.30µÄµãºÅ·Ö¸ôµÄÈÕÆÚ×Ö·û´®¸ñÊ½»¯Îªjava.sql.Date
+	// å°†å½¢å¦‚2000.01.30çš„ç‚¹å·åˆ†éš”çš„æ—¥æœŸå­—ç¬¦ä¸²æ ¼å¼åŒ–ä¸ºjava.sql.Date
 	public static java.sql.Date formatDate2( String dateStr )
 	{
 		java.util.Date date;
@@ -847,7 +842,7 @@ public class StringUtil {
 		return (new SimpleDateFormat( "yyyy-MM-dd" )).format( date );
 	}
 
-	// Êı×Ö×ª¶ººÅ·Ö¸ô×Ö·û´®
+	// æ•°å­—è½¬é€—å·åˆ†éš”å­—ç¬¦ä¸²
 	public static String formatMoney( double numeric )
 	{
 		return formatNumeric( numeric, "#,##0.00" );
@@ -879,7 +874,7 @@ public class StringUtil {
 		}
 	}
 
-	// ½«ĞÎÈç234£¬567.00µÄ¶ººÅ·Ö¸ô×Ö·û´®¸ñÊ½»¯ÎªDouble add by liut ·µ»ØÈç¹ûÊÇ0µÄÊ±ºòÔò·µ»Ønull
+	// å°†å½¢å¦‚234ï¼Œ567.00çš„é€—å·åˆ†éš”å­—ç¬¦ä¸²æ ¼å¼åŒ–ä¸ºDouble add by liut è¿”å›å¦‚æœæ˜¯0çš„æ—¶å€™åˆ™è¿”å›null
 	public static Double formatNumericEX( String str )
 	{
 		Double result = null;
@@ -908,7 +903,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * ½«µ±Ç°ÖÜµÄ½áÊøÊ±¼äºÍ´«ÈëÈÕÆÚÖÜµÄ¿ªÊ¼Ê±¼ä×ö±È½Ï--ÖÜÔ¤ËãÊ±¼ä±È½Ï
+	 * å°†å½“å‰å‘¨çš„ç»“æŸæ—¶é—´å’Œä¼ å…¥æ—¥æœŸå‘¨çš„å¼€å§‹æ—¶é—´åšæ¯”è¾ƒ--å‘¨é¢„ç®—æ—¶é—´æ¯”è¾ƒ
 	 * 
 	 * @param searchEndDate
 	 * @return
@@ -919,19 +914,19 @@ public class StringUtil {
 		calendar.setFirstDayOfWeek( Calendar.MONDAY );
 		java.util.Date d = new Date( searchEndDate.getYear(), searchEndDate.getMonth(), 1 );
 		calendar.setTimeInMillis( d.getTime() );
-		calendar.set( Calendar.DAY_OF_WEEK, Calendar.SUNDAY );// »ñµÃÄ³ÔÂÔÂ³õµÄÖÜÄ©
+		calendar.set( Calendar.DAY_OF_WEEK, Calendar.SUNDAY );// è·å¾—æŸæœˆæœˆåˆçš„å‘¨æœ«
 		java.util.Date d1 = calendar.getTime();
 		Calendar calendar1 = Calendar.getInstance();
 		calendar1.setTimeInMillis( searchEndDate.getTime() );
 		calendar1.setFirstDayOfWeek( Calendar.MONDAY );
-		calendar1.set( Calendar.DAY_OF_WEEK, Calendar.MONDAY );// »ñµÃ´«ÈëÊ±¼äµÄÖÜÒ»
+		calendar1.set( Calendar.DAY_OF_WEEK, Calendar.MONDAY );// è·å¾—ä¼ å…¥æ—¶é—´çš„å‘¨ä¸€
 		java.util.Date d2 = calendar1.getTime();
-		// Èç¹û´«ÈëÊ±¼ä´óÓÚÔÂµÚÒ»ÖÜÖÜÄ©Ê±¼ä£¬ĞèÒª½øĞĞ¹ö´æ
+		// å¦‚æœä¼ å…¥æ—¶é—´å¤§äºæœˆç¬¬ä¸€å‘¨å‘¨æœ«æ—¶é—´ï¼Œéœ€è¦è¿›è¡Œæ»šå­˜
 		return DateUtil.dayDiffs( d2, d1 );
 	}
 
 	/**
-	 * ¹¦ÄÜ£º¸ñÊ½»¯document·ÀÖ¹×ªÒå ×÷Õß£ºÍôÃ÷Òå ÈÕÆÚ£º2014-11-26 ÏÂÎç7:43:39
+	 * åŠŸèƒ½ï¼šæ ¼å¼åŒ–documenté˜²æ­¢è½¬ä¹‰ ä½œè€…ï¼šæ±ªæ˜ä¹‰ æ—¥æœŸï¼š2014-11-26 ä¸‹åˆ7:43:39
 	 * 
 	 * @param document
 	 * @return

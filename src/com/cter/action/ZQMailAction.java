@@ -38,8 +38,8 @@ public class ZQMailAction extends ActionSupport {
 	@Autowired
 	private ZQMailExcelService zqMailExcelService;
 	
-	private String fileFileName; //struts2ÓÃÀ´·â×°¸ÃÎÄ¼şÓò¶ÔÓ¦µÄÎÄ¼şµÄÎÄ¼şÃû,xxxFileName,layuiÉÏ´«µÄÎÄ¼şÓòfieldÄ¬ÈÏÖµÊÇfile
-	private File file; //struts2ÓÃÀ´·â×°Ò³ÃæÎÄ¼şÓò¶ÔÓ¦µÄÎÄ¼şÄÚÈİxxx
+	private String fileFileName; //struts2ç”¨æ¥å°è£…è¯¥æ–‡ä»¶åŸŸå¯¹åº”çš„æ–‡ä»¶çš„æ–‡ä»¶å,xxxFileName,layuiä¸Šä¼ çš„æ–‡ä»¶åŸŸfieldé»˜è®¤å€¼æ˜¯file
+	private File file; //struts2ç”¨æ¥å°è£…é¡µé¢æ–‡ä»¶åŸŸå¯¹åº”çš„æ–‡ä»¶å†…å®¹xxx
 	private BaseLog log=new BaseLog("EmailLog");
 	
 	public String getFileFileName() {
@@ -55,7 +55,7 @@ public class ZQMailAction extends ActionSupport {
 		this.file = file;
 	}
 	/**
-	 * ¼ÓÔØ³ÇÊĞÃû³Æ
+	 * åŠ è½½åŸå¸‚åç§°
 	 * @return
 	 * @
 	 */
@@ -70,7 +70,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İ³ÇÊĞÃû³Æ¼ÓÔØpopÃû³Æ
+	 * æ ¹æ®åŸå¸‚åç§°åŠ è½½popåç§°
 	 * @return
 	 * @
 	 */
@@ -87,25 +87,25 @@ public class ZQMailAction extends ActionSupport {
 	
 	
 	/**
-	 * Ôö¼ÓÒ»Ìõeamil·¢ËÍĞÅÏ¢
+	 * å¢åŠ ä¸€æ¡eamilå‘é€ä¿¡æ¯
 	 * @return
 	 * @
 	 */
 	public void sendEmail() {
 		 HttpServletRequest request=ServletActionContext.getRequest();
-		 log.info("½øÈë²ÎÊı£º"+request.getParameter("JsonStr"));
+		 log.info("è¿›å…¥å‚æ•°ï¼š"+request.getParameter("JsonStr"));
 		 try {
 			 Map<String, String> map = HttpDataManageUtil.request2Map(request, "JsonStr");
 			 zqMailExcelService.sendEmail(map);
 			 HttpDataManageUtil.retJson(true,log);
 		} catch (Exception e) {
-			log.info("·¢ËÍÓÊ¼şÊ§°Ü£¡£¡£¡");
+			log.info("å‘é€é‚®ä»¶å¤±è´¥ï¼ï¼ï¼");
 			 log.printStackTrace(e);
 		}
 	}
 	
 	/**
-	 * ¶ÁÈ¡excelÊı¾İ
+	 * è¯»å–excelæ•°æ®
 	 * @
 	 */
 	public void loadMailExcel(){
@@ -117,7 +117,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ²éÑ¯ÈÏÖ¤¿ÚÁî
+	 * æŸ¥è¯¢è®¤è¯å£ä»¤
 	 * @return
 	 */
 	public void  loadPasswordKeys(){
@@ -126,7 +126,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ĞŞ¸ÄÈÏÖ¤¿ÚÁîpassword_keys
+	 * ä¿®æ”¹è®¤è¯å£ä»¤password_keys
 	 * @return
 	 * @throws IOException 
 	 */
@@ -138,7 +138,7 @@ public class ZQMailAction extends ActionSupport {
 			 HttpDataManageUtil.retJson(aa,log);
 	}
 	/**
-	 * ¼ÓÔØËùÓĞ³ÇÊĞÃû
+	 * åŠ è½½æ‰€æœ‰åŸå¸‚å
 	 * @return
 	 * @
 	 */
@@ -149,7 +149,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¼ÓÔØËùÓĞµÄcaseEmail ²âÊÔ×ÅÍæµÄ
+	 * åŠ è½½æ‰€æœ‰çš„caseEmail æµ‹è¯•ç€ç©çš„
 	 * @return
 	 * @
 	 */
@@ -160,7 +160,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¼ÓÔØËùÓĞµÄcaseEmail ÓĞ·ÖÒ³
+	 * åŠ è½½æ‰€æœ‰çš„caseEmail æœ‰åˆ†é¡µ
 	 * @return
 	 * @
 	 */
@@ -177,7 +177,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * »ñÈ¡Òª±à¼­µÄcase_id µÄuuid »ñÈ¡ÏêÏ¸ĞÅÏ¢µ½Ò³Ãæ
+	 * è·å–è¦ç¼–è¾‘çš„case_id çš„uuid è·å–è¯¦ç»†ä¿¡æ¯åˆ°é¡µé¢
 	 * @return
 	 * @
 	 */
@@ -190,7 +190,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * »ñÈ¡ËùÓĞÓÊÏäĞÅÏ¢
+	 * è·å–æ‰€æœ‰é‚®ç®±ä¿¡æ¯
 	 * @return
 	 * @
 	 */
@@ -200,7 +200,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İPopName¼ÓÔØEmpowerMessage ÊµÌåÀàlist
+	 * æ ¹æ®PopNameåŠ è½½EmpowerMessage å®ä½“ç±»list
 	 * @return
 	 * @
 	 */
@@ -212,7 +212,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İPopName¼ÓÔØEmpowerMessage ÊµÌåÀà
+	 * æ ¹æ®PopNameåŠ è½½EmpowerMessage å®ä½“ç±»
 	 * @return
 	 * @
 	 */
@@ -224,7 +224,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 *¸ù¾İpop_name¸üĞÂÓÊÏäĞÅÏ¢
+	 *æ ¹æ®pop_nameæ›´æ–°é‚®ç®±ä¿¡æ¯
 	 * @return
 	 * @
 	 */
@@ -236,13 +236,13 @@ public class ZQMailAction extends ActionSupport {
 					 HttpDataManageUtil.retJson(true,log);
 				}
 			} catch (Exception e) {
-				log.info( "¸üĞÂ³ö´í");
+				log.info( "æ›´æ–°å‡ºé”™");
 				log.printStackTrace(e);
 			}
 	}
 	
 	/**
-	 *¸ù¾İemail_uuid¸üĞÂÓÊÏäĞÅÏ¢
+	 *æ ¹æ®email_uuidæ›´æ–°é‚®ç®±ä¿¡æ¯
 	 * @return
 	 * @
 	 */
@@ -255,14 +255,14 @@ public class ZQMailAction extends ActionSupport {
 					 HttpDataManageUtil.retJson(i,log);
 				}
 			} catch (Exception e) {
-				log.info( "¸üĞÂ³ö´í");
+				log.info( "æ›´æ–°å‡ºé”™");
 				log.printStackTrace(e);
 			}
 	}
 	
 	
 	/**
-	 *¸ù¾İ»ú·¿Ãû³ÆºÍ³ÇÊĞÃû³ÆÉ¾³ı»ú·¿ĞÅÏ¢
+	 *æ ¹æ®æœºæˆ¿åç§°å’ŒåŸå¸‚åç§°åˆ é™¤æœºæˆ¿ä¿¡æ¯
 	 * @return
 	 * @
 	 */
@@ -274,13 +274,13 @@ public class ZQMailAction extends ActionSupport {
 					 HttpDataManageUtil.retJson(true,log);
 				}
 			} catch (Exception e) {
-				log.info( "¸üĞÂ³ö´í");
+				log.info( "æ›´æ–°å‡ºé”™");
 				log.printStackTrace(e);
 			}
 	}
 	
 	/**
-	 * »ñÈ¡ÎÄ¼şÉÏ´«µÄĞÅÏ¢
+	 * è·å–æ–‡ä»¶ä¸Šä¼ çš„ä¿¡æ¯
 	 * @return
 	 * @
 	 */
@@ -294,8 +294,8 @@ public class ZQMailAction extends ActionSupport {
 	
 	
 	/**
-	 * ÉÏ´«¸½¼ş·½·¨ 
-	 * ¸½¼şÉÏ´«µ½ ¸ùÄ¿Â¼ updat/µ±ÌìÈÕÆÚ ÎÄ¼ş¼Ğ
+	 * ä¸Šä¼ é™„ä»¶æ–¹æ³• 
+	 * é™„ä»¶ä¸Šä¼ åˆ° æ ¹ç›®å½• updat/å½“å¤©æ—¥æœŸ æ–‡ä»¶å¤¹
 	 * @
 	 */
 	public void uploadImg(){
@@ -303,42 +303,42 @@ public class ZQMailAction extends ActionSupport {
 			String type = request.getParameter("type");
 			String id = request.getParameter("id");
 			String separator=File.separator;
-	    	String uploadPath = request.getSession().getServletContext().getRealPath(separator+"upload"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator);  //ÎÄ¼ş±£´æÂ·¾¶
+	    	String uploadPath = request.getSession().getServletContext().getRealPath(separator+"upload"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator);  //æ–‡ä»¶ä¿å­˜è·¯å¾„
 	    	File files = new File(uploadPath);
-			if(!files.isDirectory() && !files.exists()) {//ÎÄ¼ş¼Ğ²»´æÔÚ¾Í´´½¨
+			if(!files.isDirectory() && !files.exists()) {//æ–‡ä»¶å¤¹ä¸å­˜åœ¨å°±åˆ›å»º
 				files.mkdirs();
 			}
 	
 			 try {
-					/**Ò³Ãæ¿Ø¼şµÄÎÄ¼şÁ÷**/   
+					/**é¡µé¢æ§ä»¶çš„æ–‡ä»¶æµ**/   
 		        	InputStream inStream=null;
 					inStream=new FileInputStream(file);
-					String fileName=uploadPath+separator+fileFileName; //File.separator´úÌæ·Ö¸ô·û, ·ÀÖ¹linuxºÍwindows»·¾³²»Í¬
+					String fileName=uploadPath+separator+fileFileName; //File.separatorä»£æ›¿åˆ†éš”ç¬¦, é˜²æ­¢linuxå’Œwindowsç¯å¢ƒä¸åŒ
 					FileOutputStream fs = new FileOutputStream(fileName);
 			    	int byteread = 0; 
 			    	byte[] buffer = new byte[1024];
 			    	while ( (byteread = inStream.read(buffer)) != -1) {
 			    		fs.write(buffer, 0, byteread);
 			    	}
-			    	fs.close();  //×¢Òâ¹Ø±ÕÁ÷
+			    	fs.close();  //æ³¨æ„å…³é—­æµ
 			    	inStream.close();
 			 
 //		        System.out.println(DateUtil.getDateStryyyyMMdd(new Date()));
 					Map<String,Object> resultMap=new HashMap<String,Object>();
-					resultMap.put("fileName", fileName);  //ÉÏ´«Ò»¸öÎÄ¼şºó·µ»ØµÄÊı¾İ
+					resultMap.put("fileName", fileName);  //ä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶åè¿”å›çš„æ•°æ®
 					resultMap.put("status", "success");
 					resultMap.put("fullPath", fileName);
 					resultMap.put("url",uploadPath+separator+fileName);
 					System.out.println(fileName);
 					HttpDataManageUtil.retJSON (resultMap,log);
 				} catch (Exception e) {
-					log.info("ÉÏ´«ÎÄ¼ş³ö´í");
+					log.info("ä¸Šä¼ æ–‡ä»¶å‡ºé”™");
 					log.printStackTrace(e);
 				}
 	}
 	
 	/**
-	 * Ìø×ªµ½caseEmail ±à¼­Ò³
+	 * è·³è½¬åˆ°caseEmail ç¼–è¾‘é¡µ
 	 * @return
 	 * @
 	 */
@@ -351,7 +351,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 
 	/**
-	 * ¸ù¾İuuidÂß¼­É¾³ıcaseEmail±íÊı¾İ
+	 * æ ¹æ®uuidé€»è¾‘åˆ é™¤caseEmailè¡¨æ•°æ®
 	 * @return
 	 * @
 	 */
@@ -362,7 +362,7 @@ public class ZQMailAction extends ActionSupport {
 			 HttpDataManageUtil.retJson(true,log);
 	}
 	/**
-	 * ¸ù¾İemail_uuiid É¾³ısend_email
+	 * æ ¹æ®email_uuiid åˆ é™¤send_email
 	 */
 	public void delSendEmail(){
 		 HttpServletRequest request=ServletActionContext.getRequest();
@@ -372,7 +372,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İ×´Ì¬ºÍid ĞŞ¸Ä±ícase×´Ì¬
+	 * æ ¹æ®çŠ¶æ€å’Œid ä¿®æ”¹è¡¨caseçŠ¶æ€
 	 * @return
 	 * @
 	 */
@@ -383,21 +383,11 @@ public class ZQMailAction extends ActionSupport {
 		   int i=	  zqMailExcelService.caseEmailUpdate(case_uuid,case_status);
 			 HttpDataManageUtil.retJson(i,log);
 	}
-	/**
-	 * ÊÚÈ¨ÉêÇëÔö¼Ó
-	 * @return
-	 * @
-	 */
-	public void authorizationAdd(){
-		 HttpServletRequest request=ServletActionContext.getRequest();
-			String JsonStr=request.getParameter("JsonStr");
-			zqMailExcelService.authorizationAdd(JsonStr );
-			HttpDataManageUtil.retJson(true,log);
-	}
+
 	
 	
 	/**
-	 * ÊÚÈ¨ÉêÇëÁĞ±í
+	 * æˆæƒç”³è¯·åˆ—è¡¨
 	 * @return
 	 * @
 	 */
@@ -414,7 +404,7 @@ public class ZQMailAction extends ActionSupport {
 			}
 	}
 	/**
-	 * ¸ù¾İau_idÉ¾³ıAuthorizationEmail
+	 * æ ¹æ®au_idåˆ é™¤AuthorizationEmail
 	 * @return
 	 * @
 	 */
@@ -426,7 +416,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İauth_id »ñÈ¡AuthorizationEmail
+	 * æ ¹æ®auth_id è·å–AuthorizationEmail
 	 * @return
 	 * @
 	 */
@@ -438,7 +428,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ·¢ËÍÓÊ¼şcaseEmailºÍ±£´æauthorizationEmail
+	 * å‘é€é‚®ä»¶caseEmailå’Œä¿å­˜authorizationEmail
 	 * @return
 	 * @
 	 */
@@ -455,7 +445,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * Ôö¼ÓEmpowerMessage
+	 * å¢åŠ EmpowerMessage
 	 * @return
 	 * @
 	 */
@@ -467,7 +457,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * Ôö¼ÓSendEmail
+	 * å¢åŠ SendEmail
 	 * @return
 	 * @
 	 */
@@ -480,7 +470,7 @@ public class ZQMailAction extends ActionSupport {
 	
 	
 	/**
-	 * ¸ù¾İemail_uuid »ñÈ¡·¢ËÍÓÊÏäĞÅÏ¢
+	 * æ ¹æ®email_uuid è·å–å‘é€é‚®ç®±ä¿¡æ¯
 	 */
 	public void getSendEmailByKey(){
 		 HttpServletRequest request=ServletActionContext.getRequest();
@@ -490,7 +480,7 @@ public class ZQMailAction extends ActionSupport {
 	}
 	
 	/**
-	 * ²âÊÔ×¨ÓÃÀà
+	 * æµ‹è¯•ä¸“ç”¨ç±»
 	 * @return
 	 * @
 	 */

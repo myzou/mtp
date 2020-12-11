@@ -24,12 +24,11 @@ import java.util.*;
 public class GGWLoginApiUtil {
 
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
-    private static final String mtp_project = otherMap.get("mtp_project");
     private static String GGW_URL = otherMap.get("GGW_URL");
     private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
     private static Map<String, String> paramMap = new HashMap<String, String>();
     private static Map<String, Map<String, String>> ipLastLoginTimeMap = new HashMap<>();
-    private static int loginNum=0;//µÇÂ¼´ÎÊı
+    private static int loginNum=0;//ç™»å½•æ¬¡æ•°
 
     private static BaseLog log = new BaseLog("MTPQueryLog");
 
@@ -42,10 +41,10 @@ public class GGWLoginApiUtil {
     }
 
     /**
-     * ¸ù¾İ²ÎÊıÀ´µÇÂ¼ggw
+     * æ ¹æ®å‚æ•°æ¥ç™»å½•ggw
      * @param paramMap
-     * paramMap²ÎÊı£¬username:opÕËºÅ£¬password:opÃÜÂë,sign£º¶ÔÓ¦µÄ·ÃÎÊ±ê¼Ç£¬Ò»¸öopÍ¬Ò»¸öÊ±¼ä¶ÎÖ»ÄÜÓĞ6¸ö£¬command:ÃüÁî£¬ip:µÇÂ¼µ½ggw¶ÔÓ¦µÄip
-     * @return Õı³£·µ»ØµÇÂ¼µÄĞÅÏ¢£¬´íÎó·µ»Øerror
+     * paramMapå‚æ•°ï¼Œusername:opè´¦å·ï¼Œpassword:opå¯†ç ,signï¼šå¯¹åº”çš„è®¿é—®æ ‡è®°ï¼Œä¸€ä¸ªopåŒä¸€ä¸ªæ—¶é—´æ®µåªèƒ½æœ‰6ä¸ªï¼Œcommand:å‘½ä»¤ï¼Œip:ç™»å½•åˆ°ggwå¯¹åº”çš„ip
+     * @return æ­£å¸¸è¿”å›ç™»å½•çš„ä¿¡æ¯ï¼Œé”™è¯¯è¿”å›error
      */
     public static String loginGGWAPI(Map<String, String> paramMap) {
         String nowTime = Long.toString(System.currentTimeMillis() / 1000);
@@ -62,12 +61,12 @@ public class GGWLoginApiUtil {
         try {
             result = HttpUtil.get(url);
             if (StrUtil.isBlank(result)) {
-                result = "error:login ·µ»Ø²ÎÊıÎª¿Õ";
+                result = "error:login è¿”å›å‚æ•°ä¸ºç©º";
             }
         } catch (Exception e) {
-            //System.out.println(e.getCause().getMessage());//»ñÈ¡Òì³£ĞÅÏ¢
+            //System.out.println(e.getCause().getMessage());//è·å–å¼‚å¸¸ä¿¡æ¯
             e.printStackTrace();
-            result = "error£»" + e.getCause().getMessage();
+            result = "errorï¼›" + e.getCause().getMessage();
         }
 
         return result;
@@ -75,10 +74,10 @@ public class GGWLoginApiUtil {
 
 
     /**
-     * ¸ù¾İ²ÎÊıÀ´µ÷ÓÃggwAPI Ö´ĞĞÃüÁî
+     * æ ¹æ®å‚æ•°æ¥è°ƒç”¨ggwAPI æ‰§è¡Œå‘½ä»¤
      * @param paramMap
-     * paramMap²ÎÊı£¬username:opÕËºÅ£¬password:opÃÜÂë,sign£º¶ÔÓ¦µÄ·ÃÎÊ±ê¼Ç£¬Ò»¸öopÍ¬Ò»¸öÊ±¼ä¶ÎÖ»ÄÜÓĞ6¸ö£¬command:ÃüÁî£¬ip:µÇÂ¼µ½ggw¶ÔÓ¦µÄip
-     * @return Õı³£¶ÔÓ¦µÄ×´Ì¬ÂëºÍÖ´ĞĞÃüÁîµÄ×´Ì¬
+     * paramMapå‚æ•°ï¼Œusername:opè´¦å·ï¼Œpassword:opå¯†ç ,signï¼šå¯¹åº”çš„è®¿é—®æ ‡è®°ï¼Œä¸€ä¸ªopåŒä¸€ä¸ªæ—¶é—´æ®µåªèƒ½æœ‰6ä¸ªï¼Œcommand:å‘½ä»¤ï¼Œip:ç™»å½•åˆ°ggwå¯¹åº”çš„ip
+     * @return æ­£å¸¸å¯¹åº”çš„çŠ¶æ€ç å’Œæ‰§è¡Œå‘½ä»¤çš„çŠ¶æ€
      */
     public static String getGGWAPI(Map<String, String> paramMap) {
         String result = null;
@@ -109,9 +108,9 @@ public class GGWLoginApiUtil {
 
                 result = HttpUtil.get(url,charset);
             } catch (Exception e) {
-                System.out.println(e.getCause().getMessage());//»ñÈ¡Òì³£ĞÅÏ¢
+                System.out.println(e.getCause().getMessage());//è·å–å¼‚å¸¸ä¿¡æ¯
                 e.printStackTrace();
-                result = "error£»" + e.getCause().getMessage();
+                result = "errorï¼›" + e.getCause().getMessage();
             }
         } catch (HttpException e) {
             e.printStackTrace();;
@@ -121,7 +120,7 @@ public class GGWLoginApiUtil {
     }
 
     /**
-     * »ñÈ¡Éè±¸ĞÅÏ¢
+     * è·å–è®¾å¤‡ä¿¡æ¯
      * @return
      */
     public static Map<String, Map<String, Object>> getDevices() {
@@ -141,7 +140,7 @@ public class GGWLoginApiUtil {
         }
 
         String[] testIpArr = new String[]{"202.76.80.210", "10.180.5.206"};
-        //ÓÃÀ´´æ·ÅtestlabIp
+        //ç”¨æ¥å­˜æ”¾testlabIp
         Map<String, Object> tempMap = new HashMap<>();
         for (int i = 0; i < testIpArr.length; i++) {
             String teampIp = testIpArr[i];
@@ -163,11 +162,11 @@ public class GGWLoginApiUtil {
         paramMap.put("sign", "123456");
         paramMap.put("command", command1);
         paramMap.put("ip", ip);
-        System.out.println("Èë²Î£º"+paramMap);
+        System.out.println("å…¥å‚ï¼š"+paramMap);
         String loginReturnString=loginGGWAPI(paramMap);
-        System.out.println("µÇÂ¼·µ»Ø²ÎÊı£º"+loginReturnString);
+        System.out.println("ç™»å½•è¿”å›å‚æ•°ï¼š"+loginReturnString);
         String getGGWAPIString=getGGWAPI(paramMap);
-        System.out.println("·µ»ØµÄ½á¹û¼¯£º"+getGGWAPIString);
+        System.out.println("è¿”å›çš„ç»“æœé›†ï¼š"+getGGWAPIString);
     }
 
     public static void test1(){
@@ -189,13 +188,13 @@ public class GGWLoginApiUtil {
         paramMap.put("sign", "123456");
         paramMap.put("command",command);
         paramMap.put("ip", ip);
-        System.out.println("ÊäÈëµÄ²ÎÊı£º"+paramMap);
+        System.out.println("è¾“å…¥çš„å‚æ•°ï¼š"+paramMap);
         String loginReturnString=loginGGWAPI(paramMap);
-        System.out.println("µÇÂ¼·µ»Ø²ÎÊı£º"+loginReturnString);
+        System.out.println("ç™»å½•è¿”å›å‚æ•°ï¼š"+loginReturnString);
         //String getGGWAPIString=getGGWAPI(paramMap);
         String getGGWAPIString=getGGWAPITotp(paramMap);
 
-        System.out.println("·µ»ØµÄ½á¹û¼¯£º"+ JSONUtil.parseObj(getGGWAPIString));
+        System.out.println("è¿”å›çš„ç»“æœé›†ï¼š"+ JSONUtil.parseObj(getGGWAPIString));
     }
 
 
@@ -235,11 +234,11 @@ public class GGWLoginApiUtil {
 
 
     /**
-     * ¸ù¾İ²ÎÊı »ñÈ¡ ggw Æ´½ÓµÄ±ØĞë²ÎÊı
+     * æ ¹æ®å‚æ•° è·å– ggw æ‹¼æ¥çš„å¿…é¡»å‚æ•°
      *
      * @param paramMap
-     * @param passwordType ÃÜÂëÀàĞÍ,Ä¬ÈÏ²»¼ÓÉÏ totp 6Î»ÊıÑéÖ¤Âë
-     * @param urlType      µÇÂ¼ÀàĞÍ login execute
+     * @param passwordType å¯†ç ç±»å‹,é»˜è®¤ä¸åŠ ä¸Š totp 6ä½æ•°éªŒè¯ç 
+     * @param urlType      ç™»å½•ç±»å‹ login execute
      * @return
      */
     public static String getGGWParamAssemble(Map<String, String> paramMap, String passwordType, String urlType) {
@@ -265,8 +264,8 @@ public class GGWLoginApiUtil {
             String loginGGWSuffix = encryptAfterStr + "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip");
             return loginGGWSuffix;
         } else if (!StrUtil.isBlank(urlType) && "execute".equals(urlType)) {
-            System.out.println("¼ÓÃÜÇ° encrypt:"+ encrypt);
-            //System.out.println("¼ÓÃÜºó encrypt:"+ encryptAfterStr);
+            System.out.println("åŠ å¯†å‰ encrypt:"+ encrypt);
+            //System.out.println("åŠ å¯†å encrypt:"+ encryptAfterStr);
             String executeSuffix = "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
             return executeSuffix;
         }
@@ -276,10 +275,10 @@ public class GGWLoginApiUtil {
 
 
     /**
-     * ¸ù¾İ²ÎÊıÀ´µ÷ÓÃggwAPI Ö´ĞĞÃüÁî
+     * æ ¹æ®å‚æ•°æ¥è°ƒç”¨ggwAPI æ‰§è¡Œå‘½ä»¤
      *
-     * @param paramMap paramMap²ÎÊı£¬username:opÕËºÅ£¬password:opÃÜÂë,sign£º¶ÔÓ¦µÄ·ÃÎÊ±ê¼Ç£¬Ò»¸öopÍ¬Ò»¸öÊ±¼ä¶ÎÖ»ÄÜÓĞ6¸ö£¬command:ÃüÁî£¬ip:µÇÂ¼µ½ggw¶ÔÓ¦µÄip
-     * @return Õı³£¶ÔÓ¦µÄ×´Ì¬ÂëºÍÖ´ĞĞÃüÁîµÄ×´Ì¬
+     * @param paramMap paramMapå‚æ•°ï¼Œusername:opè´¦å·ï¼Œpassword:opå¯†ç ,signï¼šå¯¹åº”çš„è®¿é—®æ ‡è®°ï¼Œä¸€ä¸ªopåŒä¸€ä¸ªæ—¶é—´æ®µåªèƒ½æœ‰6ä¸ªï¼Œcommand:å‘½ä»¤ï¼Œip:ç™»å½•åˆ°ggwå¯¹åº”çš„ip
+     * @return æ­£å¸¸å¯¹åº”çš„çŠ¶æ€ç å’Œæ‰§è¡Œå‘½ä»¤çš„çŠ¶æ€
      */
     public static String getGGWAPITotp(Map<String, String> paramMap) {
         String result = null;
@@ -310,9 +309,9 @@ public class GGWLoginApiUtil {
 
                 result = HttpUtil.get(url);
             } catch (Exception e) {
-                System.out.println(e.getCause().getMessage());//»ñÈ¡Òì³£ĞÅÏ¢
+                System.out.println(e.getCause().getMessage());//è·å–å¼‚å¸¸ä¿¡æ¯
                 e.printStackTrace();
-                result = "error£»" + e.getCause().getMessage();
+                result = "errorï¼›" + e.getCause().getMessage();
             }
         } catch (HttpException e) {
             e.printStackTrace();
@@ -323,9 +322,9 @@ public class GGWLoginApiUtil {
     }
 
     /**
-     * ¸ù¾İ paramMap ²ÎÊıÀ´Ö´ĞĞcommandÀ´»îÈ¥Ö´ĞĞµÄ½á¹û
-     * get("error") ÓĞÄÚÈİÎª´íÎó£¬·ñÔò get("data")  ÎªÖ´ĞĞ½á¹û
-     * op1768 ÑéÖ¤ÂëÃÜ³× secretBase32£ºgmp7bb3kpghainowhr7jthvkkuy4buds
+     * æ ¹æ® paramMap å‚æ•°æ¥æ‰§è¡Œcommandæ¥æ´»å»æ‰§è¡Œçš„ç»“æœ
+     * get("error") æœ‰å†…å®¹ä¸ºé”™è¯¯ï¼Œå¦åˆ™ get("data")  ä¸ºæ‰§è¡Œç»“æœ
+     * op1768 éªŒè¯ç å¯†åŒ™ secretBase32ï¼šgmp7bb3kpghainowhr7jthvkkuy4buds
      * @param paramMap
      * @param log
      * @return
@@ -338,17 +337,17 @@ public class GGWLoginApiUtil {
         try {
             Map<String, String> lastTimeMap = new HashMap<>();
             lastTimeMap = ipLastLoginTimeMap.get(paramMap.get("ip"));
-            Long intervalTime = 601L;//Ä¬ÈÏÊÇÒÑ¾­³¬Ê±£¬²¢Ã»ÓĞµÇÂ¼×´Ì¬
+            Long intervalTime = 601L;//é»˜è®¤æ˜¯å·²ç»è¶…æ—¶ï¼Œå¹¶æ²¡æœ‰ç™»å½•çŠ¶æ€
             if (lastTimeMap != null &&  lastTimeMap.get(tempSgin) != null) {
                 //ip>sign>op;lastTime
                 String opName = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[0];
                 String tempLoginLastTime = ipLastLoginTimeMap.get(paramMap.get("ip")).get(tempSgin).split(";")[1];
                 Long ipLastLoginTime = Long.valueOf(tempLoginLastTime) * 1000L;
-                //¶ÔÓ¦µÄip¾àÀëÉÏ´ÎµÇÂ½µÄÊ±¼ä¼ä¸ô 600 ÃëµÇÂ¼×´Ì¬Ê§Ğ§
+                //å¯¹åº”çš„ipè·ç¦»ä¸Šæ¬¡ç™»é™†çš„æ—¶é—´é—´éš” 600 ç§’ç™»å½•çŠ¶æ€å¤±æ•ˆ
                 intervalTime = cn.hutool.core.date.DateUtil.between(DateUtil.date(ipLastLoginTime), new Date(), DateUnit.SECOND);
             }
             if (intervalTime.intValue() < 600) {
-                int loginNumber = 2;//²ÎÊıµÇÂ¼´ÎÊı
+                int loginNumber = 2;//å‚æ•°ç™»å½•æ¬¡æ•°
                 Map<String, String> tempMap = new HashMap<>();
                 Map<String, String> tempTotpMap = new HashMap<>();
 
@@ -356,16 +355,16 @@ public class GGWLoginApiUtil {
                 for (int i = 1; i <= loginNumber; i++) {
                     String methodType = "execute";
                     String url = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
-                    log.info("µÚ" + i + "´Î,ÎŞÑéÖ¤Âë·½Ê½Ö´ĞĞÃüÁî url£º\n" + url);
+                    log.info("ç¬¬" + i + "æ¬¡,æ— éªŒè¯ç æ–¹å¼æ‰§è¡Œå‘½ä»¤ urlï¼š\n" + url);
                     tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
                     if (!StrUtil.isBlank(tempMap.get("error"))&&loginNum<10) {
                         paramMap.put("sign","123457");
                         String tempLoginUrl = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", "login");
-                        log.info("ÑéÖ¤Âë µÇÂ¼µ½ggw»ñÈ¡session url£º\n" + url);
+                        log.info("éªŒè¯ç  ç™»å½•åˆ°ggwè·å–session urlï¼š\n" + url);
                         executeCommandOrLogin(tempLoginUrl, paramMap, "login", log);
 
                         String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
-                        log.info("µÚ" + i + "´Î,ÑéÖ¤ÂëÖ´·½Ê½ĞĞÃüÁî url£º\n" + totpUrl);
+                        log.info("ç¬¬" + i + "æ¬¡,éªŒè¯ç æ‰§æ–¹å¼è¡Œå‘½ä»¤ urlï¼š\n" + totpUrl);
                         tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
                         if ((!StrUtil.isBlank(tempTotpMap.get("error")) && i == loginNumber) || !StrUtil.isBlank(tempTotpMap.get("pass"))) {
                             return tempTotpMap;
@@ -379,11 +378,11 @@ public class GGWLoginApiUtil {
             } else {
                 paramMap.put("sign","123456");
                 String methodType = "login";
-                int loginNumber = 2;//²ÎÊıµÇÂ¼´ÎÊı
+                int loginNumber = 2;//å‚æ•°ç™»å½•æ¬¡æ•°
                 Map<String, String> tempMap = new HashMap<>();
                 for (int i = 1; i <= loginNumber; i++) {
                     String url = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
-                    log.info("µÚ" + i + "´Î,µÇÂ¼µ½ggw»ñÈ¡session url£º\n" + url);
+                    log.info("ç¬¬" + i + "æ¬¡,ç™»å½•åˆ°ggwè·å–session urlï¼š\n" + url);
                     tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
                     if ((!StrUtil.isBlank(tempMap.get("error")) && i == loginNumber)) {
                         return tempMap;
@@ -404,11 +403,11 @@ public class GGWLoginApiUtil {
     }
 
     /**
-     * Ö´ĞĞÃüÁîÀàĞÍ
+     * æ‰§è¡Œå‘½ä»¤ç±»å‹
      *
      * @param url
      * @param paramMap
-     * @param methodType Ö´ĞĞµÄ·½·¨£¬µÇÂ¼£ºlogin£¬Ö´ĞĞ£ºexecute
+     * @param methodType æ‰§è¡Œçš„æ–¹æ³•ï¼Œç™»å½•ï¼šloginï¼Œæ‰§è¡Œï¼šexecute
      * @param log
      * @return
      */

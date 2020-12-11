@@ -9,7 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
    /**
-    * trunk_info_mtp	ÊµÌåÀà
+    * trunk_info_mtp	å®ä½“ç±»
     * @author	op1768
     * @date	2019-02-20 06:37 
     */ 
@@ -19,48 +19,48 @@ import javax.persistence.TemporalType;
 public class TrunkInfoMtp{
 	@Id
 	 @Column(name="trunk_id")
-	private Long trunkId;//¹Ç¸Éid
+	private Long trunkId;//éª¨å¹²id
 
 	 @Column(name="provider_circuit_num")
 	private String providerCircuitNum;
 
 	 @Column(name="internal_circuit_num")
-	private String internalCircuitNum;//ÄÚ³ÇÏßÂ·
+	private String internalCircuitNum;//å†…åŸçº¿è·¯
 
 	 @Column(name="provider")
-	private String provider;//ÏßÂ·
+	private String provider;//çº¿è·¯
 
 	 @Column(name="trunk_name")
-	private String trunkName;//Á¬½ÓµÄÃû³Æ
+	private String trunkName;//è¿æ¥çš„åç§°
 
 	 @Column(name="a_end_full_name")
-	private String aEndFullName;//aÉè±¸Ãû
+	private String aEndFullName;//aè®¾å¤‡å
 
 	 @Column(name="z_end_full_name")
-	private String zEndFullName;//zÉè±¸Ãû
+	private String zEndFullName;//zè®¾å¤‡å
 
 	 @Column(name="a_end_interface")
-	private String aEndInterface;//a½Ó¿ÚÃû
+	private String aEndInterface;//aæ¥å£å
 
 	 @Column(name="z_end_interface")
-	private String zEndInterface;//z½Ó¿ÚÃû
+	private String zEndInterface;//zæ¥å£å
 
 	 @Column(name="a_end_interface_ip")
-	private String aEndInterfaceIp;//a½Ó¿Úip
+	private String aEndInterfaceIp;//aæ¥å£ip
 
 	 @Column(name="z_end_interface_ip")
-	private String zEndInterfaceIp;//z½Ó¿Úip
+	private String zEndInterfaceIp;//zæ¥å£ip
 
 	 @Column(name="link_type")
-	private String linkType;//ÏßÂ·ÀàĞÍ
+	private String linkType;//çº¿è·¯ç±»å‹
 
 	 @Column(name="create_time")
 	@Temporal(TemporalType.TIMESTAMP)  
-	private Date createTime;//´´½¨Ê±¼ä
+	private Date createTime;//åˆ›å»ºæ—¶é—´
 
 	 @Column(name="last_updated_time")
 	@Temporal(TemporalType.TIMESTAMP)  
-	private Date lastUpdatedTime;//¸üĞÂÊ±¼ä
+	private Date lastUpdatedTime;//æ›´æ–°æ—¶é—´
 
 
 	public void setTrunkId(Long trunkId){

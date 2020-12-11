@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * ÓÃ»§±í
+ * ç”¨æˆ·è¡¨
  * @author op1768
  *
  */
@@ -30,12 +30,12 @@ public class SysUser {
 	private String password;
 	@Column(name="create_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date create_time;	//´´½¨Ê±¼ä
+	private Date create_time;	//åˆ›å»ºæ—¶é—´
 	@Column(name="update_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date update_time;	//¸üĞÂÊ±¼ä
+	private Date update_time;	//æ›´æ–°æ—¶é—´
 	@Column(name="status")
-	private String status;//×´Ì¬ 0Õı³££¬1É¾³ı
+	private String status;//çŠ¶æ€ 0æ­£å¸¸ï¼Œ1åˆ é™¤
 	
 	
 	public int getUser_id() {

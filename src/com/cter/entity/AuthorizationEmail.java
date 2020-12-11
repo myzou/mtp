@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
- * ÊÚÈ¨ÉêÇëÊµÌåÀà
+ * æˆæƒç”³è¯·å®ä½“ç±»
  * @author op1768
  *
  */
@@ -27,54 +27,54 @@ public class AuthorizationEmail {
 	
 	@Id
 	@Column(name = "auth_id", unique = true, nullable = false, insertable = true, updatable = true)
-	private int auth_id;//Ö÷¼ü
+	private int auth_id;//ä¸»é”®
 	@Column(name="case_id")
-	private String case_id;//Èç¹ûÒÑ¾­·¢ËÍ¾Ícase_id ¸üĞÂµ½´Ë±íÖĞ
+	private String case_id;//å¦‚æœå·²ç»å‘é€å°±case_id æ›´æ–°åˆ°æ­¤è¡¨ä¸­
 	@Column(name="case_id_uuid")
-	private String case_id_uuid;//¶ÔÓ¦case_id µÄuuid
+	private String case_id_uuid;//å¯¹åº”case_id çš„uuid
 	@Column(name="city_name")
-	private String city_name;//µØÇø
+	private String city_name;//åœ°åŒº
 	@Column(name="pop_name")
-	private String pop_name;//ÉêÇë·ÃÎÊ»ú·¿
+	private String pop_name;//ç”³è¯·è®¿é—®æœºæˆ¿
 	@Column(name="op_type")
-	private String  op_type;//ÏêÏ¸²Ù×÷
+	private String  op_type;//è¯¦ç»†æ“ä½œ
 	@Column(name="supplier_name")
-	private String  supplier_name;//¹©Ó¦ÉÌÃû³Æ
+	private String  supplier_name;//ä¾›åº”å•†åç§°
 	@Column(name="start_time")
-	private String  start_time;//¿ªÊ¼Ê±¼ä
+	private String  start_time;//å¼€å§‹æ—¶é—´
 	@Column(name="end_time")
-	private String  end_time;//½áÊøÊ±¼ä
+	private String  end_time;//ç»“æŸæ—¶é—´
 	@Column(name="company")
-	private String  company;//ÉêÇëÈË²¿ÃÅ
+	private String  company;//ç”³è¯·äººéƒ¨é—¨
 	@Column(name="email")
-	private String  email;//ÉêÇëÈËEmail
+	private String  email;//ç”³è¯·äººEmail
 	@Column(name="name")
-	private String name;//ÉêÇëÈËÃû³Æ
+	private String name;//ç”³è¯·äººåç§°
 	@Column(name="remarks")
-	private String remarks;//±¸×¢ĞÅÏ¢
+	private String remarks;//å¤‡æ³¨ä¿¡æ¯
 	@Column(name="cabinet")
-	private String cabinet;//»ú¹ñĞÅÏ¢
+	private String cabinet;//æœºæŸœä¿¡æ¯
 	@Column(name="create_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date create_time;	//´´½¨Ê±¼ä
+	private Date create_time;	//åˆ›å»ºæ—¶é—´
 	@Column(name="update_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date update_time;	//¸üĞÂÊ±¼ä
+	private Date update_time;	//æ›´æ–°æ—¶é—´
 	@Column(name="au_status")
-	private String au_status;	// ×´Ì¬£¬TÎ´·¢ËÍ£¬DÉ¾³ı£¬SÒÑ¾­·¢ËÍ
+	private String au_status;	// çŠ¶æ€ï¼ŒTæœªå‘é€ï¼ŒDåˆ é™¤ï¼ŒSå·²ç»å‘é€
 	@Column(name="into_personnel")
-	private String into_personnel;//½øÈëÈËÔ±
+	private String into_personnel;//è¿›å…¥äººå‘˜
 	@Column(name="carry_facility")
-	private String carry_facility;	//Ğ¯´øÉè±¸ĞÅÏ¢
+	private String carry_facility;	//æºå¸¦è®¾å¤‡ä¿¡æ¯
  
 	@Transient
-	private List< IntoPersonnel>  intoPersonnelList;//½øÈëÈËÔ± List
+	private List< IntoPersonnel>  intoPersonnelList;//è¿›å…¥äººå‘˜ List
 	@Transient
-	private List<CarryFacility>  carryFacilityList;//Ğ¯´øÉè±¸Ï¸ĞÅÏ¢
+	private List<CarryFacility>  carryFacilityList;//æºå¸¦è®¾å¤‡ç»†ä¿¡æ¯
 	@Transient
-	private String addressee_email;//·¢ËÍÈËÓÊÏä
+	private String addressee_email;//å‘é€äººé‚®ç®±
 	@Transient
-	private String cc_addressee_email;//³­ËÍÈËÓÊÏä
+	private String cc_addressee_email;//æŠ„é€äººé‚®ç®±
 
 	
 	

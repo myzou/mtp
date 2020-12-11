@@ -24,11 +24,11 @@ public class rsa_demo {
 
     public String sign_str = "123456";
     /***
-     * ÃØÔ¿µÄÀ´Ô´·½Ê½ openssl Éú³É
+     * ç§˜é’¥çš„æ¥æºæ–¹å¼ openssl ç”Ÿæˆ
      */
 
     /**
-     * »ñµÃ¹«Ô¿
+     * è·å¾—å…¬é’¥
      *
      * @return
      * @throws NoSuchAlgorithmException
@@ -44,7 +44,7 @@ public class rsa_demo {
     }
 
     /**
-     * »ñµÃË½Ô¿
+     * è·å¾—ç§é’¥
      *
      * @return
      */
@@ -58,7 +58,7 @@ public class rsa_demo {
     }
 
     /**
-     * ¹«Ô¿¼ÓÃÜ £¨Ë½Ô¿¼ÓÃÜ£©
+     * å…¬é’¥åŠ å¯† ï¼ˆç§é’¥åŠ å¯†ï¼‰
      */
     public String encrypto(String text, Key key) {
         try {
@@ -69,49 +69,49 @@ public class rsa_demo {
             String secretText = Base64.encode(tempBytes);
             return secretText;
         } catch (Exception e) {
-            throw new RuntimeException("¼ÓÃÜ×Ö·û´®[" + text + "]Ê±Óöµ½Òì³£", e);
+            throw new RuntimeException("åŠ å¯†å­—ç¬¦ä¸²[" + text + "]æ—¶é‡åˆ°å¼‚å¸¸", e);
         }
     }
 
     /**
-     * Ë½Ô¿½âÃÜ£¨¹«Ô¿½âÃÜ£©
+     * ç§é’¥è§£å¯†ï¼ˆå…¬é’¥è§£å¯†ï¼‰
      *
      * @param secretText
      */
     public String decrypto(String secretText, Key key) {
         try {
-            //Éú³É¹«Ô¿
+            //ç”Ÿæˆå…¬é’¥
             Cipher cipher = Cipher.getInstance(encryptoMode);
             cipher.init(Cipher.DECRYPT_MODE, key);
-            // ÃÜÎÄ½âÂë
+            // å¯†æ–‡è§£ç 
 //            byte[] secretText_decode = Base64.getDecoder().decode(secretText.getBytes());
             byte[] secretText_decode = Base64.decode(secretText.getBytes());
             byte tempBytes[] = cipher.doFinal(secretText_decode);
             String text = new String(tempBytes);
             return text;
         } catch (Exception e) {
-            throw new RuntimeException("½âÃÜ×Ö·û´®[" + secretText + "]Ê±Óöµ½Òì³£", e);
+            throw new RuntimeException("è§£å¯†å­—ç¬¦ä¸²[" + secretText + "]æ—¶é‡åˆ°å¼‚å¸¸", e);
         }
     }
 
     /**
-     * ÓÉÓÚÃ¿´Î¹«Ô¿ ¼ÓÃÜ³öÀ´µÄ½á¹û¶¼²»Ò»Ñù£¬ËùÓĞpython java Ã¿´Î¼ÓÃÜ³öÀ´µÄ½á¹û¶¼²»Ò»Ñù£¬Ò²¾ÍÃ»ÓĞ¿É±ÈĞÔ¡£ÎÒÃÇÖ»¿¼ÂÇÄÜ½âÃÜ¾ÍĞĞ
+     * ç”±äºæ¯æ¬¡å…¬é’¥ åŠ å¯†å‡ºæ¥çš„ç»“æœéƒ½ä¸ä¸€æ ·ï¼Œæ‰€æœ‰python java æ¯æ¬¡åŠ å¯†å‡ºæ¥çš„ç»“æœéƒ½ä¸ä¸€æ ·ï¼Œä¹Ÿå°±æ²¡æœ‰å¯æ¯”æ€§ã€‚æˆ‘ä»¬åªè€ƒè™‘èƒ½è§£å¯†å°±è¡Œ
      *
      * @param args
      */
     public static void main(String[] args) throws Exception {
 
         rsa_demo rsa = new rsa_demo();
-        System.err.println("Ã÷ÎÄ:" + rsa.sign_str);
+        System.err.println("æ˜æ–‡:" + rsa.sign_str);
         PublicKey pubkey = rsa.getPublicKey(rsa.pubKey);
         PrivateKey prikey = rsa.getPrivateKey(rsa.priKey);
-        String secretText = rsa.encrypto(rsa.sign_str, pubkey);//¹«Ô¿¼ÓÃÜ£¬Ë½Ô¿½âÃÜ
+        String secretText = rsa.encrypto(rsa.sign_str, pubkey);//å…¬é’¥åŠ å¯†ï¼Œç§é’¥è§£å¯†
 
         secretText = "Lm9PN4oM1dl17d2XFYRIs+hDV6RkGPVYBjgYAglaj020v5RnYzClHUN6lOVBzpeYKyH1MY5JzyOfxuYZHKCupVqhcvY4+zx+jowBH2nbVp1+/OrzuiPkNivfvmEad6ImAZp5/3Y/dVafABm5xZE78j7Ytlv0ak4seXMGTisU39o=";
-        System.out.println("ÃÜÎÄ:" + secretText);
+        System.out.println("å¯†æ–‡:" + secretText);
         String text = rsa.decrypto(secretText, prikey);
 
-        System.out.println("Ã÷ÎÄ:" + text);
+        System.out.println("æ˜æ–‡:" + text);
 
     }
 

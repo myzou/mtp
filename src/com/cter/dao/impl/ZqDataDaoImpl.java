@@ -15,7 +15,7 @@ import java.util.List;
 public class ZqDataDaoImpl extends BaseDaOImpl<ZqData> {
 
     /**
-     * 根据sys_code 获取zq_data 数据
+     * 鏍规嵁sys_code 鑾峰彇zq_data 鏁版嵁
      * @param sys_code
      * @return
      */
@@ -28,7 +28,7 @@ public class ZqDataDaoImpl extends BaseDaOImpl<ZqData> {
         return CommonUtil.objectListGetOne(list);
     }
     /**
-     * 获取主键最大id
+     * 鑾峰彇涓婚敭鏈�澶d
      * @return
      */
     public int queryMaxZqDataId( ) {

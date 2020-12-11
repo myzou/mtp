@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * ²Ëµ¥±í
+ * èœå•è¡¨
  * @author op1768
  *
  */
@@ -18,29 +18,29 @@ public class SysMenu {
 	@Id
 //	 @GeneratedValue(strategy = GenerationType.IDENTITY)    
 	@Column(name = "menu_id", unique = true, nullable = false, insertable = true, updatable = true)
-	private int menu_id;//²Ëµ¥Ö÷¼ü
+	private int menu_id;//èœå•ä¸»é”®
 	@Column(name="m_id")
-	private int m_id;//²Ëµ¥id Ò»¼¶²Ëµ¥1000Îªµ¥Î»£¬¶ş¼¶²Ëµ¥ÔÚ1000»ù´¡ÉÏ¼Ó1
+	private int m_id;//èœå•id ä¸€çº§èœå•1000ä¸ºå•ä½ï¼ŒäºŒçº§èœå•åœ¨1000åŸºç¡€ä¸ŠåŠ 1
 	@Column(name="menu_name")
-	private String menu_name;//²Ëµ¥Ãû³Æ
+	private String menu_name;//èœå•åç§°
 	@Column(name="menu_path")
-	private String menu_path;//²Ëµ¥Â·¾¶
+	private String menu_path;//èœå•è·¯å¾„
 	@Column(name="parent_m_id")
-	private int parent_m_id;//ÉÏ¼¶m_id
+	private int parent_m_id;//ä¸Šçº§m_id
 	
 	@Column(name="parent_order_num")
-	private int parent_order_num;//Ò»¼¶²Ëµ¥ÅÅĞò
+	private int parent_order_num;//ä¸€çº§èœå•æ’åº
 	@Column(name="child_order_num")
-	private int child_order_num;//¶ş¼¶²Ëµ¥ÅÅĞò  
+	private int child_order_num;//äºŒçº§èœå•æ’åº  
 	
 	@Column(name="status")
-	private String status;//×´Ì¬0Õı³££¬1²»¿É¼û
+	private String status;//çŠ¶æ€0æ­£å¸¸ï¼Œ1ä¸å¯è§
 	@Transient
-	private String menu_level1;//Ò»¼¶²Ëµ¥
+	private String menu_level1;//ä¸€çº§èœå•
 	@Transient
-	private String menu_level2;//¶ş¼¶²Ëµ¥
+	private String menu_level2;//äºŒçº§èœå•
 	@Transient
-	private int belong_menu_id;//ÉÏ¼¶menu_id
+	private int belong_menu_id;//ä¸Šçº§menu_id
 	
 	
 	public int getMenu_id() {

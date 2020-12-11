@@ -7,7 +7,7 @@ import com.cpcnet.frameset.ssi.naming.SimpleRadiusAuthenticationHandler;
 import java.util.Map;
 
 /**
- * ÓÃÀ´µÇÂ¼µÄopÕÊºÅÀà
+ * ç”¨æ¥ç™»å½•çš„opå¸å·ç±»
  *
  * @author op1768
  */
@@ -21,14 +21,14 @@ public class RadiusOpLoginUtil {
 
 
     // for UAT radius
-/*NOC ÅäÖÃ 
- * 	Radius server£º202.76.23.51
-	Port£º 1645
-	sharesecret£º NocSystem
+/*NOC é…ç½® 
+ * 	Radius serverï¼š202.76.23.51
+	Portï¼š 1645
+	sharesecretï¼š NocSystem
 	authProtocol :
 	*/
-    // /±¾µØPC»úÆ÷ÉÏÖ»¿ÉÒÔÓÃUAT RADIUS, test ACC: op494 / abc123
-    //·ÃÎÊÆäËûµÄ»°ĞèÒª°Ñ´úÂë·¢²¼µ½¹«Ë¾µÄÄÚÍø
+    // /æœ¬åœ°PCæœºå™¨ä¸Šåªå¯ä»¥ç”¨UAT RADIUS, test ACC: op494 / abc123
+    //è®¿é—®å…¶ä»–çš„è¯éœ€è¦æŠŠä»£ç å‘å¸ƒåˆ°å…¬å¸çš„å†…ç½‘
 //		 private static final String radiusHost = "202.76.80.77";
 //		 private static final String sharedSecret = "aaron";
 //		 private static final int authPort = 1812;
@@ -38,29 +38,29 @@ public class RadiusOpLoginUtil {
     private static final int retry = 0;
 
     /**
-     * opÕÊºÅÃÜÂëµÇÂ¼·½·¨
-     * ²âÊÔÕÊºÅ£ºop494  ÃÜÂë£ºabc123
+     * opå¸å·å¯†ç ç™»å½•æ–¹æ³•
+     * æµ‹è¯•å¸å·ï¼šop494  å¯†ç ï¼šabc123
      *
-     * @param userName opÕÊºÅÃû
-     * @param pwd      opÃÜÂë
-     * @return 2    µÇÂ¼³É¹¦
-     * ÏÂÃæÊÇÃ»ÓĞÓÃµ½µÄ
-     * -6 	´úÂë´íÎó;//CODE_ERROR
-     * -5 	´úÂëÅ×³öÒì³£ //CODE_RADIUS_EXCEPTION
-     * -4	´úÂëÊôĞÔ´íÎó//CODE_UNKNOWN_ATTRIBUTE
-     * -3	´úÂëIOÒì³£CODE_IO_EXCEPTION
-     * -2 	´úÂëÇëÇó³¬Ê±//CODE_REQUEST_TIME_OUT
-     * -1	´úÂëÖ÷»ú´íÎó//CODE_UNKNOWN_HOST
-     * 1	´úÂëÇëÇó·ÃÎÊ//CODE_ACCESS_REQUEST
-     * 2	´úÂëÇëÇó½ÓÊÜ//CODE_ACCESS_ACCEPT
-     * 3	´úÂëÇëÇó¾Ü¾ø//CODE_ACCESS_REJECT
-     * 11	´úÂëÇëÇó·µ»Ø//CODE_ACCESS_CHALLENGE
+     * @param userName opå¸å·å
+     * @param pwd      opå¯†ç 
+     * @return 2    ç™»å½•æˆåŠŸ
+     * ä¸‹é¢æ˜¯æ²¡æœ‰ç”¨åˆ°çš„
+     * -6 	ä»£ç é”™è¯¯;//CODE_ERROR
+     * -5 	ä»£ç æŠ›å‡ºå¼‚å¸¸ //CODE_RADIUS_EXCEPTION
+     * -4	ä»£ç å±æ€§é”™è¯¯//CODE_UNKNOWN_ATTRIBUTE
+     * -3	ä»£ç IOå¼‚å¸¸CODE_IO_EXCEPTION
+     * -2 	ä»£ç è¯·æ±‚è¶…æ—¶//CODE_REQUEST_TIME_OUT
+     * -1	ä»£ç ä¸»æœºé”™è¯¯//CODE_UNKNOWN_HOST
+     * 1	ä»£ç è¯·æ±‚è®¿é—®//CODE_ACCESS_REQUEST
+     * 2	ä»£ç è¯·æ±‚æ¥å—//CODE_ACCESS_ACCEPT
+     * 3	ä»£ç è¯·æ±‚æ‹’ç»//CODE_ACCESS_REJECT
+     * 11	ä»£ç è¯·æ±‚è¿”å›//CODE_ACCESS_CHALLENGE
      */
 	/*	public static  int checkLogin(String userName,String pwd){
 			int a= SimpleRadiusAuthenticationHandler.authenticate(
 					radiusHost, sharedSecret, authProtocol,  userName,
 					 pwd, authPort, socketTimeout, retry);
-			System.out.println("ÑéÖ¤µÇÂ¼·µ»Ø£º"+a);
+			System.out.println("éªŒè¯ç™»å½•è¿”å›ï¼š"+a);
 			System.out.println(userName+"/"+pwd);
 			return a;
 		}*/
@@ -69,7 +69,7 @@ public class RadiusOpLoginUtil {
         checkOPUrl = checkOPUrl.replace("opusername", userName).replace("oppassword", pwd);
         System.out.println("checkOPUrl:" + checkOPUrl);
         String checkResult = HttpUtil.get(checkOPUrl);
-        System.out.println("ÑéÖ¤µÇÂ¼·µ»Ø£º" + checkResult);
+        System.out.println("éªŒè¯ç™»å½•è¿”å›ï¼š" + checkResult);
         System.out.println(userName + "/" + pwd);
         if (!StrUtil.isEmpty(checkResult) && checkResult.equals("Y")) {
             return 2;
@@ -78,7 +78,7 @@ public class RadiusOpLoginUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(checkLogin("op494", "abc123"));
+        System.out.println(checkLogin("op1113", "xxxXXX!@#$1"));
     }
 
 }

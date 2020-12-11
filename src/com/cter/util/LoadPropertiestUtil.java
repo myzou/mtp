@@ -10,15 +10,15 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
- * ¼ÓÔØproperties¹¤¾ßÀà
+ * åŠ è½½propertieså·¥å…·ç±»
  * @author op1768
  *
  */
 public class LoadPropertiestUtil {
 
 	/**
-	 * ¸ù¾İÎÄ¼şÂ·¾¶¼ÓÔØ²ÎÊıµ½map
-	 * @param filePath  ÅäÖÃÎÄ¼şµÄÂ·¾¶
+	 * æ ¹æ®æ–‡ä»¶è·¯å¾„åŠ è½½å‚æ•°åˆ°map
+	 * @param filePath  é…ç½®æ–‡ä»¶çš„è·¯å¾„
 	 * @return
 	 */
 		public static   Map<String,String>   loadProperties(String filePath){
@@ -26,8 +26,8 @@ public class LoadPropertiestUtil {
 			Properties pro =new Properties();
 			try {
 				String charsetName= "UTF-8";
-				InputStream ins=LoadPropertiestUtil.class.getClassLoader().getResourceAsStream(filePath);//»ñÈ¡ÊäÈëÁ÷
-				InputStreamReader in=	new InputStreamReader(ins, charsetName);//Ê¹ÓÃInputStreamReader ¸Ä±ä×Ö·û±àÂë
+				InputStream ins=LoadPropertiestUtil.class.getClassLoader().getResourceAsStream(filePath);//è·å–è¾“å…¥æµ
+				InputStreamReader in=	new InputStreamReader(ins, charsetName);//ä½¿ç”¨InputStreamReader æ”¹å˜å­—ç¬¦ç¼–ç 
 				pro.load(in);  
 				Iterator<String> iterator=pro.stringPropertyNames().iterator();
 				while (iterator.hasNext()){
@@ -38,7 +38,7 @@ public class LoadPropertiestUtil {
 				Iterator<Entry<String, String>> iterator1=map.entrySet().iterator();
 				while(iterator1.hasNext()){
 					 Entry<String, String> entry=iterator1.next();
-					 System.out.println("¼ü£º"+ entry.getKey() +"\t\tÖµ:"+entry.getValue());
+					 System.out.println("é”®ï¼š"+ entry.getKey() +"\t\tå€¼:"+entry.getValue());
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -48,17 +48,17 @@ public class LoadPropertiestUtil {
 		}
 		
 		/**
-		 * »ñÈ¡ÅäÖÃÎÄ¼şµÄÄÚÈİ
-		 * @param filePath   ÀıÈç£º config/db.properties
-		 * @param charsetName  ×Ö·û±àÂë:UTF-8  GBK
+		 * è·å–é…ç½®æ–‡ä»¶çš„å†…å®¹
+		 * @param filePath   ä¾‹å¦‚ï¼š config/db.properties
+		 * @param charsetName  å­—ç¬¦ç¼–ç :UTF-8  GBK
 		 * @return
 		 */
 		public static   Map<String,String>   loadProperties(String filePath,String charsetName){
 			Map <String ,String> map =new HashMap<String, String>();
 			Properties pro =new Properties();
 			try {
-				InputStream ins=CopyUpdateOfSvn.class  .getClassLoader().getResourceAsStream(filePath);//»ñÈ¡ÊäÈëÁ÷
-				InputStreamReader in=	new InputStreamReader(ins, charsetName);//Ê¹ÓÃInputStreamReader ¸Ä±ä×Ö·û±àÂë
+				InputStream ins=CopyUpdateOfSvn.class  .getClassLoader().getResourceAsStream(filePath);//è·å–è¾“å…¥æµ
+				InputStreamReader in=	new InputStreamReader(ins, charsetName);//ä½¿ç”¨InputStreamReader æ”¹å˜å­—ç¬¦ç¼–ç 
 				pro.load(in);  
 				Iterator<String> iterator=pro.stringPropertyNames().iterator();
 				while (iterator.hasNext()){
@@ -69,7 +69,7 @@ public class LoadPropertiestUtil {
 				Iterator<Entry<String, String>> iterator1=map.entrySet().iterator();
 				while(iterator1.hasNext()){
 					 Entry<String, String> entry=iterator1.next();
-					 System.out.println("¼ü£º"+ entry.getKey() +"\t\tÖµ:"+entry.getValue());
+					 System.out.println("é”®ï¼š"+ entry.getKey() +"\t\tå€¼:"+entry.getValue());
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

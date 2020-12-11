@@ -45,7 +45,8 @@
                             <button type="button" class="layui-btn layui-btn-normal" id="chooseFile">选择附件</button>
                              
                             <button type="button" class="layui-btn" id="upload">开始上传</button><!--  layui-hide -->
-                             
+                            <button type="button" class="layui-btn" onclick="getOTTemplate()">下载模版</button>
+
                             <div class="layui-upload-list">
                                 <label class="layui-form-label">
                                 </label>
@@ -352,7 +353,9 @@
 
     });
 
-
+    function getOTTemplate(){
+        window.location.href="down_getOTTemplate.action?fn=template.xlsx";
+    }
 </script>
 
 </body>

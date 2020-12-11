@@ -3,7 +3,7 @@ package com.cter.util;
 import java.util.UUID;
 
 /**
- * uuid¹¤¾ßÀà
+ * uuidå·¥å…·ç±»
  * @author op1768
  *Date:2018-11-11
  */

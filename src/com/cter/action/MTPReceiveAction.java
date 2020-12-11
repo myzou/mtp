@@ -41,56 +41,55 @@ public class MTPReceiveAction extends ActionSupport {
     private static String loginUrl =  otherMap.get("loginUrl");
     private static String loginOutUrl =  otherMap.get("loginOutUrl");
     /**
-     * mtp×Ô¶¯»¯Èë¿Ú
+     * mtpè‡ªåŠ¨åŒ–å…¥å£
      *
      */
     public void addMtpRecordDetailed() {
         long start= System.currentTimeMillis();
-        log.info("¿ªÊ¼ÔËĞĞÊ±¼ä£º"+ cn.hutool.core.date.DateUtil.now());
+        log.info("å¼€å§‹è¿è¡Œæ—¶é—´ï¼š"+ cn.hutool.core.date.DateUtil.now());
         String result = "";
         HttpServletRequest request = ServletActionContext.getRequest();
         String jsonStr=request.getParameter("jsonStr");
-        log.info("Ò³Ãæµ÷ÓÃÁË MTPReceiveAction.addMtpRecordDetailed \n" +
-                "µ÷ÓÃµÄ²ÎÊıÎª£º(" + jsonStr + ")");
-        log.info("µ÷ÓÃµÄip getRemoteAddr£º" + request.getRemoteAddr());
+        log.info("é¡µé¢è°ƒç”¨äº† MTPReceiveAction.addMtpRecordDetailed \n" +
+                "è°ƒç”¨çš„å‚æ•°ä¸ºï¼š(" + jsonStr + ")");
+        log.info("è°ƒç”¨çš„ip getRemoteAddrï¼š" + request.getRemoteAddr());
         result = mtpReceiveService.validateParam(jsonStr);
         retString(result, log);
 
         if(JSONUtil.parseObj(result).getStr("status").equals("Y")){
             result = mtpReceiveService.addMtpRecordDetailed(jsonStr);
             String separator = File.separator;
-            String uploadPath = request.getServletContext().getRealPath(separator + "mtp" + separator + DateUtil.getDateStryyyyMMdd(new Date()) + separator);  //ÎÄ¼ş±£´æÂ·¾¶
+            String uploadPath = request.getServletContext().getRealPath(separator + "mtp" + separator + DateUtil.getDateStryyyyMMdd(new Date()) + separator);  //æ–‡ä»¶ä¿å­˜è·¯å¾„
             SendResultToRemedy sendResultToRemedy=new SendResultToRemedy();
 //            sendResultToRemedy.setMTPQueryLog(log);
             long endOfStart= ((System.currentTimeMillis()-start)/1000);
             sendResultToRemedy.init(loginUrl,loginOutUrl,sendToRemedyUrl,result);
             sendResultToRemedy.run(endOfStart);
-
             result = "<pre>"   + result + "</pre>";
         }
 
-        log.info("·µ»Ø×Ö·û´®result£º" + result);
+        log.info("è¿”å›å­—ç¬¦ä¸²resultï¼š" + result);
         long end= System.currentTimeMillis();
-        log.info("½áÊøÔËĞĞÊ±¼ä£º"+ cn.hutool.core.date.DateUtil.now());
-        log.info("Ö´ĞĞÏßÂ·ÊıÁ¿£º"+(StringUtil.isBlank(jsonStr)?0:(JSONUtil.toBean(jsonStr, MTPA.class).getPePorts().size()))+"\t×ÜÊ±³¤:"+(end-start)/1000.00+"Ãë");
+        log.info("ç»“æŸè¿è¡Œæ—¶é—´ï¼š"+ cn.hutool.core.date.DateUtil.now());
+        log.info("æ‰§è¡Œçº¿è·¯æ•°é‡ï¼š"+(StringUtil.isBlank(jsonStr)?0:(JSONUtil.toBean(jsonStr, MTPA.class).getPePorts().size()))+"\tæ€»æ—¶é•¿:"+(end-start)/1000.00+"ç§’");
     }
 
 
 
     /**
-     * ·µ»Ø¸ø½çÃæ text ÎÄ±¾
-     * @param str ·µ»ØµÄÊı¾İ×Ö·û´®
+     * è¿”å›ç»™ç•Œé¢ text æ–‡æœ¬
+     * @param str è¿”å›çš„æ•°æ®å­—ç¬¦ä¸²
      * @throws IOException
      */
     public static void 	retString(String str,BaseLog log ) {
         HttpServletResponse response=ServletActionContext.getResponse();
-        //ÖØĞ´·½·¨ÅäÖÃ£¬ÊµÏÖÈÕÆÚ×ª»»Îª×Ö·û´®
+        //é‡å†™æ–¹æ³•é…ç½®ï¼Œå®ç°æ—¥æœŸè½¬æ¢ä¸ºå­—ç¬¦ä¸²
         response.setContentType("text/json; charset=utf-8");
-        response.setHeader("Cache-Control", "no-cache"); //ÉèÖÃÍ·ĞÅÏ¢
+        response.setHeader("Cache-Control", "no-cache"); //è®¾ç½®å¤´ä¿¡æ¯
         PrintWriter out=null;
         try {
             out = response.getWriter();
-            log.info("·µ»Øµ½½çÃæµÄ²ÎÊı£º"+str);
+            log.info("è¿”å›åˆ°ç•Œé¢çš„å‚æ•°ï¼š"+str);
             out.print(str);
             out.flush();
             out.close();
@@ -101,7 +100,7 @@ public class MTPReceiveAction extends ActionSupport {
     }
     /**
      *
-     * ¸ù¾İÖ÷»úÃû³ÆºÍÃüÁîÖ´ĞĞÃüÁî
+     * æ ¹æ®ä¸»æœºåç§°å’Œå‘½ä»¤æ‰§è¡Œå‘½ä»¤
      *
      */
     public void executiveCommand() {

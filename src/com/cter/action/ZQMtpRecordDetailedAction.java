@@ -24,12 +24,11 @@ public class ZQMtpRecordDetailedAction extends ActionSupport {
 	
 	private BaseLog log=new BaseLog(this.getClass().getName().replaceAll(".*\\.",""));
 	
-	
 	@Autowired
 	private ZQMtpRecordDetailedService detailedService ;
 	
 	/**
-	 * ¼ÓÔØtrunk_info_mtp list
+	 * åŠ è½½trunk_info_mtp list
 	 * @return
 	 * @
 	 */
@@ -40,37 +39,10 @@ public class ZQMtpRecordDetailedAction extends ActionSupport {
 		 detailedService.findMtpRecordDetailed ( map,layui );
 		 HttpDataManageUtil.layuiPagination(layui.getCountSize(), layui.getDatas() ,log);
 	}
-	
-	/** 
-	 * ¸üĞÂMtpRecordDetailed ±í
-	 * @return
-	 * @
-	 */
-	public void  updateMtpRecordDetailed() {
-		 HttpServletRequest request=ServletActionContext.getRequest();
-		 MtpRecordDetailed trunkInfoMtp=	 (MtpRecordDetailed) HttpDataManageUtil.request2Object(request, "jsonStr", MtpRecordDetailed.class);
-		 detailedService.updateMtpRecordDetailed(trunkInfoMtp);
-		 HttpDataManageUtil.retJSON(true ,log);
-	}
-	
-	/** 
-	 * Ôö¼Ó MtpRecordDetailed ±í
-	 * @return
-	 * @
-	 */
-	public void  addMtpRecordDetailed() {
-		 HttpServletRequest request=ServletActionContext.getRequest();
-		 Map<String,String > map=HttpDataManageUtil.request2Map(request, "jsonStr");
-		String result =detailedService.addMtpRecordDetailed(map);
-		String separator=File.separator;
-    	String uploadPath = request.getSession().getServletContext().getRealPath(separator+"mtp"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator);  //ÎÄ¼ş±£´æÂ·¾¶
-		result ="<pre>"+result+"</pre>";
-		 HttpDataManageUtil.retString (result ,log);
-	}
-	
-	
+
+
 	/**
-	 * ĞŞ¸Ä·¢ËÍµÄÕÊºÅÃÜÂë
+	 * ä¿®æ”¹å‘é€çš„å¸å·å¯†ç 
 	 * @return
 	 * @throws IOException 
 	 */
@@ -82,7 +54,7 @@ public class ZQMtpRecordDetailedAction extends ActionSupport {
 	}
 	
 	/**
-	 * ĞŞ¸Ä×´Ì¬
+	 * ä¿®æ”¹çŠ¶æ€
 	 * @return
 	 * @throws IOException 
 	 */

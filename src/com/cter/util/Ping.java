@@ -9,16 +9,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
 
-/*µÚÒ»ÖÖ·½·¨:Jdk1.5µÄInetAddresss,´úÂë¼òµ¥¡£
-µÚ¶şÖÖ·½·¨:Ê¹ÓÃjavaµ÷ÓÃcmdÃüÁî,ÕâÖÖ·½Ê½×î¼òµ¥£¬¿ÉÒÔ°ÑpingµÄ¹ı³ÌÏÔÊ¾ÔÚ±¾µØ¡£
-µÚÈıÖÖ·½·¨:Ò²ÊÇÊ¹ÓÃjavaµ÷ÓÃ¿ØÖÆÌ¨µÄpingÃüÁî£¬Õâ¸ö±È½Ï¿É¿¿£¬»¹Í¨ÓÃ£¬
-Ê¹ÓÃÆğÀ´·½±ã£º´«Èë¸öip£¬ÉèÖÃpingµÄ´ÎÊıºÍ³¬Ê±£¬¾Í¿ÉÒÔ¸ù¾İ·µ»ØÖµÀ´ÅĞ¶ÏÊÇ·ñpingÍ¨¡£*/
+/*ç¬¬ä¸€ç§æ–¹æ³•:Jdk1.5çš„InetAddresss,ä»£ç ç®€å•ã€‚
+ç¬¬äºŒç§æ–¹æ³•:ä½¿ç”¨javaè°ƒç”¨cmdå‘½ä»¤,è¿™ç§æ–¹å¼æœ€ç®€å•ï¼Œå¯ä»¥æŠŠpingçš„è¿‡ç¨‹æ˜¾ç¤ºåœ¨æœ¬åœ°ã€‚
+ç¬¬ä¸‰ç§æ–¹æ³•:ä¹Ÿæ˜¯ä½¿ç”¨javaè°ƒç”¨æ§åˆ¶å°çš„pingå‘½ä»¤ï¼Œè¿™ä¸ªæ¯”è¾ƒå¯é ï¼Œè¿˜é€šç”¨ï¼Œ
+ä½¿ç”¨èµ·æ¥æ–¹ä¾¿ï¼šä¼ å…¥ä¸ªipï¼Œè®¾ç½®pingçš„æ¬¡æ•°å’Œè¶…æ—¶ï¼Œå°±å¯ä»¥æ ¹æ®è¿”å›å€¼æ¥åˆ¤æ–­æ˜¯å¦pingé€šã€‚*/
 
 public class Ping {
      
     public static boolean ping(String ipAddress) throws Exception {
-        int  timeOut =  3000 ;  //³¬Ê±Ó¦¸ÃÔÚ3³®ÒÔÉÏ        
-        boolean status = InetAddress.getByName(ipAddress).isReachable(timeOut);     // µ±·µ»ØÖµÊÇtrueÊ±£¬ËµÃ÷hostÊÇ¿ÉÓÃµÄ£¬falseÔò²»¿É¡£
+        int  timeOut =  3000 ;  //è¶…æ—¶åº”è¯¥åœ¨3é’ä»¥ä¸Š        
+        boolean status = InetAddress.getByName(ipAddress).isReachable(timeOut);     // å½“è¿”å›å€¼æ˜¯trueæ—¶ï¼Œè¯´æ˜hostæ˜¯å¯ç”¨çš„ï¼Œfalseåˆ™ä¸å¯ã€‚
         return status;
     }
      
@@ -37,23 +37,23 @@ public class Ping {
      
     public static boolean ping(String ipAddress, int pingTimes, int timeOut) {  
         BufferedReader in = null;  
-        Runtime r = Runtime.getRuntime();  // ½«ÒªÖ´ĞĞµÄpingÃüÁî,´ËÃüÁîÊÇwindows¸ñÊ½µÄÃüÁî  
+        Runtime r = Runtime.getRuntime();  // å°†è¦æ‰§è¡Œçš„pingå‘½ä»¤,æ­¤å‘½ä»¤æ˜¯windowsæ ¼å¼çš„å‘½ä»¤  
         String pingCommand = "ping " + ipAddress + " -n " + pingTimes    + " -w " + timeOut;  
-        try {   // Ö´ĞĞÃüÁî²¢»ñÈ¡Êä³ö  
+        try {   // æ‰§è¡Œå‘½ä»¤å¹¶è·å–è¾“å‡º  
             System.out.println(pingCommand);   
             Process p = r.exec(pingCommand);   
             if (p == null) {    
                 return false;   
             }
-            in = new BufferedReader(new InputStreamReader(p.getInputStream()));   // ÖğĞĞ¼ì²éÊä³ö,¼ÆËãÀàËÆ³öÏÖ=23ms TTL=62×ÖÑùµÄ´ÎÊı  
+            in = new BufferedReader(new InputStreamReader(p.getInputStream()));   // é€è¡Œæ£€æŸ¥è¾“å‡º,è®¡ç®—ç±»ä¼¼å‡ºç°=23ms TTL=62å­—æ ·çš„æ¬¡æ•°  
             int connectedCount = 0;   
             String line = null;   
             while ((line = in.readLine()) != null) {    
                 connectedCount += getCheckResult(line);   
-            }   // Èç¹û³öÏÖÀàËÆ=23ms TTL=62ÕâÑùµÄ×ÖÑù,³öÏÖµÄ´ÎÊı=²âÊÔ´ÎÊıÔò·µ»ØÕæ  
+            }   // å¦‚æœå‡ºç°ç±»ä¼¼=23ms TTL=62è¿™æ ·çš„å­—æ ·,å‡ºç°çš„æ¬¡æ•°=æµ‹è¯•æ¬¡æ•°åˆ™è¿”å›çœŸ  
             return connectedCount == pingTimes;  
         } catch (Exception ex) {   
-            ex.printStackTrace();   // ³öÏÖÒì³£Ôò·µ»Ø¼Ù  
+            ex.printStackTrace();   // å‡ºç°å¼‚å¸¸åˆ™è¿”å›å‡  
             return false;  
         } finally {   
             try {    
@@ -63,8 +63,8 @@ public class Ping {
             }  
         }
     }
-    //Èôlineº¬ÓĞ=18ms TTL=16×ÖÑù,ËµÃ÷ÒÑ¾­pingÍ¨,·µ»Ø1,·ñ„t·µ»Ø0.
-    private static int getCheckResult(String line) {  // System.out.println("¿ØÖÆÌ¨Êä³öµÄ½á¹ûÎª:"+line);  
+    //è‹¥lineå«æœ‰=18ms TTL=16å­—æ ·,è¯´æ˜å·²ç»pingé€š,è¿”å›1,å¦å‰‡è¿”å›0.
+    private static int getCheckResult(String line) {  // System.out.println("æ§åˆ¶å°è¾“å‡ºçš„ç»“æœä¸º:"+line);  
         Pattern pattern = Pattern.compile("(\\d+ms)(\\s+)(TTL=\\d+)",    Pattern.CASE_INSENSITIVE);  
         Matcher matcher = pattern.matcher(line);  
         while (matcher.find()) {

@@ -18,15 +18,15 @@ public class ExcelUtil {
 			
 	
 	/**
-	 * ¸ù¾İÎÄ¼şÃû ºÍÈÕÆÚµ¼ÈëÊÕÇ®°É½Ó¿ÚÊı¾İ
-	 * @param filePaths  ´ÓÊÕÇ®°ÉFTPÏÂÔØµ½±¾µØµÄ ÎÄ¼şlist
-	 * @param dateStr	Ê±¼ä yyyyMMdd ×òÌìµÄÈÕÆÚ
+	 * æ ¹æ®æ–‡ä»¶å å’Œæ—¥æœŸå¯¼å…¥æ”¶é’±å§æ¥å£æ•°æ®
+	 * @param filePaths  ä»æ”¶é’±å§FTPä¸‹è½½åˆ°æœ¬åœ°çš„ æ–‡ä»¶list
+	 * @param dateStr	æ—¶é—´ yyyyMMdd æ˜¨å¤©çš„æ—¥æœŸ
 	 * @return
 	 * @throws Exception
 	 */
 	public int sqbImpExcele()throws Exception{
-//			 boolean isXSSFWorkbook = true;//×ö¸ñÊ½ÅĞ¶Ï XSSF .xlsx, HSSF .xls
-//			 //ÅĞ¶ÏExceleÀàĞÍ ÊÇ.xlsx »¹ÊÇ.xls
+//			 boolean isXSSFWorkbook = true;//åšæ ¼å¼åˆ¤æ–­ XSSF .xlsx, HSSF .xls
+//			 //åˆ¤æ–­Exceleç±»å‹ æ˜¯.xlsx è¿˜æ˜¯.xls
 //			 if (fileName.substring(fileName.length() - 3, fileName.length()).equals("xls")){
 //				 book=new HSSFWorkbook(is);
 //			 }else {
@@ -47,18 +47,18 @@ public class ExcelUtil {
 	
 	
 	public   static void ImpExcele() throws IOException, InvalidFormatException{
-		InputStream is =new FileInputStream( new File("D:\\ÓÃ»§Ä¿Â¼\\ÎÒµÄÎÄµµ\\Tencent Files\\944711140\\FileRecv\\È«Íø»ú·¿ÊÚÈ¨¼°ÁªÏµ·½Ê½20180928.xlsx"));
+		InputStream is =new FileInputStream( new File("D:\\ç”¨æˆ·ç›®å½•\\æˆ‘çš„æ–‡æ¡£\\Tencent Files\\944711140\\FileRecv\\å…¨ç½‘æœºæˆ¿æˆæƒåŠè”ç³»æ–¹å¼20180928.xlsx"));
 		XSSFWorkbook workbook = new XSSFWorkbook(is);
-			System.out.println("ÊÇ");
+			System.out.println("æ˜¯");
 			StringBuffer bf=new StringBuffer();
-        // Ñ­»·¹¤×÷±íSheet
+        // å¾ªç¯å·¥ä½œè¡¨Sheet
         for (int numSheet = 0; numSheet < workbook.getNumberOfSheets(); numSheet++) {
         		XSSFSheet xssfSheet = workbook.getSheetAt(numSheet);
             if (xssfSheet == null) {
                 continue;
             }
-            System.out.println("sheetÃû³Æ£º"+xssfSheet.getSheetName());
-            // Ñ­»·ĞĞRow
+            System.out.println("sheetåç§°ï¼š"+xssfSheet.getSheetName());
+            // å¾ªç¯è¡ŒRow
                 for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
                 XSSFRow xssfRow = xssfSheet.getRow(rowNum);
                 if (xssfRow != null) {
@@ -79,8 +79,8 @@ public class ExcelUtil {
      	   is.close();
         }
         
-/*       Ğ´Èëµ½txtÀïÃæ
- *  File wFile=new File("E:\\¶ÁÈ¡µÄexceli.txt");
+/*       å†™å…¥åˆ°txté‡Œé¢
+ *  File wFile=new File("E:\\è¯»å–çš„exceli.txt");
         if(!wFile.exists()){
         	wFile.createNewFile();
         }

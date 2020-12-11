@@ -19,19 +19,19 @@ import javax.servlet.ServletResponse;
 import com.cter.util.LoadPropertiestUtil;
 
 /**
- * * ¹ıÂËÆ÷
- * ¹¦ÄÜ£º¶Ô·ÃÎÊÕßIP½øĞĞÏŞÖÆ·ÃÎÊ
+ * * è¿‡æ»¤å™¨
+ * åŠŸèƒ½ï¼šå¯¹è®¿é—®è€…IPè¿›è¡Œé™åˆ¶è®¿é—®
  * @author op1768
  */
 public class IpFilter implements Filter{
 
-	//ÓÃÀ´´æ·ÅÔÊĞí·ÃÎÊµÄip
+	//ç”¨æ¥å­˜æ”¾å…è®¸è®¿é—®çš„ip
 	private List<String> allowList = new ArrayList<String>();
 	
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		try {
-			System.out.println("¹ıÂËÆ÷IpFilter¿ªÊ¼³õÊ¼»¯£¬¹¦ÄÜ£ºIP·ÃÎÊÏŞÖÆ");
+			System.out.println("è¿‡æ»¤å™¨IpFilterå¼€å§‹åˆå§‹åŒ–ï¼ŒåŠŸèƒ½ï¼šIPè®¿é—®é™åˆ¶");
 			initConfig();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -42,26 +42,26 @@ public class IpFilter implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-		//»ñÈ¡·ÃÎÊµÄIPµØÖ·
+		//è·å–è®¿é—®çš„IPåœ°å€
 		String remoteAddr = request.getRemoteAddr();
 		//System.out.println("===============" + remoteAddr);
-		//Èç¹ûallowListÎª¿Õ,ÔòÈÏÎªÃ»×öÏŞÖÆ,²»Îª¿ÕÔò¼ì²éÊÇ·ñÏŞÖÆ
+		//å¦‚æœallowListä¸ºç©º,åˆ™è®¤ä¸ºæ²¡åšé™åˆ¶,ä¸ä¸ºç©ºåˆ™æ£€æŸ¥æ˜¯å¦é™åˆ¶
 		if(allowList.size() == 0 || allowList == null) {
 			filterChain.doFilter(request, response);
 		} else {
-			Boolean flag = false;  //·ÃÎÊ±êÖ¾£¬Ä¬ÈÏÎªfalse£¬ÏŞÖÆ·ÃÎÊ
-			//½øĞĞÖğ¸ö¼ì²é
+			Boolean flag = false;  //è®¿é—®æ ‡å¿—ï¼Œé»˜è®¤ä¸ºfalseï¼Œé™åˆ¶è®¿é—®
+			//è¿›è¡Œé€ä¸ªæ£€æŸ¥
 			for(String regex : allowList){
 				if(remoteAddr.matches(regex)){
-					//ipÃ»±»ÏŞÖÆ£¬Õı³£·ÃÎÊ
+					//ipæ²¡è¢«é™åˆ¶ï¼Œæ­£å¸¸è®¿é—®
 					filterChain.doFilter(request, response);
-					flag = true;  //ÖÃÎªtrue£¬±íÊ¾²»ÏŞÖÆ·ÃÎÊ
+					flag = true;  //ç½®ä¸ºtrueï¼Œè¡¨ç¤ºä¸é™åˆ¶è®¿é—®
 					break;
 				}
 			}
 			if(!flag) {
 				request.setAttribute("remoteAddr", remoteAddr);
-				//ip±»ÏŞÖÆ£¬Ìøµ½Ö¸¶¨Ò³Ãæ
+				//ipè¢«é™åˆ¶ï¼Œè·³åˆ°æŒ‡å®šé¡µé¢
 				request.getRequestDispatcher("error.jsp").forward(request, response);
 			}
 		}
@@ -70,31 +70,31 @@ public class IpFilter implements Filter{
 	
 	@Override
 	public void destroy() {
-		System.out.println("¹ıÂËÆ÷IpFilter½áÊø¡£");
+		System.out.println("è¿‡æ»¤å™¨IpFilterç»“æŸã€‚");
 	}
 
 	/**
-	 * ¶ÔÅäÖÃÎÄ¼ş½øĞĞ³õÊ¼»¯²¢Ğ£Ñé
-	 * @author Å·Ñô
+	 * å¯¹é…ç½®æ–‡ä»¶è¿›è¡Œåˆå§‹åŒ–å¹¶æ ¡éªŒ
+	 * @author æ¬§é˜³
 	 * @serialData 20180728
 	 * @throws IOException
 	 */
 	public void initConfig() throws IOException {
 		Map<String, String>  map=LoadPropertiestUtil.loadProperties("config/ipConfig.properties");
-		//»ñÈ¡ÈıÖÖÅäÖÃ·½Ê½µÄÖµ
-		String allowIP = map.get("allowIP");//µ¥¸öIPµØÖ·µÄÅäÖÃ,¶à¸öÖ®¼äÓÃ¶ººÅ»ò·ÖºÃ¸ô¿ª
-		String allowIPRange =map.get("allowIPRange");//IPµØÖ·Çø¼ä·½Ê½µÄÅäÖÃ,¶à¸öÇø¼äÓÃ¶ººÅ»ò·ÖºÃ¸ô¿ª
-		String allowIPWildcard = map.get("allowIPWildcard");//Í¨Åä·û,¶à¸öÓÃ¶ººÅ»ò·ÖºÃ¸ô¿ª
+		//è·å–ä¸‰ç§é…ç½®æ–¹å¼çš„å€¼
+		String allowIP = map.get("allowIP");//å•ä¸ªIPåœ°å€çš„é…ç½®,å¤šä¸ªä¹‹é—´ç”¨é€—å·æˆ–åˆ†å¥½éš”å¼€
+		String allowIPRange =map.get("allowIPRange");//IPåœ°å€åŒºé—´æ–¹å¼çš„é…ç½®,å¤šä¸ªåŒºé—´ç”¨é€—å·æˆ–åˆ†å¥½éš”å¼€
+		String allowIPWildcard = map.get("allowIPWildcard");//é€šé…ç¬¦,å¤šä¸ªç”¨é€—å·æˆ–åˆ†å¥½éš”å¼€
 		
-		//Ğ£Ñé,Ğ£ÑéÊ§°ÜºóÅ×³öÒì³£
+		//æ ¡éªŒ,æ ¡éªŒå¤±è´¥åæŠ›å‡ºå¼‚å¸¸
 		if(!validate(allowIP, allowIPRange, allowIPWildcard)) {
-			throw new RuntimeException("ÅäÖÃÎÄ¼şÓĞ´í£¬Çë¼ì²é£¡");
+			throw new RuntimeException("é…ç½®æ–‡ä»¶æœ‰é”™ï¼Œè¯·æ£€æŸ¥ï¼");
 		}
 		
 		/*
-		 * ½«Ã¿Ò»ÖÖÅäÖÃ·½·¨·ÅÖÃµ½allowListÖĞ
+		 * å°†æ¯ä¸€ç§é…ç½®æ–¹æ³•æ”¾ç½®åˆ°allowListä¸­
 		 */
-		//½«µÚÒ»ÖÖÅäÖÃ·½·¨·Åµ½allowListÖĞ
+		//å°†ç¬¬ä¸€ç§é…ç½®æ–¹æ³•æ”¾åˆ°allowListä¸­
 		if(null != allowIP && !"".equals(allowIP.trim())) {
 			String[] allowIPs = allowIP.split(",|;");
 			for(String ip : allowIPs) {
@@ -102,34 +102,34 @@ public class IpFilter implements Filter{
 			}
 		}
 		
-		//½«µÚ¶şÖÖÅäÖÃ·½·¨·Åµ½allowListÖĞ
+		//å°†ç¬¬äºŒç§é…ç½®æ–¹æ³•æ”¾åˆ°allowListä¸­
 		if(null != allowIPRange &&  !"".equals(allowIPRange.trim())) {
-			//ÏÈ½øĞĞÃ¿Ò»¶ÎµÄ·Ö¸î
+			//å…ˆè¿›è¡Œæ¯ä¸€æ®µçš„åˆ†å‰²
 			String[] allowIPRanges = allowIPRange.split(",|;");
 			
 			if(allowIPRanges.length > 0) {
-				//¶ÔÃ¿Ò»¶Î½øĞĞ±éÀú
+				//å¯¹æ¯ä¸€æ®µè¿›è¡Œéå†
 				for(String allowRanges : allowIPRanges) {
 					if(allowRanges != null &&  !"".equals(allowRanges.trim())) {
-						//¶Ô¸Ã¶ÎµÄip½øĞĞ½âÎö
+						//å¯¹è¯¥æ®µçš„ipè¿›è¡Œè§£æ
 						String[] ips = allowRanges.split("-");
 						if(ips.length > 0 && ips.length < 3) {
-							String from = ips[0];//µÃµ½¸Ã¶ÎµÄÆğÊ¼ip
-							String to = ips[1];  //µÃµ½¸Ã¶ÎµÄ½áÊøip
+							String from = ips[0];//å¾—åˆ°è¯¥æ®µçš„èµ·å§‹ip
+							String to = ips[1];  //å¾—åˆ°è¯¥æ®µçš„ç»“æŸip
 							
-							//»ñÈ¡¸Ãip¶ÎµØÖ·µÄÇ°Èı¶Î£¬ÒòÎªÆğÊ¼ºÍ½áÊøµÄipµÄÇ°Èı¶ÎÒ»Ñù 
+							//è·å–è¯¥ipæ®µåœ°å€çš„å‰ä¸‰æ®µï¼Œå› ä¸ºèµ·å§‹å’Œç»“æŸçš„ipçš„å‰ä¸‰æ®µä¸€æ · 
 							String share = from.substring(0, from.lastIndexOf(".")+1);
 							
-							//»ñÈ¡¸Ãip¶ÎµÄÆğÊ¼ipµÄ×îºóÒ»¶Î
+							//è·å–è¯¥ipæ®µçš„èµ·å§‹ipçš„æœ€åä¸€æ®µ
 							int start = Integer.parseInt(from.substring(from.lastIndexOf(".")+1,  from.length()));
-							//»ñÈ¡¸Ãip¶ÎµÄ½áÊøipµÄ×îºóÒ»¶Î
+							//è·å–è¯¥ipæ®µçš„ç»“æŸipçš„æœ€åä¸€æ®µ
 							int end = Integer.parseInt(to.substring(to.lastIndexOf(".")+1,  to.length()));
 							for(int i=start; i<=end; i++) {
 								String ip = share + String.valueOf(i);
 								allowList.add(ip);
 							}
 						} else {
-							throw new RuntimeException("ÅäÖÃÎÄ¼şÓĞ´í£¬Çë¼ì²é£¡");
+							throw new RuntimeException("é…ç½®æ–‡ä»¶æœ‰é”™ï¼Œè¯·æ£€æŸ¥ï¼");
 						}
 					}
 					
@@ -138,20 +138,20 @@ public class IpFilter implements Filter{
 			
 		}
 		
-		//½«µÚÈıÖÖÅäÖÃ·½·¨·Åµ½allowListÖĞ
+		//å°†ç¬¬ä¸‰ç§é…ç½®æ–¹æ³•æ”¾åˆ°allowListä¸­
 		if(allowIPWildcard != null &&  !"".equals(allowIPWildcard)) {
-			//»ñÈ¡Ã¿¸öº¬Í¨Åä·ûµÄipµØÖ·
+			//è·å–æ¯ä¸ªå«é€šé…ç¬¦çš„ipåœ°å€
 			String[] allowIPWildcards = allowIPWildcard.split(",|;");
 			
 			if(allowIPWildcards.length > 0) {
 				for(String ip : allowIPWildcards) {
 					if(ip.indexOf("*") != -1) {
-						//¶Ô*½øĞĞÌæ»»
+						//å¯¹*è¿›è¡Œæ›¿æ¢
 						ip = ip.replaceAll("\\*", "(25[0-5]|2[0-4]\\\\d|[0-1]\\\\d{2}|[1-9]?\\\\d)");
 						
 						allowList.add(ip);
 					} else {
-						throw new RuntimeException("ÅäÖÃÎÄ¼şÓĞ´í£¬Çë¼ì²é£¡");
+						throw new RuntimeException("é…ç½®æ–‡ä»¶æœ‰é”™ï¼Œè¯·æ£€æŸ¥ï¼");
 					}
 					
 				}
@@ -159,7 +159,7 @@ public class IpFilter implements Filter{
 			}
 		}
 		
-		//´òÓ¡Êä³öallowList
+		//æ‰“å°è¾“å‡ºallowList
 		for(String str : allowList) {
 			System.out.println(str);
 		}
@@ -167,7 +167,7 @@ public class IpFilter implements Filter{
 	}
 	
 	/**
-	 * ¶ÔÅäÖÃÎÄ¼ş½øĞĞĞ£Ñé
+	 * å¯¹é…ç½®æ–‡ä»¶è¿›è¡Œæ ¡éªŒ
 	 * @author ouyang
 	 * @serialData 20180728
 	 * @param allowIP
@@ -177,33 +177,33 @@ public class IpFilter implements Filter{
 	 */
 	public Boolean validate(String allowIP, String allowIPRange, String allowIPWildcard) {
 		Boolean result = false;
-		//IPµØÖ·Ã¿Ò»¶ÎµÄÕıÔò
+		//IPåœ°å€æ¯ä¸€æ®µçš„æ­£åˆ™
 		String regx = "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)";
-		//Õû¸öipµÄÕıÔò
+		//æ•´ä¸ªipçš„æ­£åˆ™
 		String ipRegx = regx + "\\." + regx + "\\."+ regx + "\\." + regx;
 		
-		//¶ÔµÚÒ»ÖÖ·½Ê½½øĞĞĞ£Ñé
+		//å¯¹ç¬¬ä¸€ç§æ–¹å¼è¿›è¡Œæ ¡éªŒ
 		Pattern pattern = Pattern.compile("("+ipRegx+")|("+ipRegx+"(,|;))*");
 		if(this.isNullorMatches(allowIP, pattern)||allowIP.indexOf("10.180")>-1){
-			result = true;  //Æ¥Åä³É¹¦
+			result = true;  //åŒ¹é…æˆåŠŸ
 		} else {
 			result = false;
 		}
 		
-		//¶ÔµÚ¶şÖÖ·½Ê½½øĞĞĞ£Ñé
+		//å¯¹ç¬¬äºŒç§æ–¹å¼è¿›è¡Œæ ¡éªŒ
 		pattern = Pattern.compile("("+ipRegx+")\\-("+ipRegx+")|" + 
 						"(("+ipRegx+")\\-("+ipRegx+")(,|;))*");
 		if(this.isNullorMatches(allowIPRange, pattern)){
-			result = true;  //Æ¥Åä³É¹¦
+			result = true;  //åŒ¹é…æˆåŠŸ
 		} else {
 			result = false;
 		}
 		
-		//¶ÔµÚÈıÖÖ·½Ê½½øĞĞĞ£Ñé
+		//å¯¹ç¬¬ä¸‰ç§æ–¹å¼è¿›è¡Œæ ¡éªŒ
 		pattern = Pattern.compile("("+regx+"\\."+ regx+"\\."+regx+"\\."+ "\\*)|" + 
 						"("+regx+"\\."+regx+"\\."+regx+"\\."+ "\\*(,|;))*");
 		if(this.isNullorMatches(allowIPWildcard, pattern)){
-			result = true;  //Æ¥Åä³É¹¦
+			result = true;  //åŒ¹é…æˆåŠŸ
 		} else {
 			result = false;
 		}
@@ -212,22 +212,22 @@ public class IpFilter implements Filter{
 	}
 	
 	/**
-	 * ½øĞĞÕıÔòÆ¥Åä
-	 * @author Å·Ñô
+	 * è¿›è¡Œæ­£åˆ™åŒ¹é…
+	 * @author æ¬§é˜³
 	 * @serialData 20180728
 	 * @param allow
 	 * @return
 	 */
 	public Boolean isNullorMatches(String allow, Pattern pattern) {
-		//Èç¹ûÎª¿Õ£¬ËµÃ÷ÓÃ»§Ã»Ìí¼Ó¸ÃÏî£¬²»×ö´¦Àí
+		//å¦‚æœä¸ºç©ºï¼Œè¯´æ˜ç”¨æˆ·æ²¡æ·»åŠ è¯¥é¡¹ï¼Œä¸åšå¤„ç†
 		if(allow == null || "".equals(allow.trim())) {
 			return true;
 		} else {
-			//ÔÚ×îºóÃæÃ»ÓĞ,»ò;µÄ¸øÌíÉÏ
+			//åœ¨æœ€åé¢æ²¡æœ‰,æˆ–;çš„ç»™æ·»ä¸Š
 			if(!allow.endsWith(";") && !allow.endsWith(",")) {
 				allow += ";";
 			}
-			//Èç¹ûÆ¥Åä£¬Ôò·µ»Øtrue
+			//å¦‚æœåŒ¹é…ï¼Œåˆ™è¿”å›true
 			if(pattern.matcher(allow).matches()) {
 				return true;
 			}

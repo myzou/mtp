@@ -101,7 +101,7 @@ public class SysMenuDaoImpl extends BaseDaOImpl<SysMenu > {
 	
 	
 	/**
-	 * 根据城市名称加载城市popName  List 列表
+	 * 鏍规嵁鍩庡競鍚嶇О鍔犺浇鍩庡競popName  List 鍒楄〃
 	 * @param cityName
 	 * @return
 	 */
@@ -177,7 +177,7 @@ public class SysMenuDaoImpl extends BaseDaOImpl<SysMenu > {
 		}
 		
 		/**
-		 * 根据menu_id 获取最对应的上级目录id和最大m_id
+		 * 鏍规嵁menu_id 鑾峰彇鏈�瀵瑰簲鐨勪笂绾х洰褰昳d鍜屾渶澶_id
 		 * @return
 		 */
 		public Map<String, String> getMaxIdPIdByMenuId(int  menu_id ) {

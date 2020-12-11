@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * ·¢ËÍÓÊÏäµÄ±í ÊµÌåÀà
+ * å‘é€é‚®ç®±çš„è¡¨ å®ä½“ç±»
  * @author op1768
  *
  */
@@ -15,17 +15,17 @@ import javax.persistence.Table;
 public class SendEmail {
 		@Id
 		@Column(name="email_uuid")
-		private String email_uuid;	//ÓÊÏäuuid Ö÷¼ü
+		private String email_uuid;	//é‚®ç®±uuid ä¸»é”®
 		@Column(name="email_name")
-		private String email_name;	//ÓÊÏäµÄÃû³Æ
+		private String email_name;	//é‚®ç®±çš„åç§°
 		@Column(name="email_code")
-		private String 	email_code;//ÓÊÏäÕÊºÅ
+		private String 	email_code;//é‚®ç®±å¸å·
 		@Column(name="email_password")
-		private String   email_password;//ÓÊÏäÃÜÂë
+		private String   email_password;//é‚®ç®±å¯†ç 
 		@Column(name="email_host")
-		private String email_host;//ÓÊÏäµØÖ·
+		private String email_host;//é‚®ç®±åœ°å€
 		@Column(name="protocol")
-		private String protocol;//Á¬½ÓĞ­Òé·½Ê½
+		private String protocol;//è¿æ¥åè®®æ–¹å¼
 		public String getEmail_name() {
 			return email_name;
 		}

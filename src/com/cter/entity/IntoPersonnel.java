@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * ÊÚÈ¨ÉêÇëÊµÌåÀà-
- * ½øÈë»ú·¿ÈËÔ±ÁĞ±íÊµÌåÀà
+ * æˆæƒç”³è¯·å®ä½“ç±»-
+ * è¿›å…¥æœºæˆ¿äººå‘˜åˆ—è¡¨å®ä½“ç±»
  * 
  * @author op1768
  *
@@ -20,17 +20,17 @@ public class IntoPersonnel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)    
 	@Column(name="ip_id")
-	private int ip_id;// Ö÷¼ü
+	private int ip_id;// ä¸»é”®
 	@Column(name="auth_id")
-	private int auth_id;//¶ÔÓ¦µÄÊÚÈ¨AuthorizationEmailµÄÖ÷¼ü
+	private int auth_id;//å¯¹åº”çš„æˆæƒAuthorizationEmailçš„ä¸»é”®
 	@Column(name="p_name")
-	private String p_name;//½øÈë»ú·¿ÈËÔ±Ãû³Æ
+	private String p_name;//è¿›å…¥æœºæˆ¿äººå‘˜åç§°
 	@Column(name="p_id")
-	private String p_id;//½øÈë»ú·¿ÈËÔ±id
+	private String p_id;//è¿›å…¥æœºæˆ¿äººå‘˜id
 	@Column(name="p_company")
-	private String p_company;//½øÈë»ú·¿ÈËÔ±ËùÊô²¿ÃÅ Ä¬ÈÏµÄ
+	private String p_company;//è¿›å…¥æœºæˆ¿äººå‘˜æ‰€å±éƒ¨é—¨ é»˜è®¤çš„
 	@Column(name="p_other_company")
-	private String p_other_company;//½øÈë»ú·¿ÈËÔ±²¿ÃÅ ÔÚÄ¬ÈÏÖĞÃ»ÓĞµÄ
+	private String p_other_company;//è¿›å…¥æœºæˆ¿äººå‘˜éƒ¨é—¨ åœ¨é»˜è®¤ä¸­æ²¡æœ‰çš„
 	public int getIp_id() {
 		return ip_id;
 	}

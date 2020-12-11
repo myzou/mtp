@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
  
 /**
- *  xss¹ıÂË
+ *  xssè¿‡æ»¤
  * @author op1768
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
@@ -16,9 +16,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
  
     /**
-    * ¸²¸ÇgetParameter·½·¨£¬½«²ÎÊıÃûºÍ²ÎÊıÖµ¶¼×öxss¹ıÂË¡£
-    * Èç¹ûĞèÒª»ñµÃÔ­Ê¼µÄÖµ£¬ÔòÍ¨¹ısuper.getParameterValues(name)À´»ñÈ¡
-    * getParameterNames,getParameterValuesºÍgetParameterMapÒ²¿ÉÄÜĞèÒª¸²¸Ç
+    * è¦†ç›–getParameteræ–¹æ³•ï¼Œå°†å‚æ•°åå’Œå‚æ•°å€¼éƒ½åšxssè¿‡æ»¤ã€‚
+    * å¦‚æœéœ€è¦è·å¾—åŸå§‹çš„å€¼ï¼Œåˆ™é€šè¿‡super.getParameterValues(name)æ¥è·å–
+    * getParameterNames,getParameterValueså’ŒgetParameterMapä¹Ÿå¯èƒ½éœ€è¦è¦†ç›–
     */
     @Override
     public String getParameter(String name) {
@@ -30,9 +30,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
  
     /**
-    * ¸²¸ÇgetHeader·½·¨£¬½«²ÎÊıÃûºÍ²ÎÊıÖµ¶¼×öxss¹ıÂË¡£
-    * Èç¹ûĞèÒª»ñµÃÔ­Ê¼µÄÖµ£¬ÔòÍ¨¹ısuper.getHeaders(name)À´»ñÈ¡
-    * getHeaderNames Ò²¿ÉÄÜĞèÒª¸²¸Ç
+    * è¦†ç›–getHeaderæ–¹æ³•ï¼Œå°†å‚æ•°åå’Œå‚æ•°å€¼éƒ½åšxssè¿‡æ»¤ã€‚
+    * å¦‚æœéœ€è¦è·å¾—åŸå§‹çš„å€¼ï¼Œåˆ™é€šè¿‡super.getHeaders(name)æ¥è·å–
+    * getHeaderNames ä¹Ÿå¯èƒ½éœ€è¦è¦†ç›–
     */
     @Override
     public String getHeader(String name) {
@@ -45,7 +45,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
  
     /**
-    * ½«ÈİÒ×ÒıÆğxssÂ©¶´µÄ°ë½Ç×Ö·ûÖ±½ÓÌæ»»³ÉÈ«½Ç×Ö·û
+    * å°†å®¹æ˜“å¼•èµ·xssæ¼æ´çš„åŠè§’å­—ç¬¦ç›´æ¥æ›¿æ¢æˆå…¨è§’å­—ç¬¦
     *
     * @param s
     * @return
@@ -54,7 +54,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     	if (value == null || "".equals(value)) {
             return value;
         }
-        value = value.replaceAll("<", "£¼");
+        value = value.replaceAll("<", "ï¼œ");
         value = value.replaceAll("\\(", "(").replace("\\)", ")");
         value = value.replaceAll("'", "'");
         value = value.replaceAll("eval\\((.*)\\)", "");
@@ -68,7 +68,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
  
     /**
-    * »ñÈ¡×îÔ­Ê¼µÄrequest
+    * è·å–æœ€åŸå§‹çš„request
     *
     * @return
     */
@@ -77,7 +77,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
  
     /**
-    * »ñÈ¡×îÔ­Ê¼µÄrequestµÄ¾²Ì¬·½·¨
+    * è·å–æœ€åŸå§‹çš„requestçš„é™æ€æ–¹æ³•
     *
     * @return
     */

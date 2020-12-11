@@ -34,8 +34,8 @@ public class BaseDaOImpl<T> implements BaseDao<T> {
 		return sessionFactory.getCurrentSession();
 	}
 	/**
-	 * »ñÈ¡¼Ì³ĞµÄ·ºĞÍÀà T µÄÀà
-	 * ÆäËûÊôĞÔ¿ÉÒÔ¸ù¾İÀà·½·¨½øĞĞ»ñÈ¡
+	 * è·å–ç»§æ‰¿çš„æ³›å‹ç±» T çš„ç±»
+	 * å…¶ä»–å±æ€§å¯ä»¥æ ¹æ®ç±»æ–¹æ³•è¿›è¡Œè·å–
 	 * @return
 	 */
 	public  Class<T>  getClazz(){
@@ -77,7 +77,7 @@ public class BaseDaOImpl<T> implements BaseDao<T> {
 		return this.getCurrentSession().createQuery(hql).list();
 	}
 	/**
-	 * ²éÑ¯µ±Ç°¼Ì³ĞµÄ·ºĞÍÀàµÄ±íµÄËùÓĞlist
+	 * æŸ¥è¯¢å½“å‰ç»§æ‰¿çš„æ³›å‹ç±»çš„è¡¨çš„æ‰€æœ‰list
 	 * @return
 	 */
 	public List<T> findAll() {
@@ -88,7 +88,7 @@ public class BaseDaOImpl<T> implements BaseDao<T> {
 	
 	
 	/**
-	 * ²éÑ¯´«ÈëÀàĞÍµÄ±íµÄËùÓĞlist
+	 * æŸ¥è¯¢ä¼ å…¥ç±»å‹çš„è¡¨çš„æ‰€æœ‰list
 	 * @return
 	 */
 	public List<Object> findAll(Class c) {
@@ -300,9 +300,9 @@ public class BaseDaOImpl<T> implements BaseDao<T> {
 	}
 
 	/**
-	 * ¸ù¾İhqlºÍ²ÎÊıºÍClassÀàĞÍ²éÑ¯½á¹û
+	 * æ ¹æ®hqlå’Œå‚æ•°å’ŒClassç±»å‹æŸ¥è¯¢ç»“æœ
 	 * @param hql
-	 * @param param ArrayĞÎÊ½
+	 * @param param Arrayå½¢å¼
 	 * @param pojoClass
 	 * @return
 	 */
@@ -323,9 +323,9 @@ public class BaseDaOImpl<T> implements BaseDao<T> {
 	}
 	
 	/**
-	 * ¸ù¾İhqlºÍ²ÎÊıºÍClassÀàĞÍ²éÑ¯½á¹û
+	 * æ ¹æ®hqlå’Œå‚æ•°å’ŒClassç±»å‹æŸ¥è¯¢ç»“æœ
 	 * @param hql
-	 * @param param listĞÎÊ½
+	 * @param param listå½¢å¼
 	 * @param pojoClass
 	 * @return
 	 */
@@ -346,10 +346,10 @@ public class BaseDaOImpl<T> implements BaseDao<T> {
 	}
 	
 	/**
-	 * ¸ù¾İÊµÌåÀàÀàĞÍ
-	 * °ÑList¶ÔÏó ×ª»»ÎªListÊµÌåÀà
-	 * @param list   List¶ÔÏó
-	 * @param pojoClass ÊµÌåÀàÀàĞÍ
+	 * æ ¹æ®å®ä½“ç±»ç±»å‹
+	 * æŠŠListå¯¹è±¡ è½¬æ¢ä¸ºListå®ä½“ç±»
+	 * @param list   Listå¯¹è±¡
+	 * @param pojoClass å®ä½“ç±»ç±»å‹
 	 * @return
 	 */
 	public static  <T> List<T> objectListToPojoList(List<Object> list,Class<T> pojoClass  ){

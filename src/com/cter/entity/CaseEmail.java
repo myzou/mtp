@@ -11,7 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * case_mail Ã÷Ï¸ÊµÌåÀà
+ * case_mail æ˜ç»†å®ä½“ç±»
  * @author op1768
  *
  */
@@ -21,56 +21,56 @@ public class CaseEmail {
 	
 	@Id
 	@Column(name="case_uuid")
-	private String case_uuid ;//case±íµÄuuid
+	private String case_uuid ;//caseè¡¨çš„uuid
 	@Column(name="city_name")
 	private String city_name;
 	@Column(name="pop_name")
 	private String pop_name;
 	@Column(name="case_id")
-	private String case_id;//caseµ¥ºÅ
+	private String case_id;//caseå•å·
 	@Column(name="empower_id")
-	private String empower_id;//ÊÚÈ¨±íµÄÖ÷¼üuuid
+	private String empower_id;//æˆæƒè¡¨çš„ä¸»é”®uuid
 	@Column(name="cabinet")
-	private String cabinet;//»ú¹ñºÅ,ÓÃ¶ººÅ·Ö¿ª
+	private String cabinet;//æœºæŸœå·,ç”¨é€—å·åˆ†å¼€
 	@Column(name="password_key")
-	private String password_key;//´ËcaseÈÏÖ¤¿ÚÁî
+	private String password_key;//æ­¤caseè®¤è¯å£ä»¤
 	@Column(name="op_type_id")
-	private String op_type_id;//²Ù×÷ÏêÏ¸id£¨¹ØÁªoperation_type£©
+	private String op_type_id;//æ“ä½œè¯¦ç»†idï¼ˆå…³è”operation_typeï¼‰
 	@Column(name="op_type")
-	private String op_type;//²Ù×÷ÏêÏ¸
+	private String op_type;//æ“ä½œè¯¦ç»†
 	@Column(name="start_time")
-	private String start_time;//½øÈë Ê±¼ä
+	private String start_time;//è¿›å…¥ æ—¶é—´
 	@Column(name="end_time")
-	private String end_time;//³öÈ¥Ê±¼ä
+	private String end_time;//å‡ºå»æ—¶é—´
 	@Column(name="descs")
-	private String descs;//ÃèÊö
+	private String descs;//æè¿°
 	@Column(name="op_staff")
 	private String op_staff;
 	@Column(name="into_personnel")
-	private String into_personnel;//½øÈëÈËÔ±
+	private String into_personnel;//è¿›å…¥äººå‘˜
 	@Column(name="add_into_personnel")
-	private String add_into_personnel;//×·¼Ó½øÈëÈËÔ±
+	private String add_into_personnel;//è¿½åŠ è¿›å…¥äººå‘˜
 	@Column(name="ins_type")
-	private String ins_type;//²Ù×÷ÀàĞÍ
+	private String ins_type;//æ“ä½œç±»å‹
 	@Column(name="carry_facility")
-	private String carry_facility;	//Ğ¯´øÉè±¸ĞÅÏ¢
+	private String carry_facility;	//æºå¸¦è®¾å¤‡ä¿¡æ¯
 	@Column(name="create_time")
 	@Temporal(TemporalType.TIMESTAMP) //2018-10-24 11:07:20 
-	private Date create_time;	//´´½¨Ê±¼ä
+	private Date create_time;	//åˆ›å»ºæ—¶é—´
 	@Column(name="case_status")
-	private String case_status;//case×´Ì¬£¬T ÒÑ¾­Ìá½»ÊÚÈ¨ÉêÇë£¬DÉ¾³ı,R»Ø¸´ÓÊ¼ş, SÈ·ÈÏÊÚÈ¨Íê³É
+	private String case_status;//caseçŠ¶æ€ï¼ŒT å·²ç»æäº¤æˆæƒç”³è¯·ï¼ŒDåˆ é™¤,Rå›å¤é‚®ä»¶, Sç¡®è®¤æˆæƒå®Œæˆ
 	@Column(name="send_email")
-	private String  send_email;//·¢ËÍÈËµÄÓÊÏä
+	private String  send_email;//å‘é€äººçš„é‚®ç®±
 	@Column(name="send_email_uuid")
-	private String  send_email_uuid;//·¢ËÍÈËÓÊÏäµÄuuid
+	private String  send_email_uuid;//å‘é€äººé‚®ç®±çš„uuid
 	@Column(name="cc_addressee_email")
-	private String  cc_addressee_email;//ËùÓĞ³­ËÍÈËÓÊÏä£¬###·Ö¿ª
+	private String  cc_addressee_email;//æ‰€æœ‰æŠ„é€äººé‚®ç®±ï¼Œ###åˆ†å¼€
 	@Column(name="addressee_email")
-	private String  addressee_email;//ËùÓĞÊÕ¼şÈËÓÊÏä£¬###·Ö¿ª
+	private String  addressee_email;//æ‰€æœ‰æ”¶ä»¶äººé‚®ç®±ï¼Œ###åˆ†å¼€
 	@Column(name="supplier_name")
-	private String  supplier_name;//¹©Ó¦ÉÌÃû³Æ
+	private String  supplier_name;//ä¾›åº”å•†åç§°
 	@Column(name="remarks")
-	private String  remarks;//±¸×¢ĞÅÏ¢
+	private String  remarks;//å¤‡æ³¨ä¿¡æ¯
 	
 	
 	public String getCase_uuid() {

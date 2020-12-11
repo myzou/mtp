@@ -1,25 +1,25 @@
 package com.cter.bean;
 
 /**
- * Õâ¸öÀàÊÇÓÃÀ´·µ»ØremedyµÄ½á¹ûµÄÀà
+ * è¿™ä¸ªç±»æ˜¯ç”¨æ¥è¿”å›remedyçš„ç»“æœçš„ç±»
  * @author op1768
  * @create 2019-11-05 15:26
  * @project mtp
  */
 public class ResultMessage {
 
-    private int siteTotalSize=0;//×ÜÊıÁ¿
-    private int siteFaildSize=0;//Ê§°ÜµÄÊıÁ¿
-    private int siteSuccessSize=0;//³É¹¦ÊıÁ¿
-    private int siteExceptionSize=0;//ÏßÂ·²ÎÊıÒì³£ÊıÁ¿
-    private String siteExceptionDetailed="";//Òì³£µÄsiteÏêÏ¸
-    private int mvrfSize=0;// mvrfÊıÁ¿
-    private int backboneTotalSize=0;//×ÜÊıÁ¿
-    private int backboneFaildSize=0;//Ê§°ÜµÄÊıÁ¿
-    private int backboneSuccessSize=0;//³É¹¦ÊıÁ¿
-    private int backboneExceptionSize=0;//¹Ç¸É²ÎÊıÒì³£ÊıÁ¿
-    private String backboneExceptionDetailed="";//Òì³£µÄ¹Ç¸É
-    private String mvrfDetailed;// mvrfÏêÏ¸
+    private int siteTotalSize=0;//æ€»æ•°é‡
+    private int siteFaildSize=0;//å¤±è´¥çš„æ•°é‡
+    private int siteSuccessSize=0;//æˆåŠŸæ•°é‡
+    private int siteExceptionSize=0;//çº¿è·¯å‚æ•°å¼‚å¸¸æ•°é‡
+    private String siteExceptionDetailed="";//å¼‚å¸¸çš„siteè¯¦ç»†
+    private int mvrfSize=0;// mvrfæ•°é‡
+    private int backboneTotalSize=0;//æ€»æ•°é‡
+    private int backboneFaildSize=0;//å¤±è´¥çš„æ•°é‡
+    private int backboneSuccessSize=0;//æˆåŠŸæ•°é‡
+    private int backboneExceptionSize=0;//éª¨å¹²å‚æ•°å¼‚å¸¸æ•°é‡
+    private String backboneExceptionDetailed="";//å¼‚å¸¸çš„éª¨å¹²
+    private String mvrfDetailed;// mvrfè¯¦ç»†
 
 
     public int getSiteTotalSize() {

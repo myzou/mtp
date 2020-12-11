@@ -31,7 +31,7 @@ public class ZQSysUserAction extends ActionSupport {
 	
 	
 	/**
-	 * ¼ÓÔØÓÃ»§list
+	 * åŠ è½½ç”¨æˆ·list
 	 * @return
 	 * @
 	 */
@@ -44,7 +44,7 @@ public class ZQSysUserAction extends ActionSupport {
 	}
 	
 	/** 
-	 * Ìí¼ÓÓÃ»§
+	 * æ·»åŠ ç”¨æˆ·
 	 * @return
 	 * @
 	 */
@@ -56,7 +56,7 @@ public class ZQSysUserAction extends ActionSupport {
 	}
 	
 	/** 
-	 * ĞŞ¸ÄÓÃ»§
+	 * ä¿®æ”¹ç”¨æˆ·
 	 * @return
 	 * @
 	 */
@@ -68,8 +68,8 @@ public class ZQSysUserAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İÓÃ»§id 
-	 * ²éÑ¯³öËùÓĞ½ÇÉ«ÓÃ»§¹ØÁª±í
+	 * æ ¹æ®ç”¨æˆ·id 
+	 * æŸ¥è¯¢å‡ºæ‰€æœ‰è§’è‰²ç”¨æˆ·å…³è”è¡¨
 	 * @return
 	 * @
 	 */
@@ -83,7 +83,7 @@ public class ZQSysUserAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İÓÃ»§id ²éÑ¯³öÓÃ»§
+	 * æ ¹æ®ç”¨æˆ·id æŸ¥è¯¢å‡ºç”¨æˆ·
 	 * @return
 	 * @
 	 */
@@ -95,7 +95,7 @@ public class ZQSysUserAction extends ActionSupport {
 	}
 	
 	/**
-	 * ¸ù¾İuser_name ²éÑ¯³öÓÃ»§
+	 * æ ¹æ®user_name æŸ¥è¯¢å‡ºç”¨æˆ·
 	 * @return
 	 */
 	public void  getUserByUserName() {
@@ -112,7 +112,7 @@ public class ZQSysUserAction extends ActionSupport {
 
 	
 	/**
-	 * ÎïÀíÉ¾³ıÓÃ»§
+	 * ç‰©ç†åˆ é™¤ç”¨æˆ·
 	 * @return
 	 * @
 	 */

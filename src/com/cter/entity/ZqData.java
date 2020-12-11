@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 /**
- * zq_data Êı¾İÊµÌåÀà
+ * zq_data æ•°æ®å®ä½“ç±»
  * @author op1768
  *
  */

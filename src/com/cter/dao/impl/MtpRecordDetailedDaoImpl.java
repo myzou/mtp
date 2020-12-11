@@ -126,7 +126,7 @@ public class MtpRecordDetailedDaoImpl extends BaseDaOImpl<MtpRecordDetailed> {
 	}
 
 	/**
-	 * ¸ù¾İsys_code »ñÈ¡zq_data Êı¾İ
+	 * æ ¹æ®sys_code è·å–zq_data æ•°æ®
 	 * @param sys_code
 	 * @return
 	 */
@@ -141,7 +141,7 @@ public class MtpRecordDetailedDaoImpl extends BaseDaOImpl<MtpRecordDetailed> {
 	
 	
 	/**
-	 * ¸ù¾İcaseId ºÍinternalSiteId¶ÔÓ¦µÄ MtpRecordDetailed
+	 * æ ¹æ®caseId å’ŒinternalSiteIdå¯¹åº”çš„ MtpRecordDetailed
 	 * @param caseId
 	 * @param internalSiteId
 	 * @return
@@ -182,10 +182,10 @@ public class MtpRecordDetailedDaoImpl extends BaseDaOImpl<MtpRecordDetailed> {
 	 
 	
 	/**
-	 * ¸üĞÂÏµÍ³²ÎÊı±íµÄĞÅÏ¢  
-	 * @param param_value1   ²ÎÊı´úÂë
-	 * @param sys_name    ²ÎÊıÃû³Æ
-	 * @param param_value1   ²ÎÊı
+	 * æ›´æ–°ç³»ç»Ÿå‚æ•°è¡¨çš„ä¿¡æ¯  
+	 * @param param_value1   å‚æ•°ä»£ç 
+	 * @param sys_name    å‚æ•°åç§°
+	 * @param param_value1   å‚æ•°
 	 */
 	public int updateKey(String param_value1,String sys_name,String  sys_code) {
 		DBUtils  db=DBUtils.getDBUtils();
@@ -204,8 +204,8 @@ public class MtpRecordDetailedDaoImpl extends BaseDaOImpl<MtpRecordDetailed> {
 	
 	
 	/**
-	 *  ¸üĞÂËùÓĞ×´Ì¬
-	 * @param case_status  case×´Ì¬
+	 *  æ›´æ–°æ‰€æœ‰çŠ¶æ€
+	 * @param case_status  caseçŠ¶æ€
 	 */
 	public int udpateCaseStatus(Map<String, String> map) {
 	    String case_status=map.get("case_status");
@@ -229,8 +229,8 @@ public class MtpRecordDetailedDaoImpl extends BaseDaOImpl<MtpRecordDetailed> {
 	}
 	
 	/**
-	 *  ¸ù¾İ caseId É¾³ıÊı¾İ
-	 * @param É¾³ı
+	 *  æ ¹æ® caseId åˆ é™¤æ•°æ®
+	 * @param åˆ é™¤
 	 */
 	public int delMtpRecordDetailedByCaseId(String caseId,String showType) {
 		DBUtils  db=DBUtils.getDBUtils();
