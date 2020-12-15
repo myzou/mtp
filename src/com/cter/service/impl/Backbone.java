@@ -92,7 +92,7 @@ public class Backbone {
 
         Map<String, String> paramMap = new HashMap<String, String>();
         paramMap.put("opName", "op1768");
-        paramMap.put("opPassword", "Abc10151015");
+        paramMap.put("opPassword", "Abc1237891");
         paramMap.put("sign", "123456789");
         paramMap.put("command", "11");
         paramMap.put("ip", "152.101.179.122");
@@ -119,7 +119,6 @@ public class Backbone {
                             }else{
                                 System.err.println(tempList.get(1));
                             }
-
                     }
 
 

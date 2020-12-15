@@ -164,14 +164,15 @@ public class MTPReceiveService {
         }
         String tempString = "";
         try {
+            boolean isBackbone=jsonStr.indexOf("\"tcpType\":\"backbone\"")==-1;
 
             MTPA mtpa = JSONUtil.toBean(jsonStr, MTPA.class);
             List<PePort> pePorts = mtpa.getPePorts();
-            if (StringUtil.isBlank(mtpa.getTicketName())) {
+            if (StringUtil.isBlank(mtpa.getTicketName())&&isBackbone) {
                 returnMap.put("msg", "ticketName cannot be empty");
                 return JSONUtil.toJsonStr(returnMap);
             }
-            if (StringUtil.isBlank(mtpa.getInternalSiteIdAll())) {
+            if (StringUtil.isBlank(mtpa.getInternalSiteIdAll())&&isBackbone) {
                 returnMap.put("msg", "internalSiteIdAll cannot be empty");
                 return JSONUtil.toJsonStr(returnMap);
             }
@@ -359,7 +360,7 @@ public class MTPReceiveService {
 
         for (PePort pePort : pePorts) {
             String tcpType = pePort.getTcpType().toLowerCase();
-            if (tcpType.equals("bacbone")) {
+            if (tcpType.equals("backbone")) {
                 backbonePePort.add(pePort);
             }
             if (tcpType.equals("tcp") || tcpType.equals("cia") || tcpType.equals("isp")) {

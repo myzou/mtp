@@ -101,8 +101,8 @@
             <ref bean="startWorkJobDetail" />
         </property>
         <property name="cronExpression">
-<!--            <value>0 0/5 * * * ? </value>-->
-            <value>0/30 * * * * ? </value>
+            <value>0 0/5 * * * ? </value>
+<!--            <value>0/30 * * * * ? </value>-->
 
         </property>
     </bean>
@@ -112,7 +112,7 @@
     <bean name="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                 <ref bean="startWorkJobTrigger" />
+<!--                 <ref bean="startWorkJobTrigger" />-->
             </list>
         </property>
     </bean>

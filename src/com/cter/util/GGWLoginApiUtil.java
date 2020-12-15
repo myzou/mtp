@@ -354,18 +354,18 @@ public class GGWLoginApiUtil {
 
                 for (int i = 1; i <= loginNumber; i++) {
                     String methodType = "execute";
-                    String url = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
-                    log.info("第" + i + "次,无验证码方式执行命令 url：\n" + url);
-                    tempMap = executeCommandOrLogin(url, paramMap, methodType, log);
+                    String  totpUrl= GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
+                    log.info("第" + i + "次,有验证码方式执行命令 url：\n" + totpUrl);
+                    tempMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
                     if (!StrUtil.isBlank(tempMap.get("error"))&&loginNum<10) {
                         paramMap.put("sign","123457");
                         String tempLoginUrl = LOGIN_GGW_URL + getGGWParamAssemble(paramMap, "", "login");
-                        log.info("验证码 登录到ggw获取session url：\n" + url);
+                        log.info("验证码 登录到ggw获取session url：\n" + totpUrl);
                         executeCommandOrLogin(tempLoginUrl, paramMap, "login", log);
 
-                        String totpUrl = GGW_URL + getGGWParamAssemble(paramMap, "totp", methodType);
-                        log.info("第" + i + "次,验证码执方式行命令 url：\n" + totpUrl);
-                        tempTotpMap = executeCommandOrLogin(totpUrl, paramMap, methodType, log);
+                        String notTotpUrl = GGW_URL + getGGWParamAssemble(paramMap, "", methodType);
+                        log.info("第" + i + "次,无验证码执方式行命令 url：\n" + notTotpUrl);
+                        tempTotpMap = executeCommandOrLogin(notTotpUrl, paramMap, methodType, log);
                         if ((!StrUtil.isBlank(tempTotpMap.get("error")) && i == loginNumber) || !StrUtil.isBlank(tempTotpMap.get("pass"))) {
                             return tempTotpMap;
                         } else {
