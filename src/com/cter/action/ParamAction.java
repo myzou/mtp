@@ -59,7 +59,7 @@ public class ParamAction extends ActionSupport {
                 Map<String, String> urlMap = mtpReceiveService.getUrl(jsonParam.getTicketName().trim(), jsonParam.getTense().trim());
                 String htmlPath = urlMap.get("htmlPath");
                 int peportsSize = jsonParam.getPePorts().size();
-                String passDate = DateUtil.getDateStr(new Date(start + peportsSize * 10000), "yyyy-mm-dd HH:mm:ss");
+                String passDate = DateUtil.getDateStr(new Date(start + peportsSize * 10000), "yyyy-MM-dd HH:mm:ss");
                 returnString = "返回的参数：<br>" + paramString + "<br>" + "稍后请访问下面链接查看结果：<br>" +
                         "<a lay-ignore href=\"" + htmlPath + "\" target=\"_blank\">" + htmlPath + "</a><br>" +
                         "共" + peportsSize + "条线路，执行一条大约所需10秒，执行完成时间预计为：" + passDate;

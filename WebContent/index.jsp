@@ -46,17 +46,20 @@
             </dl>
           </li>
         </ul> -->
-        
+
         <ul class="layui-nav right" lay-filter="">
-          <li class="layui-nav-item">
-            <a href="javascript:;"> ${login_user }</a>
-            <dl class="layui-nav-child"> <!-- 二级菜单 -->
-<!--               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd> -->
-              <dd><a   onclick="loginOut()">切换帐号</a></dd>
-              <dd><a   onclick="loginOut()">退出</a></dd>
-            </dl>
-          </li>
-<!--           <li class="layui-nav-item to-index"><a >前台首页</a></li> -->
+            <li class="layui-nav-item">
+                <p style="font-family:Tahoma; color:red; font-size: 10px;">Company Confidential II</p>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;"> ${login_user }</a>
+                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                    <!--               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd> -->
+                    <dd><a onclick="loginOut()">切换帐号</a></dd>
+                    <dd><a onclick="loginOut()">退出</a></dd>
+                </dl>
+            </li>
+            <!--           <li class="layui-nav-item to-index"><a >前台首页</a></li> -->
         </ul>
         
     </div>
