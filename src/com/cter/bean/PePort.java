@@ -1,5 +1,9 @@
 package com.cter.bean;
 
+
+/**
+ * 用来接收 执行mtp的实体类 对应详细pe
+ */
 public class PePort {
     private String internalSiteId;
     private String peRouter;

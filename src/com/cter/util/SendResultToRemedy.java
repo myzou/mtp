@@ -216,6 +216,11 @@ public class SendResultToRemedy {
 
     }
 
+    /**
+     * 执行发送消息到 remedy的worklog
+     * @param endOfStart 已经使用时间 + （线程休息时间）= sleep 默认120秒
+     *                   这个时间是为了给remedy 反应 remedy需要 120才能接受 before 和 after 返回数据
+     */
     public void run(long endOfStart) {
         String token="";
         long sleepTime=(sleep-endOfStart>0L)?(sleep-endOfStart):1;

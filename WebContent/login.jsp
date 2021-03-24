@@ -44,6 +44,8 @@
             
             <hr class="hr15">
             <input value="登录"   style="width:100%;" type="submit" onclick="check()">
+            <p style="font-family:Tahoma; color:red; font-size: 10px;">Company Confidential II</p>
+
             <hr class="hr20" >
             <span  style="color: red;"  >${tip }</span>
         </form>

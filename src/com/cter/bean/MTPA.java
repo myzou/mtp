@@ -7,13 +7,37 @@ import com.google.gson.Gson;
 
 import net.sf.json.JSONObject;
 
+
+/**
+ * 用来接收 执行mtp的实体类
+ */
 public class MTPA {
+
+//    {"ticketName":"HD0000003111868","pePorts":[{"internalSiteId":"49906-01","peRouter":"USLAXCOS1003E","pePortInterface":"ge-0/1/2.2011","peWanIp":"10.117.136.85","ceWanIp":"10.200.30.14","circuitNumber":"","peInterface":"","tcpType":"tcp","VRFSiteId":""}],"tense":"after","internalSiteIdAll":"49906-01;"}
 
     private String ticketName;
     private List<PePort> pePorts = new ArrayList<PePort>();
     private String tense;//做维护前  还是之后
     private String internalSiteIdAll;//用于接收所有的 siteid
+    private  String startTime;//维护开始时间
+    private  String endTime;//维护结束时间
 
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getTense() {
         return tense;

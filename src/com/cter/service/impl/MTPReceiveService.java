@@ -49,6 +49,8 @@ public class MTPReceiveService {
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
     private static String GGW_URL = otherMap.get("GGW_URL");
     private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
+    private static String filePathConfig = otherMap.get("filePathConfig");
+    private static String htmlPathConfig = otherMap.get("htmlPathConfig");
 
 
     public LayuiPage<MtpRecordDetailed> findMtpRecordDetailed(Map<String, String> map, LayuiPage<MtpRecordDetailed> layui) {
@@ -179,37 +181,44 @@ public class MTPReceiveService {
             if (StringUtil.isBlank(mtpa.getTense()) || (!mtpa.getTense().equals("before") && !mtpa.getTense().equals("after"))) {
                 returnMap.put("msg", "tense cannot be empty,It could is before or after");
                 return JSONUtil.toJsonStr(returnMap);
+            }
+            //如果是开始结束时间 就插入准备MTP表,status:insert
+            if (!StringUtil.isBlank(mtpa.getStartTime())&&!StringUtil.isBlank(mtpa.getEndTime())) {
+                if (null == pePorts || pePorts.size() == 0) {
+                                returnMap.put("msg", "pePorts cannot be empty");
+                                return JSONUtil.toJsonStr(returnMap);
+                            }
+                            for (PePort pePort : pePorts) {
+                                String tcpType = pePort.getTcpType();
+                                if (StringUtil.isBlank(tcpType)) {
+                                    returnMap.put("msg", "tcpType cannot be empty");
+                                    return JSONUtil.toJsonStr(returnMap);
+                                } else if (tcpType.equals("tcp")) {
+                                    if (StringUtil.isBlank(pePort.getInternalSiteId())) {
+                                        returnMap.put("msg", "internalSiteId cannot be empty");
+                                        return JSONUtil.toJsonStr(returnMap);
+                                    }
+                                    if (StringUtil.isBlank(pePort.getPeRouter())) {
+                                        returnMap.put("msg", "peRouter cannot be empty");
+                                        return JSONUtil.toJsonStr(returnMap);
+                                    }
+                                } else if (tcpType.equals("bacbone")) {
+                                   /* if (StringUtil.isBlank(pePort.getCircuiltNumber())) {
+                                        returnMap.put("msg", "CircuiltNumber cannot be empty");
+                                        return JSONUtil.toJsonStr(returnMap);
+                                    }
+                                    if (StringUtil.isBlank(pePort.getPeInterface())) {
+                                        returnMap.put("msg", "PeInterface cannot be empty");
+                                        return JSONUtil.toJsonStr(returnMap);
+                                    }*/
+                                }
+                            }
 
-            }
-           /* if (null == pePorts || pePorts.size() == 0) {
-                returnMap.put("msg", "pePorts cannot be empty");
+                returnMap.put("status", "insert");
+                returnMap.put("msg", "Parameters have been received");
                 return JSONUtil.toJsonStr(returnMap);
-            }
-            for (PePort pePort : pePorts) {
-                String tcpType = pePort.getTcpType();
-                if (StringUtil.isBlank(tcpType)) {
-                    returnMap.put("msg", "tcpType cannot be empty");
-                    return JSONUtil.toJsonStr(returnMap);
-                } else if (tcpType.equals("tcp")) {
-                    if (StringUtil.isBlank(pePort.getInternalSiteId())) {
-                        returnMap.put("msg", "internalSiteId cannot be empty");
-                        return JSONUtil.toJsonStr(returnMap);
-                    }
-                    if (StringUtil.isBlank(pePort.getPeRouter())) {
-                        returnMap.put("msg", "peRouter cannot be empty");
-                        return JSONUtil.toJsonStr(returnMap);
-                    }
-                } else if (tcpType.equals("bacbone")) {
-                    if (StringUtil.isBlank(pePort.getCircuiltNumber())) {
-                        returnMap.put("msg", "CircuiltNumber cannot be empty");
-                        return JSONUtil.toJsonStr(returnMap);
-                    }
-                    if (StringUtil.isBlank(pePort.getPeInterface())) {
-                        returnMap.put("msg", "PeInterface cannot be empty");
-                        return JSONUtil.toJsonStr(returnMap);
-                    }
-                }
-            }*/
+             }
+
         } catch (Exception e) {
             tempString = "MTPQuery 参数格式有误，请进行处理。";
             returnMap.put("msg", tempString);
@@ -1010,23 +1019,16 @@ public class MTPReceiveService {
      * @param period 时态（做维护之前或者之后）
      * @return
      */
-    public Map<String, String> getUrl(String caseId, String period) {
-        HttpServletRequest request = ServletActionContext.getRequest();
+    public static Map<String, String> getUrl(String caseId, String period) {
         String separator = File.separator;
-        ;
-        String requestUrl = request.getServletContext().getRealPath("");
-        //request.getSession().getServletContext().getRealPath("");
-        //D:\op1768\tool\idea\MyOldObject\mtp\WebContent
-        //    	String mtpPath =  separator+"mtp"+separator+	DateUtil.getDateStryyyyMMdd(new Date())+separator;  //文件保存路径
         String mtpPath = "/mtp/" + DateUtil.getDateStryyyyMMdd(new Date()) + "/";  //文件保存路径
-        String requestHtmlUrl = request.getRequestURL().toString();//请求url
-        String urlPrefix = requestHtmlUrl.replace(request.getRequestURI(), "") + request.getContextPath();
         String urlPostfix = caseId + "_" + period + ".html";
-        String htmlPath = urlPrefix + mtpPath + urlPostfix;
-        String filePath = requestUrl + mtpPath + urlPostfix;
+        String htmlPath = htmlPathConfig + mtpPath + urlPostfix;
+        String filePath = filePathConfig + mtpPath + urlPostfix;
         Map<String, String> urlMap = new HashMap<String, String>();
         urlMap.put("htmlPath", htmlPath);
         urlMap.put("filePath", filePath);
+        System.out.println("urlMap:"+JSONUtil.toJsonStr(urlMap));
         return urlMap;
     }
 

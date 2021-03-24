@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * mtp_record_detailed	实体类
- *
+ * 这个表是用来储存 跑 mtp 的详细数据。
  * @author op1768
  * @date 2019-08-05 19:28
  */
