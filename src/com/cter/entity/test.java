@@ -21,7 +21,6 @@ public class test   {
 
 
     public static void main(String[] args) throws Exception{
-        sendReult();
     }
 
     /**
@@ -53,44 +52,7 @@ public class test   {
         return flag;
     }
 
-    public static void getList(List<String> list,int n){
-        Queue<String> dq=new PriorityQueue();
 
-        Map<String,Integer> map=new TreeMap<>();
-        for (String s : list) {
-            s=s.replace("邹进颖","黎卫雄");
-            if(map.get(s)!=null&&map.get(s)!=0){
-                map.put(s, map.get(s)+1);
-            }else {
-                map.put(s,1);
-            }
-        }
-
-
-        ArrayList<Map.Entry<String, Integer>> list1 = new ArrayList<>(map.entrySet());
-        Collections.sort(list1, new Comparator<Map.Entry<String, Integer>>() {
-            @Override
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return o2.getValue().compareTo(o1.getValue());
-            }
-        });
-
-        int begin=1;
-
-        for(Map.Entry<String,Integer> mapping:list1){
-            if(n==0||n>list.size()){
-                System.out.println(mapping.getKey()+":"+mapping.getValue());
-            }else {
-                if(begin<=n){
-                    begin+=1;
-                    System.out.println(mapping.getKey()+":"+mapping.getValue());
-                }
-            }
-
-        }
-
-
-    }
 
     /**
      * 如果字符串为空就设置为指定字符串，如果不为空就输出
