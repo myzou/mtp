@@ -33,8 +33,7 @@ import java.util.*;
 @Transactional
 public class MTPReceiveService {
 
-    @Autowired
-    private MtpRecordDetailedDaoImpl mtpRecordDetailedDaoImpl;
+    @Autowired private MtpRecordDetailedDaoImpl mtpRecordDetailedDaoImpl;
 
 
     private static BaseLog ExecuteCommandLog = new BaseLog("ExecuteCommandLog");
@@ -44,8 +43,7 @@ public class MTPReceiveService {
     private static String tempErrorUrl = "";
 
 
-    @Autowired
-    private TrunkInfoMtpDaoImpl trunkInfoMtpDaoImpl;
+    @Autowired private TrunkInfoMtpDaoImpl trunkInfoMtpDaoImpl;
     private static Map<String, String> otherMap = LoadPropertiestUtil.loadProperties("config/other.properties");
     private static String GGW_URL = otherMap.get("GGW_URL");
     private static String LOGIN_GGW_URL = otherMap.get("LOGIN_GGW_URL");
@@ -166,60 +164,67 @@ public class MTPReceiveService {
         }
         String tempString = "";
         try {
-            boolean isBackbone=jsonStr.indexOf("\"tcpType\":\"backbone\"")==-1;
+            boolean isBackbone = jsonStr.indexOf("\"tcpType\":\"backbone\"") == -1;
 
             MTPA mtpa = JSONUtil.toBean(jsonStr, MTPA.class);
             List<PePort> pePorts = mtpa.getPePorts();
-            if (StringUtil.isBlank(mtpa.getTicketName())&&isBackbone) {
-                returnMap.put("msg", "ticketName cannot be empty");
+            if (StringUtil.isBlank(mtpa.getTicketName())) {
+                returnMap.put("msg", "ticketName is empty");
                 return JSONUtil.toJsonStr(returnMap);
             }
-            if (StringUtil.isBlank(mtpa.getInternalSiteIdAll())&&isBackbone) {
-                returnMap.put("msg", "internalSiteIdAll cannot be empty");
+            if (StringUtil.isBlank(mtpa.getInternalSiteIdAll())) {
+                returnMap.put("msg", "maintenance not contain site");
                 return JSONUtil.toJsonStr(returnMap);
             }
+
+            if (null == pePorts || pePorts.size() == 0) {
+                returnMap.put("status", "N");
+                returnMap.put("msg", "peRouter param is empty");
+                return JSONUtil.toJsonStr(returnMap);
+            }
+
+            String emptySites = "";
+            String[] InternalSiteIdArr = mtpa.getInternalSiteIdAll().split(";");
+            for (String InternalSiteId : InternalSiteIdArr) {
+                boolean emptyFlag = false;//标记这个线路是否参数为空 true 空，false 不为空
+                boolean isEmpty = true;//这个线路不存在于 pePorts 中
+                for (PePort pePort : pePorts) {
+                    String tcpType = pePort.getTcpType();
+                    if (tcpType.equals("tcp") || (tcpType.equals("backbone") && pePorts.size() == 1)) {
+                        if (!StringUtil.isBlank(pePort.getInternalSiteId()) && pePort.getInternalSiteId().equals(InternalSiteId)) {
+                            isEmpty = false;
+                            if (StringUtil.isBlank(pePort.getPeRouter()) || StringUtil.isBlank(pePort.getPePortInterface()) || StringUtil.isBlank(pePort.getCeWanIp())) {
+                                emptyFlag = true;
+                                //                            returnMap.put("msg", "peRouter param is empty");
+                            }
+//                            returnMap.put("msg", "internalSiteId cannot be empty");
+                        }
+                    } else if (tcpType.equals("backbone")) {
+                                  /* if (StringUtil.isBlank(pePort.getCircuiltNumber())) {
+                                       returnMap.put("msg", "CircuiltNumber cannot be empty");
+                                       return JSONUtil.toJsonStr(returnMap);
+                                   }
+                                   if (StringUtil.isBlank(pePort.getPeInterface())) {
+                                       returnMap.put("msg", "PeInterface cannot be empty");
+                                       return JSONUtil.toJsonStr(returnMap);
+                                   }*/
+                    }
+                }
+                if (isEmpty == false && emptyFlag == true) {
+                    emptySites += InternalSiteId + ";";
+                }
+            }
+            if (!emptySites.equals("")) {
+                returnMap.put("msg", "peRouter param is empty: (" + emptySites + ")");
+                return JSONUtil.toJsonStr(returnMap);
+            }
+
             if (StringUtil.isBlank(mtpa.getTense()) || (!mtpa.getTense().equals("before") && !mtpa.getTense().equals("after"))) {
                 returnMap.put("msg", "tense cannot be empty,It could is before or after");
                 return JSONUtil.toJsonStr(returnMap);
             }
-            //如果是开始结束时间 就插入准备MTP表,status:insert
-            if (!StringUtil.isBlank(mtpa.getStartTime())&&!StringUtil.isBlank(mtpa.getEndTime())) {
-                if (null == pePorts || pePorts.size() == 0) {
-                                returnMap.put("msg", "pePorts cannot be empty");
-                                return JSONUtil.toJsonStr(returnMap);
-                            }
-                            for (PePort pePort : pePorts) {
-                                String tcpType = pePort.getTcpType();
-                                if (StringUtil.isBlank(tcpType)) {
-                                    returnMap.put("msg", "tcpType cannot be empty");
-                                    return JSONUtil.toJsonStr(returnMap);
-                                } else if (tcpType.equals("tcp")) {
-                                    if (StringUtil.isBlank(pePort.getInternalSiteId())) {
-                                        returnMap.put("msg", "internalSiteId cannot be empty");
-                                        return JSONUtil.toJsonStr(returnMap);
-                                    }
-                                    if (StringUtil.isBlank(pePort.getPeRouter())) {
-                                        returnMap.put("msg", "peRouter cannot be empty");
-                                        return JSONUtil.toJsonStr(returnMap);
-                                    }
-                                } else if (tcpType.equals("bacbone")) {
-                                   /* if (StringUtil.isBlank(pePort.getCircuiltNumber())) {
-                                        returnMap.put("msg", "CircuiltNumber cannot be empty");
-                                        return JSONUtil.toJsonStr(returnMap);
-                                    }
-                                    if (StringUtil.isBlank(pePort.getPeInterface())) {
-                                        returnMap.put("msg", "PeInterface cannot be empty");
-                                        return JSONUtil.toJsonStr(returnMap);
-                                    }*/
-                                }
-                            }
-
-                returnMap.put("status", "insert");
-                returnMap.put("msg", "Parameters have been received");
-                return JSONUtil.toJsonStr(returnMap);
-             }
-
         } catch (Exception e) {
+            returnMap.put("status", "error");
             tempString = "MTPQuery 参数格式有误，请进行处理。";
             returnMap.put("msg", tempString);
             MTPQueryLog.info(tempString);
@@ -309,9 +314,9 @@ public class MTPReceiveService {
     /*
     根据pe参数来判断参数是否有问题
      */
-    public String getErrorByPePort(PePort pePort){
-        if(StringUtils.isEmpty(pePort.getPeRouter())){
-            return pePort.getInternalSiteId()+" not found  PE Name";
+    public String getErrorByPePort(PePort pePort) {
+        if (StringUtils.isEmpty(pePort.getPeRouter())) {
+            return pePort.getInternalSiteId() + " not found  PE Name";
         }
         return "";
     }
@@ -333,7 +338,7 @@ public class MTPReceiveService {
         int successNumberInt = 0;
 
         StringBuffer tcpBf = new StringBuffer();//所有输出到界面的结果
-        StringBuffer differBf=new StringBuffer();//不一致的结果
+        StringBuffer differBf = new StringBuffer();//不一致的结果
         Gson gson = new Gson();
         MTPA mtpa = gson.fromJson(jsonStr, MTPA.class);
 
@@ -454,11 +459,11 @@ public class MTPReceiveService {
                         mtpRecordDetailed.setBeforeTcpType(pePort.getTcpType());
                         mtpRecordDetailed.setInternalSiteId(pePort.getInternalSiteId());
 
-                        errorMessage=getErrorByPePort(pePort);
+                        errorMessage = getErrorByPePort(pePort);
                         if (!StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
                             setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
-                        }else{
-                            send_size_test = String.valueOf(RandomUtil.randomInt(Integer.valueOf(send_size_test), Integer.valueOf(send_size_test)+5));
+                        } else {
+                            send_size_test = String.valueOf(RandomUtil.randomInt(Integer.valueOf(send_size_test), Integer.valueOf(send_size_test) + 5));
                             send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
                             String command = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_100;
                             String command1 = "ping interface " + mtpRecordDetailed.getBeforeEndInterface() + " rapid source " + mtpRecordDetailed.getBeforePeWanIp() + " " + mtpRecordDetailed.getBeforeCeWanIp() + " count " + send_size_test;
@@ -542,13 +547,13 @@ public class MTPReceiveService {
                             }
                             cbBuffer.append("----------------------------------\r\n");
 
-                            String tempData="";//储存正确返回结果
+                            String tempData = "";//储存正确返回结果
 
-                            errorMessage=getErrorByPePort(pePort);
+                            errorMessage = getErrorByPePort(pePort);
                             if (!StringUtils.isEmpty(errorMessage)) {//第一次少包无异常，再执行大包
                                 setError(mtpRecordDetailed, errorMessage, period, cbBuffer);
-                            }else{
-                                send_size_test = String.valueOf(RandomUtil.randomInt(Integer.valueOf(send_size_test), Integer.valueOf(send_size_test)+5));
+                            } else {
+                                send_size_test = String.valueOf(RandomUtil.randomInt(Integer.valueOf(send_size_test), Integer.valueOf(send_size_test) + 5));
                                 send_size_100 = String.valueOf(RandomUtil.randomInt(100, 120));
                                 String command = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_100;
                                 String command1 = "ping interface " + mtpRecordDetailed.getAfterEndInterface() + " rapid source " + mtpRecordDetailed.getAfterPeWanIp() + " " + mtpRecordDetailed.getAfterCeWanIp() + " count " + send_size_test;
@@ -577,7 +582,7 @@ public class MTPReceiveService {
                                     if (StringUtils.isEmpty(errorMessage)) {//第二次无异常 记录
                                         cbBuffer.append(paramMap.get("command") + "\t\n");
                                         cbBuffer.append(temprReturnMap.get("data"));
-                                        tempData=temprReturnMap.get("data");
+                                        tempData = temprReturnMap.get("data");
                                     }
                                 } else {
                                     cbBuffer.append(paramMap.get("command") + "\t\n");
@@ -604,10 +609,10 @@ public class MTPReceiveService {
                                 differBf.append("----------------------------------\r\n");
                                 differBf.append(opName + "@" + mtpRecordDetailed.getAfterEndFullName() + ">");
                                 differBf.append(paramMap.get("command") + "\t\n");
-                                if(!StringUtil.isBlank(errorMessage)){
-                                    differBf.append("<span style=\"color:red;\">"+errorMessage+"</span>");
-                                }else {
-                                    differBf.append("<span style=\"color:red;\">"+tempData+"</span>");
+                                if (!StringUtil.isBlank(errorMessage)) {
+                                    differBf.append("<span style=\"color:red;\">" + errorMessage + "</span>");
+                                } else {
+                                    differBf.append("<span style=\"color:red;\">" + tempData + "</span>");
                                 }
                                 differBf.append("\r\n");
                             }
@@ -721,7 +726,7 @@ public class MTPReceiveService {
             }
         }*/
 
-        returnMap.put("status", (consistent) ?"Y":"N");
+        returnMap.put("status", (consistent) ? "Y" : "N");
         returnMap.put("tense", period);
         returnMap.put("ticketName", ticketName);
 
@@ -827,45 +832,9 @@ public class MTPReceiveService {
             backboneExceptionDetailed += resultMessage.getBackboneExceptionDetailed();
         }
 
-        String msg = (
-                "------------  summary ----------\n" +
-                        "------------  site ----------\n" +
-                        "site Total：" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
-                        "ping Success：" + siteSuccessSize + "\n" +
-                        "ping faild：" + siteFaildSize + "\n" +
-                        "MVRF:" + mvrfSize + "\n" +
-                        "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
-                        "exception site detailed：" + siteExceptionDetailed + "\n" +
-                        "null exception site detailed：" + nullSiteExceptionDetailed + "\n" +
-                        "\n" +
-                        "------------  backbone ----------\n" +
-                        "backbone Total：" + backboneTotalSize + "\n" +
-                        "backbone success：" + backboneSuccessSize + "\n" +
-                        "backbone fail：" + backboneFaildSize + "\n" +
-                        "param exception：" + backboneExceptionSize + "\n" +
-                        "exception backbone detailed：" + backboneExceptionDetailed + "\n" +
-                        "------------ Result url ----------\n" +
-                        htmlPath + "\n" +
-                        "------------------------separative sign --------------------------" + "\n\n\n\n");
-        String returnHtmlmsg =
-                "------------  summary ----------\n" +
-                        "------------  site ----------\n" +
-                        "site Total：" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
-                        "ping Success：" + siteSuccessSize + "\n";
-        String remedy_summary= (
-                "------------  summary ----------\n" +
-                        "------------  site ----------\n" +
-                        "site Total：" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" +
-                        "ping Success：" + siteSuccessSize + "\n" +
-                        "ping faild：" + siteFaildSize + "\n" +
-                        "MVRF:" + mvrfSize + "\n" +
-                        "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
-                        "exception site detailed：" + ((siteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":siteExceptionDetailed )+"\n" +
-                        "null exception site detailed：" +((nullSiteExceptionDetailed.split(";").length>10)?"More than 10 please click on the link to see details":nullSiteExceptionDetailed )  + "\n" +
-                        "\n" +
-                        "------------ Result url ----------\n" +
-                        htmlPath + "\n" +
-                        "------------------------separative sign --------------------------" + "\n\n\n\n");
+        String msg = ("------------  summary ----------\n" + "------------  site ----------\n" + "site Total：" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" + "ping Success：" + siteSuccessSize + "\n" + "ping faild：" + siteFaildSize + "\n" + "MVRF:" + mvrfSize + "\n" + "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" + "exception site detailed：" + siteExceptionDetailed + "\n" + "null exception site detailed：" + nullSiteExceptionDetailed + "\n" + "\n" + "------------  backbone ----------\n" + "backbone Total：" + backboneTotalSize + "\n" + "backbone success：" + backboneSuccessSize + "\n" + "backbone fail：" + backboneFaildSize + "\n" + "param exception：" + backboneExceptionSize + "\n" + "exception backbone detailed：" + backboneExceptionDetailed + "\n" + "------------ Result url ----------\n" + htmlPath + "\n" + "------------------------separative sign --------------------------" + "\n\n\n\n");
+        String returnHtmlmsg = "------------  summary ----------\n" + "------------  site ----------\n" + "site Total：" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" + "ping Success：" + siteSuccessSize + "\n";
+        String remedy_summary = ("------------  summary ----------\n" + "------------  site ----------\n" + "site Total：" + ((internalSiteAllSize == 0) ? siteTotalSize : internalSiteAllSize) + "\n" + "ping Success：" + siteSuccessSize + "\n" + "ping faild：" + siteFaildSize + "\n" + "MVRF:" + mvrfSize + "\n" + "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" + "exception site detailed：" + ((siteExceptionDetailed.split(";").length > 10) ? "More than 10 please click on the link to see details" : siteExceptionDetailed) + "\n" + "null exception site detailed：" + ((nullSiteExceptionDetailed.split(";").length > 10) ? "More than 10 please click on the link to see details" : nullSiteExceptionDetailed) + "\n" + "\n" + "------------ Result url ----------\n" + htmlPath + "\n" + "------------------------separative sign --------------------------" + "\n\n\n\n");
 
         if (siteFaildSize == 0) {
             returnHtmlmsg += "ping faild：" + siteFaildSize + "\n";
@@ -874,21 +843,16 @@ public class MTPReceiveService {
         }
         returnHtmlmsg += "MVRF:" + mvrfSize + "\n";
         if (StrUtil.isBlank(siteExceptionDetailed)) {
-            returnHtmlmsg += "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" +
-                    "exception site detailed：" + siteExceptionDetailed + "\n";
+            returnHtmlmsg += "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "\n" + "exception site detailed：" + siteExceptionDetailed + "\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "</span>" + "\n" +
-                    "<span style=\"color:red;font-weight:bold;\">" + "exception site detailed：" + siteExceptionDetailed + "</span>" + "\n";
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception：" + (siteExceptionSize + internalSiteIdArraySize) + "</span>" + "\n" + "<span style=\"color:red;font-weight:bold;\">" + "exception site detailed：" + siteExceptionDetailed + "</span>" + "\n";
         }
         if (StrUtil.isBlank(nullSiteExceptionDetailed)) {
             returnHtmlmsg += "null exception site detailed：" + nullSiteExceptionDetailed + "\n";
         } else {
             returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "null exception site detailed：" + nullSiteExceptionDetailed + "</span>" + "\n";
         }
-        returnHtmlmsg += "\n" +
-                "------------  backbone ----------\n" +
-                "backbone Total：" + backboneTotalSize + "\n" +
-                "backbone success：" + backboneSuccessSize + "\n";
+        returnHtmlmsg += "\n" + "------------  backbone ----------\n" + "backbone Total：" + backboneTotalSize + "\n" + "backbone success：" + backboneSuccessSize + "\n";
 
         if (backboneFaildSize == 0) {
             returnHtmlmsg += "backbone fail：" + backboneFaildSize + "\n";
@@ -896,21 +860,13 @@ public class MTPReceiveService {
             returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "backbone fail：" + backboneFaildSize + "</span>" + "\n";
         }
         if (StrUtil.isBlank(backboneExceptionDetailed)) {
-            returnHtmlmsg += "param exception：" + backboneExceptionSize + "\n" +
-                    "exception backbone detailed：" + backboneExceptionDetailed + "\n" +
-                    "------------ Result url ----------\n" +
-                    htmlPath + "\n" +
-                    "------------------------separative sign --------------------------" + "\n\n\n\n";
+            returnHtmlmsg += "param exception：" + backboneExceptionSize + "\n" + "exception backbone detailed：" + backboneExceptionDetailed + "\n" + "------------ Result url ----------\n" + htmlPath + "\n" + "------------------------separative sign --------------------------" + "\n\n\n\n";
         } else {
-            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception：" + backboneExceptionSize + "</span>" + "\n" +
-                    "<span style=\"color:red;font-weight:bold;\">" + "exception backbone detailed：" + backboneExceptionDetailed + "</span>" + "\n" +
-                    "------------ Result url ----------\n" +
-                    htmlPath + "\n" +
-                    "------------------------separative sign --------------------------" + "\n\n\n\n";
+            returnHtmlmsg += "<span style=\"color:red;font-weight:bold;\">" + "param exception：" + backboneExceptionSize + "</span>" + "\n" + "<span style=\"color:red;font-weight:bold;\">" + "exception backbone detailed：" + backboneExceptionDetailed + "</span>" + "\n" + "------------ Result url ----------\n" + htmlPath + "\n" + "------------------------separative sign --------------------------" + "\n\n\n\n";
         }
 
 
-        returnMap.put("remedy_summary",remedy_summary);
+        returnMap.put("remedy_summary", remedy_summary);
         returnMap.put("msg", msg);
         returnMap.put("returnHtmlmsg", returnHtmlmsg);
         return msg;
@@ -1028,7 +984,7 @@ public class MTPReceiveService {
         Map<String, String> urlMap = new HashMap<String, String>();
         urlMap.put("htmlPath", htmlPath);
         urlMap.put("filePath", filePath);
-        System.out.println("urlMap:"+JSONUtil.toJsonStr(urlMap));
+        System.out.println("urlMap:" + JSONUtil.toJsonStr(urlMap));
         return urlMap;
     }
 
@@ -1086,11 +1042,11 @@ public class MTPReceiveService {
                 BigDecimal beforeDelay = BigDecimal.valueOf(Double.valueOf(detailed.getBeforeDelay()));
                 detailed.setAfterDelay(afterDelay.toString());
 
-                if (comparisonDelay(beforeDelay,afterDelay)) {
+                if (comparisonDelay(beforeDelay, afterDelay)) {
                     pingStatus = "前后延迟大于预定值";
                     setPingStatus(period, detailed, pingStatus);
                     //return   errorMessage = tempFruit + "\n做维护后延迟超过对比之前超过增加了 1,之前延迟：" + beforeDelay + "\t 之后的延迟：" + afterDelay;
-                    return errorMessage = tempFruit + "\nThe delay after maintenance exceeded that before comparison "+afterDelay.subtract(beforeDelay).floatValue()+",before delay：" + beforeDelay + "\t after delay：" + afterDelay;
+                    return errorMessage = tempFruit + "\nThe delay after maintenance exceeded that before comparison " + afterDelay.subtract(beforeDelay).floatValue() + ",before delay：" + beforeDelay + "\t after delay：" + afterDelay;
                 }
                 pingStatus = "ping正常";
                 setPingStatus(period, detailed, pingStatus);
@@ -1102,7 +1058,7 @@ public class MTPReceiveService {
                     pingStatus = "ping丢包";
                     setPingStatus(period, detailed, pingStatus);
                 }
-                if (Integer.valueOf(received) == 100|| tempFruit.indexOf("100% packet loss")>-1 ) {
+                if (Integer.valueOf(received) == 100 || tempFruit.indexOf("100% packet loss") > -1) {
                     errorMessage = tempFruit;
                     pingStatus = "ping不通";
                     setPingStatus(period, detailed, pingStatus);
@@ -1123,23 +1079,24 @@ public class MTPReceiveService {
      * before 50-100ms     8ms出异常
      * before 100ms以上    10ms出异常
      * 异常true，正常false
+     *
      * @param beforeDelay 之前 Delay
      * @param afterDelay  之后 Delay
      * @return
      */
-    public static boolean comparisonDelay(BigDecimal beforeDelay,BigDecimal afterDelay){
-        boolean flag=false;//前后对比Delay 异常为true,默认 为false
+    public static boolean comparisonDelay(BigDecimal beforeDelay, BigDecimal afterDelay) {
+        boolean flag = false;//前后对比Delay 异常为true,默认 为false
         beforeDelay.doubleValue();
-        if(beforeDelay.floatValue()<10&&afterDelay.subtract(beforeDelay).floatValue() >= 2){
+        if (beforeDelay.floatValue() < 10 && afterDelay.subtract(beforeDelay).floatValue() >= 2) {
             return true;
         }
-        if(beforeDelay.floatValue()<50&&afterDelay.subtract(beforeDelay).floatValue() >= 5){
+        if (beforeDelay.floatValue() < 50 && afterDelay.subtract(beforeDelay).floatValue() >= 5) {
             return true;
         }
-        if(beforeDelay.floatValue()<100&&afterDelay.subtract(beforeDelay).floatValue() >= 8){
+        if (beforeDelay.floatValue() < 100 && afterDelay.subtract(beforeDelay).floatValue() >= 8) {
             return true;
         }
-        if(beforeDelay.floatValue()>=100&&afterDelay.subtract(beforeDelay).floatValue() >= 10){
+        if (beforeDelay.floatValue() >= 100 && afterDelay.subtract(beforeDelay).floatValue() >= 10) {
             return true;
         }
         return flag;
@@ -1154,10 +1111,7 @@ public class MTPReceiveService {
     public static String getGGWAPI(Map<String, String> paramMap) {
         String nowTime = Long.toString(new Date().getTime() / 1000);
         System.out.println("nowTime:" + cn.hutool.core.date.DateUtil.now());
-        String encrypt = "username=" + paramMap.get("opName")
-                + "&&password=" + paramMap.get("opPassword")
-                + "&&sign=" + paramMap.get("sign")
-                + "&&timestamp=" + nowTime;
+        String encrypt = "username=" + paramMap.get("opName") + "&&password=" + paramMap.get("opPassword") + "&&sign=" + paramMap.get("sign") + "&&timestamp=" + nowTime;
         ExecuteCommandLog.info("执行了命令\ncommand=" + paramMap.get("command").toString() + "\nip=" + paramMap.get("ip"));
         String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
         String url = GGW_URL + "?ip=" + paramMap.get("ip") + "&&command=" + RSAEncrypt.urlReplace(paramMap.get("command")) + "&&crypto_sign=" + encryptAfterStr;
@@ -1186,10 +1140,7 @@ public class MTPReceiveService {
     public static String loginGGWAPI(Map<String, String> paramMap) {
         String nowTime = Long.toString(new Date().getTime() / 1000);
         System.out.println("nowTime:" + cn.hutool.core.date.DateUtil.now());
-        String encrypt = "username=" + paramMap.get("opName")
-                + "&&password=" + paramMap.get("opPassword")
-                + "&&sign=" + paramMap.get("sign")
-                + "&&timestamp=" + nowTime;
+        String encrypt = "username=" + paramMap.get("opName") + "&&password=" + paramMap.get("opPassword") + "&&sign=" + paramMap.get("sign") + "&&timestamp=" + nowTime;
         String encryptAfterStr = RSAEncrypt.privateKeyEncryptForGGWPublic(encrypt);
         String tempUrl = encryptAfterStr + "&&command=" + paramMap.get("command").toString() + "&&ip=" + paramMap.get("ip").toString();
         String url = LOGIN_GGW_URL + RSAEncrypt.urlReplace(encryptAfterStr);

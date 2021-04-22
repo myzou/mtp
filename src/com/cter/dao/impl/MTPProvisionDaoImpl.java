@@ -19,7 +19,7 @@ public class MTPProvisionDaoImpl extends BaseDaOImpl<MTPProvision> {
      * @return
      */
     public List<MTPProvision> getRunBefore() {
-        String sql = "select  a.* from  mtp_provision a where DATE_SUB(a.start_time ,INTERVAL 1 DAY_HOUR)<now() and run_before=0 and runing=0";
+        String sql = "select  a.* from  mtp_provision a where DATE_SUB(a.start_time ,INTERVAL 48 DAY_HOUR)<now() and run_before=0 and runing=0";
         DBUtils db = DBUtils.getDBUtils();
         List<MTPProvision> list = db.executeQueryByRef(db, sql, null, MTPProvision.class);
         return list;
@@ -75,6 +75,28 @@ public class MTPProvisionDaoImpl extends BaseDaOImpl<MTPProvision> {
          return tempDBUtils.executeUpdate(tempDBUtils, sql, params);
       }
 
+
+    /**
+       * 根据字段名 更新对应字段值
+       * @param case_id
+       * @param fieldName
+       * @param value
+       * @return
+       */
+      public int updateMtpProvision(String case_id,String fieldName, String value) {
+          String sql = "UPDATE `mtp`.`mtp_provision` SET "+fieldName+" = ?,update_time=now() WHERE `case_id` = ? ";
+          String username = "root";
+          String password = "root1234root";
+          String url = "jdbc:log4jdbc:mysql://210.5.3.30:3306/mtp?characterEncoding=utf-8";
+          String driver = "net.sf.log4jdbc.DriverSpy";
+          TempDBUtils tempDBUtils = new TempDBUtils(username, password, driver, url);
+          List<Object> params = new ArrayList<>();
+          params.add(value);
+          params.add(case_id);
+         return tempDBUtils.executeUpdate(tempDBUtils, sql, params);
+      }
+
+
     /**
        * 更新 run_after 字段
        * @param runAfter
@@ -93,6 +115,25 @@ public class MTPProvisionDaoImpl extends BaseDaOImpl<MTPProvision> {
           params.add(case_id);
          return tempDBUtils.executeUpdate(tempDBUtils, sql, params);
       }
+
+    /**
+       * 修改运行状态
+       * @param updateRunAll
+       * @return
+       */
+      public int updateRunAll(int  runing) {
+          String sql = "UPDATE `mtp`.`mtp_provision` SET `runing`= ? WHERE 1=1";
+          String username = "root";
+          String password = "root1234root";
+          String url = "jdbc:log4jdbc:mysql://210.5.3.30:3306/mtp?characterEncoding=utf-8";
+          String driver = "net.sf.log4jdbc.DriverSpy";
+          TempDBUtils tempDBUtils = new TempDBUtils(username, password, driver, url);
+          List<Object> params = new ArrayList<>();
+          params.add(runing);
+         return tempDBUtils.executeUpdate(tempDBUtils, sql, params);
+      }
+
+
 
     /**
      * 更新数据

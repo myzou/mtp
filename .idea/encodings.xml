@@ -3,6 +3,7 @@
   <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/com/cter/action/FileUploadAction.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/cter/action/LoginAction.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/cter/action/MTPProvisionThread.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/cter/action/MTPReceiveAction.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/cter/action/ParamAction.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/cter/action/ZQMailAction.java" charset="UTF-8" />
