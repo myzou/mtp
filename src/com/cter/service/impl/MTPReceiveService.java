@@ -185,24 +185,25 @@ public class MTPReceiveService {
 
             String emptySites = "";
             String[] InternalSiteIdArr = mtpa.getInternalSiteIdAll().split(";");
-            boolean completeSiteFlag = false;//如果有一条线路是完整的 就返回 P,且执行，但是需要 msg 加上某些错误标内容
+            boolean completeSiteFlag = false;//如果有一条线路是 完整的 就返回 P,且执行，但是需要 msg 加上某些错误标内容
 
             for (String InternalSiteId : InternalSiteIdArr) {
                 boolean emptyFlag = false;//标记这个线路是否参数为空 true 空，false 不为空
                 boolean isEmpty = true;//这个线路不存在于 pePorts 中
                 for (PePort pePort : pePorts) {
                     String tcpType = pePort.getTcpType();
-                    if (tcpType.equals("tcp") || (tcpType.equals("backbone") && pePorts.size() == 1)) {
+                    if (tcpType.equals("tcp") || (tcpType.equals("backbone") && pePorts.size() < 2)) {
                         if (!StringUtil.isBlank(pePort.getInternalSiteId()) && pePort.getInternalSiteId().equals(InternalSiteId)) {
                             isEmpty = false;
                             if (StringUtil.isBlank(pePort.getPeRouter()) || StringUtil.isBlank(pePort.getPePortInterface())) {
                                 emptyFlag = true;
                                 //                            returnMap.put("msg", "peRouter param is empty");
                             }
-                            if (!StringUtil.isBlank(pePort.getPeRouter()) && !StringUtil.isBlank(pePort.getPePortInterface())) {
+                            if (!StringUtil.isBlank(pePort.getPeRouter()) && !StringUtil.isBlank(pePort.getPePortInterface())&& !StringUtil.isBlank(pePort.getCeWanIp())&& !StringUtil.isBlank(pePort.getPeWanIp())) {
                                 completeSiteFlag = true;
-                                //                            returnMap.put("msg", "peRouter param is empty");
+                                //returnMap.put("msg", "peRouter param is empty");
                             }
+
 //                            returnMap.put("msg", "internalSiteId cannot be empty");
                         }
                     } else if (tcpType.equals("backbone")) {
@@ -220,12 +221,8 @@ public class MTPReceiveService {
                     emptySites += InternalSiteId + ";";
                 }
             }
-            if (completeSiteFlag == true) {
+            if (completeSiteFlag == true&&!emptySites.equals("")) {
                 returnMap.put("status", "P");
-                returnMap.put("msg", "peRouter param is empty: (" + emptySites + ")");
-                return JSONUtil.toJsonStr(returnMap);
-            }
-            if (!emptySites.equals("")) {
                 returnMap.put("msg", "peRouter param is empty: (" + emptySites + ")");
                 return JSONUtil.toJsonStr(returnMap);
             }
