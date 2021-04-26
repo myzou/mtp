@@ -74,7 +74,7 @@ public class MTPReceiveAction extends ActionSupport {
             mtpProvisionDao.updateData(mtpProvision);
             result = JSONUtil.toJsonStr(JSONUtil.toBean(result, JSONObject.class).put("status", "Y"));
             retString(result, log);
-        } else if (JSONUtil.parseObj(result).getStr("status").equals("Y")) {
+        } else if (JSONUtil.parseObj(result).getStr("status").equals("Y")||JSONUtil.parseObj(result).getStr("status").equals("P")) {
             retString(result, log);
             result = mtpReceiveService.addMtpRecordDetailed(jsonStr);
             String separator = File.separator;
