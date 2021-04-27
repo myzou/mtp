@@ -104,30 +104,55 @@
     <!-- 定义调用对象和调用对象的方法   startWorkJob.connectGGWApi  结束 -->
 
 
-    <!-- 定义调用对象和调用对象的方法   MTPReceiveAction.executeMTPProvision   开始-->
-    <bean id="executeMTPProvisionDetail"
+    <!-- 定义调用对象和调用对象的方法   MTPReceiveAction.executeMTPProvisionBefore   开始-->
+    <bean id="executeMTPProvisionBeforeDetail"
           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <!-- 调用的类 -->
         <property name="targetObject" ref="MTPReceiveAction" />
         <!-- 调用类中的方法 -->
-        <property name="targetMethod" value="executeMTPProvision" />
+        <property name="targetMethod" value="executeMTPProvisionBefore" />
         <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
         <property name="concurrent" value="false"/>
     </bean>
 
     <!-- quartz-2.x的配置 -->
     <!-- 定义触发时间 -->
-    <bean id="executeMTPProvisionTrigger"
+    <bean id="executeMTPProvisionBeforeTrigger"
           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail">
-            <ref bean="executeMTPProvisionDetail" />
+            <ref bean="executeMTPProvisionBeforeDetail" />
         </property>
         <property name="cronExpression">
-            <value>0 0/1 * * * ? </value>
+            <value>0 0/10 * * * ? </value>
 <!--            <value>0/30 * * * * ? </value>-->
         </property>
     </bean>
-    <!-- 定义调用对象和调用对象的方法   MTPReceiveAction.executeMTPProvision   结束-->
+    <!-- 定义调用对象和调用对象的方法   MTPReceiveAction.executeMTPProvisionBefore   结束-->
+
+    <!-- 定义调用对象和调用对象的方法   MTPReceiveAction.executeMTPProvisionBefore   开始-->
+       <bean id="executeMTPProvisionAfterDetail"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+           <!-- 调用的类 -->
+           <property name="targetObject" ref="MTPReceiveAction" />
+           <!-- 调用类中的方法 -->
+           <property name="targetMethod" value="executeMTPProvisionAfter" />
+           <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+           <property name="concurrent" value="false"/>
+       </bean>
+
+       <!-- quartz-2.x的配置 -->
+       <!-- 定义触发时间 -->
+       <bean id="executeMTPProvisionAfterTrigger"
+             class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+           <property name="jobDetail">
+               <ref bean="executeMTPProvisionAfterDetail" />
+           </property>
+           <property name="cronExpression">
+               <value>0 0/3 * * * ? </value>
+   <!--            <value>0/30 * * * * ? </value>-->
+           </property>
+       </bean>
+       <!-- 定义调用对象和调用对象的方法   MTPReceiveAction.executeMTPProvision   结束-->
 
 
     <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
@@ -135,7 +160,8 @@
     <bean name="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                 <ref bean="executeMTPProvisionTrigger" />
+                 <ref bean="executeMTPProvisionBeforeTrigger" />
+                 <ref bean="executeMTPProvisionAfterTrigger" />
             </list>
         </property>
     </bean>

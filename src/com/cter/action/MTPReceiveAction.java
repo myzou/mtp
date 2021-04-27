@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 @Controller
@@ -128,9 +129,9 @@ public class MTPReceiveAction extends ActionSupport {
 
 
     /**
-     * 每3分钟执行一次
+     * 每10分钟执行一次
      */
-    public void executeMTPProvision() {
+    public void executeMTPProvisionBefore() throws Exception{
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         List<MTPProvision> runBefore = mtpProvisionDao.getRunBefore();
         Gson gson = new Gson();
@@ -140,6 +141,16 @@ public class MTPReceiveAction extends ActionSupport {
         for (MTPProvision mtpProvision : runBefore) {
             executorService.execute(new MTPProvisionThread(mtpReceiveService, mtpProvisionDao, mtpProvision, "before"));
         }
+        executorService.awaitTermination(30, TimeUnit.MINUTES);
+
+
+    }
+    /**
+     * 每3分钟执行一次
+     */
+    public void executeMTPProvisionAfter() throws Exception{
+
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         List<MTPProvision> runAfter = mtpProvisionDao.getRunAfter();
         for (MTPProvision mtpProvision : runAfter) {
             mtpProvisionDao.updateRuning("1", mtpProvision.getCaseId());
@@ -147,7 +158,7 @@ public class MTPReceiveAction extends ActionSupport {
         for (MTPProvision mtpProvision : runAfter) {
             executorService.execute(new MTPProvisionThread(mtpReceiveService, mtpProvisionDao, mtpProvision, "after"));
         }
-
+        executorService.awaitTermination(30, TimeUnit.MINUTES);
 
     }
 
