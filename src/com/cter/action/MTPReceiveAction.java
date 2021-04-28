@@ -2,6 +2,7 @@ package com.cter.action;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.cter.bean.MTPA;
@@ -75,7 +76,7 @@ public class MTPReceiveAction extends ActionSupport {
             mtpProvisionDao.updateData(mtpProvision);
             result = JSONUtil.toJsonStr(JSONUtil.toBean(result, JSONObject.class).put("status", "Y"));
             retString(result, log);
-        } else if (JSONUtil.parseObj(result).getStr("status").equals("Y")||JSONUtil.parseObj(result).getStr("status").equals("P")) {
+        } else if (JSONUtil.parseObj(result).getStr("status").equals("Y") || JSONUtil.parseObj(result).getStr("status").equals("P")) {
             retString(result, log);
             result = mtpReceiveService.addMtpRecordDetailed(jsonStr);
             String separator = File.separator;
@@ -131,7 +132,7 @@ public class MTPReceiveAction extends ActionSupport {
     /**
      * 每10分钟执行一次
      */
-    public void executeMTPProvisionBefore() throws Exception{
+    public void executeMTPProvisionBefore() throws Exception {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         List<MTPProvision> runBefore = mtpProvisionDao.getRunBefore();
         Gson gson = new Gson();
@@ -141,14 +142,19 @@ public class MTPReceiveAction extends ActionSupport {
         for (MTPProvision mtpProvision : runBefore) {
             executorService.execute(new MTPProvisionThread(mtpReceiveService, mtpProvisionDao, mtpProvision, "before"));
         }
-        executorService.awaitTermination(30, TimeUnit.MINUTES);
-
-
+        ThreadUtil.sleep(15 * 60 * 1000);
+        for (MTPProvision mtpProvision : runBefore) {
+            if (JSONUtil.toBean(mtpProvision.getJsonstr(), MTPA.class).getPePorts().size() < 100) {
+                mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
+            }
+        }
+        executorService.awaitTermination(30,TimeUnit.MINUTES);
     }
+
     /**
      * 每3分钟执行一次
      */
-    public void executeMTPProvisionAfter() throws Exception{
+    public void executeMTPProvisionAfter() throws Exception {
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         List<MTPProvision> runAfter = mtpProvisionDao.getRunAfter();
@@ -158,8 +164,13 @@ public class MTPReceiveAction extends ActionSupport {
         for (MTPProvision mtpProvision : runAfter) {
             executorService.execute(new MTPProvisionThread(mtpReceiveService, mtpProvisionDao, mtpProvision, "after"));
         }
-        executorService.awaitTermination(30, TimeUnit.MINUTES);
-
+        ThreadUtil.sleep(15 * 60 * 1000);
+        for (MTPProvision mtpProvision : runAfter) {
+            if (JSONUtil.toBean(mtpProvision.getJsonstr(), MTPA.class).getPePorts().size() < 100) {
+                mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
+            }
+        }
+        executorService.awaitTermination(30,TimeUnit.MINUTES);
     }
 
 

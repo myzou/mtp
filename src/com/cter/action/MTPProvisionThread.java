@@ -9,6 +9,7 @@ import com.cter.util.BaseLog;
 import com.cter.util.LoadPropertiestUtil;
 import com.cter.util.SendResultToRemedy;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.File;
 import java.util.HashMap;
@@ -20,8 +21,8 @@ public class MTPProvisionThread implements Runnable {
 
     private MTPReceiveService mtpReceiveService;
     private MTPProvisionDaoImpl mtpProvisionDao;
-    String tense;
-    MTPProvision mtpProvision;
+    private String tense;
+    private MTPProvision mtpProvision;
     private BaseLog log = new BaseLog("MTPQueryLog");
 
 
@@ -29,7 +30,6 @@ public class MTPProvisionThread implements Runnable {
     private static final String sendToRemedyUrl = otherMap.get("sendToRemedyUrl");
     private static String loginUrl = otherMap.get("loginUrl");
     private static String loginOutUrl = otherMap.get("loginOutUrl");
-    Gson gson = new Gson();
 
 
     public MTPProvisionThread(MTPReceiveService mtpReceiveService, MTPProvisionDaoImpl mtpProvisionDao, MTPProvision mtpProvision, String tense) {
@@ -41,24 +41,23 @@ public class MTPProvisionThread implements Runnable {
 
     @Override
     public void run() {
-        long endOfStart = 120L;
-        SendResultToRemedy sendResultToRemedy = new SendResultToRemedy();
-        sendResultToRemedy.setMTPQueryLog(log);
-        String result = "";
-        Map<String, String> returnMap = new HashMap<>();
-        returnMap.put("ticketName", mtpProvision.getCaseId());
-        returnMap.put("status", "Y");
-        JSONUtil.toJsonStr(returnMap);
-        String jsonStr = mtpProvision.getJsonstr();
-        MTPA mtpa = (MTPA) gson.fromJson(jsonStr, MTPA.class);
+        try {
+            long endOfStart = 120L;
+            SendResultToRemedy sendResultToRemedy = new SendResultToRemedy();
+            sendResultToRemedy.setMTPQueryLog(log);
+            String result = "";
+            Map<String, String> returnMap = new HashMap<>();
+            returnMap.put("ticketName", mtpProvision.getCaseId());
+            returnMap.put("status", "Y");
+            JSONUtil.toJsonStr(returnMap);
+            String jsonStr = mtpProvision.getJsonstr();
+            MTPA mtpa = JSONUtil.toBean(jsonStr, MTPA.class);
 
-
-        if (tense.equals("after")) {
-            returnMap.put("tense", "after");
-            long start = System.currentTimeMillis();
-            mtpa.setTense("after");
-            jsonStr = JSONUtil.toJsonStr(mtpa);
-            try {
+            if (tense.equals("after")) {
+                returnMap.put("tense", "after");
+                long start = System.currentTimeMillis();
+                mtpa.setTense("after");
+                jsonStr = JSONUtil.toJsonStr(mtpa);
                 String validateResult = mtpReceiveService.validateParam(jsonStr);
                 if (JSONUtil.parseObj(validateResult).getStr("status").equals("N")) {
                     returnMap.put("remedy_summary", JSONUtil.parseObj(validateResult).getStr("msg"));
@@ -76,20 +75,15 @@ public class MTPProvisionThread implements Runnable {
                 log.info("\t总时长:" + (end - start) / 1000.00 + "秒");
                 mtpProvisionDao.updateRunAfter("1", mtpProvision.getCaseId());
                 mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
-            } catch (Exception e) {
-                e.printStackTrace();
-                mtpProvisionDao.updateRunAfter("3", mtpProvision.getCaseId());
-                mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
-            }
-        } else {
-            returnMap.put("tense", "before");
-            long start = System.currentTimeMillis();
-            mtpa.setTense("before");
-            jsonStr = JSONUtil.toJsonStr(mtpa);
-            try {
+
+            } else {
+                returnMap.put("tense", "before");
+                long start = System.currentTimeMillis();
+                mtpa.setTense("before");
+                jsonStr = JSONUtil.toJsonStr(mtpa);
                 String validateResult = mtpReceiveService.validateParam(jsonStr);
                 if (JSONUtil.parseObj(validateResult).getStr("status").equals("N")) {
-                    returnMap.put("remedy_summary",  JSONUtil.parseObj(validateResult).getStr("msg"));
+                    returnMap.put("remedy_summary", JSONUtil.parseObj(validateResult).getStr("msg"));
                     result = returnMap.get("remedy_summary");
                     sendResultToRemedy.init(loginUrl, loginOutUrl, sendToRemedyUrl, JSONUtil.toJsonStr(returnMap));
                     sendResultToRemedy.run(endOfStart);
@@ -104,11 +98,11 @@ public class MTPProvisionThread implements Runnable {
                 log.info("\t总时长:" + (end - start) / 1000.00 + "秒");
                 mtpProvisionDao.updateRunBefore("1", mtpProvision.getCaseId());
                 mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
-            } catch (Exception e) {
-                e.printStackTrace();
-                mtpProvisionDao.updateRunBefore("3", mtpProvision.getCaseId());
-                mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mtpProvisionDao.updateRunAfter("3", mtpProvision.getCaseId());
+            mtpProvisionDao.updateRuning("0", mtpProvision.getCaseId());
         }
 
 
