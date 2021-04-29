@@ -86,6 +86,7 @@ public class MTPReceiveAction extends ActionSupport {
             sendResultToRemedy.run(endOfStart);
             result = "<pre>" + result + "</pre>";
         } else if (JSONUtil.parseObj(result).getStr("status").equals("N")) {
+            retString(result, log);
             Map<String, String> returnMap = new HashMap<>();
             returnMap.put("ticketName", mtpa.getTicketName());
             returnMap.put("status", "Y");
